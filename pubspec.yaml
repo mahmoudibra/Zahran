@@ -1,0 +1,72 @@
+name: zahran
+description: Zahran Project
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  geolocator: 7.2.0
+  rxdart: 0.27.1
+  http: 0.13.3
+  google_maps_flutter: 2.0.6
+  shimmer: 2.0.0
+  connectivity: 3.0.6
+  shared_preferences: 2.0.6
+  flare_flutter: 3.0.1
+  flutter_secure_storage: 4.2.0
+  image_picker: 0.8.1+1
+  cached_network_image: 3.0.0
+  date_format: 2.0.2
+  expandable: 5.0.1
+  flutter_sound: 8.1.4
+  permission_handler: 8.1.1
+  stack_trace: 1.10.0
+  flutter_keyboard_visibility: 5.0.2
+  android_intent: 2.0.2
+  maps_toolkit: 2.0.0
+  overlay_support: 1.2.1
+  flutter_calendar_carousel: 2.0.1
+  intl: 0.17.0
+  percent_indicator: 3.0.1
+  pin_code_fields: 7.2.0
+  video_thumbnail: 0.3.3
+  toast: 0.1.5
+  preload_page_view: 0.1.6
+  video_player: 2.1.6
+  flutter_countdown_timer: 4.1.0
+  video_compress: 3.0.0
+  cupertino_icons: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/localization/
+    - assets/animations/
+
+  fonts:
+    - family: ProximaNova
+      fonts:
+        - asset: assets/fonts/ProximaNova-Thin.otf
+          weight: 100
+        - asset: assets/fonts/ProximaNova-Light.otf
+          weight: 300
+        - asset: assets/fonts/ProximaNova-Regular.otf
+          weight: 400
+        - asset: assets/fonts/ProximaNova-Medium.otf
+          weight: 500
+        - asset: assets/fonts/ProximaNova-Semibold.otf
+          weight: 600
+        - asset: assets/fonts/ProximaNova-Bold.otf
+          weight: 700
