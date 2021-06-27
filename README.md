@@ -11,3 +11,9 @@ Zahran Project
 > use it `TR.of(context).appName`
 
 > change locale `LocaleBuilder.of(context).changeLocale(_locale)`
+
+
+# GitHooks
+> To enable GitHooks `git config core.hooksPath .githooks/`;
+
+> To disable GitHooks `git config core.hooksPath .git/hooks/`;
