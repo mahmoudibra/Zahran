@@ -61,8 +61,6 @@ flutter:
     - assets/images/
     - assets/animations/
 
-
-
   fonts:
     - family: ProximaNova
       fonts:
