@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:zahran/presentation/navigation/named-navigator.dart';
+import 'package:zahran/presentation/navigation/named_navigator_impl.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +31,9 @@ class ZahranApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: Routes.SPLASH_ROUTER,
+      onGenerateRoute: NamedNavigatorImpl.onGenerateRoute,
+      navigatorKey: NamedNavigatorImpl.navigatorState,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

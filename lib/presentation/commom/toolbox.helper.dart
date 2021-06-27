@@ -126,4 +126,9 @@ class ViewsToolbox {
               ],
             )));
   }
+
+  // static void showErrorDialog(BuildContext context, ErrorModel errorModel) {
+  //   showModalBottomSheet(
+  //       isScrollControlled: true, context: context, builder: (context) => AppErrorComponent(errorModel: errorModel));
+  // }
 }

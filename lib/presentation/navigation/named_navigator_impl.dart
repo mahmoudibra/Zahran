@@ -24,6 +24,8 @@ class NamedNavigatorImpl implements NamedNavigator {
       //   );
       case Routes.SPLASH_ROUTER:
         return _fadeInRoute(page: Container());
+
+      default:
         return MaterialPageRoute(builder: (_) => Container());
     }
   }
