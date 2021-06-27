@@ -19,4 +19,3 @@ printf "\e[33;1m%s\e[0m\n" 'Finished running the Flutter analyzer'
 #  exit 1
 #fi
 #printf "\e[33;1m%s\e[0m\n" 'Finished running unit tests'
-
