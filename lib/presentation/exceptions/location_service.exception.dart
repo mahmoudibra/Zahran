@@ -1,4 +1,4 @@
-import 'base-exception.exception.dart';
+import 'base_exception.exception.dart';
 
 class LocationServiceException implements BaseException {
   @override

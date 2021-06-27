@@ -1,4 +1,4 @@
-import 'base-exception.exception.dart';
+import 'base_exception.exception.dart';
 
 class SecureKeyNotFoundException implements BaseException {
   @override

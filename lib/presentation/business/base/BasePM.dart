@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
-import 'package:zahran/presentation/exceptions/ErrorHandler.dart';
+import 'package:zahran/presentation/exceptions/api_exceptions.dart';
 
 class ErrorModel {
   String errorMessage;
