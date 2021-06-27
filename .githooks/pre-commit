@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+printf "\e[33;1m%s\e[0m\n" 'Running the Flutter formatter'
+FILES=$(git diff --cached --name-only --diff-filter=ACMR "*.dart" | sed 's| |\\ |g')
+
+if [ -z "$FILES" ]; then
+  printf "\e[33;1m%s\e[0m\n" 'No files formatted'
+  exit 0
+fi
+
+printf "\e[33;1m%s\e[0m\n" 'Formatting staged files'
+# Prettify all selected files
+echo "$FILES" | xargs flutter format
+
+printf "\e[33;1m%s\e[0m\n" 'Adding back formatted files'
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0
