@@ -1,0 +1,6 @@
+path: &path assets/l10n
+arb-dir: *path
+template-arb-file: ar.arb
+output-localization-file: tr.dart
+output-class: TR
+nullable-getter: false
