@@ -55,11 +55,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-
+  generate: true
   assets:
     - assets/svg/
     - assets/images/
-    - assets/localization/
     - assets/animations/
 
 

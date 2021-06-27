@@ -4,6 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:zahran/presentation/business/localization/ext.dart';
+import 'package:zahran/presentation/business/localization/locale_builder.dart';
 import 'package:zahran/presentation/navigation/named-navigator.dart';
 import 'package:zahran/presentation/navigation/named_navigator_impl.dart';
 
@@ -29,16 +31,23 @@ Future<void> main() async {
 class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      initialRoute: Routes.SPLASH_ROUTER,
-      onGenerateRoute: NamedNavigatorImpl.onGenerateRoute,
-      navigatorKey: NamedNavigatorImpl.navigatorState,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Updated'),
+    return LocaleBuilder(
+      builder: (Locale locale) {
+        return MaterialApp(
+          onGenerateTitle: (ctx) => TR.of(context).appName,
+          localizationsDelegates: TR.localizationsDelegates,
+          supportedLocales: TR.supportedLocales,
+          locale: locale,
+          initialRoute: Routes.SPLASH_ROUTER,
+          onGenerateRoute: NamedNavigatorImpl.onGenerateRoute,
+          navigatorKey: NamedNavigatorImpl.navigatorState,
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: MyHomePage(title: 'Updated'),
+        );
+      },
     );
   }
 }
