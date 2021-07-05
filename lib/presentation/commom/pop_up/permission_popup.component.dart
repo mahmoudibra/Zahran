@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
+import 'package:zahran/presentation/localization/ext.dart';
 
 import '../toolbox.helper.dart';
 
@@ -45,11 +46,13 @@ class PermissionPopUp extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             ViewsToolbox.mainButton(
-                context: context, text: 'permission_access_change_settings_button', callback: onOpenSettings),
+                context: context,
+                text: TR.of(context).permission_access_change_settings_button,
+                callback: onOpenSettings),
             isMandatory
                 ? ViewsToolbox.emptyWidget()
                 : ViewsToolbox.secondaryButton(
-                    context: context, text: 'permission_access_dismiss_button', callback: onDismiss)
+                    context: context, text: TR.of(context).permission_access_dismiss_button, callback: onDismiss)
           ],
         ),
       ),
@@ -61,16 +64,16 @@ class PermissionPopUp extends StatelessWidget {
     String title = '';
     switch (service) {
       case PermissionType.Microphone:
-        title = 'permission_access_microphone_title';
+        title = TR.of(context).permission_access_microphone_title;
         break;
       case PermissionType.Camera:
-        title = 'permission_access_camera_title';
+        title = TR.of(context).permission_access_camera_title;
         break;
       case PermissionType.Gallery:
-        title = 'permission_access_gallery_title';
+        title = TR.of(context).permission_access_gallery_title;
         break;
       case PermissionType.Location:
-        title = 'permission_access_location_title';
+        title = TR.of(context).permission_access_location_title;
         break;
     }
     return title;
@@ -80,16 +83,16 @@ class PermissionPopUp extends StatelessWidget {
     String message = '';
     switch (service) {
       case PermissionType.Microphone:
-        message = 'permission_access_microphone_message';
+        message = TR.of(context).permission_access_microphone_message;
         break;
       case PermissionType.Camera:
         {
           switch (mediaType) {
             case MediaFileTypes.IMAGE:
-              message = 'permission_access_camera_message';
+              message = TR.of(context).permission_access_camera_message;
               break;
             case MediaFileTypes.VIDEO:
-              message = 'permission_access_video_camera_message';
+              message = TR.of(context).permission_access_video_camera_message;
               break;
           }
           break;
@@ -97,15 +100,15 @@ class PermissionPopUp extends StatelessWidget {
       case PermissionType.Gallery:
         switch (mediaType) {
           case MediaFileTypes.IMAGE:
-            message = 'permission_access_gallery_message';
+            message = TR.of(context).permission_access_gallery_message;
             break;
           case MediaFileTypes.VIDEO:
-            message = 'permission_access_video_gallery_message';
+            message = TR.of(context).permission_access_video_gallery_message;
             break;
         }
         break;
       case PermissionType.Location:
-        message = 'permission_access_location_message';
+        message = TR.of(context).permission_access_location_message;
         break;
     }
     return message;

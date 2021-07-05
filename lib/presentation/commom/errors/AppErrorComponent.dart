@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/business/base/BasePM.dart';
 import 'package:zahran/presentation/config/configs.dart';
+import 'package:zahran/presentation/localization/ext.dart';
 
 import '../toolbox.helper.dart';
 
@@ -31,7 +32,7 @@ class AppErrorComponent extends StatelessWidget {
               Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
               ViewsToolbox.emptySpaceWidget(height: 16),
               Text(
-                "error_dialog_header",
+                TR.of(context).error_dialog_header,
                 style: Theme.of(context).textTheme.subtitle2.copyWith(
                       color: Theme.of(context).textTheme.headline6.color,
                       fontWeight: FontWeight.w600,
@@ -42,11 +43,10 @@ class AppErrorComponent extends StatelessWidget {
               Padding(
                 padding: EdgeInsetsDirectional.only(start: 30, end: 30),
                 child: Text(
-                  "generic_error_message",
-                  // errorModel.isLocalError
-                  //     ? AppLocalization.of(context).getLocalizedText(errorModel.localErrorCode.value)
-                  //     : errorModel.errorMessage ??
-                  //         "generic_error_message", //TODO: uncomment this later
+                  // errorModel.localErrorCode.value
+                  errorModel.isLocalError
+                      ? TR.of(context).generic_error_message //TODO: search how to get dynamic localization
+                      : errorModel.errorMessage ?? TR.of(context).generic_error_message,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         color: Theme.of(context).textTheme.headline6.color,
                         fontWeight: FontWeight.w400,
@@ -60,7 +60,7 @@ class AppErrorComponent extends StatelessWidget {
               GestureDetector(
                 onTap: errorModel.dismiss,
                 child: Text(
-                  "dismiss",
+                  TR.of(context).dismiss,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         color: Theme.of(context).textTheme.headline6.color,
                         fontWeight: FontWeight.w500,
@@ -84,7 +84,7 @@ class AppErrorComponent extends StatelessWidget {
               onPressed: onRetry,
               child: Center(
                 child: Text(
-                  "try_again",
+                  TR.of(context).try_again,
                   style:
                       Theme.of(context).textTheme.subtitle2.copyWith(fontWeight: FontWeight.w600, color: Colors.white),
                 ),

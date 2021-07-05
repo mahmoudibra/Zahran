@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zahran/presentation/localization/ext.dart';
 
 class PopUp extends StatelessWidget {
   final String _title;
@@ -18,14 +19,14 @@ class PopUp extends StatelessWidget {
         _actions = actions ??
             (implicitDismiss
                 ? {
-                    "generic_pop_up_dismiss_button": () {
+                    TR.of(context).generic_pop_up_dismiss_button: () {
                       onDismissedAction();
                       Navigator.of(context).pop();
                     }
                   }
                 : {}) {
     if (implicitDismiss) {
-      _actions["generic_pop_up_dismiss_button"] = () {
+      _actions[TR.of(context).generic_pop_up_dismiss_button] = () {
         onDismissedAction();
         Navigator.of(context).pop();
       };

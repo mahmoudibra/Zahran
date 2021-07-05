@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "889069110881",
+    "project_id": "zahran-7629b",
+    "storage_bucket": "zahran-7629b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:889069110881:android:a50ebe77c212712eab4c20",
+        "android_client_info": {
+          "package_name": "com.pencil.zahran"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "889069110881-oa6snt7a5df4rq32n5jf65d0t07d02s5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYUgfDkeoC3Ymq6T1vBIMSpuI6_JImHTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "889069110881-oa6snt7a5df4rq32n5jf65d0t07d02s5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

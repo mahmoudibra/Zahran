@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/config/configs.dart';
+import 'package:zahran/presentation/localization/ext.dart';
 
 class RetryErrorBody extends StatelessWidget {
   final Function retry;
@@ -21,7 +22,7 @@ class RetryErrorBody extends StatelessWidget {
             : Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
         ViewsToolbox.emptySpaceWidget(height: 16),
         Text(
-          "we are sorry", //TODO: Change this later
+          TR.of(context).we_are_sorry,
           style: Theme.of(context).textTheme.headline4.copyWith(
                 fontWeight: FontWeight.bold,
               ),
@@ -31,7 +32,7 @@ class RetryErrorBody extends StatelessWidget {
         Padding(
           padding: EdgeInsetsDirectional.only(start: 30, end: 30),
           child: Text(
-            errorMessage ?? "Generic error message", //TODO: Change this later
+            errorMessage ?? TR.of(context).generic_error_message,
             style: Theme.of(context).textTheme.subtitle2.copyWith(
                   fontWeight: FontWeight.normal,
                 ),
@@ -56,7 +57,7 @@ class RetryErrorBody extends StatelessWidget {
         onPressed: retry,
         child: Center(
           child: Text(
-            "try again", //TODO: Change this later
+            TR.of(context).try_again,
             style: Theme.of(context).textTheme.subtitle1.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.w500,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
+import 'package:zahran/presentation/localization/ext.dart';
 
 class VisitStatusChip extends StatelessWidget {
   final String visitStatus;
@@ -35,15 +36,15 @@ class VisitStatusChip extends StatelessWidget {
 
   String decideVisitStatusText(BuildContext context) {
     if (visitStatus == VisitStatus.PENDING.value) {
-      return "visit_details_status_pending";
+      return TR.of(context).visit_details_status_running;
     } else if (visitStatus == VisitStatus.COMPLETED.value) {
-      return "visit_details_status_completed";
+      return TR.of(context).visit_details_status_completed;
     } else if (visitStatus == VisitStatus.INCOMPLETE.value) {
-      return "visit_details_status_incomplete";
+      return TR.of(context).visit_details_status_incomplete;
     } else if (visitStatus == VisitStatus.IN_PROGRESS.value) {
-      return "visit_status_in_progress";
+      return TR.of(context).visit_status_in_progress;
     }
-    return "visit_details_status_pending";
+    return TR.of(context).visit_details_status_pending;
   }
 
   Color decideVisitStatusColor(BuildContext context) {
