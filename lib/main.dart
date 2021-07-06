@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/presentation/localization/locale_builder.dart';
 import 'package:zahran/presentation/navigation/named-navigator.dart';
@@ -33,8 +34,13 @@ class ZahranApp extends StatelessWidget {
     return LocaleBuilder(
       builder: (Locale locale) {
         return MaterialApp(
-          onGenerateTitle: (ctx) => TR.of(context).appName,
-          localizationsDelegates: TR.localizationsDelegates,
+          themeMode: ThemeMode.light,
+          onGenerateTitle: (context) => TR.of(context).appName,
+          localizationsDelegates: [
+            ...TR.localizationsDelegates,
+            SimpleLocalizations.delegate,
+            ReusableLocalizations.delegate
+          ],
           supportedLocales: TR.supportedLocales,
           locale: locale,
           initialRoute: Routes.SPLASH_ROUTER,
