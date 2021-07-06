@@ -1,0 +1,6 @@
+arb-dir: lib/l10n
+template-arb-file: app_ar.arb
+output-class: ReusableLocalizations
+output-localization-file: reusable_localizations.dart
+output-dir: lib/l10n/gen_l10n
+synthetic-package: false

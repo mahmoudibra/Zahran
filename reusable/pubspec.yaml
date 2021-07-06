@@ -1,0 +1,36 @@
+name: reusable
+description: A new flutter plugin project.
+version: 0.2.0
+publish_to: none
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  ansi_logger: ^2.0.3
+  dio: ^4.0.0
+  simple: ^2.0.4
+  get: ^4.1.4
+  auto_size_text: ^3.0.0-nullsafety.0
+  percent_indicator: ^3.3.0-nullsafety.1
+  flutter_staggered_grid_view: ^0.4.0
+  shimmer: ^2.0.0
+  intl: any
+  transparent_image: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.11.0
+
+flutter:
+  generate: true
+  # This section identifies this Flutter project as a plugin project.
+  # The androidPackage and pluginClass identifiers should not ordinarily
+  # be modified. They are used by the tooling to maintain consistency when
+  # adding or updating assets for this project.
+
