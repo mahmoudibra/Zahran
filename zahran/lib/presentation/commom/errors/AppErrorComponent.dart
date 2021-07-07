@@ -29,7 +29,8 @@ class AppErrorComponent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
+              Image.asset(
+                  GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
               ViewsToolbox.emptySpaceWidget(height: 16),
               Text(
                 TR.of(context).error_dialog_header,
@@ -45,8 +46,11 @@ class AppErrorComponent extends StatelessWidget {
                 child: Text(
                   // errorModel.localErrorCode.value
                   errorModel.isLocalError
-                      ? TR.of(context).generic_error_message //TODO: search how to get dynamic localization
-                      : errorModel.errorMessage ?? TR.of(context).generic_error_message,
+                      ? TR
+                          .of(context)
+                          .generic_error_message //TODO: search how to get dynamic localization
+                      : errorModel.errorMessage ??
+                          TR.of(context).generic_error_message,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         color: Theme.of(context).textTheme.headline6.color,
                         fontWeight: FontWeight.w400,
@@ -85,8 +89,8 @@ class AppErrorComponent extends StatelessWidget {
               child: Center(
                 child: Text(
                   TR.of(context).try_again,
-                  style:
-                      Theme.of(context).textTheme.subtitle2.copyWith(fontWeight: FontWeight.w600, color: Colors.white),
+                  style: Theme.of(context).textTheme.subtitle2.copyWith(
+                      fontWeight: FontWeight.w600, color: Colors.white),
                 ),
               ),
               // color: Color(themeColors.colorBlue), //TODO: un comment this later

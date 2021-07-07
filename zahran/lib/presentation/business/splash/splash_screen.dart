@@ -18,7 +18,6 @@ class _SplashStates extends State<SplashScreen> with TickerProviderStateMixin {
     return GetBuilder<SplashViewModel>(
       init: SplashViewModel(this),
       builder: (SplashViewModel _) {
-        var colors = Theme.of(context).colorScheme;
         return AnimatedBuilder(
           animation: _.controller,
           builder: (ctx, w) {
