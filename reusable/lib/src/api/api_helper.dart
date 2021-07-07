@@ -424,7 +424,7 @@ abstract class BaseRepositry {
     } on ApiFetchException {
       rethrow;
     } on DioError catch (e) {
-      var json = e.response is Response<String>
+      var json = e.response is Response
           ? resolve(e.response as Response<String>)
           : null;
       switch (e.type) {

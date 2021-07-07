@@ -15,7 +15,9 @@ abstract class BaseRepositryImpl<T> extends BaseRepositry {
   String get language => Localizations.localeOf(context).languageCode;
 
   @override
-  void onError(ApiFetchException error) {}
+  void onError(ApiFetchException error) {
+    context.errorSnackBar(error.toString());
+  }
 
   @override
   Uri get baseUrl {
@@ -30,6 +32,7 @@ abstract class BaseRepositryImpl<T> extends BaseRepositry {
   @override
   Map<String, dynamic> resolveResponse(Response<String> response) {
     var result = super.resolveResponse(response);
+    print(result);
     result["status"] = result["code"];
     return result;
   }

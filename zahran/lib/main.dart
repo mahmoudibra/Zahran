@@ -5,10 +5,12 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/data/source/local/shared_prefrence/local_data_manager.impl.dart';
 import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/presentation/localization/locale_builder.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
+import 'data/repo/user.repo.dart';
 import 'theme.dart';
 
 Future<void> main() async {
@@ -32,23 +34,27 @@ Future<void> main() async {
 class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LocaleBuilder(
-      builder: (Locale locale) {
-        return MaterialApp(
-          themeMode: ThemeMode.light,
-          onGenerateTitle: (context) => TR.of(context).appName,
-          localizationsDelegates: [
-            ...TR.localizationsDelegates,
-            SimpleLocalizations.delegate,
-            ReusableLocalizations.delegate
-          ],
-          supportedLocales: TR.supportedLocales,
-          locale: locale,
-          routes: ScreenRouter.routes,
-          navigatorKey: ScreenRouter.key,
-          theme: ThemeGenerator.generate(),
-        );
-      },
-    );
+    return GetBuilder<AuthViewModel>(
+        init: AuthViewModel(LocalDataManagerImpl()),
+        builder: (_) {
+          return LocaleBuilder(
+            builder: (Locale locale) {
+              return MaterialApp(
+                themeMode: ThemeMode.light,
+                onGenerateTitle: (context) => TR.of(context).appName,
+                localizationsDelegates: [
+                  ...TR.localizationsDelegates,
+                  SimpleLocalizations.delegate,
+                  ReusableLocalizations.delegate
+                ],
+                supportedLocales: TR.supportedLocales,
+                locale: locale,
+                routes: ScreenRouter.routes,
+                navigatorKey: ScreenRouter.key,
+                theme: ThemeGenerator.generate(),
+              );
+            },
+          );
+        });
   }
 }
