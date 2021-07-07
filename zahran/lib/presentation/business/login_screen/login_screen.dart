@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   CustomTextField(
-                    onSaved: (v) => vm.sub = v,
+                    onSaved: (v) => vm.sab = v,
                     extraValidator: vm.validateSab,
                   ),
                   SizedBox(height: 20),
@@ -56,9 +56,7 @@ class LoginScreen extends StatelessWidget {
                     extraValidator: vm.validatePassword,
                   ),
                   SizedBox(height: 30),
-                  ProgressButton(
-                    child: Text(TR.of(context).login),
-                  ),
+                  ProgressButton(child: Text(TR.of(context).login)),
                 ],
               ),
             ),

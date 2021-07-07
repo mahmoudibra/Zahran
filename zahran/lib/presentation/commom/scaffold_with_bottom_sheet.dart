@@ -13,7 +13,7 @@ class ScafoldWithBottomSheet extends StatefulWidget {
 }
 
 class _ScafoldWithBottomSheetState extends State<ScafoldWithBottomSheet> {
-  double offset = 0;
+  double offset = 0.6;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

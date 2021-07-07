@@ -5,13 +5,13 @@ import 'package:zahran/presentation/localization/ext.dart';
 
 class LoginViewModel extends GetxController {
   final BuildContext context;
-  String sub;
+  String sab;
   String password;
 
   LoginViewModel(this.context);
 
   Future login() async {
-    await Repos.userRepo.login(sub, password);
+    await Repos.userRepo.login(sab, password);
   }
 
   String validateSab(String v) {
