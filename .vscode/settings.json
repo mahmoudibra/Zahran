@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "**/reusable": true,
+        "zahran/.*":true,
+        ".githooks":true,
+        ".metadata":true,
+        "*.lock":true,
+        "**/*.lock":true,
+    },
+}

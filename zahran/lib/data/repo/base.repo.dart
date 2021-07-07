@@ -1,12 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/presentation/config/configs.dart';
 
-abstract class BaseRepositryImpl extends BaseRepositry {
+class Repos {
+  static UserRepo get userRepo => UserRepo();
+}
+
+abstract class BaseRepositryImpl<T> extends BaseRepositry {
   @override
   String get listTotalKey => "total_count";
 
   @override
-  String get language => Get.locale.languageCode;
+  String get language => Localizations.localeOf(context).languageCode;
 
   @override
   void onError(ApiFetchException error) {}
@@ -19,5 +25,12 @@ abstract class BaseRepositryImpl extends BaseRepositry {
   @override
   Future<Map<String, String>> getHeaders(ROptions options) async {
     return {};
+  }
+
+  @override
+  Map<String, dynamic> resolveResponse(Response<String> response) {
+    var result = super.resolveResponse(response);
+    result["status"] = result["code"];
+    return result;
   }
 }

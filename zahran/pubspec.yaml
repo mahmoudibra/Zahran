@@ -1,6 +1,6 @@
 name: zahran
 description: Zahran Project
-
+publish_to: none
 version: 1.0.0+1
 
 environment:
@@ -13,9 +13,8 @@ dependencies:
     sdk: flutter
   reusable:
     path: ../reusable
-  firebase_core: 1.3.0
+  fcm_config: ^3.0.7
   firebase_analytics: 8.1.2
-  firebase_messaging: 10.0.3
   firebase_crashlytics: 2.0.7
   geolocator: 7.2.0+1
   rxdart: 0.27.1
@@ -57,10 +56,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
-  assets:
-    - assets/svg/
-    - assets/images/
-    - assets/animations/
 
   fonts:
     - family: ProximaNova
@@ -77,3 +72,72 @@ flutter:
           weight: 600
         - asset: assets/fonts/ProximaNova-Bold.otf
           weight: 700
+
+  assets:
+    # assets-generator-begin
+    # assets/images/*
+    - assets/images/.DS_Store
+    - assets/images/app_logo.png
+    - assets/images/arrow_down.png
+    - assets/images/arrow_left.png
+    - assets/images/arrow_right.png
+    - assets/images/arrow_up.png
+    - assets/images/back_arrow.png
+    - assets/images/branch_marker.png
+    - assets/images/brand_icon.png
+    - assets/images/calender_icon.png
+    - assets/images/call_icon.png
+    - assets/images/camera_access.png
+    - assets/images/camera_blue_icon.png
+    - assets/images/camera_icon.png
+    - assets/images/capture_icon.png
+    - assets/images/check_in_icon.png
+    - assets/images/check_out_icon.png
+    - assets/images/close_icon.png
+    - assets/images/comment_icon.png
+    - assets/images/competition_icon.png
+    - assets/images/cuppon_icon.png
+    - assets/images/delete_icon.png
+    - assets/images/error_artwork.png
+    - assets/images/filter_icon.png
+    - assets/images/gallery_access.png
+    - assets/images/image_test.jpeg
+    - assets/images/location.png
+    - assets/images/location_access.png
+    - assets/images/location_artwork.png
+    - assets/images/location_in_range_icon.png
+    - assets/images/logout_icon.png
+    - assets/images/marker.png
+    - assets/images/mic_access.png
+    - assets/images/mic_black.png
+    - assets/images/mic_blue_icon.png
+    - assets/images/mic_gray.png
+    - assets/images/mic_icon.png
+    - assets/images/microphone.png
+    - assets/images/next_arrow.png
+    - assets/images/next_question_icon.png
+    - assets/images/notification_icon.png
+    - assets/images/notification_message_icon.png
+    - assets/images/notification_task_icon.png
+    - assets/images/pencil_artwork.png
+    - assets/images/person_info.png
+    - assets/images/pervious_question_icon.png
+    - assets/images/play.png
+    - assets/images/previous_arrow.png
+    - assets/images/profile_icon.png
+    - assets/images/promblem_icon.png
+    - assets/images/promotion_icon.png
+    - assets/images/remove_icon.png
+    - assets/images/report_camera_icon.png
+    - assets/images/report_icon.png
+    - assets/images/report_mic_icon.png
+    - assets/images/settings_icon.png
+    - assets/images/test_background.png
+    - assets/images/three_dots.png
+    - assets/images/ticket_icon.png
+    - assets/images/visits_icon.png
+    # assets/animations/*
+    - assets/animations/loading.flr
+    # assets/svg/*
+    - assets/svg/logo.svg
+    # assets-generator-end

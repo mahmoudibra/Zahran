@@ -1,19 +1,20 @@
 import 'dart:async';
 
-import 'package:firebase_core/firebase_core.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/presentation/localization/locale_builder.dart';
-import 'package:zahran/presentation/navigation/named-navigator.dart';
-import 'package:zahran/presentation/navigation/named_navigator_impl.dart';
+import 'package:zahran/presentation/navigation/screen_router.dart';
+
+import 'theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initialize firebase app, This method should be called before any usage of FlutterFire plugins
-  await Firebase.initializeApp();
+  await FCMConfig.instance.init();
 
   if (kDebugMode) {
     // Force disable Crashlytics collection while doing every day development.
@@ -43,13 +44,9 @@ class ZahranApp extends StatelessWidget {
           ],
           supportedLocales: TR.supportedLocales,
           locale: locale,
-          initialRoute: Routes.SPLASH_ROUTER,
-          onGenerateRoute: NamedNavigatorImpl.onGenerateRoute,
-          navigatorKey: NamedNavigatorImpl.navigatorState,
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-          ),
+          routes: ScreenRouter.routes,
+          navigatorKey: ScreenRouter.key,
+          theme: ThemeGenerator.generate(),
         );
       },
     );

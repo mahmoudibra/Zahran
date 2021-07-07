@@ -1,7 +1,5 @@
 import 'package:zahran/presentation/external/local_notification/local_notification.external.dart';
 import 'package:zahran/presentation/handlers/notification/push_notification_types.dart';
-import 'package:zahran/presentation/navigation/named_navigator_impl.dart';
-
 import 'message_notification_handler.impl.dart';
 import 'notification_handler.dart';
 import 'notification_handler_factory.dart';
@@ -41,11 +39,7 @@ class NotificationHandlerFactoryImpl extends NotificationHandlerFactory {
 
     if (notificationType == PushNotificationTypes.MESSAGE.value) {
       return MessageNotificationHandlerImpl(
-        notification,
-        data,
-        LocalNotification(),
-        NamedNavigatorImpl(),
-      );
+          notification, data, LocalNotification());
     }
     // Return null for marketing notification(without data section) which send from console
     return null;
