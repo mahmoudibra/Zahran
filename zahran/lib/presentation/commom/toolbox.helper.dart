@@ -4,7 +4,10 @@ import 'package:zahran/presentation/config/configs.dart';
 
 class ViewsToolbox {
   /// Normalize a number 'value' from within a range 'minValue'  maxValue, given that 'limitDelta' = maxValue - minValue
-  static double normalize({@required double value, @required double minValue, @required double limitDelta}) {
+  static double normalize(
+      {@required double value,
+      @required double minValue,
+      @required double limitDelta}) {
     double result = (value - minValue) / limitDelta;
     if (result > 1.0) return 1.0;
     if (result < 0.0) return 0.0;
@@ -32,7 +35,10 @@ class ViewsToolbox {
   }
 
   /// Returns a widget that when it's tapped it dismisses the keyboard if opened
-  static Widget dismissKeyboardWidget({@required Widget child, @required BuildContext context, VoidCallback callback}) {
+  static Widget dismissKeyboardWidget(
+      {@required Widget child,
+      @required BuildContext context,
+      VoidCallback callback}) {
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(new FocusNode());
@@ -69,10 +75,15 @@ class ViewsToolbox {
             bottom: marginBottom,
             start: marginStart,
             end: marginEnd),
-        child: FlatButton(
+        child: TextButton(
             onPressed: disabled ? () {} : callback,
-            color: disabled ? Theme.of(context).dividerColor : Theme.of(context).primaryColor,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+            style: TextButton.styleFrom(
+              primary: disabled
+                  ? Theme.of(context).dividerColor
+                  : Theme.of(context).primaryColor,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0)),
+            ),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,11 +96,14 @@ class ViewsToolbox {
                           width: 14,
                         )
                       : emptyWidget(),
-                  emptySpaceWidget(width: iconPath != "" ? 5.0 : 0.0, height: 0.0),
+                  emptySpaceWidget(
+                      width: iconPath != "" ? 5.0 : 0.0, height: 0.0),
                   Text(text,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            color: disabled ? Theme.of(context).textTheme.bodyText2.color : Colors.white,
+                            color: disabled
+                                ? Theme.of(context).textTheme.bodyText2.color
+                                : Colors.white,
                           ))
                 ])));
   }
@@ -106,18 +120,23 @@ class ViewsToolbox {
         height: height,
         width: width,
         margin: EdgeInsets.only(top: marginTop),
-        child: OutlineButton(
+        child: OutlinedButton(
             onPressed: callback,
-            color: Colors.transparent,
-            borderSide: BorderSide(color: Theme.of(context).dividerColor, width: 1.0),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+            style: OutlinedButton.styleFrom(
+              primary: Colors.transparent,
+              side:
+                  BorderSide(color: Theme.of(context).dividerColor, width: 1.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0)),
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 iconWidget != null ? iconWidget : emptyWidget(),
-                emptySpaceWidget(width: iconWidget != null ? 5.0 : 0.0, height: 0.0),
+                emptySpaceWidget(
+                    width: iconWidget != null ? 5.0 : 0.0, height: 0.0),
                 Text(text,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.subtitle1.copyWith(

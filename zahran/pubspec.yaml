@@ -76,7 +76,6 @@ flutter:
   assets:
     # assets-generator-begin
     # assets/images/*
-    - assets/images/.DS_Store
     - assets/images/app_logo.png
     - assets/images/arrow_down.png
     - assets/images/arrow_left.png

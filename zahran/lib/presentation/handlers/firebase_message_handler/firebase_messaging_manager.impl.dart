@@ -1,15 +1,13 @@
-import 'package:zahran/presentation/handlers/notification/notification_handler_factory.dart';
-import 'package:zahran/presentation/handlers/notification/notification_handler_factory.impl.dart';
+import 'package:fcm_config/fcm_config.dart';
 
 import 'firebase_messaging_manager.dart';
 
 class FirebaseMessagingManagerImpl extends FirebaseMessagingManager {
   // final FirebaseMessaging _firebaseMessaging =  FirebaseMessaging();
-  final NotificationHandlerFactory _notificationHandlerFactory = NotificationHandlerFactoryImpl();
+  // final NotificationHandlerFactory _notificationHandlerFactory = NotificationHandlerFactoryImpl();
 
   @override
   void initialize() {
-    //TODO: initialize firebase message
     // FirebaseMessaging.onMessage.listen((message) {
     //   _notificationHandlerFactory.getNotificationHandler(message)?.onMessageNotification();
     // });
@@ -27,8 +25,7 @@ class FirebaseMessagingManagerImpl extends FirebaseMessagingManager {
   }
 
   @override
-  Future<String> getToken() {
-    //TODO: update get token
-    // return _firebaseMessaging.getToken();
+  Future<String> getToken() async {
+    return FCMConfig.messaging.getToken();
   }
 }

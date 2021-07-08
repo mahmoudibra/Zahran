@@ -48,7 +48,8 @@ class VisitStatusChip extends StatelessWidget {
   }
 
   Color decideVisitStatusColor(BuildContext context) {
-    if (visitStatus == VisitStatus.PENDING.value || visitStatus == VisitStatus.IN_PROGRESS.value) {
+    if (visitStatus == VisitStatus.PENDING.value ||
+        visitStatus == VisitStatus.IN_PROGRESS.value) {
       // return Color(themeColors.lightGreen); //TODO: uncomment this
     } else if (visitStatus == VisitStatus.COMPLETED.value) {
       // return Color(themeColors.transparentBlueColor);  //TODO: uncomment this
@@ -56,5 +57,6 @@ class VisitStatusChip extends StatelessWidget {
       // return Color(themeColors.lightOrange);  //TODO: uncomment this
     }
     // return Color(themeColors.lightGreen);  //TODO: uncomment this
+    return null;
   }
 }

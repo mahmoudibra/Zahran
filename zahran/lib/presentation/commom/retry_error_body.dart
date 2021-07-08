@@ -19,7 +19,8 @@ class RetryErrorBody extends StatelessWidget {
       children: <Widget>[
         errorIcon != null
             ? Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + errorIcon)
-            : Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
+            : Image.asset(
+                GeneralConfigs.IMAGE_ASSETS_PATH + "error-artwork.png"),
         ViewsToolbox.emptySpaceWidget(height: 16),
         Text(
           TR.of(context).we_are_sorry,
@@ -53,7 +54,7 @@ class RetryErrorBody extends StatelessWidget {
       width: .72 * MediaQuery.of(context).size.width,
       height: 48,
       margin: EdgeInsets.only(top: 14),
-      child: FlatButton(
+      child: TextButton(
         onPressed: retry,
         child: Center(
           child: Text(
@@ -64,9 +65,11 @@ class RetryErrorBody extends StatelessWidget {
                 ),
           ),
         ),
-        color: Theme.of(context).primaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+        style: TextButton.styleFrom(
+          primary: Theme.of(context).primaryColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
         ),
       ),
     );

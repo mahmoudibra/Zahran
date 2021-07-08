@@ -4,10 +4,12 @@ import 'package:rxdart/rxdart.dart';
 class LocalNotification {
   // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   // ignore: close_sinks
-  final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =
+  final BehaviorSubject<ReceivedNotification>
+      didReceiveLocalNotificationSubject =
       BehaviorSubject<ReceivedNotification>();
   // ignore: close_sinks
-  final BehaviorSubject<String> selectNotificationSubject = BehaviorSubject<String>();
+  final BehaviorSubject<String> selectNotificationSubject =
+      BehaviorSubject<String>();
   String selectedNotificationPayload;
   String initialRoute;
 
@@ -50,15 +52,15 @@ class LocalNotification {
     // }
   }
 
-  _configurePermission() {
-    // flutterLocalNotificationsPlugin
-    //     .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
-    //     ?.requestPermissions(
-    //       alert: true,
-    //       badge: true,
-    //       sound: true,
-    //     );
-  }
+  //_configurePermission() {
+  // flutterLocalNotificationsPlugin
+  //     .resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()
+  //     ?.requestPermissions(
+  //       alert: true,
+  //       badge: true,
+  //       sound: true,
+  //     );
+  // }
 
   showSimpleNotification(String title, String message, String payload) async {
     // AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
