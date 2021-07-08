@@ -47,10 +47,12 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   }
 
   double expandedHeight(int i) {
-    if (i == 0) return kToolbarHeight * 2;
+    // if (i == 0)
+    return kToolbarHeight * 2;
   }
 
   Widget buildChild(double expansion, int index) {
-    if (index == 0) return VisitsAppBar(expansion: expansion);
+    // if (index == 0)
+    return VisitsAppBar(expansion: expansion);
   }
 }
