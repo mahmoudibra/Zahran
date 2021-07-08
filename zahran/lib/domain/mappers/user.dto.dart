@@ -47,13 +47,13 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   }
 }
 
-class LoginResponse {
+class LoginDto implements DtoToDomainMapper<LoginModel> {
   String authToken;
   UserDto userProfile;
 
-  LoginResponse({this.authToken, this.userProfile});
+  LoginDto({this.authToken, this.userProfile});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
+  LoginDto.fromJson(Map<String, dynamic> json) {
     authToken = json['auth_token'];
     userProfile = json['user_profile'] != null
         ? new UserDto.fromJson(json['user_profile'])
@@ -67,5 +67,11 @@ class LoginResponse {
       data['user_profile'] = this.userProfile.toJson();
     }
     return data;
+  }
+
+  @override
+  LoginModel dtoToDomainModel() {
+    return LoginModel(
+        userProfile: userProfile.dtoToDomainModel(), authToken: authToken);
   }
 }
