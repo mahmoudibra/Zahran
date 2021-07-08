@@ -17,53 +17,56 @@ class ThemeGenerator {
   //! font family
   static String get _fontFamily => "ProximaNova";
   //! generate text theme
-  static TextTheme _textTheme({
-    Color bodyColor,
-    Color captionColor,
-    Color displayColor,
-    Color bodyBoldColor,
-    double captionFontSize = 14,
-  }) {
+  static TextTheme _textTheme(ColorScheme colors) {
     var _textTheme = Typography.tall2018
+        .apply(
+          bodyColor: colors.onSurface,
+          decorationColor: colors.onSurface,
+        )
         .copyWith(
           headline6: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
+            color: Color(0xFF02001E),
           ),
           headline5: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
+            color: Color(0xFF02001E),
           ),
           headline4: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
+            color: Color(0xFF02001E),
           ),
           headline3: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.bold,
+            color: Color(0xFF02001E),
           ),
           headline2: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
+            color: Color(0xff2C3550),
           ),
           headline1: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
+            color: Color(0xff2C3550),
           ),
-        )
-        .apply(
-          bodyColor: bodyColor,
-          displayColor: displayColor ?? bodyColor,
-          decorationColor: bodyColor,
         )
         .copyWith(
           caption: TextStyle(
-            color: captionColor,
-            fontSize: captionFontSize,
+            color: Color(0xFFBDBCD1),
+            fontSize: 14,
+          ),
+          overline: TextStyle(
+            color: Color(0xffBDBCD1),
+            fontSize: 14,
           ),
           bodyText1: TextStyle(
-            color: bodyBoldColor ?? bodyColor,
-            fontSize: 14,
+            color: Color(0xFF3F4861),
+            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         );
@@ -74,19 +77,21 @@ class ThemeGenerator {
   static ThemeData generate() {
     var colors = _colorScheme;
     var theme = ThemeData.from(colorScheme: colors);
+    var textTheme = _textTheme(colors);
     return theme.copyWith(
-      textTheme: _textTheme(
-        bodyColor: colors.onSurface,
-        captionColor: Color(0xFFBDBCD1),
-        displayColor: Color(0xFF02001E),
-        bodyBoldColor: Color(0xFF3F4861),
+      textTheme: textTheme,
+      primaryTextTheme: textTheme
+          .copyWith(
+              caption: textTheme.caption.copyWith(color: Color(0xFFB4B3BE)))
+          .apply(
+            bodyColor: colors.onPrimary,
+            decorationColor: colors.onPrimary,
+          ),
+      accentTextTheme: textTheme.apply(
+        bodyColor: colors.onSecondary,
+        displayColor: colors.onSecondary,
+        decorationColor: colors.onSecondary,
       ),
-      primaryTextTheme: _textTheme(
-        bodyColor: colors.onPrimary,
-        captionColor: Color(0xFFB4B3BE),
-        captionFontSize: 16,
-      ),
-      accentTextTheme: _textTheme(bodyColor: colors.onSecondary),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: colors.background,
         modalBackgroundColor: colors.surface,
@@ -130,6 +135,29 @@ class ThemeGenerator {
         contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         fillColor: Colors.white,
         filled: true,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        showSelectedLabels: true,
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        selectedItemColor: colors.secondary,
+        unselectedItemColor: Color(0xffc4c2d6),
+        unselectedLabelStyle: textTheme.bodyText1,
+        selectedLabelStyle: textTheme.bodyText1,
+        elevation: 0,
+      ),
+      appBarTheme: AppBarTheme(
+        brightness: Brightness.dark,
+      ),
+      cardTheme: CardTheme(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shadowColor: Color(0xFFEDEDF3).withOpacity(0.25),
+        elevation: 4,
+      ),
+      dividerTheme: DividerThemeData(
+        color: Color(0xffE1E1EA).withOpacity(0.5),
+        thickness: 1,
       ),
     );
   }

@@ -59,7 +59,7 @@ abstract class BaseRepositry {
   String get listTotalKey;
   Duration get sendTimeOut => Duration(seconds: 15);
   Duration get receiveTimeout => Duration(seconds: 15);
-  Duration get connectTimeout => Duration(seconds: 5);
+  Duration get connectTimeout => Duration(seconds: 15);
   Future<Map<String, String>>? getHeaders(ROptions options);
   void onError(ApiFetchException error);
 

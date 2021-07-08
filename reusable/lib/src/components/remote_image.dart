@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ShapedRemoteImage extends StatelessWidget {
   final _Paramters paramters;
@@ -16,7 +16,7 @@ class ShapedRemoteImage extends StatelessWidget {
     BoxFit? fit,
     Decoration? forgroundDecoration,
     Widget? errorPlaceholder,
-    ImageProvider? loadingPlaceholder,
+    Widget? loadingPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
@@ -48,7 +48,7 @@ class ShapedRemoteImage extends StatelessWidget {
     BoxFit? fit,
     Decoration? forgroundDecoration,
     Widget? errorPlaceholder,
-    ImageProvider? loadingPlaceholder,
+    Widget? loadingPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
@@ -102,7 +102,7 @@ class ShapedRemoteImage extends StatelessWidget {
   Widget? getErrorPlaceholder(BuildContext context) =>
       paramters.errorPlaceholder ??
       ShapedRemoteImageConfig.of(context)?.errorPlaceholder;
-  ImageProvider? getLoadingPlaceholder(BuildContext context) =>
+  Widget? getLoadingPlaceholder(BuildContext context) =>
       paramters.loadingPlaceholder ??
       ShapedRemoteImageConfig.of(context)?.loadingPlaceholder;
   Map<String, String>? getQueryParameters(BuildContext context) =>
@@ -152,23 +152,19 @@ class ShapedRemoteImage extends StatelessWidget {
     var _url = _getBaseUrl(context, paramters.url, getQueryParameters(context));
 
     var child = _url != null
-        ? FadeInImage(
-            image: NetworkImage(
-              _url.toString(),
-              headers: {
-                'Accept-Language':
-                    Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
-              },
-            ),
+        ? CachedNetworkImage(
+            imageUrl: _url.toString(),
             width: paramters.width,
             height: paramters.height,
-            placeholderErrorBuilder: (_, __, ___) =>
-                buildError(context, paramters.height, paramters.height),
-            imageErrorBuilder: (_, __, ___) =>
-                buildError(context, paramters.height, paramters.height),
+            httpHeaders: {
+              'Accept-Language':
+                  Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
+            },
+            errorWidget: (_, __, ___) =>
+                buildError(_, paramters.height, paramters.height),
             fit: getFit(context),
-            placeholder: getLoadingPlaceholder(context) ??
-                MemoryImage(kTransparentImage),
+            placeholder: (_, __) =>
+                getLoadingPlaceholder(_) ?? CircularProgressIndicator(),
           )
         : buildError(context, paramters.height, paramters.height);
 
@@ -185,14 +181,7 @@ class ShapedRemoteImage extends StatelessWidget {
     return SizedBox(
       width: w,
       height: h,
-      child: Center(
-          child: getErrorPlaceholder(context) ??
-              Icon(
-                Icons.image,
-                size: (paramters.width == null || paramters.width! < 50)
-                    ? 20
-                    : 40,
-              )),
+      child: Container(color: Colors.grey[400]),
     );
   }
 }
@@ -213,7 +202,7 @@ class HeroShapedRemoteImage extends StatelessWidget {
     double? height,
     BoxFit? fit,
     Decoration? forgroundDecoration,
-    ImageProvider? loadingPlaceholder,
+    Widget? loadingPlaceholder,
     Widget? errorPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
@@ -249,7 +238,7 @@ class HeroShapedRemoteImage extends StatelessWidget {
     BoxFit? fit,
     Decoration? forgroundDecoration,
     Widget? errorPlaceholder,
-    ImageProvider? loadingPlaceholder,
+    Widget? loadingPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
@@ -355,7 +344,7 @@ class ShapedRemoteImageConfig extends StatelessWidget {
   final EdgeInsetsGeometry? innerPadding;
   final Map<String, String>? queryParamters;
   final BoxFit fit;
-  final ImageProvider? loadingPlaceholder;
+  final Widget? loadingPlaceholder;
   static ShapedRemoteImageConfig? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<ShapedRemoteImageConfig>();
   const ShapedRemoteImageConfig({
@@ -385,7 +374,7 @@ class _Paramters {
   final double? height;
 
   final Widget? errorPlaceholder;
-  final ImageProvider? loadingPlaceholder;
+  final Widget? loadingPlaceholder;
   final Decoration? forgroundDecoration;
   final Decoration? decoration;
   final Decoration? outerDecoration;
@@ -414,7 +403,7 @@ class _Paramters {
     String? url,
     double? width,
     double? height,
-    ImageProvider? loadingPlaceholder,
+    Widget? loadingPlaceholder,
     Widget? errorPlaceholder,
     Decoration? forgroundDecoration,
     Decoration? decoration,

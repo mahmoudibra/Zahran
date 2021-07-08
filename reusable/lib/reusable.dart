@@ -36,3 +36,4 @@ export './src/components/keyboard_unfocus.dart';
 
 export './src/components/slivers.dart';
 export './src/web_elements/web_admin_layout.dart';
+export 'package:cached_network_image/cached_network_image.dart';
