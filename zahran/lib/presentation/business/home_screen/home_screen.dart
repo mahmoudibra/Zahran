@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zahran/presentation/business/visits/visits_tab.dart';
 
+import 'home_app_bar.dart';
 import 'home_bottom_bar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,17 +18,15 @@ class HomeScreen extends StatelessWidget {
               SliverOverlapAbsorber(
                 handle:
                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                sliver: SliverAppBar(
-                  title: Text('Books'),
-                  pinned: true,
-                  expandedHeight: 150.0,
-                  forceElevated: innerBoxIsScrolled,
-                ),
+                sliver: HomeAppBar(innerBoxIsScrolled: innerBoxIsScrolled),
               ),
             ];
           },
           body: TabBarView(
-            children: [Container(), Container()],
+            children: [
+              VisitsTab(),
+              Container(),
+            ],
           ),
         ),
         bottomNavigationBar: HomeBottomBar(),

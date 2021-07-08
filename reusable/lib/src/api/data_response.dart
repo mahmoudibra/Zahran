@@ -53,18 +53,15 @@ class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
       key = jsonData!['key'] ?? '';
     } catch (e) {
       status = response.statusCode == 200 ? 500 : response.statusCode ?? 0;
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        message = messages.authorizationMessage;
-      } else if (response.statusCode == 404) {
-        message = messages.notFoundMessage;
-      } else {
-        message = e.toString();
-      }
-
       extraError = e.toString();
+      message = e.toString();
       key = 'json_exption';
     }
-
+    if (response.statusCode == 401 || response.statusCode == 403) {
+      message = messages.authorizationMessage;
+    } else if (response.statusCode == 404) {
+      message = messages.notFoundMessage;
+    }
     if (status != 200) {
       throw exception(response, onError);
     }

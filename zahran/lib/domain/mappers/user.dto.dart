@@ -2,40 +2,48 @@ part of 'domain_mapper.dart';
 
 class UserDto implements DtoToDomainMapper<UserModel> {
   int id;
-  String userName;
-  int sabNumber;
-  String avatar;
-  String lastVisit;
-  String phoneNumber;
+  LocalizedName name;
+  String sabNumber;
+  String phone;
+  String media;
+  DateTime lastVisit;
   Target target;
+  String avatar;
   UserDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userName = json['user_name'];
+    name = LocalizedName.fromJson(json["name"] ?? {});
     sabNumber = json['sab_number'];
-    avatar = json['avatar'];
-    lastVisit = json['last_visit'];
-    phoneNumber = json['phone_number'];
+    avatar = json['avatar'] ?? '';
+    media = json['media'] ?? '';
+    lastVisit = DateTime.tryParse(json['last_visit'] ?? '');
+    phone = json['phone'];
     target =
         json['target'] != null ? new Target.fromJson(json['target']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_name'] = this.userName;
-    data['sab_number'] = this.sabNumber;
-    data['avatar'] = this.avatar;
-    data['last_visit'] = this.lastVisit;
-    data['phone_number'] = this.phoneNumber;
-    if (this.target != null) {
-      data['target'] = this.target.toJson();
-    }
-    return data;
+    return {
+      "id": id,
+      "name": name?.tojson(),
+      "sab_number": sabNumber,
+      "phone": phone,
+      "media": media,
+      "last_visit": lastVisit?.toIso8601String(),
+      "target": target?.toJson(),
+    };
   }
 
   @override
   UserModel dtoToDomainModel() {
-    return UserModel(id: id, name: userName);
+    return UserModel(
+      id: id,
+      name: name,
+      sabNumber: sabNumber,
+      phone: phone,
+      media: media,
+      lastVisit: lastVisit,
+      target: target,
+    );
   }
 }
 
@@ -58,25 +66,6 @@ class LoginResponse {
     if (this.userProfile != null) {
       data['user_profile'] = this.userProfile.toJson();
     }
-    return data;
-  }
-}
-
-class Target {
-  int totalSellOut;
-  int target;
-
-  Target({this.totalSellOut, this.target});
-
-  Target.fromJson(Map<String, dynamic> json) {
-    totalSellOut = json['total_sell_out'];
-    target = json['target'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_sell_out'] = this.totalSellOut;
-    data['target'] = this.target;
     return data;
   }
 }

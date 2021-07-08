@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/user.repo.dart';
+import 'package:zahran/data/repo/visits.repo.dart';
 import 'package:zahran/presentation/config/configs.dart';
 
 class Repos {
   static UserRepo get userRepo => UserRepo();
+  static VisitsRepo get visitsRepo => VisitsRepo();
 }
 
-abstract class BaseRepositryImpl<T> extends BaseRepositry {
+abstract class BaseRepositryImpl extends BaseRepositry {
   @override
   String get listTotalKey => "total_count";
 

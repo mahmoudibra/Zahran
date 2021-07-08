@@ -309,28 +309,30 @@ class _CompleteListState<TItem, TController extends BaseListController<TItem>>
       onNotification: (ScrollNotification scrollInfo) {
         if (_ctrl.paging != null) {
           var __ctrl = _ctrl.paging!;
-          if (scrollInfo.metrics.pixels > 0) {
-            if (scrollInfo.metrics.pixels >=
-                scrollInfo.metrics.maxScrollExtent - 200) {
-              if (!__ctrl.gotAllItems && !__ctrl.loadingMore) {
-                __ctrl.loadNextApi();
+          if (__ctrl.length > 0 || !__ctrl.hasError) {
+            if (scrollInfo.metrics.pixels > 0) {
+              if (scrollInfo.metrics.pixels >=
+                  scrollInfo.metrics.maxScrollExtent - 200) {
+                if (!__ctrl.gotAllItems && !__ctrl.loadingMore) {
+                  __ctrl.loadNextApi();
+                }
               }
-            }
-          } else {
-            var currentExtent = scrollInfo.metrics.pixels * -1;
-            if (currentExtent < 0) currentExtent = 0;
+            } else {
+              var currentExtent = scrollInfo.metrics.pixels * -1;
+              if (currentExtent < 0) currentExtent = 0;
 
-            var percent = (currentExtent / deltaExtent);
+              var percent = (currentExtent / deltaExtent);
 
-            if (!willRefresh || scrollInfo.metrics.pixels > deltaExtent) {
-              _rereshController.value = percent;
-            } else if (!scrollInfo.metrics.outOfRange && willRefresh) {
-              refresh(__ctrl);
-            }
-            if (percent > 1 && !willRefresh) {
-              setState(() {
-                willRefresh = true;
-              });
+              if (!willRefresh || scrollInfo.metrics.pixels > deltaExtent) {
+                _rereshController.value = percent;
+              } else if (!scrollInfo.metrics.outOfRange && willRefresh) {
+                refresh(__ctrl);
+              }
+              if (percent > 1 && !willRefresh) {
+                setState(() {
+                  willRefresh = true;
+                });
+              }
             }
           }
         }

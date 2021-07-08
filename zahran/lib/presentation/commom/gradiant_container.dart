@@ -4,13 +4,15 @@ class GradiantContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
+  final BorderRadiusGeometry borderRadius;
   final double alpha;
   const GradiantContainer(
       {Key key,
       @required this.child,
       this.alpha = 1,
       this.padding,
-      this.margin})
+      this.margin,
+      this.borderRadius})
       : super(key: key);
 
   @override
@@ -21,6 +23,7 @@ class GradiantContainer extends StatelessWidget {
       padding: padding,
       margin: margin,
       decoration: BoxDecoration(
+        borderRadius: borderRadius,
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

@@ -43,8 +43,18 @@
     "sab_number": "Sab-Number",
     "password": "Password",
     "login": "Login",
-    "inavlid_sab": "Invalid sab number",
+    "inavlid_sab": "Sab-number should consist of 6 to 8 numbers",
     "inavlid_password": "Password must be at least 6 numbers",
     "visits": "Visits",
-    "profile": "Profile"
+    "profile": "Profile",
+    "welcome": "Welcome, {user}",
+    "@welcome": {
+        "placeholders": {
+            "user": {}
+        }
+    },
+    "lets_get_to_work": "Let’s get to work ✍️",
+    "upcoming_visits": "Upcoming Visits",
+    "tasks": "Tasks"
+
 }
