@@ -11,7 +11,7 @@ class UserRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext;
 
-  Future<LoginResponse> login(String sub, String password) async {
+  Future<LoginDto> login(String sub, String password) async {
     var result = await post(
       path: '/v1/mobile/login',
       data: {
@@ -19,7 +19,7 @@ class UserRepo extends BaseRepositryImpl {
         "password": password,
         "fcm_device_token": await FCMConfig.messaging.getToken(),
       },
-      mapItem: (json) => LoginResponse.fromJson(json),
+      mapItem: (json) => LoginDto.fromJson(json),
     );
     return result.data;
   }
@@ -27,16 +27,17 @@ class UserRepo extends BaseRepositryImpl {
 
 class AuthViewModel extends GetxController {
   final LocalDataManager localDataManager;
-  LoginResponse _user;
+  LoginModel _user;
 
   AuthViewModel(this.localDataManager);
-  LoginResponse get user => _user;
-  UserModel get profile => _user?.userProfile?.dtoToDomainModel();
+  LoginModel get user => _user;
+  UserModel get profile => _user?.userProfile;
 
-  Future saveUser(LoginResponse response) async {
-    _user = response;
+  Future saveUser(LoginDto response) async {
+    _user = response.dtoToDomainModel();
     update();
     //TODO save user
+    // Login model is hive object
   }
 
   Future<Map<String, String>> getHeaders() async {

@@ -18,7 +18,7 @@ abstract class BaseRepositryImpl extends BaseRepositry {
 
   @override
   void onError(ApiFetchException error) {
-    context.errorSnackBar(error.toString());
+    if (!error.isCancel) context.errorSnackBar(error.toString());
   }
 
   @override
