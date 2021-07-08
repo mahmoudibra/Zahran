@@ -1,3 +1,5 @@
+import 'package:fcm_config/fcm_config.dart';
+
 import 'firebase_messaging_manager.dart';
 
 class FirebaseMessagingManagerImpl extends FirebaseMessagingManager {
@@ -24,6 +26,6 @@ class FirebaseMessagingManagerImpl extends FirebaseMessagingManager {
 
   @override
   Future<String> getToken() async {
-    // return _firebaseMessaging.getToken();
+    return FCMConfig.messaging.getToken();
   }
 }

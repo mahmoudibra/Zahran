@@ -72,12 +72,13 @@ class PopUp extends StatelessWidget {
                       _actions.entries.elementAt(i).key,
                       textAlign: TextAlign.center,
                     ))
-                : OutlineButton(
+                : OutlinedButton(
                     onPressed: _actions.entries.elementAt(i).value,
-                    borderSide:
-                        BorderSide(color: Theme.of(context).dividerColor),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Theme.of(context).dividerColor),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0)),
+                    ),
                     child: Text(
                       _actions.entries.elementAt(i).key,
                       style: Theme.of(context)
