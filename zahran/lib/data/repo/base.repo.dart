@@ -30,9 +30,8 @@ abstract class BaseRepositryImpl<T> extends BaseRepositry {
   }
 
   @override
-  Map<String, dynamic> resolveResponse(Response<String> response) {
+  Map<String, dynamic> resolveResponse(Response response) {
     var result = super.resolveResponse(response);
-    print(result);
     result["status"] = result["code"];
     return result;
   }

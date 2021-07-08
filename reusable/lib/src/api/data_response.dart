@@ -3,7 +3,7 @@ part of api_helpers;
 class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
   ApiDataResponse();
   ApiDataResponse.fromJson({
-    required dio.Response<String> response,
+    required dio.Response response,
     required TItem Function(Map<String, dynamic> json) mapItem,
     required ApiMessages messages,
     required ResolveResponseCallback resolveResponse,
@@ -12,7 +12,6 @@ class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
     try {
       jsonData = resolveResponse(response);
       headers = response.headers.map;
-
       var errors = jsonData!['errors'] ??
           jsonData!['error'] ??
           jsonData!['messages'] ??
@@ -67,13 +66,18 @@ class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
     }
 
     if (status != 200) {
-      throw ApiFetchException(
-        message,
-        response: response,
-        json: jsonData,
-        onError: onError,
-      );
+      throw exception(response, onError);
     }
+  }
+
+  ApiFetchException exception(
+      Response response, Function(ApiFetchException error) onError) {
+    return ApiFetchException(
+      message,
+      response: response,
+      json: jsonData,
+      onError: onError,
+    );
   }
 
   @override

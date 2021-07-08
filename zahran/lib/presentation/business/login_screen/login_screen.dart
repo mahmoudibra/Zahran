@@ -8,7 +8,8 @@ import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/r.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key key}) : super(key: key);
+  final ProgressButtonKey buttonKey = ProgressButtonKey();
+  LoginScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +44,7 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(height: 10),
                   CustomTextField(
                     onSaved: (v) => vm.sab = v,
+                    textInputType: TextInputType.number,
                     extraValidator: vm.validateSab,
                   ),
                   SizedBox(height: 20),
@@ -54,9 +56,16 @@ class LoginScreen extends StatelessWidget {
                   CustomTextField(
                     onSaved: (v) => vm.password = v,
                     extraValidator: vm.validatePassword,
+                    textInputAction: TextInputAction.go,
+                    onFieldSubmitted: (v) {
+                      buttonKey.onPressed();
+                    },
                   ),
                   SizedBox(height: 30),
-                  ProgressButton(child: Text(TR.of(context).login)),
+                  ProgressButton(
+                    key: buttonKey,
+                    child: Text(TR.of(context).login),
+                  ),
                 ],
               ),
             ),
