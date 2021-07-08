@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class SplashViewModel extends GetxController {
@@ -17,6 +18,7 @@ class SplashViewModel extends GetxController {
 
   Future checkFirstLogin() async {
     await Future.delayed(Duration(seconds: 2));
+    Get.find<AuthViewModel>().initUser();
   }
 
   void navigate() {

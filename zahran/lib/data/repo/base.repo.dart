@@ -26,7 +26,7 @@ abstract class BaseRepositryImpl<T> extends BaseRepositry {
 
   @override
   Future<Map<String, String>> getHeaders(ROptions options) async {
-    return {};
+    return await Get.find<AuthViewModel>().getHeaders();
   }
 
   @override
