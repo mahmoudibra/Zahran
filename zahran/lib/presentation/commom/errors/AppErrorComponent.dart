@@ -84,7 +84,7 @@ class AppErrorComponent extends StatelessWidget {
         ? Container()
         : Container(
             height: 48,
-            child: FlatButton(
+            child: TextButton(
               onPressed: onRetry,
               child: Center(
                 child: Text(
@@ -94,9 +94,6 @@ class AppErrorComponent extends StatelessWidget {
                 ),
               ),
               // color: Color(themeColors.colorBlue), //TODO: un comment this later
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-              ),
             ),
           );
   }

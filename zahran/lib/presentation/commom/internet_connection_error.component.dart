@@ -18,7 +18,8 @@ class InternetConnectionError extends StatelessWidget {
         children: <Widget>[
           Container(
               margin: EdgeInsets.only(top: 30),
-              child: Image.asset(GeneralConfigs.IMAGE_ASSETS_PATH + 'not-connected-art.png')),
+              child: Image.asset(
+                  GeneralConfigs.IMAGE_ASSETS_PATH + 'not-connected-art.png')),
           Container(
             margin: EdgeInsetsDirectional.only(top: 70),
             child: Text(
@@ -51,7 +52,7 @@ class InternetConnectionError extends StatelessWidget {
       width: .72 * screenSize.width,
       height: 48,
       margin: EdgeInsets.only(top: 105, bottom: 130),
-      child: FlatButton(
+      child: TextButton(
         onPressed: retry,
         child: Center(
           child: Text(
@@ -62,9 +63,11 @@ class InternetConnectionError extends StatelessWidget {
                 ),
           ),
         ),
-        color: Theme.of(context).colorScheme.error,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+        style: TextButton.styleFrom(
+          primary: Theme.of(context).colorScheme.error,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
         ),
       ),
     );

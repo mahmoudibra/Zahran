@@ -31,9 +31,12 @@ class AuthViewModel extends GetxController {
   UserModel _user;
   AuthViewModel(this.localDataManager);
   UserModel get user => _user;
-  Future saveUser(UserModel user) {}
-  Future<Map<String, dynamic>> getHeaders() {}
-  Future initUser() {}
+  Future saveUser(UserModel user) async {}
+  Future<Map<String, dynamic>> getHeaders() async {
+    return {};
+  }
+
+  Future initUser() async {}
   @override
   void onInit() {
     super.onInit();

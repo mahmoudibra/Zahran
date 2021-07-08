@@ -44,5 +44,7 @@
     "password": "Password",
     "login": "Login",
     "inavlid_sab": "Invalid sab number",
-    "inavlid_password": "Password must be at least 6 numbers"
+    "inavlid_password": "Password must be at least 6 numbers",
+    "visits": "Visits",
+    "profile": "Profile"
 }

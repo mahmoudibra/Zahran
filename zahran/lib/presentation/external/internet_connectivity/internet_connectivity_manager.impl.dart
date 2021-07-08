@@ -11,14 +11,15 @@ class InternetConnectivityManagerImpl implements InternetConnectivityManager {
 
   @override
   Future<bool> checkConnectivity() async {
-    ConnectivityResult connectivityResult = await _connectivity.checkConnectivity();
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
+    ConnectivityResult connectivityResult =
+        await _connectivity.checkConnectivity();
+    if (connectivityResult == ConnectivityResult.mobile ||
+        connectivityResult == ConnectivityResult.wifi) {
       print("💪 Internet Connectivity status is: $connectivityResult ");
       return Future.value(true);
     } else {
       print("🙅 Internet Connectivity status is: $connectivityResult ");
       return Future.value(false);
     }
-    ;
   }
 }

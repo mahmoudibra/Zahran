@@ -46,7 +46,10 @@ class PopUp extends StatelessWidget {
         child: Text(
           _message,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).textTheme.bodyText2.color),
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1
+              .copyWith(color: Theme.of(context).textTheme.bodyText2.color),
         ),
       )
     ];
@@ -57,21 +60,30 @@ class PopUp extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 0.0, vertical: 10.0),
             height: 48.0,
             child: i == 0
-                ? FlatButton(
+                ? TextButton(
                     onPressed: _actions.entries.elementAt(i).value,
-                    color: Theme.of(context).primaryColor,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                    style: TextButton.styleFrom(
+                      primary: Theme.of(context).colorScheme.error,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     child: Text(
                       _actions.entries.elementAt(i).key,
                       textAlign: TextAlign.center,
                     ))
                 : OutlineButton(
                     onPressed: _actions.entries.elementAt(i).value,
-                    borderSide: BorderSide(color: Theme.of(context).dividerColor),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                    borderSide:
+                        BorderSide(color: Theme.of(context).dividerColor),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
                     child: Text(
                       _actions.entries.elementAt(i).key,
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).primaryColor),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .copyWith(color: Theme.of(context).primaryColor),
                       textAlign: TextAlign.center,
                     ))),
       );

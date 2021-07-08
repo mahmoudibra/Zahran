@@ -26,9 +26,9 @@ Future<void> main() async {
   // Pass all uncaught errors to Crashlytics.
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
 
-  runZoned(() {
+  runZonedGuarded(() {
     runApp(ZahranApp());
-  }, onError: FirebaseCrashlytics.instance.recordError);
+  }, FirebaseCrashlytics.instance.recordError);
 }
 
 class ZahranApp extends StatelessWidget {
