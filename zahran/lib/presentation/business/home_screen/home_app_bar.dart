@@ -25,7 +25,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           forceElevated: widget.innerBoxIsScrolled,
           flexibleSpace: Builder(
             builder: (context) {
-              var t = 1.0;
+              var t = context.appBarExpansionPercent;
               var nt = 1 - t;
               return GradiantContainer(
                 child: AnimatedSize(
