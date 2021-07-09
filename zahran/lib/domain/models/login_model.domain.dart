@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-import 'localization.domain.dart';
+part 'user_model.domain.dart';
 
 @HiveType(typeId: 3)
 class LoginModel {

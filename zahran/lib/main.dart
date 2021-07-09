@@ -12,7 +12,6 @@ import 'package:zahran/presentation/localization/locale_builder.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'data/repo/user.repo.dart';
-import 'domain/models/localization.domain.dart';
 import 'theme.dart';
 
 Future<void> main() async {
