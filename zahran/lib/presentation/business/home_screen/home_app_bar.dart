@@ -5,8 +5,7 @@ import 'package:zahran/presentation/commom/gradiant_container.dart';
 
 class HomeAppBar extends StatefulWidget {
   final bool innerBoxIsScrolled;
-  const HomeAppBar({Key key, @required this.innerBoxIsScrolled})
-      : super(key: key);
+  const HomeAppBar({Key key, @required this.innerBoxIsScrolled}) : super(key: key);
 
   @override
   _HomeAppBarState createState() => _HomeAppBarState();
@@ -26,7 +25,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           forceElevated: widget.innerBoxIsScrolled,
           flexibleSpace: Builder(
             builder: (context) {
-              var t = context.appBarExpansionPercent;
+              var t = 1.0;
               var nt = 1 - t;
               return GradiantContainer(
                 child: AnimatedSize(

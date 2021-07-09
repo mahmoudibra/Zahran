@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/business/home_screen/home_screen.dart';
-import 'package:zahran/presentation/business/login_screen/login_screen.dart';
+import 'package:zahran/presentation/business/login/login_screen.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 
 part 'screen_extensions.dart';

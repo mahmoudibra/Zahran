@@ -12,7 +12,6 @@ Zahran Project
 
 > change locale `LocaleBuilder.of(context).changeLocale(_locale)`
 
-
 # GitHooks
 > To enable GitHooks `git config core.hooksPath .githooks/`;
 
