@@ -78,5 +78,27 @@
     "phone_number": "Phone Number",
     "save_changes": "Save Changes",
     "change_password": "Change password",
-    "personal_info": "Personal Info"
+    "personal_info": "Personal Info",
+    "distance_km": "{distnace}KM Away",
+    "@distance_km": {
+        "placeholders": {
+            "distnace": {}
+        }
+    },
+    "distance_m": "{distnace}M Away",
+    "@distance_m": {
+        "placeholders": {
+            "distnace": {}
+        }
+    },
+    "total_sell_out": "Total Sell-out",
+    "target": "Target",
+    "last_visit": "Last visit",
+    "promotions": "Promotions",
+    "branches": "Branches",
+    "brands_products": "Brands / Products",
+    "sallary_slip": "Sallary Slip",
+    "shared_documents": "Shared documents",
+    "settings": "Settings",
+    "logout": "Logout"
 }

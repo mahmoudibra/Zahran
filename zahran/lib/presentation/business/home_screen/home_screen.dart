@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zahran/presentation/business/profile_tab/profile_tab.dart';
 import 'package:zahran/presentation/business/visits/visits_tab.dart';
 
 import 'home_app_bar.dart';
@@ -25,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           body: TabBarView(
             children: [
               VisitsTab(),
-              Container(),
+              ProfileTab(),
             ],
           ),
         ),

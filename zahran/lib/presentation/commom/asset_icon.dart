@@ -7,8 +7,12 @@ class AssetIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ImageIcon(
-      AssetImage(name),
+    final IconThemeData iconTheme = IconTheme.of(context);
+
+    return Image.asset(
+      name,
+      width: iconTheme.size,
+      height: iconTheme.size,
       color: color,
     );
   }

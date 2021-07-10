@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/tasks/task_view.dart';
+import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
 import 'package:zahran/presentation/commom/visit_status_chip.component.dart';
@@ -16,56 +17,60 @@ class VisitDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BranchModel model =
-        ModalRoute.of(context)!.settings.arguments as BranchModel;
-    return Scaffold(
-      body: CustomScrollView(
-        shrinkWrap: true,
-        slivers: [
-          DetailsAppBar(),
-          _titleRow(model, context),
-          _locationRow(model, context),
-          _brandsnRow(model, context),
-          SliverSpacer(),
-          SliverPaddingBox(
-            child: Text(TR.of(context).task_count(model.totalTasks),
-                style: context.headline6),
+    return GetBuilder<VisitDetailsViewModel>(
+      init: VisitDetailsViewModel(context),
+      builder: (_) {
+        BranchModel model = _.model;
+        return Scaffold(
+          body: CustomScrollView(
+            shrinkWrap: true,
+            slivers: [
+              DetailsAppBar(),
+              _titleRow(model, context),
+              _locationRow(model, context),
+              _brandsnRow(model, context),
+              SliverSpacer(),
+              SliverPaddingBox(
+                child: Text(TR.of(context).task_count(model.totalTasks),
+                    style: context.headline6),
+              ),
+              SliverSpacer(10),
+              for (var i = 0; i < 10; i++)
+                SliverPaddingBox(
+                  child: FadeItem(child: TaskView()),
+                ),
+            ],
           ),
-          SliverSpacer(10),
-          for (var i = 0; i < 10; i++)
-            SliverPaddingBox(
-              child: FadeItem(child: TaskView()),
+          bottomSheet: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: ElevatedButton.icon(
+                    onPressed: () => _.checkIn(model),
+                    icon: Icon(Icons.login),
+                    label: Text(TR.of(context).check_in),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  flex: 2,
+                  child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                        primary: context.theme.primaryColor),
+                    onPressed: () {
+                      //TODO report
+                    },
+                    icon: Icon(Icons.summarize),
+                    label: Text(TR.of(context).report),
+                  ),
+                )
+              ],
             ),
-        ],
-      ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            Expanded(
-              flex: 3,
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                icon: Icon(Icons.login),
-                label: Text(TR.of(context).check_in),
-              ),
-            ),
-            SizedBox(width: 10),
-            Expanded(
-              flex: 2,
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                    primary: context.theme.primaryColor),
-                onPressed: () {
-                  //TODO report
-                },
-                icon: Icon(Icons.summarize),
-                label: Text(TR.of(context).report),
-              ),
-            )
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -76,13 +81,16 @@ class VisitDetails extends StatelessWidget {
         Expanded(
           child: Text(model.name.format(context), style: context.headline6),
         ),
-        SizedBox(width: 10),
-        VisitStatusChip(visitStatus: 'pending'),
+        if (model.visitStatus == VisitStatus.IN_PROGRESS) ...[
+          SizedBox(width: 10),
+          VisitStatusChip(visitStatus: 'pending'),
+        ]
       ],
     ));
   }
 
   Widget _locationRow(BranchModel model, BuildContext context) {
+    var vm = Get.find<VisitDetailsViewModel>();
     return SliverPaddingBox(
       child: Row(
         children: [
@@ -96,10 +104,8 @@ class VisitDetails extends StatelessWidget {
             ),
           ),
           SizedBox(width: 5),
-          _buildButton(context, model, () {
-            launch(
-                "https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
-          }, TR.of(context).get_directions),
+          _buildButton(context, model, () => vm.goToDirections(model),
+              TR.of(context).get_directions),
         ],
       ),
     );
@@ -127,6 +133,8 @@ class VisitDetails extends StatelessWidget {
   }
 
   Widget _brandsnRow(BranchModel model, BuildContext context) {
+    var vm = Get.find<VisitDetailsViewModel>();
+
     return SliverPaddingBox(
       child: Row(
         children: [
@@ -134,10 +142,8 @@ class VisitDetails extends StatelessWidget {
             child: BrandsView(brands: model.brands),
           ),
           SizedBox(width: 5),
-          _buildButton(context, model, () {
-            launch(
-                "https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
-          }, TR.of(context).see_all),
+          _buildButton(
+              context, model, () => vm.call(model), TR.of(context).see_all),
         ],
       ),
     );

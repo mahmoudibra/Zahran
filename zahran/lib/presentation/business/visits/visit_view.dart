@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
@@ -43,7 +44,8 @@ class VisitView extends StatelessWidget {
             ],
           ),
         ),
-        ProgressGradiant(progress: model.completedTasks / model.totalTasks),
+        if (model.visitStatus == VisitStatus.IN_PROGRESS)
+          ProgressGradiant(progress: model.completedTasks / model.totalTasks),
       ],
     );
   }
@@ -54,8 +56,10 @@ class VisitView extends StatelessWidget {
         Expanded(
           child: Text(model.name.format(context), style: context.headline6),
         ),
-        SizedBox(width: 10),
-        VisitStatusChip(visitStatus: 'pending'),
+        if (model.visitStatus != VisitStatus.PENDING) ...[
+          SizedBox(width: 10),
+          VisitStatusChip(visitStatus: 'pending'),
+        ]
       ],
     );
   }
@@ -65,7 +69,9 @@ class VisitView extends StatelessWidget {
       children: [
         CounterView(
           value: model.completedTasks,
-          of: model.totalTasks,
+          of: model.visitStatus == VisitStatus.IN_PROGRESS
+              ? model.totalTasks
+              : null,
           label: TR.of(context).tasks,
         ),
         SizedBox(width: 10),
@@ -90,7 +96,11 @@ class VisitView extends StatelessWidget {
           ),
         ),
         SizedBox(width: 5),
-        Text('2.3KM Away', style: context.overline)
+        Text(
+            model.distance >= 1000
+                ? TR.of(context).distance_km((model.distance / 1000).format())
+                : TR.of(context).distance_m(model.distance.format()),
+            style: context.overline)
       ],
     );
   }
