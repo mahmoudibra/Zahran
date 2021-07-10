@@ -11,6 +11,7 @@ class VisitsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CompleteList.sliversWithList(
+      enablePullUp: false,
       headers: (ctrl) => [
         SliverOverlapInjector(
           handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
@@ -24,7 +25,11 @@ class VisitsTab extends StatelessWidget {
       ],
       padding: EdgeInsets.all(20),
       builItem: (item, index) {
-        return SlideFadeItem(child: VisitView());
+        return SlideFadeItem(
+          child: VisitView(
+            model: item,
+          ),
+        );
       },
       init: VisitsViewModel(),
     );

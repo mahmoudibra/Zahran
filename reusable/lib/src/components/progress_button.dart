@@ -130,7 +130,7 @@ class _ProgressButtonState extends State<ProgressButton>
     );
   }
 
-  EdgeInsetsGeometry getDefaultPadding() {
+  T? effectiveValue<T>(T? Function(ButtonStyle? style) getProperty) {
     final widgetStyle = widget.style;
     ButtonStyle? themeStyle;
     ButtonStyle defaultStyle;
@@ -153,20 +153,20 @@ class _ProgressButtonState extends State<ProgressButton>
         defaultStyle = ElevatedButton(onPressed: () {}, child: Text(''))
             .defaultStyleOf(context);
     }
-    T? effectiveValue<T>(T? Function(ButtonStyle? style) getProperty) {
-      final widgetValue = getProperty(widgetStyle);
-      final themeValue = getProperty(themeStyle);
-      final defaultValue = getProperty(defaultStyle);
-      return widgetValue ?? themeValue ?? defaultValue;
-    }
+    final widgetValue = getProperty(widgetStyle);
+    final themeValue = getProperty(themeStyle);
+    final defaultValue = getProperty(defaultStyle);
+    return widgetValue ?? themeValue ?? defaultValue;
+  }
 
-    T? resolve<T>(
-        MaterialStateProperty<T?>? Function(ButtonStyle? style) getProperty) {
-      return effectiveValue(
-        (ButtonStyle? style) => getProperty(style)?.resolve({}),
-      );
-    }
+  T? resolve<T>(
+      MaterialStateProperty<T?>? Function(ButtonStyle? style) getProperty) {
+    return effectiveValue(
+      (ButtonStyle? style) => getProperty(style)?.resolve({}),
+    );
+  }
 
+  EdgeInsetsGeometry getDefaultPadding() {
     final resolvedPadding = resolve((ButtonStyle? style) => style?.padding);
     final resolvedVisualDensity =
         effectiveValue((ButtonStyle? style) => style?.visualDensity);
@@ -183,6 +183,10 @@ class _ProgressButtonState extends State<ProgressButton>
             )
             .clamp(EdgeInsets.zero, EdgeInsetsGeometry.infinity) ??
         EdgeInsets.zero;
+  }
+
+  Color? getDefaulTextColor() {
+    return resolve((ButtonStyle? style) => style?.foregroundColor);
   }
 
   Widget _build(BuildContext context) {
@@ -303,7 +307,8 @@ class _ProgressButtonState extends State<ProgressButton>
 
   Widget _buildInnerChild() {
     return LayoutBuilder(builder: (ctx, constrains) {
-      var circularLoader = widget.loadingWidget ?? CircularProgressIndicator();
+      var circularLoader = widget.loadingWidget ??
+          CircularProgressIndicator(color: getDefaulTextColor());
 
       if (state == _ButtonState.Loading) {
         return widget.progressNotifier == null

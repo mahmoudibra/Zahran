@@ -55,6 +55,9 @@
     },
     "lets_get_to_work": "Let’s get to work ✍️",
     "upcoming_visits": "Upcoming Visits",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "running": "Running",
+    "incomplete": "Incomplete",
+    "completed": "Completed"
 
 }

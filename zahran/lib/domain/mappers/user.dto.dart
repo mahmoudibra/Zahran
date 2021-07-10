@@ -2,7 +2,7 @@ part of 'domain_mapper.dart';
 
 class UserDto implements DtoToDomainMapper<UserModel> {
   int id;
-  LocalizedName name;
+  LocalizedNameDto name;
   String sabNumber;
   String phone;
   String media;
@@ -11,7 +11,7 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   String avatar;
   UserDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = LocalizedName.fromJson(json["name"] ?? {});
+    name = LocalizedNameDto.fromJson(json["name"] ?? {});
     sabNumber = json['sab_number'];
     avatar = json['avatar'] ?? '';
     media = json['media'] ?? '';
@@ -37,7 +37,7 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   UserModel dtoToDomainModel() {
     return UserModel(
       id: id,
-      name: name,
+      name: name?.dtoToDomainModel(),
       sabNumber: sabNumber,
       phone: phone,
       media: media,

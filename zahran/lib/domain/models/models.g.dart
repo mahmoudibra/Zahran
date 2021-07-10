@@ -137,7 +137,7 @@ class TargetAdapter extends TypeAdapter<Target> {
 
 class LoginModelAdapter extends TypeAdapter<LoginModel> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
   LoginModel read(BinaryReader reader) {

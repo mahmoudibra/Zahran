@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/counter.dart';
 import 'package:zahran/presentation/commom/progress_gradiant.dart';
@@ -9,12 +10,11 @@ import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/r.dart';
 
 class VisitView extends StatelessWidget {
-  const VisitView({Key key}) : super(key: key);
+  final BranchModel model;
+  const VisitView({Key key, @required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var images = List.filled(10,
-        'https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png');
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -24,28 +24,45 @@ class VisitView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text("Carrefour", style: context.headline6),
-                SizedBox(height: 10),
                 _firstRow(context),
+                SizedBox(height: 10),
+                _secondRow(context),
                 Divider(),
-                _secondRow(context, images),
+                _thirdRow(context, model.brands),
               ],
             ),
           ),
-          ProgressGradiant(
-            progress: 24 / 40,
-          ),
+          ProgressGradiant(progress: model.completedTasks / model.totalTasks),
         ],
       ),
     );
   }
 
-  Row _secondRow(BuildContext context, List<String> images) {
+  Row _firstRow(BuildContext context) {
+    Color color = Color(0xFFF90000);
+    String label = TR.of(context).running;
+    return Row(
+      children: [
+        Expanded(
+          child: Text(model.name.format(context), style: context.headline6),
+        ),
+        SizedBox(width: 10),
+        Chip(
+          label: Text(TR.of(context).running),
+          visualDensity: VisualDensity.compact,
+          backgroundColor: color.withOpacity(0.15),
+          labelStyle: TextStyle(fontSize: 12, color: color),
+        )
+      ],
+    );
+  }
+
+  Widget _thirdRow(BuildContext context, List<BrandModel> brands) {
     return Row(
       children: [
         CounterView(
-          value: 24,
-          of: 40,
+          value: model.completedTasks,
+          of: model.totalTasks,
           label: TR.of(context).tasks,
         ),
         SizedBox(width: 10),
@@ -54,39 +71,39 @@ class VisitView extends StatelessWidget {
             height: 30,
             child: Stack(
               children: [
-                for (var i = min(images.length, 2); i >= 0; i--)
+                for (var i = min(brands.length, 3) - 1; i >= 0; i--)
                   PositionedDirectional(
-                    end: 25.0 * (images.length > 2 ? (i + 1) : i),
+                    end: 25.0 * (brands.length > 3 ? (i + 1) : i),
                     width: 30,
                     height: 30,
                     top: 0,
                     child: ShapedRemoteImage.aspectRatio(
-                      url: images[i],
+                      url: brands[i].mediaPath,
                       fit: BoxFit.contain,
-                      outerDecoration: _buildDecoration(),
-                      outerPadding: EdgeInsets.all(3),
+                      decoration: _buildDecoration(),
                     ),
                   ),
-                PositionedDirectional(
-                  end: 0,
-                  width: 30,
-                  height: 30,
-                  top: 0,
-                  child: Container(
-                    decoration: _buildDecoration(),
-                    padding: EdgeInsets.all(5),
-                    child: Center(
-                      child: AutoSizeText(
-                        "+${images.length - 3}",
-                        style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFFBDBCD1),
+                if (brands.length > 3)
+                  PositionedDirectional(
+                    end: 0,
+                    width: 30,
+                    height: 30,
+                    top: 0,
+                    child: Container(
+                      decoration: _buildDecoration(),
+                      padding: EdgeInsets.all(5),
+                      child: Center(
+                        child: AutoSizeText(
+                          "+${brands.length - 3}",
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFBDBCD1),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                )
+                  )
               ],
             ),
           ),
@@ -95,14 +112,14 @@ class VisitView extends StatelessWidget {
     );
   }
 
-  Row _firstRow(BuildContext context) {
+  Row _secondRow(BuildContext context) {
     return Row(
       children: [
         AssetIcon(R.assetsImagesLocationInRangeIcon),
         SizedBox(width: 5),
         Expanded(
           child: Text(
-            "24th Street, Al Khobar Branch",
+            model.address.format(context),
             style: context.overline,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -117,7 +134,6 @@ class VisitView extends StatelessWidget {
   BoxDecoration _buildDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(50),
-      border: Border.all(color: Color(0xFFF3F3F6)),
       color: Colors.white,
       boxShadow: [
         BoxShadow(

@@ -46,6 +46,7 @@ class LoginScreen extends StatelessWidget {
                     onSaved: (v) => vm.sab = v,
                     textInputType: TextInputType.number,
                     extraValidator: vm.validateSab,
+                    maxLength: 8,
                   ),
                   SizedBox(height: 20),
                   Text(

@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  ansi_logger: ^2.0.3
+  ansi_logger: ^2.0.8
   dio: ^4.0.0
   simple: ^2.0.4
   get: ^4.1.4
