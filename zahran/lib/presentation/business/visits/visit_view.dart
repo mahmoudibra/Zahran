@@ -48,7 +48,7 @@ class VisitView extends StatelessWidget {
         ),
         SizedBox(width: 10),
         Chip(
-          label: Text(TR.of(context).running),
+          label: Text(label),
           visualDensity: VisualDensity.compact,
           backgroundColor: color.withOpacity(0.15),
           labelStyle: TextStyle(fontSize: 12, color: color),
