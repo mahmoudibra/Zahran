@@ -1,3 +1,6 @@
+
+
+
 import 'tr.dart';
 
 /// The translations for Arabic (`ar`).
@@ -41,8 +44,7 @@ class TRAr extends TR {
   String get we_are_sorry => 'نحن نعتذر';
 
   @override
-  String get generic_error_message =>
-      'التطبيق يواجه مشكلة, يرجى المحاولة مرة أخرى بعد بضع دقائق';
+  String get generic_error_message => 'التطبيق يواجه مشكلة, يرجى المحاولة مرة أخرى بعد بضع دقائق';
 
   @override
   String get try_again => 'حاول مجددا';
@@ -54,8 +56,7 @@ class TRAr extends TR {
   String get internet_connection_error_msg => 'خظأ اثناء الإتصال بالإنترنت';
 
   @override
-  String get internet_connection_error_try_again_button =>
-      'حاول مجددأ بعد الإتصال بشبكة الإنترنت';
+  String get internet_connection_error_try_again_button => 'حاول مجددأ بعد الإتصال بشبكة الإنترنت';
 
   @override
   String get capture_image => 'التقط صوره';
@@ -79,37 +80,31 @@ class TRAr extends TR {
   String get permission_access_microphone_title => 'الوصول إلى الميكروفون';
 
   @override
-  String get permission_access_microphone_message =>
-      'نحتاج إلى الوصول إلى الميكروفون الخاص بك حتى نتمكن من تسجيل الملاحظات الصوتية!';
+  String get permission_access_microphone_message => 'نحتاج إلى الوصول إلى الميكروفون الخاص بك حتى نتمكن من تسجيل الملاحظات الصوتية!';
 
   @override
   String get permission_access_location_title => 'الوصول إلى الموقع';
 
   @override
-  String get permission_access_location_message =>
-      'نحتاج إلى الوصول إلى موقعك لاكتشاف منطقتك!';
+  String get permission_access_location_message => 'نحتاج إلى الوصول إلى موقعك لاكتشاف منطقتك!';
 
   @override
   String get permission_access_camera_title => 'الوصول إلى الكاميرا';
 
   @override
-  String get permission_access_camera_message =>
-      'نحتاج إلى الوصول إلى الكاميرا حتى نتمكن من التقاط الصور!';
+  String get permission_access_camera_message => 'نحتاج إلى الوصول إلى الكاميرا حتى نتمكن من التقاط الصور!';
 
   @override
-  String get permission_access_video_camera_message =>
-      'نحتاج إلى الوصول إلى الكاميرا حتى نتمكن من التقاط الفيديو!';
+  String get permission_access_video_camera_message => 'نحتاج إلى الوصول إلى الكاميرا حتى نتمكن من التقاط الفيديو!';
 
   @override
   String get permission_access_gallery_title => 'الوصول إلى المعرض';
 
   @override
-  String get permission_access_gallery_message =>
-      'نحتاج إلى الوصول إلى معرض الصور الخاص بك حتى نتمكن من اختيار الصور!';
+  String get permission_access_gallery_message => 'نحتاج إلى الوصول إلى معرض الصور الخاص بك حتى نتمكن من اختيار الصور!';
 
   @override
-  String get permission_access_video_gallery_message =>
-      'نحتاج إلى الوصول إلى معرض الصور الخاص بك حتى نتمكن من اختيار الفيديو!';
+  String get permission_access_video_gallery_message => 'نحتاج إلى الوصول إلى معرض الصور الخاص بك حتى نتمكن من اختيار الفيديو!';
 
   @override
   String get permission_access_change_settings_button => 'تغيير الاعدادات';
@@ -130,28 +125,28 @@ class TRAr extends TR {
   String get login_title => 'هيا بنا تبدأ';
 
   @override
-  String get login_sub_title => 'Login to start eliminate your tasks.';
+  String get login_sub_title => 'سجل الدخول لتبدأ بالعمل على مهامك';
 
   @override
   String get sab_number => 'Sab-Number';
 
   @override
-  String get password => 'Password';
+  String get password => 'كلمة المرور';
 
   @override
-  String get login => 'Login';
+  String get login => 'تسجيل الدخول';
 
   @override
-  String get inavlid_sab => 'Sab-number should consist of 6 to 8 numbers';
+  String get invalid_sab => 'رمز التعريف يجب ان يتكون من ٦ ل ٨ ارقام';
 
   @override
-  String get inavlid_password => 'Password must be at least 6 numbers';
+  String get invalid_password => 'كلمة المرور يجبان لا تقل عن ٦ احرف';
 
   @override
-  String get visits => 'Visits';
+  String get visits => 'زيارة';
 
   @override
-  String get profile => 'Profile';
+  String get profile => 'الملف الشخصي';
 
   @override
   String welcome(Object user) {
@@ -159,22 +154,22 @@ class TRAr extends TR {
   }
 
   @override
-  String get lets_get_to_work => 'Let’s get to work ✍️';
+  String get lets_get_to_work => 'هيا لنبدأ العمل ✍️';
 
   @override
-  String get upcoming_visits => 'Upcoming Visits';
+  String get upcoming_visits => 'الزيارات القادمة';
 
   @override
-  String get tasks => 'Tasks';
+  String get tasks => 'المهام';
 
   @override
-  String get running => 'Running';
+  String get running => 'جاري';
 
   @override
-  String get incomplete => 'Incomplete';
+  String get incomplete => 'غير مكتمل';
 
   @override
-  String get completed => 'Completed';
+  String get completed => 'مكتمل';
 
   @override
   String get back => 'Back';
@@ -195,4 +190,31 @@ class TRAr extends TR {
 
   @override
   String get report => 'Report';
+
+  @override
+  String get promotion => 'Promotion';
+
+  @override
+  String get invalid_user_name => 'اسم المستخدم يجب ان لا يكون فارغ';
+
+  @override
+  String get invalid_phone_number => 'رقم الهاتف يجب ان يتكون من ١١ رقم';
+
+  @override
+  String get change_image => 'Change Image';
+
+  @override
+  String get username => 'Username';
+
+  @override
+  String get phone_number => 'Phone Number';
+
+  @override
+  String get save_changes => 'Save Changes';
+
+  @override
+  String get change_password => 'Change password';
+
+  @override
+  String get personal_info => 'المعلومات الشخصية';
 }
