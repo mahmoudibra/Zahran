@@ -153,10 +153,10 @@ class UserProfileViewModel extends GetxController {
     // navigator.pop();
   }
 
-  void dispose() {
-    // super.dispose();
-    _updateProfileStream.close();
-  }
+  // void dispose() {
+  //   // super.dispose();
+  //   _updateProfileStream.close();
+  // }
 
 // void saveUserResponseImage(MultiMediaResponse uploadImageResponse) {
 //   userData = UserData.copyWith(
