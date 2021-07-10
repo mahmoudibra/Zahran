@@ -20,7 +20,7 @@
     "capture_image": "Take a Picture",
     "choose_from_gallery": "Choose From Gallery",
     "choose_media": "Choose Media",
-    "choose_media_description": "Choose Your prefered Media",
+    "choose_media_description": "Choose Your preferred Media",
     "record_video": "Record Video",
     "choose_video_from_gallery": "Choose Video From Gallery",
     "permission_access_microphone_title": "Microphone Access",
@@ -43,8 +43,8 @@
     "sab_number": "Sab-Number",
     "password": "Password",
     "login": "Login",
-    "inavlid_sab": "Sab-number should consist of 6 to 8 numbers",
-    "inavlid_password": "Password must be at least 6 numbers",
+    "invalid_sab": "Sab-number should consist of 6 to 8 numbers",
+    "invalid_password": "Password must be at least 6 numbers",
     "visits": "Visits",
     "profile": "Profile",
     "welcome": "Welcome, {user}",
@@ -77,5 +77,6 @@
     "username": "Username",
     "phone_number": "Phone Number",
     "save_changes": "Save Changes",
-    "change_password": "Change password"
+    "change_password": "Change password",
+    "personal_info": "Personal Info"
 }

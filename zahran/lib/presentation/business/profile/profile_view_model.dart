@@ -23,10 +23,8 @@ class UserProfileViewModel extends GetxController {
     userModel = await Repos.userRepo.fetchUserInfo();
     var localUserModel = Get.find<AuthViewModel>().user;
     var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
-    Get.find<AuthViewModel>().saveUser(updatedLoginModel);
-    update([
-      [userModel]
-    ]);
+    await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
+    update();
   }
 
   String? validateUserName(String? v) {
@@ -51,7 +49,7 @@ class UserProfileViewModel extends GetxController {
 
   @override
   void onInit() {
-    _fetchUserInfo();
+    context.loadingDialog(action: _fetchUserInfo());
     super.onInit();
   }
 

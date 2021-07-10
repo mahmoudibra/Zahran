@@ -217,7 +217,7 @@ abstract class TR {
   /// No description provided for @choose_media_description.
   ///
   /// In en, this message translates to:
-  /// **'Choose Your prefered Media'**
+  /// **'Choose Your preferred Media'**
   String get choose_media_description;
 
   /// No description provided for @record_video.
@@ -334,12 +334,6 @@ abstract class TR {
   /// **'Login to start eliminate your tasks.'**
   String get login_sub_title;
 
-  /// No description provided for @personal_info.
-  ///
-  /// In en, this message translates to:
-  /// **'Personal Info'**
-  String get personal_info;
-
   /// No description provided for @sab_number.
   ///
   /// In en, this message translates to:
@@ -358,17 +352,17 @@ abstract class TR {
   /// **'Login'**
   String get login;
 
-  /// No description provided for @inavlid_sab.
+  /// No description provided for @invalid_sab.
   ///
   /// In en, this message translates to:
   /// **'Sab-number should consist of 6 to 8 numbers'**
-  String get inavlid_sab;
+  String get invalid_sab;
 
-  /// No description provided for @inavlid_password.
+  /// No description provided for @invalid_password.
   ///
   /// In en, this message translates to:
   /// **'Password must be at least 6 numbers'**
-  String get inavlid_password;
+  String get invalid_password;
 
   /// No description provided for @visits.
   ///
@@ -424,6 +418,48 @@ abstract class TR {
   /// **'Completed'**
   String get completed;
 
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @get_directions.
+  ///
+  /// In en, this message translates to:
+  /// **'Get directions'**
+  String get get_directions;
+
+  /// No description provided for @see_all.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get see_all;
+
+  /// No description provided for @task_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks ({count})'**
+  String task_count(Object count);
+
+  /// No description provided for @check_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in'**
+  String get check_in;
+
+  /// No description provided for @report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report;
+
+  /// No description provided for @promotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion'**
+  String get promotion;
+
   /// No description provided for @invalid_user_name.
   ///
   /// In en, this message translates to:
@@ -465,6 +501,12 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Change password'**
   String get change_password;
+
+  /// No description provided for @personal_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Info'**
+  String get personal_info;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

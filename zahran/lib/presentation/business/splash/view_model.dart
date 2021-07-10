@@ -16,25 +16,24 @@ class SplashViewModel extends GetxController {
   Animation<double> get loaderAnimation => _loaderAnimation;
   Duration get duration => Duration(seconds: 2);
 
-  Future checkFirstLogin() async {
-    //await Get.find<AuthViewModel>().openBox();
-  }
+  Future checkFirstLogin() async {}
 
   void navigate() {
     var auth = Get.find<AuthViewModel>();
-    if (auth.authenticated) {
-      ScreenNames.home.pushReplacementNamed();
-    } else {
-      ScreenNames.login.pushReplacementNamed();
-    }
+    ScreenNames.userProfile.pushReplacementNamed();
+
+    // if (auth.authenticated) {
+    //   ScreenNames.home.pushReplacementNamed();
+    // } else {
+    //   ScreenNames.login.pushReplacementNamed();
+    // }
   }
 
   @override
   void onInit() async {
     _controller = AnimationController(vsync: vsync, duration: duration);
-    _colorAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: controller,
-        curve: Interval(0.0, 0.3, curve: Curves.easeInCubic)));
+    _colorAnimation = Tween(begin: 0.0, end: 1.0)
+        .animate(CurvedAnimation(parent: controller, curve: Interval(0.0, 0.3, curve: Curves.easeInCubic)));
     _imageAnimation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: _controller,
       curve: Interval(0.3, 0.8, curve: Curves.easeInCubic),

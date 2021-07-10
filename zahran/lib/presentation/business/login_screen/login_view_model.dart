@@ -23,10 +23,10 @@ class LoginViewModel extends GetxController {
   }
 
   String? validateSab(String? v) {
-    return (v != null && v.isNum && v.length >= 6 && v.length <= 8).onFalse(TR.of(context).inavlid_sab);
+    return (v != null && v.isNum && v.length >= 6 && v.length <= 8).onFalse(TR.of(context).invalid_sab);
   }
 
   String? validatePassword(String? v) {
-    return (v != null && v.length >= 6).onFalse(TR.of(context).inavlid_password);
+    return (v != null && v.length >= 6).onFalse(TR.of(context).invalid_sab);
   }
 }

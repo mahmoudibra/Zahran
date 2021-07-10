@@ -128,9 +128,6 @@ class TRAr extends TR {
   String get login_sub_title => 'سجل الدخول لتبدأ بالعمل على مهامك';
 
   @override
-  String get personal_info => 'المعلومات الشخصية';
-
-  @override
   String get sab_number => 'Sab-Number';
 
   @override
@@ -140,10 +137,10 @@ class TRAr extends TR {
   String get login => 'تسجيل الدخول';
 
   @override
-  String get inavlid_sab => 'رمز التعريف يجب ان يتكون من ٦ ل ٨ ارقام';
+  String get invalid_sab => 'رمز التعريف يجب ان يتكون من ٦ ل ٨ ارقام';
 
   @override
-  String get inavlid_password => 'كلمة المرور يجبان لا تقل عن ٦ احرف';
+  String get invalid_password => 'كلمة المرور يجبان لا تقل عن ٦ احرف';
 
   @override
   String get visits => 'زيارة';
@@ -175,6 +172,29 @@ class TRAr extends TR {
   String get completed => 'مكتمل';
 
   @override
+  String get back => 'Back';
+
+  @override
+  String get get_directions => 'Get directions';
+
+  @override
+  String get see_all => 'See all';
+
+  @override
+  String task_count(Object count) {
+    return 'Tasks ($count)';
+  }
+
+  @override
+  String get check_in => 'Check-in';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get promotion => 'Promotion';
+
+  @override
   String get invalid_user_name => 'اسم المستخدم يجب ان لا يكون فارغ';
 
   @override
@@ -194,4 +214,7 @@ class TRAr extends TR {
 
   @override
   String get change_password => 'Change password';
+
+  @override
+  String get personal_info => 'المعلومات الشخصية';
 }

@@ -7,14 +7,7 @@ import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 
 part 'screen_extensions.dart';
 
-enum ScreenNames {
-  login,
-  login_sheet,
-  splash,
-  home,
-  visit_details,
-  userProfile
-}
+enum ScreenNames { login, login_sheet, splash, home, visit_details, userProfile }
 
 class ScreenRouter {
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();

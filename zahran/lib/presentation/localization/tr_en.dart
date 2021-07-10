@@ -68,7 +68,7 @@ class TREn extends TR {
   String get choose_media => 'Choose Media';
 
   @override
-  String get choose_media_description => 'Choose Your prefered Media';
+  String get choose_media_description => 'Choose Your preferred Media';
 
   @override
   String get record_video => 'Record Video';
@@ -128,9 +128,6 @@ class TREn extends TR {
   String get login_sub_title => 'Login to start eliminate your tasks.';
 
   @override
-  String get personal_info => 'Personal Info';
-
-  @override
   String get sab_number => 'Sab-Number';
 
   @override
@@ -140,10 +137,10 @@ class TREn extends TR {
   String get login => 'Login';
 
   @override
-  String get inavlid_sab => 'Sab-number should consist of 6 to 8 numbers';
+  String get invalid_sab => 'Sab-number should consist of 6 to 8 numbers';
 
   @override
-  String get inavlid_password => 'Password must be at least 6 numbers';
+  String get invalid_password => 'Password must be at least 6 numbers';
 
   @override
   String get visits => 'Visits';
@@ -175,6 +172,29 @@ class TREn extends TR {
   String get completed => 'Completed';
 
   @override
+  String get back => 'Back';
+
+  @override
+  String get get_directions => 'Get directions';
+
+  @override
+  String get see_all => 'See all';
+
+  @override
+  String task_count(Object count) {
+    return 'Tasks ($count)';
+  }
+
+  @override
+  String get check_in => 'Check-in';
+
+  @override
+  String get report => 'Report';
+
+  @override
+  String get promotion => 'Promotion';
+
+  @override
   String get invalid_user_name => 'Username should not be empty';
 
   @override
@@ -194,4 +214,7 @@ class TREn extends TR {
 
   @override
   String get change_password => 'Change password';
+
+  @override
+  String get personal_info => 'Personal Info';
 }

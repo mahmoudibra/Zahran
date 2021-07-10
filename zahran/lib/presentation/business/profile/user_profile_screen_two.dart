@@ -13,8 +13,6 @@ class UserProfileScreen extends StatelessWidget {
 
   UserProfileScreen({Key? key}) : super(key: key);
 
-  // var colors = Theme.of(context).colorScheme;
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
