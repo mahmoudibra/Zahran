@@ -10,12 +10,12 @@ class GalleryBox extends StatefulWidget {
   final int _selected;
   final Function _onSelectedChanged;
 
-  GalleryBox(
-      {@required List<String> photoURLs,
-      @required BuildContext themeContext,
-      @required Function onSelectedChanged,
-      int selected = 0})
-      : _photoURLs = photoURLs,
+  GalleryBox({
+    required List<String> photoURLs,
+    required BuildContext themeContext,
+    required Function onSelectedChanged,
+    int selected = 0,
+  })  : _photoURLs = photoURLs,
         _themeContext = themeContext,
         _onSelectedChanged = onSelectedChanged,
         _selected = selected;
@@ -25,30 +25,39 @@ class GalleryBox extends StatefulWidget {
 }
 
 class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
-  int _currentPhotoIndex;
-  AnimationController _colorController;
-  Animation<Color> _color;
-  AnimationController _opacityController;
-  Animation<double> _opacity;
-  PageController _pageController;
+  late int _currentPhotoIndex;
+  late AnimationController _colorController;
+  late Animation<Color?> _color;
+  late AnimationController _opacityController;
+  late Animation<double> _opacity;
+  late PageController _pageController;
 
   @override
   void initState() {
     _currentPhotoIndex = widget._selected;
 
     _pageController = PageController(initialPage: widget._selected);
-    _colorController = AnimationController(duration: Duration(milliseconds: 1500), vsync: this)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _colorController.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          _colorController.forward();
-        }
-      });
+    _colorController =
+        AnimationController(duration: Duration(milliseconds: 1500), vsync: this)
+          ..addStatusListener((status) {
+            if (status == AnimationStatus.completed) {
+              _colorController.reverse();
+            } else if (status == AnimationStatus.dismissed) {
+              _colorController.forward();
+            }
+          });
 
     _color = ColorTween(
-            begin: Theme.of(widget._themeContext).textTheme.bodyText2.color.withOpacity(0.10),
-            end: Theme.of(widget._themeContext).textTheme.bodyText2.color.withOpacity(0.38))
+            begin: Theme.of(widget._themeContext)
+                .textTheme
+                .bodyText2
+                ?.color
+                ?.withOpacity(0.10),
+            end: Theme.of(widget._themeContext)
+                .textTheme
+                .bodyText2
+                ?.color
+                ?.withOpacity(0.38))
         .animate(_colorController);
     _colorController.forward();
 
@@ -56,7 +65,8 @@ class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _opacity = CurvedAnimation(parent: _opacityController, curve: Curves.easeInOut);
+    _opacity =
+        CurvedAnimation(parent: _opacityController, curve: Curves.easeInOut);
     _opacityController.forward();
 
     super.initState();
@@ -71,7 +81,7 @@ class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return (widget._photoURLs == null || widget._photoURLs.isEmpty) ? _drawSkeleton() : _drawGallery();
+    return (widget._photoURLs.isEmpty) ? _drawSkeleton() : _drawGallery();
   }
 
   // UI Builder
@@ -88,7 +98,8 @@ class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
                     BlendMode.saturation,
                   ),
                   child: Container(color: _color.value)),
-              SvgPicture.asset(GeneralConfigs.SVG_PATH + "logo.svg", height: 20),
+              SvgPicture.asset(GeneralConfigs.SVG_PATH + "logo.svg",
+                  height: 20),
             ],
           );
         });
@@ -99,7 +110,11 @@ class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
         opacity: _opacity,
         child: Stack(
           fit: StackFit.expand,
-          children: <Widget>[_drawPhotoPager(), _drawTreatment(), _drawStepper()],
+          children: <Widget>[
+            _drawPhotoPager(),
+            _drawTreatment(),
+            _drawStepper()
+          ],
         ));
   }
 
@@ -139,7 +154,8 @@ class _GalleryBoxState extends State<GalleryBox> with TickerProviderStateMixin {
                       width: 6.0,
                       margin: EdgeInsets.symmetric(horizontal: 3.0),
                       decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(dotNdx == _currentPhotoIndex ? 1.0 : 0.4),
+                          color: Colors.white.withOpacity(
+                              dotNdx == _currentPhotoIndex ? 1.0 : 0.4),
                           borderRadius: BorderRadius.circular(3.0)),
                     );
                   },

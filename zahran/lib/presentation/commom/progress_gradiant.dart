@@ -3,7 +3,7 @@ import 'package:reusable/reusable.dart';
 
 class ProgressGradiant extends StatelessWidget {
   final double progress;
-  const ProgressGradiant({Key key, @required this.progress}) : super(key: key);
+  const ProgressGradiant({Key? key, required this.progress}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

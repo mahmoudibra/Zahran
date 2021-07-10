@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:zahran/presentation/external/image_picker/image_picker_maneger.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -29,15 +28,16 @@ class MediaPickerPM {
   // Data
   bool showPermissionDialog = false;
 
-  PermissionType permissionType;
+  PermissionType permissionType = PermissionType.Gallery;
 
-  MediaFileTypes mediaType;
+  MediaFileTypes mediaType = MediaFileTypes.IMAGE;
 
-  MediaPickerPM(
-      {@required this.mediaPickerManeger,
-      @required this.permissionManager,
-      @required this.mediaPickerType,
-      @required this.mediaPickerFileCallback}) {
+  MediaPickerPM({
+    required this.mediaPickerManeger,
+    required this.permissionManager,
+    required this.mediaPickerType,
+    required this.mediaPickerFileCallback,
+  }) {
     _mediaPickerStateStream.add(MediaPickerStatues.READY);
   }
 

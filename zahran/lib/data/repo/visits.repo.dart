@@ -8,7 +8,7 @@ import 'base.repo.dart';
 
 class VisitsRepo extends BaseRepositryImpl {
   @override
-  BuildContext get context => ScreenRouter.key.currentContext;
+  BuildContext get context => ScreenRouter.key.currentContext!;
 
   Future<ApiListResponse<BranchModel>> pagination(int skip) async {
     return await this.paging(

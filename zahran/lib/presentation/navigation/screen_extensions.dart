@@ -1,44 +1,46 @@
 part of 'screen_router.dart';
 
 extension RouterExtension on ScreenNames {
-  Future<T> push<T extends Object>([Object args]) {
-    return ScreenRouter.key.currentState
+  Future<T?> push<T extends Object?>([Object? args]) {
+    return ScreenRouter.key.currentState!
         .pushNamed<T>(this.toString(), arguments: args);
   }
 
-  Future<T> pushReplacementNamed<T extends Object, TO extends Object>({
-    TO result,
-    Object arguments,
+  Future<T?> pushReplacementNamed<T extends Object?, TO extends Object?>({
+    TO? result,
+    Object? arguments,
   }) {
-    return ScreenRouter.key.currentState.pushReplacementNamed<T, TO>(
+    return ScreenRouter.key.currentState!.pushReplacementNamed<T, TO>(
         this.toString(),
         arguments: arguments,
         result: result);
   }
 
-  Future<T> popAndPushNamed<T extends Object, TO extends Object>({
-    TO result,
-    Object arguments,
+  Future<T?> popAndPushNamed<T extends Object?, TO extends Object?>({
+    TO? result,
+    Object? arguments,
   }) {
-    return ScreenRouter.key.currentState.popAndPushNamed<T, TO>(this.toString(),
-        arguments: arguments, result: result);
+    return ScreenRouter.key.currentState!.popAndPushNamed<T, TO>(
+        this.toString(),
+        arguments: arguments,
+        result: result);
   }
 
-  Future<T> pushNamedAndRemoveUntil<T extends Object>(
+  Future pushNamedAndRemoveUntil(
     RoutePredicate predicate, [
-    Object arguments,
-  ]) {
-    return ScreenRouter.key.currentState.pushNamedAndRemoveUntil<T>(
+    Object? arguments,
+  ]) async {
+    await ScreenRouter.key.currentState!.pushNamedAndRemoveUntil(
         this.toString(), predicate,
         arguments: arguments);
   }
 
-  Future<T> pushAndRemoveAll<T extends Object>([
-    Object arguments,
-  ]) {
-    return ScreenRouter.key.currentState.pushNamedAndRemoveUntil<T>(
-        this.toString(), (r) => false,
-        arguments: arguments);
+  Future pushAndRemoveAll([Object? arguments]) async {
+    await ScreenRouter.key.currentState!.pushNamedAndRemoveUntil(
+      this.toString(),
+      (route) => false,
+      arguments: arguments,
+    );
   }
 
   Future showAsBottomSheet(BuildContext context,
@@ -48,7 +50,7 @@ extension RouterExtension on ScreenNames {
       isScrollControlled: isScrollControlled,
       isDismissible: isDismissible,
       builder: (ctx) {
-        return ScreenRouter.routes[this.toString()](context);
+        return ScreenRouter.routes[this.toString()]!(context);
       },
     );
   }
@@ -58,7 +60,7 @@ extension RouterExtension on ScreenNames {
     return showDialog(
       context: context,
       builder: (ctx) {
-        return Dialog(child: ScreenRouter.routes[this.toString()](context));
+        return Dialog(child: ScreenRouter.routes[this.toString()]!(context));
       },
     );
   }

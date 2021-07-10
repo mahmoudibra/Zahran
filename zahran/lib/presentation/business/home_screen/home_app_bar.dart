@@ -5,7 +5,7 @@ import 'package:zahran/presentation/commom/gradiant_container.dart';
 
 class HomeAppBar extends StatefulWidget {
   final bool innerBoxIsScrolled;
-  const HomeAppBar({Key key, @required this.innerBoxIsScrolled})
+  const HomeAppBar({Key? key, required this.innerBoxIsScrolled})
       : super(key: key);
 
   @override

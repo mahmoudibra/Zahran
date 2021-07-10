@@ -5,7 +5,7 @@ import 'home_app_bar.dart';
 import 'home_bottom_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

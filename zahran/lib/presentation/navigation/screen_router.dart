@@ -22,7 +22,7 @@ class ScreenRouter {
         "${ScreenNames.home}": (_) => HomeScreen(),
       };
 
-  static void pop<T extends Object>([T result]) {
-    return key.currentState.pop(result);
+  static void pop<T extends Object>([T? result]) {
+    return key.currentState!.pop(result);
   }
 }

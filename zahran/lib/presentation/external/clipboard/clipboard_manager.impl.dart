@@ -4,7 +4,7 @@ import 'clipboard.manager.dart';
 
 class ClipboardManagerImpl extends ClipboardManager {
   @override
-  Future<void> setClipboardData({String text}) {
+  Future<void> setClipboardData({String? text}) {
     return Clipboard.setData(ClipboardData(text: text));
   }
 }

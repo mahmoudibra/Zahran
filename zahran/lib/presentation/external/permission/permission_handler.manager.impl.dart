@@ -1,29 +1,24 @@
 import 'dart:io';
 
 import 'package:android_intent/android_intent.dart';
-import 'package:meta/meta.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
 
 class PermissionManagerImpl implements PermissionManager {
   @override
-  Future<PermissionState> checkPermission({@required PermissionType service}) {
-    assert(service != null);
-
+  Future<PermissionState> checkPermission({required PermissionType service}) {
     switch (service) {
       case PermissionType.Microphone:
         return _checkPermission(Permission.microphone);
       case PermissionType.Camera:
         return _checkPermission(Permission.camera);
-        break;
+
       case PermissionType.Gallery:
         return _checkPermission(Permission.photos);
-        break;
+
       case PermissionType.Location:
         return _checkPermission(Permission.location);
-        break;
     }
-    return null; // shall never happen
   }
 
   @override
@@ -34,7 +29,8 @@ class PermissionManagerImpl implements PermissionManager {
   // Helpers
   Future<PermissionState> _checkPermission(Permission permission) async {
     var status = await permission.status;
-    if (status == PermissionStatus.limited || (status == PermissionStatus.denied && Platform.isAndroid)) {
+    if (status == PermissionStatus.limited ||
+        (status == PermissionStatus.denied && Platform.isAndroid)) {
       status = await permission.request();
     }
 
@@ -46,9 +42,9 @@ class PermissionManagerImpl implements PermissionManager {
       case PermissionStatus.denied:
       case PermissionStatus.permanentlyDenied:
         return PermissionState.Denied;
-      default:
+      case PermissionStatus.limited:
+        return PermissionState.Granted;
     }
-    return null; // shall never happen
   }
 
   @override

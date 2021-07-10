@@ -6,12 +6,12 @@ import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/counter.dart';
 import 'package:zahran/presentation/commom/progress_gradiant.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
 class VisitView extends StatelessWidget {
   final BranchModel model;
-  const VisitView({Key key, @required this.model}) : super(key: key);
+  const VisitView({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

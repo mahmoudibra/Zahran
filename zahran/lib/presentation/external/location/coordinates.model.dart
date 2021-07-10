@@ -25,7 +25,8 @@ class GeoPoint {
   }
 
   @override
-  bool operator ==(Object other) => other is GeoPoint && lat == other.lat && long == other.long;
+  bool operator ==(Object other) =>
+      other is GeoPoint && lat == other.lat && long == other.long;
 
   @override
   int get hashCode => lat.hashCode + long.hashCode;
@@ -35,7 +36,8 @@ class GeoPoint {
         'coordinates': [long, lat],
       };
 
-  Map<String, dynamic> toGeoLocationsJson() => {'latitude': lat, 'longitude': long};
+  Map<String, dynamic> toGeoLocationsJson() =>
+      {'latitude': lat, 'longitude': long};
 
   List<double> toList() {
     return [long, lat];
@@ -46,7 +48,7 @@ class GeoBound {
   GeoPoint southwest;
   GeoPoint northeast;
 
-  GeoBound({this.southwest, this.northeast});
+  GeoBound({required this.southwest, required this.northeast});
 
   bool isEmpty() {
     return southwest.isEmpty() && northeast.isEmpty();
@@ -62,7 +64,10 @@ class GeoBound {
   }
 
   @override
-  bool operator ==(Object other) => other is GeoBound && southwest == other.southwest && northeast == other.northeast;
+  bool operator ==(Object other) =>
+      other is GeoBound &&
+      southwest == other.southwest &&
+      northeast == other.northeast;
 
   @override
   int get hashCode => southwest.hashCode + northeast.hashCode;
@@ -78,5 +83,12 @@ class Route {
   List<GeoPoint> polylines;
   GeoBound bound;
 
-  Route({this.start, this.end, this.distance, this.duration, this.polylines, this.bound});
+  Route({
+    required this.start,
+    required this.end,
+    required this.distance,
+    required this.duration,
+    required this.polylines,
+    required this.bound,
+  });
 }

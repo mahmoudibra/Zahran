@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/data/repo/user.repo.dart';
+import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class SplashViewModel extends GetxController {
   final TickerProvider vsync;
-  AnimationController _controller;
-  Animation<double> _colorAnimation;
-  Animation<double> _imageAnimation;
-  Animation<double> _loaderAnimation;
+  late AnimationController _controller;
+  late Animation<double> _colorAnimation;
+  late Animation<double> _imageAnimation;
+  late Animation<double> _loaderAnimation;
   SplashViewModel(this.vsync);
   AnimationController get controller => _controller;
   Animation<double> get colorAnimation => _colorAnimation;
@@ -17,12 +17,16 @@ class SplashViewModel extends GetxController {
   Duration get duration => Duration(seconds: 2);
 
   Future checkFirstLogin() async {
-    await Future.delayed(Duration(seconds: 2));
-    Get.find<AuthViewModel>().initUser();
+    //await Get.find<AuthViewModel>().openBox();
   }
 
   void navigate() {
-    ScreenNames.login.push();
+    var auth = Get.find<AuthViewModel>();
+    if (auth.authenticated) {
+      ScreenNames.home.push();
+    } else {
+      ScreenNames.login.push();
+    }
   }
 
   @override

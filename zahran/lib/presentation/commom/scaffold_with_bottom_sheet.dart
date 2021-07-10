@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 class ScafoldWithBottomSheet extends StatefulWidget {
   final List<Widget> bottom;
   final Widget Function(double offset) body;
-  final Color background;
-  const ScafoldWithBottomSheet(
-      {Key key, @required this.bottom, @required this.body, this.background})
-      : super(key: key);
+  final Color? background;
+  const ScafoldWithBottomSheet({
+    Key? key,
+    required this.bottom,
+    required this.body,
+    this.background,
+  }) : super(key: key);
 
   @override
   _ScafoldWithBottomSheetState createState() => _ScafoldWithBottomSheetState();

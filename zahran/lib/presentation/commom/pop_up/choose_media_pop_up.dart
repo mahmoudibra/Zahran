@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/commom/pop_up/pop_up.component.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 class MediaPickerPopUp extends StatelessWidget {
-  final Function onPickFromCameraCallback;
-  final Function onPickFromGalleryCallback;
-  final Function onRecordVideoCallback;
-  final Function onChooseVideoCallabck;
-  final Function onMediaDismissedCallback;
+  final VoidCallback onPickFromCameraCallback;
+  final VoidCallback onPickFromGalleryCallback;
+  final VoidCallback onRecordVideoCallback;
+  final VoidCallback onChooseVideoCallabck;
+  final VoidCallback onMediaDismissedCallback;
   final MediaPickerType mediaPickerType;
 
-  MediaPickerPopUp(
-      {@required this.onPickFromCameraCallback,
-      @required this.onPickFromGalleryCallback,
-      @required this.onRecordVideoCallback,
-      @required this.onChooseVideoCallabck,
-      @required this.mediaPickerType,
-      @required this.onMediaDismissedCallback});
+  MediaPickerPopUp({
+    required this.onPickFromCameraCallback,
+    required this.onPickFromGalleryCallback,
+    required this.onRecordVideoCallback,
+    required this.onChooseVideoCallabck,
+    required this.mediaPickerType,
+    required this.onMediaDismissedCallback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class MediaPickerPopUp extends StatelessWidget {
     );
   }
 
-  Map<String, Function> decideMediaActions(BuildContext context) {
+  Map<String, VoidCallback> decideMediaActions(BuildContext context) {
     if (mediaPickerType == MediaPickerType.VIDEO) {
       return {
         TR.of(context).record_video: onRecordVideoCallback,

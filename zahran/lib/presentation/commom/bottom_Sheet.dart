@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final Widget child;
-  final double radius = 20;
+  final double radius;
 
-  CustomBottomSheet({this.child});
+  CustomBottomSheet({required this.child, this.radius = 20});
 
   @override
   Widget build(BuildContext context) {

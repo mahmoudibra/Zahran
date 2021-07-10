@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/data/repo/visits.repo.dart';
+import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/config/configs.dart';
 
 class Repos {

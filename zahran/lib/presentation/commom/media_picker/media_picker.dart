@@ -11,22 +11,22 @@ import 'media_local.domain.dart';
 import 'media_picker.pm.dart';
 
 typedef MediaPickerFileCallback = void Function(
-    {@required MediaLocal mediaModel});
+    {required MediaLocal? mediaModel});
 
 class MediaPickerComponent extends StatefulWidget {
   final MediaPickerPM _mediaPickerPM;
 
   final Function onMediaDismissedCallback;
 
-  MediaPickerComponent(
-      {@required MediaPickerType mediaPickerType,
-      @required MediaPickerFileCallback mediaPickerFileCallback,
-      @required this.onMediaDismissedCallback})
-      : _mediaPickerPM = MediaPickerPM(
+  MediaPickerComponent({
+    required MediaPickerType mediaPickerType,
+    required MediaPickerFileCallback mediaPickerFileCallback,
+    required this.onMediaDismissedCallback,
+  }) : _mediaPickerPM = MediaPickerPM(
             mediaPickerManeger: MediaPickerManegerImpl(),
             permissionManager: PermissionManagerImpl(),
             mediaPickerType: mediaPickerType,
-            mediaPickerFileCallback: ({MediaLocal mediaModel}) {
+            mediaPickerFileCallback: ({MediaLocal? mediaModel}) {
               mediaPickerFileCallback(mediaModel: mediaModel);
             });
 
@@ -35,7 +35,7 @@ class MediaPickerComponent extends StatefulWidget {
 }
 
 class _MediaPickerComponentState extends State<MediaPickerComponent> {
-  File imageFile;
+  File? imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -43,12 +43,12 @@ class _MediaPickerComponentState extends State<MediaPickerComponent> {
       stream: widget._mediaPickerPM.mediaPickerStream,
       initialData: MediaPickerStatues.READY,
       builder: (ctx, value) {
-        if (value == null || value.hasError || (!value.hasData)) {
+        if (value.hasError || (!value.hasData)) {
           return RetryFullScreenError(
-            retry: null,
+            retry: () {},
           );
         } else {
-          return stateRender(value.data);
+          return stateRender(value.data!);
         }
       },
     );
@@ -63,7 +63,7 @@ class _MediaPickerComponentState extends State<MediaPickerComponent> {
         break;
       case MediaPickerStatues.PROBLEMATIC:
         currentState = RetryFullScreenError(
-          retry: null,
+          retry: () {},
         );
         break;
     }

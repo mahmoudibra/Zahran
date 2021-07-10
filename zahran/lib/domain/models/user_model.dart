@@ -16,17 +16,14 @@ class UserModel extends HiveObject {
   final DateTime lastVisit;
   @HiveField(6)
   final Target target;
-  @HiveField(7)
-  final String avatar;
   UserModel({
-    this.sabNumber,
-    this.avatar,
-    this.phone,
-    this.media,
-    this.lastVisit,
-    this.target,
-    this.id,
-    this.name,
+    required this.sabNumber,
+    required this.phone,
+    required this.media,
+    required this.lastVisit,
+    required this.target,
+    required this.id,
+    required this.name,
   });
 }
 
@@ -37,20 +34,7 @@ class Target {
   @HiveField(1)
   double target;
 
-  Target({this.totalSellOut, this.target});
-
-  Target.fromJson(Map<String, dynamic> json) {
-    totalSellOut =
-        double.tryParse(json['total_sell_out']?.toString() ?? '0') ?? 0;
-    target = double.tryParse(json['target']?.toString() ?? '0') ?? 0;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_sell_out'] = this.totalSellOut;
-    data['target'] = this.target;
-    return data;
-  }
+  Target({required this.totalSellOut, required this.target});
 }
 
 @HiveType(typeId: 4)
@@ -58,7 +42,7 @@ class LoginModel {
   @HiveField(0)
   String authToken;
   @HiveField(1)
-  UserModel userProfile;
+  UserModel? userProfile;
 
-  LoginModel({this.authToken, this.userProfile});
+  LoginModel({required this.authToken, required this.userProfile});
 }
