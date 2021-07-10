@@ -24,30 +24,3 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 }
-
-class AuthViewModel extends GetxController {
-  final LocalDataManager localDataManager;
-  LoginModel? _user;
-
-  AuthViewModel(this.localDataManager);
-  LoginModel? get user => _user;
-  UserModel? get profile => _user?.userProfile;
-  bool get authenticated => profile != null;
-
-  Future saveUser(LoginModel response) async {
-    _user = response;
-    update();
-    //TODO save user
-    // Login model is hive object
-  }
-
-  Future<Map<String, String>> getHeaders() async {
-    return {
-      "Authorization": "Bearer ${_user?.authToken}",
-    };
-  }
-
-  Future initUser() async {
-    //TODO  Get user from local storage and save it to _user variable
-  }
-}
