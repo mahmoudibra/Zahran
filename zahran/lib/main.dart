@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/source/local/shared_prefrence/local_data_manager.impl.dart';
-import 'package:zahran/presentation/localization/ext.dart';
 import 'package:zahran/presentation/localization/locale_builder.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'data/repo/user.repo.dart';

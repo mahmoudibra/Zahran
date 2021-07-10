@@ -5,10 +5,10 @@ import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class SplashViewModel extends GetxController {
   final TickerProvider vsync;
-  AnimationController _controller;
-  Animation<double> _colorAnimation;
-  Animation<double> _imageAnimation;
-  Animation<double> _loaderAnimation;
+  late AnimationController _controller;
+  late Animation<double> _colorAnimation;
+  late Animation<double> _imageAnimation;
+  late Animation<double> _loaderAnimation;
   SplashViewModel(this.vsync);
   AnimationController get controller => _controller;
   Animation<double> get colorAnimation => _colorAnimation;

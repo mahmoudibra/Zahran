@@ -82,7 +82,7 @@ class ThemeGenerator {
       textTheme: textTheme,
       primaryTextTheme: textTheme
           .copyWith(
-              caption: textTheme.caption.copyWith(color: Color(0xFFB4B3BE)))
+              caption: textTheme.caption?.copyWith(color: Color(0xFFB4B3BE)))
           .apply(
             bodyColor: colors.onPrimary,
             decorationColor: colors.onPrimary,

@@ -21,14 +21,14 @@ class MediaPickerManegerImpl extends MediaPickerManager {
       maxWidth: 500,
       maxHeight: 500,
     );
-    return File(pickedFile.path);
+    return File(pickedFile!.path);
   }
 
   Future<File> _pickVideo(ImageSource imageSource) async {
     final pickedFile = await _imagePicker.getVideo(
       source: imageSource,
     );
-    return File(pickedFile.path);
+    return File(pickedFile!.path);
   }
 
   @override

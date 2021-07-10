@@ -17,17 +17,14 @@ class LocationManagerImpl implements LocationManager {
         {
           return Future.value(true);
         }
-        break;
       case LocationPermission.whileInUse:
         {
           return Future.value(true);
         }
-        break;
       case LocationPermission.denied:
         {
           return Future.value(false);
         }
-        break;
       case LocationPermission.deniedForever:
         {
           return Future.value(false);
@@ -36,7 +33,6 @@ class LocationManagerImpl implements LocationManager {
         {
           return Future.value(false);
         }
-        break;
     }
   }
 
@@ -44,10 +40,12 @@ class LocationManagerImpl implements LocationManager {
   Future<GeoPoint> getCurrentLocation() async {
     try {
       Position position;
-      final desiredAccuracy = Platform.isAndroid ? LocationAccuracy.high : LocationAccuracy.medium;
+      final desiredAccuracy =
+          Platform.isAndroid ? LocationAccuracy.high : LocationAccuracy.medium;
 
-      position = await Geolocator.getCurrentPosition(desiredAccuracy: desiredAccuracy).timeout(Duration(seconds: 10),
-          onTimeout: () {
+      position =
+          await Geolocator.getCurrentPosition(desiredAccuracy: desiredAccuracy)
+              .timeout(Duration(seconds: 10), onTimeout: () {
         return Future.error(LocationServiceException());
       });
       return GeoPoint(position.latitude, position.longitude);

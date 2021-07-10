@@ -1,9 +1,9 @@
 part of 'domain_mapper.dart';
 
 class BrandDto implements DtoToDomainMapper<BrandModel> {
-  int id;
-  LocalizedNameDto name;
-  String mediaPath;
+  int? id;
+  LocalizedNameDto? name;
+  String? mediaPath;
 
   BrandDto.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -22,6 +22,9 @@ class BrandDto implements DtoToDomainMapper<BrandModel> {
   @override
   BrandModel dtoToDomainModel() {
     return BrandModel(
-        id: id, name: name?.dtoToDomainModel(), mediaPath: mediaPath);
+      id: id!,
+      name: name?.dtoToDomainModel() ?? LocalizedName(),
+      mediaPath: mediaPath ?? '',
+    );
   }
 }

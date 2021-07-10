@@ -9,9 +9,9 @@ import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class UserRepo extends BaseRepositryImpl {
   @override
-  BuildContext get context => ScreenRouter.key.currentContext;
+  BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<LoginDto> login(String sub, String password) async {
+  Future<LoginModel?> login(String sub, String password) async {
     var result = await post(
       path: '/v1/mobile/login',
       data: {
@@ -19,7 +19,7 @@ class UserRepo extends BaseRepositryImpl {
         "password": password,
         "fcm_device_token": await FCMConfig.messaging.getToken(),
       },
-      mapItem: (json) => LoginDto.fromJson(json),
+      mapItem: (json) => LoginDto.fromJson(json).dtoToDomainModel(),
     );
     return result.data;
   }
@@ -27,14 +27,15 @@ class UserRepo extends BaseRepositryImpl {
 
 class AuthViewModel extends GetxController {
   final LocalDataManager localDataManager;
-  LoginModel _user;
+  LoginModel? _user;
 
   AuthViewModel(this.localDataManager);
-  LoginModel get user => _user;
-  UserModel get profile => _user?.userProfile;
+  LoginModel? get user => _user;
+  UserModel? get profile => _user?.userProfile;
+  bool get authenticated => profile != null;
 
-  Future saveUser(LoginDto response) async {
-    _user = response.dtoToDomainModel();
+  Future saveUser(LoginModel response) async {
+    _user = response;
     update();
     //TODO save user
     // Login model is hive object

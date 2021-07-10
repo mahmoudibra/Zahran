@@ -1,9 +1,9 @@
 part of 'domain_mapper.dart';
 
 class ChainDto implements DtoToDomainMapper<ChainModel> {
-  int id;
-  LocalizedNameDto title;
-  String media;
+  int? id;
+  LocalizedNameDto? title;
+  String? media;
 
   ChainDto.fromJson(Map<String, dynamic> json) {
     id = json["id"];
@@ -21,6 +21,10 @@ class ChainDto implements DtoToDomainMapper<ChainModel> {
 
   @override
   ChainModel dtoToDomainModel() {
-    return ChainModel(id: id, title: title?.dtoToDomainModel(), media: media);
+    return ChainModel(
+      id: id!,
+      title: title?.dtoToDomainModel() ?? LocalizedName(),
+      media: media ?? '',
+    );
   }
 }

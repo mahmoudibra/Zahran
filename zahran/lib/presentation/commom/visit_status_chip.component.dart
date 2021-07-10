@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 class VisitStatusChip extends StatelessWidget {
   final String visitStatus;
 
-  VisitStatusChip({@required this.visitStatus});
+  VisitStatusChip({required this.visitStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +20,8 @@ class VisitStatusChip extends StatelessWidget {
           ),
           label: Text(
             decideVisitStatusText(context),
-            style: Theme.of(context).textTheme.caption.copyWith(
-                  color: Theme.of(context).textTheme.headline6.color,
+            style: Theme.of(context).textTheme.caption?.copyWith(
+                  color: Theme.of(context).textTheme.headline6?.color,
                   fontWeight: FontWeight.w400,
                 ),
           ),
@@ -47,7 +47,7 @@ class VisitStatusChip extends StatelessWidget {
     return TR.of(context).visit_details_status_pending;
   }
 
-  Color decideVisitStatusColor(BuildContext context) {
+  Color? decideVisitStatusColor(BuildContext context) {
     if (visitStatus == VisitStatus.PENDING.value ||
         visitStatus == VisitStatus.IN_PROGRESS.value) {
       // return Color(themeColors.lightGreen); //TODO: uncomment this

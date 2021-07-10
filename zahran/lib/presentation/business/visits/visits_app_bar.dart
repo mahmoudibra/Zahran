@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
 class VisitsAppBar extends StatelessWidget {
   final double expansion;
-  const VisitsAppBar({Key key, @required this.expansion}) : super(key: key);
+  const VisitsAppBar({Key? key, required this.expansion}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class VisitsAppBar extends StatelessWidget {
             child: Row(
               children: [
                 ShapedRemoteImage(
-                  url: vm.profile.media,
+                  url: vm.profile!.media,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(avatarWidth)),
                   width: avatarWidth,
@@ -43,7 +43,7 @@ class VisitsAppBar extends StatelessWidget {
                         child: Text(
                           TR
                               .of(context)
-                              .welcome(vm.profile.name.format(context)),
+                              .welcome(vm.profile!.name.format(context)),
                           style: TextStyle(fontSize: 14 + 4 * expansion),
                         ),
                       ),

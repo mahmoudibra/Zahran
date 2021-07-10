@@ -1,5 +1,5 @@
 abstract class PermissionManager {
-  Future<PermissionState> checkPermission({PermissionType service});
+  Future<PermissionState> checkPermission({required PermissionType service});
 
   Future<void> openSettings();
 

@@ -57,10 +57,10 @@ class DateTimeManager implements DateManegerHelper {
         ["dd", " ", "M", " ", "yyyy", " at ", "h", ":", "nn", " ", "am"]);
   }
 
-  static bool isTimeBetween({String value, String from, String to}) {
-    Time time = getTimeObjectFromString(value);
-    Time start = getTimeObjectFromString(from);
-    Time end = getTimeObjectFromString(to);
+  static bool isTimeBetween({String? value, String? from, String? to}) {
+    Time time = getTimeObjectFromString(value ?? '');
+    Time start = getTimeObjectFromString(from ?? '');
+    Time end = getTimeObjectFromString(to ?? '');
     var currentDate =
         DateTime(2020, 1, 1, time.hour, time.minute).millisecondsSinceEpoch;
     var startDate = DateTime.utc(2020, 1, 1, start.hour, start.minute)
@@ -122,5 +122,5 @@ class Time {
   int hour;
   int minute;
 
-  Time({this.hour, this.minute});
+  Time({required this.hour, required this.minute});
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 import 'visit_view.dart';
 
 class VisitsTab extends StatelessWidget {
-  const VisitsTab({Key key}) : super(key: key);
+  const VisitsTab({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,9 @@ class VisitsTab extends StatelessWidget {
         ),
       ],
       padding: EdgeInsets.all(20),
-      builItem: (item, index) {
+      builItem: (BranchModel item, index) {
         return SlideFadeItem(
-          child: VisitView(
-            model: item,
-          ),
+          child: VisitView(model: item),
         );
       },
       init: VisitsViewModel(),

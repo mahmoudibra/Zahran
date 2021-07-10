@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:zahran/presentation/external/video_thubnail/video.helper.dart';
 
@@ -8,14 +7,14 @@ import 'MediaFileTypes.dart';
 
 class MediaLocal {
   MediaFileTypes mediaFileTypes;
-  File videoThumbnail;
+  File? videoThumbnail;
   File mediaFile;
 
-  MediaLocal({@required this.mediaFile, @required this.mediaFileTypes});
+  MediaLocal({required this.mediaFile, required this.mediaFileTypes});
 
   Future<void> extractVideoThumbnail() async {
     if (mediaFileTypes.value == MediaFileTypes.VIDEO.value) {
-      videoThumbnail = await VideoHelper.getVideoThumbnailLocal(file: mediaFile);
+      videoThumbnail = await VideoHelper.getVideoThumbnailLocal(mediaFile);
     }
   }
 
@@ -23,16 +22,17 @@ class MediaLocal {
     if (mediaFileTypes.value == MediaFileTypes.VIDEO.value) {
       var fileSize = await mediaFile.length();
       print("🚀🚀🚀🚀🚀 size before compress: $fileSize");
-      MediaInfo info = await VideoHelper.compressVideo(file: mediaFile);
-      mediaFile = info.file;
+      MediaInfo info = await VideoHelper.compressVideo(mediaFile);
+      mediaFile = info.file!;
       var fileSizeCompresed = await mediaFile.length();
       print("🚀🚀🚀🚀🚀 size after compress: $fileSizeCompresed");
     }
   }
 
-  factory MediaLocal.fromJson(Map<String, dynamic> json, {String tmpDirectory}) {
+  factory MediaLocal.fromJson(Map<String, dynamic> json,
+      {String? tmpDirectory}) {
     MediaFileTypes mediaFileTypes;
-    File mediaFile;
+    File? mediaFile = null;
     if (json['mediaFileTypes'] != null) {
       mediaFileTypes = MediaFileTypes(json['mediaFileTypes']);
     } else {
@@ -41,26 +41,26 @@ class MediaLocal {
     if (json['mediaFile'] != null) {
       print("🚀🚀🚀🚀🚀 Media File Type HashCode: ${mediaFileTypes.hashCode}");
       if (mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
       } else if (mediaFileTypes.value == MediaFileTypes.VIDEO.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
       } else if (mediaFileTypes.value == MediaFileTypes.AUDIO.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
       }
-      mediaFile.writeAsBytesSync(List<int>.from(json['mediaFile']));
+      mediaFile!.writeAsBytesSync(List<int>.from(json['mediaFile']));
     }
-    return MediaLocal(mediaFile: mediaFile, mediaFileTypes: mediaFileTypes);
+    return MediaLocal(mediaFile: mediaFile!, mediaFileTypes: mediaFileTypes);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (mediaFileTypes != null) {
-      data['mediaFileTypes'] = this.mediaFileTypes.value;
-    }
 
-    if (mediaFile != null) {
-      data['mediaFile'] = this.mediaFile.readAsBytesSync();
-    }
+    data['mediaFileTypes'] = this.mediaFileTypes.value;
+
+    data['mediaFile'] = this.mediaFile.readAsBytesSync();
 
     return data;
   }

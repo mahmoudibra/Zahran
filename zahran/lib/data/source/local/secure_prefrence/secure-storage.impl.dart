@@ -2,14 +2,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:zahran/data/source/local/secure_prefrence/secure-local-data-prefrence.dart';
 
 class SecureStorageImpl implements SecureStorage {
-  FlutterSecureStorage flutterSecureStorage;
-
-  SecureStorageImpl() {
-    flutterSecureStorage = FlutterSecureStorage();
-  }
+  final FlutterSecureStorage flutterSecureStorage = FlutterSecureStorage();
 
   @override
-  Future<String> readSecureKey(SecureLocalKeys key) {
+  Future<String?> readSecureKey(SecureLocalKeys key) {
     return flutterSecureStorage.read(key: key.value);
   }
 

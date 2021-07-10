@@ -4,12 +4,12 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/login_screen/login_view_model.dart';
 import 'package:zahran/presentation/commom/gradiant_container.dart';
 import 'package:zahran/presentation/commom/scaffold_with_bottom_sheet.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
 class LoginScreen extends StatelessWidget {
   final ProgressButtonKey buttonKey = ProgressButtonKey();
-  LoginScreen({Key key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

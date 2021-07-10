@@ -3,10 +3,10 @@ import 'package:reusable/reusable.dart';
 
 class CounterView extends StatelessWidget {
   final int value;
-  final int of;
+  final int? of;
   final String label;
   const CounterView(
-      {Key key, @required this.value, this.of, @required this.label})
+      {Key? key, required this.value, this.of, required this.label})
       : super(key: key);
 
   @override

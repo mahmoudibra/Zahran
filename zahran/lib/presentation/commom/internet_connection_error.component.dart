@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/config/configs.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 class InternetConnectionError extends StatelessWidget {
-  final Function retry;
+  final VoidCallback retry;
 
-  InternetConnectionError({@required this.retry});
+  InternetConnectionError({required this.retry});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class InternetConnectionError extends StatelessWidget {
             margin: EdgeInsetsDirectional.only(top: 70),
             child: Text(
               TR.of(context).internet_connection_error_title,
-              style: Theme.of(context).textTheme.headline6.copyWith(
+              style: Theme.of(context).textTheme.headline6?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.error,
                   ),
@@ -34,7 +34,7 @@ class InternetConnectionError extends StatelessWidget {
             margin: EdgeInsetsDirectional.only(top: 22, start: 31, end: 31),
             child: Text(
               TR.of(context).internet_connection_error_msg,
-              style: Theme.of(context).textTheme.bodyText2.copyWith(
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
                     fontWeight: FontWeight.normal,
                     fontSize: 16,
                   ),
@@ -57,7 +57,7 @@ class InternetConnectionError extends StatelessWidget {
         child: Center(
           child: Text(
             TR.of(context).internet_connection_error_try_again_button,
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
+            style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w500,
                 ),

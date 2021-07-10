@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 class PopUp extends StatelessWidget {
   final String _title;
   final String _message;
-  final Map<String, Function> _actions;
-  final Function onDismissedAction;
+  final Map<String, VoidCallback> _actions;
+  final VoidCallback onDismissedAction;
 
-  PopUp(
-      {@required String title,
-      @required String message,
-      Map<String, Function> actions,
-      @required BuildContext context,
-      @required this.onDismissedAction,
-      bool implicitDismiss = true})
-      : _title = title,
+  PopUp({
+    required String title,
+    required String message,
+    Map<String, VoidCallback>? actions,
+    required BuildContext context,
+    required this.onDismissedAction,
+    bool implicitDismiss = true,
+  })  : _title = title,
         _message = message,
         _actions = actions ??
             (implicitDismiss
@@ -49,7 +49,7 @@ class PopUp extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .subtitle1
-              .copyWith(color: Theme.of(context).textTheme.bodyText2.color),
+              ?.copyWith(color: Theme.of(context).textTheme.bodyText2?.color),
         ),
       )
     ];
@@ -84,7 +84,7 @@ class PopUp extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .subtitle1
-                          .copyWith(color: Theme.of(context).primaryColor),
+                          ?.copyWith(color: Theme.of(context).primaryColor),
                       textAlign: TextAlign.center,
                     ))),
       );

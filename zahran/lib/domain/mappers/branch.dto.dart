@@ -1,16 +1,16 @@
 part of 'domain_mapper.dart';
 
 class BranchDto implements DtoToDomainMapper<BranchModel> {
-  int id;
-  LocationModel location;
-  double distance;
-  LocalizedNameDto name;
-  LocalizedNameDto address;
-  ChainDto chan;
-  int totalBrands;
-  int totalTasks;
-  int completedTasks;
-  List<BrandDto> brands;
+  int? id;
+  LocationModel? location;
+  double? distance;
+  LocalizedNameDto? name;
+  LocalizedNameDto? address;
+  ChainDto? chan;
+  int? totalBrands;
+  int? totalTasks;
+  int? completedTasks;
+  List<BrandDto>? brands;
   BranchDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
@@ -23,7 +23,7 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
     completedTasks =
         int.tryParse(json["completed_tasks"]?.toString() ?? "") ?? 0;
     brands =
-        (json["brands"] as List).map((e) => BrandDto.fromJson(e))?.toList() ??
+        (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ??
             [];
   }
 
@@ -38,23 +38,23 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
       "total_brands": totalBrands,
       "total_tasks": totalTasks,
       "completed_tasks": completedTasks,
-      "brands": brands?.map((e) => e.toJson())?.toList(),
+      "brands": brands?.map((e) => e.toJson()).toList(),
     };
   }
 
   @override
   BranchModel dtoToDomainModel() {
     return BranchModel(
-      id: id,
-      name: name?.dtoToDomainModel(),
-      location: location,
-      chan: chan.dtoToDomainModel(),
-      totalBrands: totalBrands,
-      totalTasks: totalTasks,
-      address: address?.dtoToDomainModel(),
-      brands: brands?.map((e) => e.dtoToDomainModel())?.toList(),
-      completedTasks: completedTasks,
-      distance: distance,
+      id: id!,
+      name: name?.dtoToDomainModel() ?? LocalizedName(),
+      location: location ?? LocationModel(lat: 0, lang: 0),
+      chan: (chan ?? ChainDto.fromJson({})).dtoToDomainModel(),
+      totalBrands: totalBrands ?? 0,
+      totalTasks: totalTasks ?? 0,
+      address: address?.dtoToDomainModel() ?? LocalizedName(),
+      brands: brands?.map((e) => e.dtoToDomainModel()).toList() ?? [],
+      completedTasks: completedTasks ?? 0,
+      distance: distance ?? 0,
     );
   }
 }

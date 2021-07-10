@@ -1,3 +1,3 @@
 abstract class ShareManager {
-  Future<void> shareContent({String sharedContent});
+  Future<void> shareContent({required String sharedContent});
 }

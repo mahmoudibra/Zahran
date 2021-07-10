@@ -14,16 +14,16 @@ class BranchModel {
   final List<BrandModel> brands;
 
   BranchModel({
-    @required this.id,
-    @required this.location,
-    @required this.distance,
-    @required this.name,
-    @required this.address,
-    @required this.chan,
-    @required this.totalBrands,
-    @required this.brands,
-    @required this.totalTasks,
-    @required this.completedTasks,
+    required this.id,
+    required this.location,
+    required this.distance,
+    required this.name,
+    required this.address,
+    required this.chan,
+    required this.totalBrands,
+    required this.brands,
+    required this.totalTasks,
+    required this.completedTasks,
   });
 }
 
@@ -32,7 +32,7 @@ class ChainModel {
   final LocalizedName title;
   final String media;
 
-  ChainModel({this.id, this.title, this.media});
+  ChainModel({required this.id, required this.title, required this.media});
 }
 
 class BrandModel {
@@ -40,5 +40,5 @@ class BrandModel {
   final LocalizedName name;
   final String mediaPath;
 
-  BrandModel({this.id, this.name, this.mediaPath});
+  BrandModel({required this.id, required this.name, required this.mediaPath});
 }

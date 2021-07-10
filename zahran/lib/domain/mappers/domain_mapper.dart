@@ -5,6 +5,7 @@ part 'branch.dto.dart';
 part 'chain.dto.dart';
 part 'localized_name.dto.dart';
 part 'brand.dto.dart';
+part 'target.dto.dart';
 
 abstract class DtoToDomainMapper<V> {
   V dtoToDomainModel();

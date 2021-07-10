@@ -3,16 +3,14 @@ import 'package:connectivity/connectivity.dart';
 import 'internet_connectivity_manager.dart';
 
 class InternetConnectivityManagerImpl implements InternetConnectivityManager {
-  Connectivity _connectivity;
+  Connectivity connectivity;
 
-  InternetConnectivityManagerImpl({Connectivity connectivity}) {
-    _connectivity = connectivity ?? Connectivity();
-  }
+  InternetConnectivityManagerImpl({required this.connectivity});
 
   @override
   Future<bool> checkConnectivity() async {
     ConnectivityResult connectivityResult =
-        await _connectivity.checkConnectivity();
+        await connectivity.checkConnectivity();
     if (connectivityResult == ConnectivityResult.mobile ||
         connectivityResult == ConnectivityResult.wifi) {
       print("💪 Internet Connectivity status is: $connectivityResult ");

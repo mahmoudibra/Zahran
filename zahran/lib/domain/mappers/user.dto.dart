@@ -1,24 +1,21 @@
 part of 'domain_mapper.dart';
 
 class UserDto implements DtoToDomainMapper<UserModel> {
-  int id;
-  LocalizedNameDto name;
-  String sabNumber;
-  String phone;
-  String media;
-  DateTime lastVisit;
-  Target target;
-  String avatar;
+  int? id;
+  LocalizedNameDto? name;
+  String? sabNumber;
+  String? phone;
+  String? media;
+  DateTime? lastVisit;
+  TargetDto? target;
   UserDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
     sabNumber = json['sab_number'];
-    avatar = json['avatar'] ?? '';
     media = json['media'] ?? '';
     lastVisit = DateTime.tryParse(json['last_visit'] ?? '');
     phone = json['phone'];
-    target =
-        json['target'] != null ? new Target.fromJson(json['target']) : null;
+    target = TargetDto.fromJson(json['target'] ?? {});
   }
 
   Map<String, dynamic> toJson() {
@@ -36,22 +33,22 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   @override
   UserModel dtoToDomainModel() {
     return UserModel(
-      id: id,
-      name: name?.dtoToDomainModel(),
-      sabNumber: sabNumber,
-      phone: phone,
-      media: media,
-      lastVisit: lastVisit,
-      target: target,
+      id: id!,
+      name: name?.dtoToDomainModel() ?? LocalizedName(),
+      sabNumber: sabNumber ?? '',
+      phone: phone ?? '',
+      media: media ?? '',
+      lastVisit: lastVisit!,
+      target: target?.dtoToDomainModel() ?? Target(totalSellOut: 0, target: 0),
     );
   }
 }
 
 class LoginDto implements DtoToDomainMapper<LoginModel> {
-  String authToken;
-  UserDto userProfile;
+  String? authToken;
+  UserDto? userProfile;
 
-  LoginDto({this.authToken, this.userProfile});
+  LoginDto({required this.authToken, required this.userProfile});
 
   LoginDto.fromJson(Map<String, dynamic> json) {
     authToken = json['auth_token'];
@@ -61,17 +58,17 @@ class LoginDto implements DtoToDomainMapper<LoginModel> {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['auth_token'] = this.authToken;
-    if (this.userProfile != null) {
-      data['user_profile'] = this.userProfile.toJson();
-    }
-    return data;
+    return {
+      "auth_token": authToken,
+      "user_profile": userProfile?.toJson(),
+    };
   }
 
   @override
   LoginModel dtoToDomainModel() {
     return LoginModel(
-        userProfile: userProfile.dtoToDomainModel(), authToken: authToken);
+      userProfile: userProfile?.dtoToDomainModel(),
+      authToken: authToken ?? '',
+    );
   }
 }

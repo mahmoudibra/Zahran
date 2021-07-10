@@ -4,7 +4,7 @@ class LocationModel {
   final double lat;
   final double lang;
 
-  const LocationModel({this.lat, this.lang});
+  const LocationModel({required this.lat, required this.lang});
 
   factory LocationModel.fromJson(Map<String, dynamic> json) => LocationModel(
         lat: json['lat'] as double,

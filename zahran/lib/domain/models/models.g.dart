@@ -17,8 +17,8 @@ class LocalizedNameAdapter extends TypeAdapter<LocalizedName> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LocalizedName(
-      ar: fields[0] as String,
-      en: fields[1] as String,
+      ar: fields[0] as String?,
+      en: fields[1] as String?,
     );
   }
 
@@ -55,7 +55,6 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
     };
     return UserModel(
       sabNumber: fields[2] as String,
-      avatar: fields[7] as String,
       phone: fields[3] as String,
       media: fields[4] as String,
       lastVisit: fields[5] as DateTime,
@@ -68,7 +67,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -82,9 +81,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(5)
       ..write(obj.lastVisit)
       ..writeByte(6)
-      ..write(obj.target)
-      ..writeByte(7)
-      ..write(obj.avatar);
+      ..write(obj.target);
   }
 
   @override

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
-import 'package:zahran/presentation/localization/ext.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 import '../toolbox.helper.dart';
 
 class PermissionPopUp extends StatelessWidget {
   final PermissionType service;
   final MediaFileTypes mediaType;
-  final Function onOpenSettings;
-  final Function onDismiss;
+  final VoidCallback? onOpenSettings;
+  final VoidCallback? onDismiss;
   final bool isMandatory;
 
-  PermissionPopUp(
-      {@required this.service,
-      this.onOpenSettings,
-      @required this.mediaType,
-      this.onDismiss,
-      this.isMandatory = false});
+  PermissionPopUp({
+    required this.service,
+    this.onOpenSettings,
+    required this.mediaType,
+    this.onDismiss,
+    this.isMandatory = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +26,9 @@ class PermissionPopUp extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
         margin: EdgeInsets.symmetric(horizontal: 20.0),
-        decoration:
-            BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: BorderRadius.circular(25.0)),
+        decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(25.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -42,17 +44,22 @@ class PermissionPopUp extends StatelessWidget {
             ),
             Text(
               _getMessage(context),
-              style: Theme.of(context).textTheme.subtitle1.copyWith(color: Theme.of(context).textTheme.bodyText2.color),
+              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                  color: Theme.of(context).textTheme.bodyText2?.color),
               textAlign: TextAlign.center,
             ),
-            ViewsToolbox.mainButton(
-                context: context,
-                text: TR.of(context).permission_access_change_settings_button,
-                callback: onOpenSettings),
+            ElevatedButton(
+              child:
+                  Text(TR.of(context).permission_access_change_settings_button),
+              onPressed: onOpenSettings,
+            ),
             isMandatory
                 ? ViewsToolbox.emptyWidget()
-                : ViewsToolbox.secondaryButton(
-                    context: context, text: TR.of(context).permission_access_dismiss_button, callback: onDismiss)
+                : OutlinedButton(
+                    child:
+                        Text(TR.of(context).permission_access_dismiss_button),
+                    onPressed: onDismiss,
+                  )
           ],
         ),
       ),
