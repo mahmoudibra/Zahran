@@ -418,6 +418,42 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Completed'**
   String get completed;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @get_directions.
+  ///
+  /// In en, this message translates to:
+  /// **'Get directions'**
+  String get get_directions;
+
+  /// No description provided for @see_all.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get see_all;
+
+  /// No description provided for @task_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks ({count})'**
+  String task_count(Object count);
+
+  /// No description provided for @check_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-in'**
+  String get check_in;
+
+  /// No description provided for @report.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get report;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

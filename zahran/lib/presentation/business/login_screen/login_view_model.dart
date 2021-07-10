@@ -7,15 +7,19 @@ import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class LoginViewModel extends GetxController {
   final BuildContext context;
+  final bool pop;
   String? sab;
   String? password;
 
-  LoginViewModel(this.context);
+  LoginViewModel(this.context, this.pop);
 
   Future login() async {
     var res = await Repos.userRepo.login(sab!, password!);
-    Get.find<AuthViewModel>().saveUser(res!);
-    ScreenNames.home.pushAndRemoveAll();
+    await Get.find<AuthViewModel>().saveUser(res!);
+    if (pop)
+      Navigator.of(context).pop(res);
+    else
+      ScreenNames.home.pushAndRemoveAll();
   }
 
   String? validateSab(String? v) {

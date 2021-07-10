@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/splash/view_model.dart';
 import 'package:zahran/presentation/commom/app_loader.dart';
-import 'package:zahran/presentation/commom/gradiant_container.dart';
+import 'package:zahran/presentation/commom/gradient_container.dart';
 import 'package:zahran/r.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SplashStates extends State<SplashScreen> with TickerProviderStateMixin {
             return Stack(
               fit: StackFit.expand,
               children: [
-                GradiantContainer(
+                GradientContainer(
                   alpha: colorAlpha,
                   padding: EdgeInsets.all(30),
                   child: Opacity(

@@ -50,7 +50,14 @@ extension RouterExtension on ScreenNames {
       isScrollControlled: isScrollControlled,
       isDismissible: isDismissible,
       builder: (ctx) {
-        return ScreenRouter.routes[this.toString()]!(context);
+        var theme = Theme.of(context);
+        return Theme(
+          data: theme.copyWith(
+              inputDecorationTheme: theme.inputDecorationTheme.copyWith(
+            fillColor: theme.backgroundColor,
+          )),
+          child: ScreenRouter.routes[this.toString()]!(context),
+        );
       },
     );
   }

@@ -58,6 +58,18 @@
     "tasks": "Tasks",
     "running": "Running",
     "incomplete": "Incomplete",
-    "completed": "Completed"
+    "completed": "Completed",
+    "back": "Back",
+    "get_directions": "Get directions",
+    "see_all": "See all",
+    "task_count": "Tasks ({count})",
+    "@task_count": {
+        "placeholders": {
+            "count": {}
+        }
+    },
+    "check_in": "Check-in",
+    "report": "Report",
+    "promotion": "Promotion"
 
 }

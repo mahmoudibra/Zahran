@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class GradiantContainer extends StatelessWidget {
+class GradientContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final BorderRadiusGeometry? borderRadius;
   final double alpha;
-  const GradiantContainer({
+  const GradientContainer({
     Key? key,
     required this.child,
     this.alpha = 1,

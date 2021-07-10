@@ -4,9 +4,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:ansi_logger/ansi_logger.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:reusable/l10n/gen_l10n/reusable_localizations.dart';
 import 'package:reusable/reusable.dart';
 
@@ -61,69 +61,98 @@ abstract class BaseRepositry {
   Duration get receiveTimeout => Duration(seconds: 15);
   Duration get connectTimeout => Duration(seconds: 15);
   Future<Map<String, String>>? getHeaders(ROptions options);
-  void onError(ApiFetchException error);
+  Future<bool> onError(ApiFetchException error);
 
-  Future<dio.Response<X>> _handleError<X>(
-      Future<dio.Response<X>> future, ResolveResponseCallback resolve) async {
+  Future<T> _handleError<X, T>({
+    required Future<dio.Response<X>> Function() action,
+    required ResolveResponseCallback resolve,
+    required T Function(dio.Response<X> response) map,
+    int retryCount = 0,
+  }) async {
+    ApiFetchException exception;
     try {
-      var res = await future;
-      return res;
-    } on ApiFetchException {
-      rethrow;
+      var res = await action();
+      return map(res);
+    } on ApiFetchException catch (e) {
+      exception = e._withCount(retryCount);
     } on DioError catch (e) {
       switch (e.type) {
         case DioErrorType.connectTimeout:
         case DioErrorType.sendTimeout:
         case DioErrorType.receiveTimeout:
-          throw ApiFetchException(
-            messages.connectionTimeOutMessage,
+          exception = ApiFetchException(
+            message: messages.connectionTimeOutMessage,
             response: e.response,
-            onError: onError,
+            retryCount: retryCount,
           );
+          break;
         case DioErrorType.response:
-          throw ApiDataResponse.fromJson(
+          exception = ApiDataResponse.fromJson(
             response: e.response!,
             mapItem: (json) => json,
             messages: messages,
             resolveResponse: resolve,
-            onError: onError,
-          ).exception(e.response!, onError);
+            throwError: false,
+          ).exception(e.response!)._withCount(retryCount);
+          break;
         case DioErrorType.cancel:
-          throw ApiFetchException(
-            e.message,
+          exception = ApiFetchException(
+            message: e.message,
             response: e.response,
+            retryCount: retryCount,
             isCancel: true,
-            onError: onError,
           );
+          break;
         case DioErrorType.other:
-          throw ApiFetchException(
-            e.message,
+          exception = ApiFetchException(
+            message: e.message,
             response: e.response,
-            onError: onError,
+            retryCount: retryCount,
           );
       }
     } catch (e) {
-      throw ApiFetchException(e.toString(), onError: onError);
+      exception = ApiFetchException(
+        message: e.toString(),
+        retryCount: retryCount,
+      );
     }
+    var res = await onError(exception);
+    if (res) {
+      return await _handleError(
+        action: action,
+        resolve: resolve,
+        map: map,
+        retryCount: retryCount + 1,
+      );
+    }
+    throw exception;
   }
 
   // do with
-  Future<dio.Response<String>> _doWith({
+  Future<T> _doWith<X, T>({
     required ROptions options,
     required ResolveResponseCallback resolve,
-    required Future<dio.Response<String>> Function(dio.Dio client) action,
+    required Future<dio.Response<X>> Function(dio.Dio client) action,
+    required T Function(dio.Response<X> response) map,
   }) async {
-    var client = Dio(BaseOptions(
-      sendTimeout: sendTimeOut.inMilliseconds,
-      receiveTimeout: receiveTimeout.inMilliseconds,
-      connectTimeout: connectTimeout.inMilliseconds,
-      receiveDataWhenStatusError: true,
-      baseUrl: baseUrl.toString(),
-      headers: await _resplvedHeaders(options),
-    ));
-    client.interceptors.add(_Interceptor());
+    var fn = () async {
+      var client = Dio(BaseOptions(
+        sendTimeout: sendTimeOut.inMilliseconds,
+        receiveTimeout: receiveTimeout.inMilliseconds,
+        connectTimeout: connectTimeout.inMilliseconds,
+        receiveDataWhenStatusError: true,
+        baseUrl: baseUrl.toString(),
+        headers: await _resplvedHeaders(options),
+      ));
+      client.interceptors.add(_Interceptor());
+      return client;
+    };
 
-    return await _handleError<String>(action(client), resolve);
+    return await _handleError<X, T>(
+      action: () async => action(await fn()),
+      resolve: resolve,
+      map: map,
+    );
   }
 
   // resolved headers
@@ -143,7 +172,7 @@ abstract class BaseRepositry {
     ResolveResponseCallback? resolveResponse,
     CancelToken? cancelToken,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.get(
@@ -151,14 +180,12 @@ abstract class BaseRepositry {
         queryParameters: queryParams,
         cancelToken: cancelToken,
       ),
-    );
-
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
-      onError: onError,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -174,7 +201,7 @@ abstract class BaseRepositry {
     String skipKey = 'skipCount',
     String pageSizeKey = 'pageSize',
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.get(
@@ -186,17 +213,15 @@ abstract class BaseRepositry {
           if (queryParams != null) ...queryParams,
         },
       ),
-    );
-
-    return ApiListResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
-      listTotalKey: listTotalKey ?? this.listTotalKey,
-      pageSize: pageSize,
-      onError: onError,
-      skip: 0,
+      map: (response) => ApiListResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+        listTotalKey: listTotalKey ?? this.listTotalKey,
+        pageSize: pageSize,
+        skip: 0,
+      ),
     );
   }
 
@@ -210,7 +235,7 @@ abstract class BaseRepositry {
     ValueChanged<double>? onSendProgress,
     bool formData = false,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.post(
@@ -221,14 +246,12 @@ abstract class BaseRepositry {
         onSendProgress: (received, total) =>
             _onrogress(received, total, onSendProgress),
       ),
-    );
-
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      onError: onError,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -240,7 +263,7 @@ abstract class BaseRepositry {
     CancelToken? cancelToken,
     ResolveResponseCallback? resolveResponse,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.patch(
@@ -249,13 +272,12 @@ abstract class BaseRepositry {
         data: data,
         cancelToken: cancelToken,
       ),
-    );
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      onError: onError,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -267,7 +289,7 @@ abstract class BaseRepositry {
     CancelToken? cancelToken,
     ResolveResponseCallback? resolveResponse,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.put(
@@ -276,13 +298,12 @@ abstract class BaseRepositry {
         data: data,
         cancelToken: cancelToken,
       ),
-    );
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      onError: onError,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -294,7 +315,7 @@ abstract class BaseRepositry {
     CancelToken? cancelToken,
     ResolveResponseCallback? resolveResponse,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.head(
@@ -303,13 +324,12 @@ abstract class BaseRepositry {
         data: data,
         cancelToken: cancelToken,
       ),
-    );
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      onError: onError,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -322,7 +342,7 @@ abstract class BaseRepositry {
     CancelToken? cancelToken,
     Encoding? encoding,
   }) async {
-    var response = await _doWith(
+    return await _doWith(
       options: ROptions(path, queryParams),
       resolve: resolveResponse ?? this.resolveResponse,
       action: (client) => client.delete(
@@ -331,13 +351,12 @@ abstract class BaseRepositry {
         data: data,
         cancelToken: cancelToken,
       ),
-    );
-    return ApiDataResponse.fromJson(
-      response: response,
-      mapItem: mapItem,
-      messages: messages,
-      onError: onError,
-      resolveResponse: resolveResponse ?? this.resolveResponse,
+      map: (response) => ApiDataResponse.fromJson(
+        response: response,
+        mapItem: mapItem,
+        messages: messages,
+        resolveResponse: resolveResponse ?? this.resolveResponse,
+      ),
     );
   }
 
@@ -360,7 +379,7 @@ abstract class BaseRepositry {
     client.interceptors.add(_Interceptor());
 
     var result = await _handleError(
-      client.download(
+      action: () => client.download(
         path,
         savePath,
         queryParameters: queryParams,
@@ -369,7 +388,8 @@ abstract class BaseRepositry {
             _onrogress(received, total, onReceiveProgress),
         cancelToken: cancelToken,
       ),
-      resolveResponse,
+      resolve: resolveResponse,
+      map: (x) => x,
     );
 
     return result.data;
