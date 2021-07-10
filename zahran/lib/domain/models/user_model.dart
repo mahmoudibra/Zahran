@@ -53,7 +53,7 @@ class Target {
   }
 }
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 4)
 class LoginModel {
   @HiveField(0)
   String authToken;

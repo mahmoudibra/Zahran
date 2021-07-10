@@ -29,11 +29,17 @@ class HomeBottomBar extends StatelessWidget {
           },
           items: [
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(R.assetsImagesCallIcon)),
+              icon: ImageIcon(
+                AssetImage(R.assetsImagesVisitsIcon),
+                size: 30,
+              ),
               label: TR.of(context).visits,
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage(R.assetsImagesCallIcon)),
+              icon: ImageIcon(
+                AssetImage(R.assetsImagesProfileIcon),
+                size: 30,
+              ),
               label: TR.of(context).profile,
             )
           ],
