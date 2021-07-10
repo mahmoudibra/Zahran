@@ -53,7 +53,7 @@ class Target {
 }
 
 @HiveType(typeId: 4)
-class LoginModel {
+class LoginModel extends HiveObject {
   @HiveField(0)
   String authToken;
   @HiveField(1)

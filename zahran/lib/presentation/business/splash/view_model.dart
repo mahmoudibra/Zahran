@@ -23,9 +23,9 @@ class SplashViewModel extends GetxController {
   void navigate() {
     var auth = Get.find<AuthViewModel>();
     if (auth.authenticated) {
-      ScreenNames.home.push();
+      ScreenNames.home.pushReplacementNamed();
     } else {
-      ScreenNames.login.push();
+      ScreenNames.login.pushReplacementNamed();
     }
   }
 

@@ -4,6 +4,7 @@ import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
+import 'visit_shimmer.dart';
 import 'visit_view.dart';
 
 class VisitsTab extends StatelessWidget {
@@ -23,12 +24,24 @@ class VisitsTab extends StatelessWidget {
         SliverPaddingBox(
           child: Text(TR.of(context).upcoming_visits, style: context.headline2),
         ),
+        SliverPaddingBox(
+          child: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Chip(
+              label: Text(
+                DateTime.now()
+                    .format(context, DateFormat.yMMMMEEEEd().pattern!),
+              ),
+            ),
+          ),
+        ),
       ],
-      padding: EdgeInsets.all(20),
+      itemShimmer: ShimmerEffect(
+        builder: () => VisitShimmer(),
+      ),
+      padding: EdgeInsets.all(20).copyWith(top: 10),
       builItem: (BranchModel item, index) {
-        return SlideFadeItem(
-          child: VisitView(model: item),
-        );
+        return FadeItem(child: VisitView(model: item));
       },
       init: VisitsViewModel(),
     );

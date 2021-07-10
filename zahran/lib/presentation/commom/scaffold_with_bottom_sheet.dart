@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ScafoldWithBottomSheet extends StatefulWidget {
-  final List<Widget> bottom;
+  final Widget Function(ScrollController controller, double offset) bottom;
   final Widget Function(double offset) body;
   final Color? background;
   const ScafoldWithBottomSheet({
@@ -35,12 +35,7 @@ class _ScafoldWithBottomSheetState extends State<ScafoldWithBottomSheet> {
           initialChildSize: 0.6,
           maxChildSize: 0.8,
           builder: (BuildContext context, ScrollController scrollController) {
-            return ListView(
-              controller: scrollController,
-              padding: const EdgeInsets.all(20),
-              shrinkWrap: true,
-              children: widget.bottom,
-            );
+            return widget.bottom(scrollController, offset);
           },
         ),
       ),

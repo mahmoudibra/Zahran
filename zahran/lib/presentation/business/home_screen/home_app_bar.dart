@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/visits/visits_app_bar.dart';
-import 'package:zahran/presentation/commom/gradiant_container.dart';
+import 'package:zahran/presentation/commom/gradient_container.dart';
 
 class HomeAppBar extends StatefulWidget {
   final bool innerBoxIsScrolled;
@@ -28,7 +28,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
             builder: (context) {
               var t = context.appBarExpansionPercent;
               var nt = 1 - t;
-              return GradiantContainer(
+              return GradientContainer(
                 child: AnimatedSize(
                   vsync: this,
                   duration: Duration(milliseconds: 300),

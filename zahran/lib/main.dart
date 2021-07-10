@@ -46,6 +46,7 @@ class ZahranApp extends StatelessWidget {
           return LocaleBuilder(
             builder: (Locale locale) {
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 themeMode: ThemeMode.light,
                 onGenerateTitle: (context) => TR.of(context).appName,
                 localizationsDelegates: [
