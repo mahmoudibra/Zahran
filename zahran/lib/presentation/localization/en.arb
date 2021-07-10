@@ -78,5 +78,6 @@
     "phone_number": "Phone Number",
     "save_changes": "Save Changes",
     "change_password": "Change password",
-    "personal_info": "Personal Info"
+    "personal_info": "Personal Info",
+    "un_expected_error": "unexpected error please try again later."
 }

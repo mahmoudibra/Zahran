@@ -507,6 +507,12 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Personal Info'**
   String get personal_info;
+
+  /// No description provided for @un_expected_error.
+  ///
+  /// In en, this message translates to:
+  /// **'unexpected error please try again later.'**
+  String get un_expected_error;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

@@ -217,4 +217,7 @@ class TREn extends TR {
 
   @override
   String get personal_info => 'Personal Info';
+
+  @override
+  String get un_expected_error => 'unexpected error please try again later.';
 }

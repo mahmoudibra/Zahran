@@ -217,4 +217,7 @@ class TRAr extends TR {
 
   @override
   String get personal_info => 'المعلومات الشخصية';
+
+  @override
+  String get un_expected_error => 'unexpected error please try again later.';
 }
