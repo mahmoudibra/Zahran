@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -60,8 +61,7 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +81,7 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -335,6 +334,12 @@ abstract class TR {
   /// **'Login to start eliminate your tasks.'**
   String get login_sub_title;
 
+  /// No description provided for @personal_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Info'**
+  String get personal_info;
+
   /// No description provided for @sab_number.
   ///
   /// In en, this message translates to:
@@ -418,6 +423,48 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Completed'**
   String get completed;
+
+  /// No description provided for @invalid_user_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Username should not be empty'**
+  String get invalid_user_name;
+
+  /// No description provided for @invalid_phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number length should be 11 digit'**
+  String get invalid_phone_number;
+
+  /// No description provided for @change_image.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Image'**
+  String get change_image;
+
+  /// No description provided for @username.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get username;
+
+  /// No description provided for @phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone Number'**
+  String get phone_number;
+
+  /// No description provided for @save_changes.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Changes'**
+  String get save_changes;
+
+  /// No description provided for @change_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Change password'**
+  String get change_password;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -429,25 +476,27 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
+  
+
+
 // Lookup logic when only language code is specified.
-  switch (locale.languageCode) {
-    case 'ar':
-      return TRAr();
-    case 'en':
-      return TREn();
-  }
+switch (locale.languageCode) {
+  case 'ar': return TRAr();
+    case 'en': return TREn();
+}
+
 
   throw FlutterError(
-      'TR.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'TR.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

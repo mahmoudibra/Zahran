@@ -21,4 +21,12 @@ class UserRepo extends BaseRepositryImpl {
     );
     return result.data;
   }
+
+  Future<UserModel?> fetchUserInfo() async {
+    var result = await get(
+      path: '/v1/mobile/me',
+      mapItem: (json) => UserDto.fromJson(json).dtoToDomainModel(),
+    );
+    return result.data;
+  }
 }

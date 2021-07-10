@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/data/source/local/shared_prefrence/local_data_manager.impl.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/localization/locale_builder.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -42,7 +41,7 @@ class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthViewModel>(
-        init: AuthViewModel(LocalDataManagerImpl()),
+        init: AuthViewModel(),
         builder: (_) {
           return LocaleBuilder(
             builder: (Locale locale) {
