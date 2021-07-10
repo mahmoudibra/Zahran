@@ -23,13 +23,12 @@ class UserProfileViewModel extends GetxController {
 
   Future _fetchUserInfo() async {
     try {
-    userModel = await Repos.userRepo.fetchUserInfo();
-    var localUserModel = Get.find<AuthViewModel>().user;
-    var updatedLoginModel =
-        LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
-    await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
-    lastFetch = DateTime.now().toIso8601String();
-    update();
+      userModel = await Repos.userRepo.fetchUserInfo();
+      var localUserModel = Get.find<AuthViewModel>().user;
+      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+      await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
+      lastFetch = DateTime.now().toIso8601String();
+      update();
     } catch (error) {
       context.errorSnackBar(TR.of(context).un_expected_error);
     }
