@@ -148,7 +148,10 @@ class ThemeGenerator {
         elevation: 0,
       ),
       appBarTheme: AppBarTheme(
-        brightness: Brightness.dark,
+        brightness: Brightness.light,
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
       cardTheme: CardTheme(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),

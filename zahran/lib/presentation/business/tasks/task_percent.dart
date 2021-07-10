@@ -27,6 +27,6 @@ class TaskPercent extends StatelessWidget {
   Color color(BuildContext context) {
     if (percent < 0.3) return context.theme.accentColor;
     if (percent < 0.6) return Color(0xFFFE9E00);
-    return Colors.green;
+    return Color(0xFF4DA850);
   }
 }

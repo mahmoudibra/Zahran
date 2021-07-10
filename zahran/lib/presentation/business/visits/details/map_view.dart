@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
 import 'package:zahran/r.dart';
 
 class MapView extends StatefulWidget {
@@ -26,8 +28,7 @@ class _MapViewState extends State<MapView> {
 
   @override
   Widget build(BuildContext context) {
-    BranchModel model =
-        ModalRoute.of(context)!.settings.arguments as BranchModel;
+    BranchModel model = Get.find<VisitDetailsViewModel>().model;
     var latlng = LatLng(model.location.lat, model.location.lang);
     var color = Theme.of(context).accentColor;
     double radius = 15000;

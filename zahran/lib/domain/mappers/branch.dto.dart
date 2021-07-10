@@ -11,6 +11,7 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
   int? totalTasks;
   int? completedTasks;
   List<BrandDto>? brands;
+  VisitStatus? visitStatus;
   BranchDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
@@ -25,6 +26,7 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
     brands =
         (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ??
             [];
+    visitStatus = VisitStatus.PENDING;
   }
 
   Map<String, dynamic> toJson() {
@@ -46,9 +48,10 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
   BranchModel dtoToDomainModel() {
     return BranchModel(
       id: id!,
+      visitStatus: visitStatus ?? VisitStatus.PENDING,
       name: name?.dtoToDomainModel() ?? LocalizedName(),
       location: location ?? LocationModel(lat: 0, lang: 0),
-      chan: (chan ?? ChainDto.fromJson({})).dtoToDomainModel(),
+      chain: (chan ?? ChainDto.fromJson({})).dtoToDomainModel(),
       totalBrands: totalBrands ?? 0,
       totalTasks: totalTasks ?? 0,
       address: address?.dtoToDomainModel() ?? LocalizedName(),

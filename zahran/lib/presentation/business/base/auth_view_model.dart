@@ -19,7 +19,9 @@ class AuthViewModel extends GetxController {
   AuthViewModel();
 
   LoginModel? get user {
-    return _box != null && _box!.isOpen && _box!.length > 0 ? _box!.getAt(0) : null;
+    return _box != null && _box!.isOpen && _box!.length > 0
+        ? _box!.getAt(0)
+        : null;
   }
 
   UserModel? get profile => user?.userProfile;
@@ -30,6 +32,11 @@ class AuthViewModel extends GetxController {
     await openBox();
     await _box?.clear();
     await _box?.add(response);
+  }
+
+  Future removeUser() async {
+    await openBox();
+    await _box?.clear();
   }
 
   Future<Map<String, String>> getHeaders() async {

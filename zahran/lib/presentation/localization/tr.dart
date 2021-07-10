@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -61,7 +60,8 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,7 +81,8 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -507,6 +508,78 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Personal Info'**
   String get personal_info;
+
+  /// No description provided for @distance_km.
+  ///
+  /// In en, this message translates to:
+  /// **'{distnace}KM Away'**
+  String distance_km(Object distnace);
+
+  /// No description provided for @distance_m.
+  ///
+  /// In en, this message translates to:
+  /// **'{distnace}M Away'**
+  String distance_m(Object distnace);
+
+  /// No description provided for @total_sell_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sell-out'**
+  String get total_sell_out;
+
+  /// No description provided for @target.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get target;
+
+  /// No description provided for @last_visit.
+  ///
+  /// In en, this message translates to:
+  /// **'Last visit'**
+  String get last_visit;
+
+  /// No description provided for @promotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get promotions;
+
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
+
+  /// No description provided for @brands_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands / Products'**
+  String get brands_products;
+
+  /// No description provided for @sallary_slip.
+  ///
+  /// In en, this message translates to:
+  /// **'Sallary Slip'**
+  String get sallary_slip;
+
+  /// No description provided for @shared_documents.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared documents'**
+  String get shared_documents;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -518,27 +591,25 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
-  
-
-
 // Lookup logic when only language code is specified.
-switch (locale.languageCode) {
-  case 'ar': return TRAr();
-    case 'en': return TREn();
-}
-
+  switch (locale.languageCode) {
+    case 'ar':
+      return TRAr();
+    case 'en':
+      return TREn();
+  }
 
   throw FlutterError(
-    'TR.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'TR.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

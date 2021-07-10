@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:hive/hive.dart';
+import 'package:zahran/domain/enums/visit_status.dart';
 part 'user_model.dart';
 part 'location.dart';
 part 'branch.dart';
