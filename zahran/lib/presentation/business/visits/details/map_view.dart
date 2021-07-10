@@ -3,7 +3,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
-import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/r.dart';
 
 class MapView extends StatefulWidget {
