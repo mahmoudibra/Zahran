@@ -45,6 +45,7 @@ class AuthViewModel extends GetxController {
       _box = Hive.isBoxOpen(_auth_key)
           ? Hive.box(_auth_key)
           : (await Hive.openBox<LoginModel>(_auth_key));
+
       await _lisner?.cancel();
       _lisner = _box!.watch().listen((event) {
         update();

@@ -6,4 +6,9 @@ class VisitStatus extends Enum<String> {
   static const VisitStatus INCOMPLETE = const VisitStatus('incomplete');
   static const VisitStatus IN_PROGRESS = const VisitStatus('in progress');
   static const VisitStatus COMPLETED = const VisitStatus('completed');
+
+  bool operator ==(Object other) {
+    if (other is VisitStatus) return other.value == this.value;
+    return this == other;
+  }
 }

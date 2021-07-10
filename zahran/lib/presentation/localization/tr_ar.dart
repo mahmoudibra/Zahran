@@ -175,4 +175,24 @@ class TRAr extends TR {
 
   @override
   String get completed => 'Completed';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get get_directions => 'Get directions';
+
+  @override
+  String get see_all => 'See all';
+
+  @override
+  String task_count(Object count) {
+    return 'Tasks ($count)';
+  }
+
+  @override
+  String get check_in => 'Check-in';
+
+  @override
+  String get report => 'Report';
 }

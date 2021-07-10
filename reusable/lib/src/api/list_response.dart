@@ -6,12 +6,11 @@ class ApiListResponse<TItem> extends _BaseResponse<List<TItem>> {
   ApiListResponse.fromJson({
     required int skip,
     required int pageSize,
-    required dio.Response<String> response,
+    required dio.Response response,
     required TItem Function(Map<String, dynamic> json) mapItem,
     required ApiMessages messages,
     required ResolveResponseCallback resolveResponse,
     required String listTotalKey,
-    required Function(ApiFetchException error) onError,
   }) {
     try {
       jsonData = resolveResponse(response);
@@ -79,10 +78,10 @@ class ApiListResponse<TItem> extends _BaseResponse<List<TItem>> {
     }
     if (status != 200) {
       throw ApiFetchException(
-        message,
+        message: message,
         response: response,
         json: jsonData,
-        onError: onError,
+        retryCount: 0,
       );
     }
   }

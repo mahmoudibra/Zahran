@@ -2,13 +2,12 @@ part of api_helpers;
 
 class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
   ApiDataResponse();
-  ApiDataResponse.fromJson({
-    required dio.Response response,
-    required TItem Function(Map<String, dynamic> json) mapItem,
-    required ApiMessages messages,
-    required ResolveResponseCallback resolveResponse,
-    required Function(ApiFetchException error) onError,
-  }) {
+  ApiDataResponse.fromJson(
+      {required dio.Response response,
+      required TItem Function(Map<String, dynamic> json) mapItem,
+      required ApiMessages messages,
+      required ResolveResponseCallback resolveResponse,
+      bool throwError = true}) {
     try {
       jsonData = resolveResponse(response);
       headers = response.headers.map;
@@ -62,18 +61,17 @@ class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
     } else if (response.statusCode == 404) {
       message = messages.notFoundMessage;
     }
-    if (status != 200) {
-      throw exception(response, onError);
+    if (status != 200 && throwError) {
+      throw exception(response);
     }
   }
 
-  ApiFetchException exception(
-      Response response, Function(ApiFetchException error) onError) {
+  ApiFetchException exception(Response response) {
     return ApiFetchException(
-      message,
+      message: message,
       response: response,
       json: jsonData,
-      onError: onError,
+      retryCount: 0,
     );
   }
 

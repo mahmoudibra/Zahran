@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/data/repo/visits.repo.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/config/configs.dart';
+import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class Repos {
   static UserRepo get userRepo => UserRepo();
@@ -18,8 +20,14 @@ abstract class BaseRepositryImpl extends BaseRepositry {
   String get language => Localizations.localeOf(context).languageCode;
 
   @override
-  void onError(ApiFetchException error) {
-    if (!error.isCancel) context.errorSnackBar(error.toString());
+  Future<bool> onError(ApiFetchException error) async {
+    if (error.statusCode == 401 && error.retryCount == 0) {
+      var res = await ScreenNames.login_sheet.showAsBottomSheet(context);
+      return res is LoginModel;
+    } else if (!error.isCancel) {
+      context.errorSnackBar(error.toString());
+    }
+    return false;
   }
 
   @override

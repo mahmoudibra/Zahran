@@ -9,28 +9,11 @@ class VisitStatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 24,
-      child: Center(
-        child: Chip(
-          labelPadding: EdgeInsets.only(top: -4, right: 0, left: 0, bottom: 0),
-          backgroundColor: decideVisitStatusColor(context),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
-          ),
-          label: Text(
-            decideVisitStatusText(context),
-            style: Theme.of(context).textTheme.caption?.copyWith(
-                  color: Theme.of(context).textTheme.headline6?.color,
-                  fontWeight: FontWeight.w400,
-                ),
-          ),
-          padding: EdgeInsetsDirectional.only(
-            start: 12,
-            end: 12,
-          ),
-        ),
-      ),
+    return Chip(
+      label: Text(decideVisitStatusText(context)),
+      visualDensity: VisualDensity.compact,
+      backgroundColor: backgroundColor(context),
+      labelStyle: TextStyle(fontSize: 12, color: textColor(context)),
     );
   }
 
@@ -47,16 +30,27 @@ class VisitStatusChip extends StatelessWidget {
     return TR.of(context).visit_details_status_pending;
   }
 
-  Color? decideVisitStatusColor(BuildContext context) {
-    if (visitStatus == VisitStatus.PENDING.value ||
-        visitStatus == VisitStatus.IN_PROGRESS.value) {
-      // return Color(themeColors.lightGreen); //TODO: uncomment this
-    } else if (visitStatus == VisitStatus.COMPLETED.value) {
-      // return Color(themeColors.transparentBlueColor);  //TODO: uncomment this
+  Color textColor(BuildContext context) {
+    var state = VisitStatus(visitStatus);
+    if (state == VisitStatus.PENDING || state == VisitStatus.IN_PROGRESS) {
+      return Theme.of(context).accentColor;
+    } else if (state == VisitStatus.COMPLETED) {
+      return Colors.greenAccent;
     } else if (visitStatus == VisitStatus.INCOMPLETE.value) {
-      // return Color(themeColors.lightOrange);  //TODO: uncomment this
+      return Color(0xFF02001E);
     }
-    // return Color(themeColors.lightGreen);  //TODO: uncomment this
-    return null;
+    return Theme.of(context).primaryColor;
+  }
+
+  Color backgroundColor(BuildContext context) {
+    var state = VisitStatus(visitStatus);
+    if (state == VisitStatus.PENDING || state == VisitStatus.IN_PROGRESS) {
+      return Theme.of(context).accentColor.withOpacity(0.1);
+    } else if (state == VisitStatus.COMPLETED) {
+      return Colors.greenAccent.withOpacity(0.3);
+    } else if (visitStatus == VisitStatus.INCOMPLETE.value) {
+      return Color(0xFFFFE0B2);
+    }
+    return Theme.of(context).primaryColor.withOpacity(0.3);
   }
 }
