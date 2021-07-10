@@ -220,4 +220,22 @@ class TREn extends TR {
 
   @override
   String get un_expected_error => 'unexpected error please try again later.';
+
+  @override
+  String get user_profile_updated => 'User profile data updates successfully.';
+
+  @override
+  String get old_password => 'Old password';
+
+  @override
+  String get new_password => 'New password';
+
+  @override
+  String get confirm_new_password => 'Confirm new password';
+
+  @override
+  String get invalid_confirm_password => 'new password & confirm password are not matched';
+
+  @override
+  String get user_password_changed_successfully => 'User Password changed successfully';
 }

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/business/home_screen/home_screen.dart';
 import 'package:zahran/presentation/business/login_screen/login_screen.dart';
-import 'package:zahran/presentation/business/profile/user_profile_screen_two.dart';
+import 'package:zahran/presentation/business/more/change_password/change_password_screen.dart';
+import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 
 part 'screen_extensions.dart';
 
-enum ScreenNames { login, login_sheet, splash, home, visit_details, userProfile }
+enum ScreenNames { login, login_sheet, splash, home, visit_details, userProfile, changePassword }
 
 class ScreenRouter {
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
@@ -20,6 +21,7 @@ class ScreenRouter {
         "${ScreenNames.login_sheet}": (_) => LoginSheet(),
         "${ScreenNames.home}": (_) => HomeScreen(),
         "${ScreenNames.userProfile}": (_) => UserProfileScreen(),
+        "${ScreenNames.changePassword}": (_) => ChangePasswordScreen(),
         "${ScreenNames.visit_details}": (_) => VisitDetails(),
       };
 

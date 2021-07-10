@@ -27,6 +27,6 @@ class LoginViewModel extends GetxController {
   }
 
   String? validatePassword(String? v) {
-    return (v != null && v.length >= 6).onFalse(TR.of(context).invalid_sab);
+    return (v != null && v.length >= 6).onFalse(TR.of(context).invalid_password);
   }
 }

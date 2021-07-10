@@ -513,6 +513,42 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'unexpected error please try again later.'**
   String get un_expected_error;
+
+  /// No description provided for @user_profile_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User profile data updates successfully.'**
+  String get user_profile_updated;
+
+  /// No description provided for @old_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password'**
+  String get old_password;
+
+  /// No description provided for @new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get new_password;
+
+  /// No description provided for @confirm_new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirm_new_password;
+
+  /// No description provided for @invalid_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'new password & confirm password are not matched'**
+  String get invalid_confirm_password;
+
+  /// No description provided for @user_password_changed_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'User Password changed successfully'**
+  String get user_password_changed_successfully;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
