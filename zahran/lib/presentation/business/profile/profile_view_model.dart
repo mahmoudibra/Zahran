@@ -5,6 +5,7 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
+import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -13,6 +14,7 @@ enum UpdateProfileStates { INITIAL, LOADING }
 
 class UserProfileViewModel extends GetxController {
   final BuildContext context;
+  String? lastFetch = DateTime.now().toIso8601String();
   String? userName;
   String? phoneNumber;
   UserModel? userModel;
@@ -22,20 +24,25 @@ class UserProfileViewModel extends GetxController {
   Future _fetchUserInfo() async {
     userModel = await Repos.userRepo.fetchUserInfo();
     var localUserModel = Get.find<AuthViewModel>().user;
-    var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+    var updatedLoginModel =
+        LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
     await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
+    lastFetch = DateTime.now().toIso8601String();
     update();
   }
 
   String? validateUserName(String? v) {
-    return (v != null && v.length > 0).onFalse(TR.of(context).invalid_user_name);
+    return (v != null && v.length > 0)
+        .onFalse(TR.of(context).invalid_user_name);
   }
 
   String? validatePhoneNumber(String? v) {
-    return (v != null && v.length == 11).onFalse(TR.of(context).invalid_phone_number);
+    return (v != null && v.length == 11)
+        .onFalse(TR.of(context).invalid_phone_number);
   }
 
   Future<void> submitChanges() async {
+    await Future.delayed(Duration(seconds: 1));
     print("🚀🚀🚀🚀 changes submitted successfully");
   }
 
@@ -48,9 +55,9 @@ class UserProfileViewModel extends GetxController {
   }
 
   @override
-  void onInit() {
-    context.loadingDialog(action: _fetchUserInfo());
-    super.onInit();
+  void onReady() {
+    FlareAnimation.show(action: _fetchUserInfo(), context: context);
+    super.onReady();
   }
 
   // Function retry;
@@ -67,11 +74,13 @@ class UserProfileViewModel extends GetxController {
 
   int mediaId = 0;
 
-  StreamController<UpdateProfileStates> _updateProfileStream = StreamController();
+  StreamController<UpdateProfileStates> _updateProfileStream =
+      StreamController();
 
   // UpdateProfilePM({this.navigator, this.userManagementRepo, this.userInfoManagerRepo, this.multiMediaRepo});
 
-  Stream<UpdateProfileStates> get updateProfileStatesStream => _updateProfileStream.stream;
+  Stream<UpdateProfileStates> get updateProfileStatesStream =>
+      _updateProfileStream.stream;
 
   Future<void> initialize() async {
     try {
