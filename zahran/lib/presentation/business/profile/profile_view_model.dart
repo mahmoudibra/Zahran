@@ -5,6 +5,7 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
+import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -13,6 +14,7 @@ enum UpdateProfileStates { INITIAL, LOADING }
 
 class UserProfileViewModel extends GetxController {
   final BuildContext context;
+  String? lastFetch = DateTime.now().toIso8601String();
   String? userName;
   String? phoneNumber;
   UserModel? userModel;
@@ -21,11 +23,13 @@ class UserProfileViewModel extends GetxController {
 
   Future _fetchUserInfo() async {
     try {
-      userModel = await Repos.userRepo.fetchUserInfo();
-      var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
-      await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
-      update();
+    userModel = await Repos.userRepo.fetchUserInfo();
+    var localUserModel = Get.find<AuthViewModel>().user;
+    var updatedLoginModel =
+        LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+    await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
+    lastFetch = DateTime.now().toIso8601String();
+    update();
     } catch (error) {
       context.errorSnackBar(TR.of(context).un_expected_error);
     }
@@ -40,6 +44,7 @@ class UserProfileViewModel extends GetxController {
   }
 
   Future<void> submitChanges() async {
+    await Future.delayed(Duration(seconds: 1));
     print("🚀🚀🚀🚀 changes submitted successfully");
   }
 
@@ -52,9 +57,9 @@ class UserProfileViewModel extends GetxController {
   }
 
   @override
-  void onInit() {
-    context.loadingDialog(action: _fetchUserInfo());
-    super.onInit();
+  void onReady() {
+    FlareAnimation.show(action: _fetchUserInfo(), context: context);
+    super.onReady();
   }
 
   // Function retry;
