@@ -37,7 +37,7 @@ class VisitDetails extends StatelessWidget {
               SliverSpacer(10),
               for (var i = 0; i < 10; i++)
                 SliverPaddingBox(
-                  child: FadeItem(child: TaskView()),
+                  child: SlideFadeItem(child: TaskView()),
                 ),
             ],
           ),
@@ -104,8 +104,8 @@ class VisitDetails extends StatelessWidget {
             ),
           ),
           SizedBox(width: 5),
-          _buildButton(context, model, () => vm.goToDirections(model),
-              TR.of(context).get_directions),
+          _buildButton(
+              context, model, vm.goToDirections, TR.of(context).get_directions),
         ],
       ),
     );
@@ -142,8 +142,7 @@ class VisitDetails extends StatelessWidget {
             child: BrandsView(brands: model.brands),
           ),
           SizedBox(width: 5),
-          _buildButton(
-              context, model, () => vm.call(model), TR.of(context).see_all),
+          _buildButton(context, model, vm.goToBrands, TR.of(context).see_all),
         ],
       ),
     );

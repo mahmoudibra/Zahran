@@ -161,28 +161,30 @@ class ShapedRemoteImage extends StatelessWidget {
                   Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
             },
             errorWidget: (_, __, ___) =>
+                getErrorPlaceholder(context) ??
                 buildError(_, paramters.height, paramters.height),
             fit: getFit(context),
             placeholder: (_, __) =>
                 getLoadingPlaceholder(_) ?? CircularProgressIndicator(),
           )
         : buildError(context, paramters.height, paramters.height);
-
+    var decoration = getDecoration(context) ?? BoxDecoration();
     return Container(
-      clipBehavior: Clip.antiAlias,
       decoration: getDecoration(context) ?? BoxDecoration(),
       foregroundDecoration: getForgroundDecoration(context),
       padding: getInnerPadding(context),
-      child: child,
+      child: ClipRRect(
+        clipBehavior: Clip.antiAlias,
+        borderRadius: (decoration is BoxDecoration)
+            ? decoration.borderRadius?.resolve(Directionality.of(context))
+            : BorderRadius.zero,
+        child: child,
+      ),
     );
   }
 
   Widget buildError(BuildContext context, double? w, double? h) {
-    return SizedBox(
-      width: w,
-      height: h,
-      child: Container(color: Colors.grey[400]),
-    );
+    return Container(color: Colors.grey[400]);
   }
 }
 

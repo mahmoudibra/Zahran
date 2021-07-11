@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
-import 'package:zahran/presentation/commom/cashed_Image.component.dart';
 import 'package:zahran/presentation/commom/rounded_image.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/helpers/date/date-manager.dart';
@@ -51,14 +51,13 @@ class PromotionRow extends StatelessWidget {
   }
 
   Widget promotionImage(BuildContext context) {
-    return Container(
+    return ShapedRemoteImage(
+      url: promotion.cover,
       height: 104,
       width: MediaQuery.of(context).size.width,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
-        child: CachedImage(
-          imageUrl: promotion.cover,
-        ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       ),
     );
   }

@@ -76,7 +76,7 @@ class ApiListResponse<TItem> extends _BaseResponse<List<TItem>> {
       extraError = e.toString();
       key = 'json_exption';
     }
-    if (status != 200) {
+    if (status < 200 && status >= 300) {
       throw ApiFetchException(
         message: message,
         response: response,

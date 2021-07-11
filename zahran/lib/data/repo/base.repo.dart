@@ -42,7 +42,10 @@ abstract class BaseRepositryImpl extends BaseRepositry {
 
   @override
   Future<Map<String, String>> getHeaders(ROptions options) async {
-    return await Get.find<AuthViewModel>().getHeaders();
+    return {
+      ...await Get.find<AuthViewModel>().getHeaders(),
+      "content-language": language,
+    };
   }
 
   @override

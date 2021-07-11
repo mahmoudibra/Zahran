@@ -13,7 +13,7 @@ class BrandsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-        init: BrandListViewModel(),
+        init: BrandListViewModel(context),
         builder: (BrandListViewModel vm) {
           return ScaffoldListSilverAppBar(
             content: buildBranchList(context, vm),

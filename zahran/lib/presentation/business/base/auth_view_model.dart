@@ -5,7 +5,6 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/helpers/enums/enumeration.dart';
 
-//TODO: ask how to seperate between storing the auth key and user model
 class HiveCachingKey extends Enum<String> {
   const HiveCachingKey(String val) : super(val);
   static const HiveCachingKey AUTH_KEY = const HiveCachingKey('auth_key');
@@ -19,7 +18,9 @@ class AuthViewModel extends GetxController {
   AuthViewModel();
 
   LoginModel? get user {
-    return _box != null && _box!.isOpen && _box!.length > 0 ? _box!.getAt(0) : null;
+    return _box != null && _box!.isOpen && _box!.length > 0
+        ? _box!.getAt(0)
+        : null;
   }
 
   UserModel? get profile => user?.userProfile;
@@ -27,7 +28,6 @@ class AuthViewModel extends GetxController {
   bool get authenticated => profile != null;
 
   double get targetPercentage {
-    print("Percentage: ${(profile!.target.totalSellOut / profile!.target.target)}");
     return (profile!.target.totalSellOut / profile!.target.target);
   }
 

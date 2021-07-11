@@ -61,7 +61,7 @@ class ApiDataResponse<TItem> extends _BaseResponse<TItem> {
     } else if (response.statusCode == 404) {
       message = messages.notFoundMessage;
     }
-    if (status != 200 && throwError) {
+    if (status < 200 && status >= 300 && throwError) {
       throw exception(response);
     }
   }

@@ -27,9 +27,11 @@ class PromotionListScreen extends StatelessWidget {
       enablePullUp: false,
       innerHeaders: (ctrl) => [
         SliverPaddingBox(
-          padding: EdgeInsetsDirectional.only(start: 0, end: 0, bottom: 0, top: 0),
+          padding:
+              EdgeInsetsDirectional.only(start: 0, end: 0, bottom: 0, top: 0),
           child: PromotionsFilters(
-              changePromotionFilter: ({required PromotionStatus currentPromotionsFilter}) {
+              changePromotionFilter: (
+                  {required PromotionStatus currentPromotionsFilter}) {
                 vm.updateFilterType(currentPromotionsFilter);
               },
               selectedPromotionFilter: vm.selectedFilter),
@@ -37,7 +39,7 @@ class PromotionListScreen extends StatelessWidget {
       ],
       padding: EdgeInsets.all(0).copyWith(top: 0),
       builItem: (Promotion item, index) {
-        return FadeItem(
+        return ScaleItem(
             child: PromotionRow(
           promotion: item,
           onPromotionClicked: () {

@@ -57,10 +57,7 @@ class DetailsAppBar extends StatelessWidget {
                 height: 26 + kToolbarHeight * percent,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: ColorTween(
-                      end: context.theme.primaryColor,
-                      begin: theme.backgroundColor,
-                    ).transform(percent),
+                    color: theme.backgroundColor,
                     borderRadius: (theme.shape as RoundedRectangleBorder)
                         .borderRadius
                         .subtract(BorderRadius.only(

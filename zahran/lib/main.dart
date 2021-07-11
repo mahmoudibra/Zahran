@@ -12,6 +12,7 @@ import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'domain/models/models.dart';
+import 'r.dart';
 import 'theme.dart';
 
 Future<void> main() async {
@@ -40,28 +41,32 @@ Future<void> main() async {
 class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AuthViewModel>(
-        init: AuthViewModel(),
-        builder: (_) {
-          return LocaleBuilder(
-            builder: (Locale locale) {
-              return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                themeMode: ThemeMode.light,
-                onGenerateTitle: (context) => TR.of(context).appName,
-                localizationsDelegates: [
-                  ...TR.localizationsDelegates,
-                  SimpleLocalizations.delegate,
-                  ReusableLocalizations.delegate
-                ],
-                supportedLocales: TR.supportedLocales,
-                locale: locale,
-                routes: ScreenRouter.routes,
-                navigatorKey: ScreenRouter.key,
-                theme: ThemeGenerator.generate(),
-              );
-            },
-          );
-        });
+    return ShapedRemoteImageConfig(
+      errorPlaceholder:
+          Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
+      child: GetBuilder<AuthViewModel>(
+          init: AuthViewModel(),
+          builder: (_) {
+            return LocaleBuilder(
+              builder: (Locale locale) {
+                return MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  themeMode: ThemeMode.light,
+                  onGenerateTitle: (context) => TR.of(context).appName,
+                  localizationsDelegates: [
+                    ...TR.localizationsDelegates,
+                    SimpleLocalizations.delegate,
+                    ReusableLocalizations.delegate
+                  ],
+                  supportedLocales: TR.supportedLocales,
+                  locale: locale,
+                  routes: ScreenRouter.routes,
+                  navigatorKey: ScreenRouter.key,
+                  theme: ThemeGenerator.generate(),
+                );
+              },
+            );
+          }),
+    );
   }
 }
