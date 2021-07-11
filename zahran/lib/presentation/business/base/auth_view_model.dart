@@ -19,14 +19,17 @@ class AuthViewModel extends GetxController {
   AuthViewModel();
 
   LoginModel? get user {
-    return _box != null && _box!.isOpen && _box!.length > 0
-        ? _box!.getAt(0)
-        : null;
+    return _box != null && _box!.isOpen && _box!.length > 0 ? _box!.getAt(0) : null;
   }
 
   UserModel? get profile => user?.userProfile;
 
   bool get authenticated => profile != null;
+
+  double get targetPercentage {
+    print("Percentage: ${(profile!.target.totalSellOut / profile!.target.target)}");
+    return (profile!.target.totalSellOut / profile!.target.target);
+  }
 
   Future saveUser(LoginModel response) async {
     await openBox();

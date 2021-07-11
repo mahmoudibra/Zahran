@@ -20,46 +20,59 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).personal_info,
           icon: R.assetsImagesPersonInfo,
+          onTap: () {
+            ScreenNames.USER_PROFILE.push();
+          },
         ),
         _buildItem(
           context: context,
           label: TR.of(context).promotions,
           icon: R.assetsImagesPromotionIcon,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).branches,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).brands_products,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).report,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).check_in,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).sallary_slip,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).shared_documents,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).settings,
           icon: R.assetsImagesBranchMarker,
+          onTap: () {
+            ScreenNames.SETTING.push();
+          },
         ),
         SliverToBoxAdapter(
           child: ListTile(
@@ -83,15 +96,19 @@ class ProfileTab extends StatelessWidget {
     required BuildContext context,
     required String label,
     required String icon,
+    required VoidCallback onTap,
   }) {
     return SliverToBoxAdapter(
-      child: ListTile(
-        leading: AssetIcon(icon),
-        trailing: AssetIcon(R.assetsImagesArrowRight),
-        horizontalTitleGap: 0,
-        title: Text(
-          label,
-          style: context.bodyText1,
+      child: GestureDetector(
+        onTap: onTap,
+        child: ListTile(
+          leading: AssetIcon(icon),
+          trailing: AssetIcon(R.assetsImagesArrowRight),
+          horizontalTitleGap: 0,
+          title: Text(
+            label,
+            style: context.bodyText1,
+          ),
         ),
       ),
     );
