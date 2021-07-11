@@ -36,13 +36,17 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).branches,
           icon: R.assetsImagesBranchMarker,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.BRANCH_LIST.push();
+          },
         ),
         _buildItem(
           context: context,
           label: TR.of(context).brands_products,
           icon: R.assetsImagesBranchMarker,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.BRANDS_LIST.push();
+          },
         ),
         _buildItem(
           context: context,

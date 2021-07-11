@@ -8,10 +8,13 @@ import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/config/configs.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
+import 'brand.repo.dart';
+
 class Repos {
   static UserRepo get userRepo => UserRepo();
   static VisitsRepo get visitsRepo => VisitsRepo();
   static PromotionRepo get promotionRepo => PromotionRepo();
+  static BrandRepo get brandRepo => BrandRepo();
 }
 
 abstract class BaseRepositryImpl extends BaseRepositry {

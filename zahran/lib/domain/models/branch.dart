@@ -53,19 +53,3 @@ class BranchModel {
     );
   }
 }
-
-class ChainModel {
-  final int id;
-  final LocalizedName title;
-  final String media;
-
-  ChainModel({required this.id, required this.title, required this.media});
-}
-
-class BrandModel {
-  final int id;
-  final LocalizedName name;
-  final String mediaPath;
-
-  BrandModel({required this.id, required this.name, required this.mediaPath});
-}

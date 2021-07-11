@@ -1,7 +1,4 @@
-import 'package:zahran/domain/models/product.dart';
-import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
-
-import 'models.dart';
+part of 'models.dart';
 
 class Promotion {
   int id;

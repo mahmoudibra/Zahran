@@ -1,4 +1,4 @@
-import 'models.dart';
+part of 'models.dart';
 
 class Product {
   int id;

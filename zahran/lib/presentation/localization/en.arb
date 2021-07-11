@@ -140,5 +140,7 @@
   "brand": "Brand",
   "sub_brand": "Sub brand",
   "campaign_details": "Campaign Details",
-  "promotion_details": "Promotion Details"
+  "promotion_details": "Promotion Details",
+  "get_direction": "Get Direction",
+  "brand_product": "Brands / Products"
 }

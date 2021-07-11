@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zahran/presentation/business/home_screen/home_screen.dart';
 import 'package:zahran/presentation/business/login_screen/login_screen.dart';
+import 'package:zahran/presentation/business/more/branch/branch_list_screen.dart';
+import 'package:zahran/presentation/business/more/brands/brand_list_screen.dart';
 import 'package:zahran/presentation/business/more/change_password/change_password_screen.dart';
 import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_screen.dart';
@@ -22,6 +24,8 @@ enum ScreenNames {
   SETTING,
   PROMOTION_LIST,
   PROMOTION_DETAILS,
+  BRANCH_LIST,
+  BRANDS_LIST,
 }
 
 class ScreenRouter {
@@ -40,6 +44,8 @@ class ScreenRouter {
         "${ScreenNames.SETTING}": (_) => SettingScreen(),
         "${ScreenNames.PROMOTION_LIST}": (_) => PromotionListScreen(),
         "${ScreenNames.PROMOTION_DETAILS}": (_) => PromotionDetailsScreen(promotionId: 5),
+        "${ScreenNames.BRANCH_LIST}": (_) => BranchesListScreen(),
+        "${ScreenNames.BRANDS_LIST}": (_) => BrandsListScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

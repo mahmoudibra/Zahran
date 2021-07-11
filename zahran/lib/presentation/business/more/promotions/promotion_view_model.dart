@@ -1,6 +1,6 @@
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
-import 'package:zahran/domain/models/promotion.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/helpers/enums/enumeration.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 

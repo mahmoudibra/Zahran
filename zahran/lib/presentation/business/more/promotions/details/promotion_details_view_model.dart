@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
-import 'package:zahran/domain/models/promotion.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 

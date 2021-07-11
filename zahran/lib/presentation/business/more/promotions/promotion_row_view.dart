@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zahran/domain/models/promotion.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/cashed_Image.component.dart';
 import 'package:zahran/presentation/commom/rounded_image.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';

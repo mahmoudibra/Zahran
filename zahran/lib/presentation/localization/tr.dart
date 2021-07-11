@@ -753,6 +753,18 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Promotion Details'**
   String get promotion_details;
+
+  /// No description provided for @get_direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Direction'**
+  String get get_direction;
+
+  /// No description provided for @brand_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands / Products'**
+  String get brand_product;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

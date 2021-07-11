@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/domain/models/promotion.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_filters.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_row_view.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
@@ -17,9 +17,7 @@ class PromotionListScreen extends StatelessWidget {
         builder: (PromotionViewModel vm) {
           return ScaffoldListSilverAppBar(
             content: buildPromotionList(context, vm),
-            title: TR
-                .of(context)
-                .promotions,
+            title: TR.of(context).promotions,
           );
         });
   }
@@ -27,8 +25,7 @@ class PromotionListScreen extends StatelessWidget {
   Widget buildPromotionList(BuildContext context, PromotionViewModel vm) {
     return CompleteList.sliversWithList(
       enablePullUp: false,
-      innerHeaders: (ctrl) =>
-      [
+      innerHeaders: (ctrl) => [
         SliverPaddingBox(
           padding: EdgeInsetsDirectional.only(start: 0, end: 0, bottom: 0, top: 0),
           child: PromotionsFilters(
@@ -42,11 +39,11 @@ class PromotionListScreen extends StatelessWidget {
       builItem: (Promotion item, index) {
         return FadeItem(
             child: PromotionRow(
-              promotion: item,
-              onPromotionClicked: () {
-                vm.routeToPromotionDetails(index);
-              },
-            ));
+          promotion: item,
+          onPromotionClicked: () {
+            vm.routeToPromotionDetails(index);
+          },
+        ));
       },
       init: vm,
     );
