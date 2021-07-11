@@ -19,7 +19,7 @@ class VisitView extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: () {
-          ScreenNames.visit_details.push(model);
+          ScreenNames.VISIT_DETAILS.push(model);
         },
         child: _build(context),
       ),

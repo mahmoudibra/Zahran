@@ -85,6 +85,13 @@
     "new_password": "New password",
     "confirm_new_password": "Confirm new password",
     "invalid_confirm_password": "new password & confirm password are not matched",
-    "user_password_changed_successfully": "User Password changed successfully"
+    "user_password_changed_successfully": "User Password changed successfully",
+    "user_setting_updated": "User setting updated",
+    "setting": "Setting",
+    "language": "Language",
+    "allow_notifications": "Allow Notifications",
+    "allow_notifications_description": "Get notified when you get a new inbox \naction item.",
+    "arabic": "arabic",
+    "english": "english"
 
 }

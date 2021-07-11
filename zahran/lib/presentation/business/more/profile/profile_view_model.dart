@@ -27,7 +27,9 @@ class UserProfileViewModel extends GetxController {
       lastFetch = DateTime.now().toIso8601String();
       update();
     } catch (error) {
-      context.errorSnackBar(TR.of(context).un_expected_error);
+      if (!(error is ApiFetchException)) {
+        context.errorSnackBar(TR.of(context).un_expected_error);
+      }
     }
   }
 
@@ -39,7 +41,9 @@ class UserProfileViewModel extends GetxController {
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       context.primarySnackBar(TR.of(context).user_profile_updated);
     } catch (error) {
-      context.errorSnackBar(TR.of(context).un_expected_error);
+      if (!(error is ApiFetchException)) {
+        context.errorSnackBar(TR.of(context).un_expected_error);
+      }
     }
   }
 

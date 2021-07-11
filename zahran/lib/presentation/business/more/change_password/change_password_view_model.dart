@@ -36,7 +36,9 @@ class ChangePasswordViewModel extends GetxController {
       await Repos.userRepo.changePassword(changePasswordRequest: changePasswordRequest);
       context.primarySnackBar(TR.of(context).user_password_changed_successfully);
     } catch (error) {
-      context.errorSnackBar(TR.of(context).un_expected_error);
+      if (!(error is ApiFetchException)) {
+        context.errorSnackBar(TR.of(context).un_expected_error);
+      }
     }
   }
 }

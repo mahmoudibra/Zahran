@@ -32,39 +32,36 @@ class UserProfileScreen extends StatelessWidget {
     return CompletedForm(
       onPostData: vm.submitChanges,
       child: Container(
-        child: Padding(
-          padding: EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              key: Key(vm.lastFetch ?? ""),
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ViewsToolbox.emptySpaceWidget(height: 24),
-                buildUserImage(context, vm),
-                ViewsToolbox.emptySpaceWidget(height: 24),
-                Text(
-                  TR.of(context).username,
-                  style: context.bodyText1,
-                ),
-                SizedBox(height: 10),
-                buildUserNameTextField(context, vm),
-                SizedBox(height: 20),
-                Text(
-                  TR.of(context).phone_number,
-                  style: context.bodyText1,
-                ),
-                SizedBox(height: 10),
-                buildPhoneNumberTextField(context, vm),
-                ViewsToolbox.emptySpaceWidget(height: 16),
-                buildChangePassword(context, vm),
-                SizedBox(height: 30),
-                ProgressButton(
-                  key: buttonKey,
-                  child: Text(TR.of(context).save_changes),
-                ),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            key: Key(vm.lastFetch ?? ""),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ViewsToolbox.emptySpaceWidget(height: 24),
+              buildUserImage(context, vm),
+              ViewsToolbox.emptySpaceWidget(height: 24),
+              Text(
+                TR.of(context).username,
+                style: context.bodyText1,
+              ),
+              SizedBox(height: 10),
+              buildUserNameTextField(context, vm),
+              SizedBox(height: 20),
+              Text(
+                TR.of(context).phone_number,
+                style: context.bodyText1,
+              ),
+              SizedBox(height: 10),
+              buildPhoneNumberTextField(context, vm),
+              ViewsToolbox.emptySpaceWidget(height: 16),
+              buildChangePassword(context, vm),
+              SizedBox(height: 30),
+              ProgressButton(
+                key: buttonKey,
+                child: Text(TR.of(context).save_changes),
+              ),
+            ],
           ),
         ),
       ),

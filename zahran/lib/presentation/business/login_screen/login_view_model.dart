@@ -19,7 +19,7 @@ class LoginViewModel extends GetxController {
     if (pop)
       Navigator.of(context).pop(res);
     else
-      ScreenNames.home.pushAndRemoveAll();
+      ScreenNames.HOME.pushAndRemoveAll();
   }
 
   String? validateSab(String? v) {

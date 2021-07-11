@@ -238,4 +238,25 @@ class TREn extends TR {
 
   @override
   String get user_password_changed_successfully => 'User Password changed successfully';
+
+  @override
+  String get user_setting_updated => 'User setting updated';
+
+  @override
+  String get setting => 'Setting';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get allow_notifications => 'Allow Notifications';
+
+  @override
+  String get allow_notifications_description => 'Get notified when you get a new inbox \naction item.';
+
+  @override
+  String get arabic => 'arabic';
+
+  @override
+  String get english => 'english';
 }

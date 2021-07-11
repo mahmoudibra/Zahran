@@ -49,6 +49,17 @@ class UserRepo extends BaseRepositryImpl {
     );
     return result.data;
   }
+
+  Future<EmptyModel?> receiveNotification({required bool receiveNotification}) async {
+    var result = await post(
+      path: '/v1/mobile/notification-setting',
+      data: {
+        "recive_notification": receiveNotification,
+      },
+      mapItem: (json) => EmptyModel(),
+    );
+    return result.data;
+  }
 }
 
 class UpdateProfileRequest extends RequestMappable {

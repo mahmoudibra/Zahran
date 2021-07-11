@@ -549,6 +549,48 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'User Password changed successfully'**
   String get user_password_changed_successfully;
+
+  /// No description provided for @user_setting_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User setting updated'**
+  String get user_setting_updated;
+
+  /// No description provided for @setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @allow_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get allow_notifications;
+
+  /// No description provided for @allow_notifications_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when you get a new inbox \naction item.'**
+  String get allow_notifications_description;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'english'**
+  String get english;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
