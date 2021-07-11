@@ -28,7 +28,9 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).promotions,
           icon: R.assetsImagesPromotionIcon,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.PROMOTION_LIST.push();
+          },
         ),
         _buildItem(
           context: context,
