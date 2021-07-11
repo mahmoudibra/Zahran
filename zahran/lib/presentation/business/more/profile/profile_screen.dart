@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/presentation/business/profile/profile_view_model.dart';
+import 'package:zahran/presentation/business/more/profile/profile_view_model.dart';
 import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
 import 'package:zahran/presentation/commom/rounded_image.dart';
+import 'package:zahran/presentation/commom/scaffold_silver_app_bar.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
@@ -18,60 +19,49 @@ class UserProfileScreen extends StatelessWidget {
     return GetBuilder(
       init: UserProfileViewModel(context),
       builder: (UserProfileViewModel vm) {
-        return Scaffold(
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            appBar: AppBar(
-              elevation: 0,
-              title: Text(
-                TR.of(context).profile,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              leading: BackButton(
-                  color: Theme.of(context).textTheme.headline6?.color),
-            ),
-            body: buildCompletedForm(context, vm));
+        return ScaffoldSilverAppBar(
+          content: buildCompletedForm(context, vm),
+          title: TR.of(context).profile,
+        );
       },
     );
   }
 
+  //
   Widget buildCompletedForm(BuildContext context, UserProfileViewModel vm) {
     return CompletedForm(
       onPostData: vm.submitChanges,
       child: Container(
-        child: Padding(
-          padding: EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 30),
-          child: SingleChildScrollView(
-            child: Column(
-              key: Key(vm.lastFetch ?? ""),
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ViewsToolbox.emptySpaceWidget(height: 24),
-                buildUserImage(context, vm),
-                ViewsToolbox.emptySpaceWidget(height: 24),
-                Text(
-                  TR.of(context).username,
-                  style: context.bodyText1,
-                ),
-                SizedBox(height: 10),
-                buildUserNameTextField(context, vm),
-                SizedBox(height: 20),
-                Text(
-                  TR.of(context).phone_number,
-                  style: context.bodyText1,
-                ),
-                SizedBox(height: 10),
-                buildPhoneNumberTextField(context, vm),
-                ViewsToolbox.emptySpaceWidget(height: 16),
-                buildChangePassword(context, vm),
-                SizedBox(height: 30),
-                ProgressButton(
-                  key: buttonKey,
-                  child: Text(TR.of(context).login),
-                ),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            key: Key(vm.lastFetch ?? ""),
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ViewsToolbox.emptySpaceWidget(height: 24),
+              buildUserImage(context, vm),
+              ViewsToolbox.emptySpaceWidget(height: 24),
+              Text(
+                TR.of(context).username,
+                style: context.bodyText1,
+              ),
+              SizedBox(height: 10),
+              buildUserNameTextField(context, vm),
+              SizedBox(height: 20),
+              Text(
+                TR.of(context).phone_number,
+                style: context.bodyText1,
+              ),
+              SizedBox(height: 10),
+              buildPhoneNumberTextField(context, vm),
+              ViewsToolbox.emptySpaceWidget(height: 16),
+              buildChangePassword(context, vm),
+              SizedBox(height: 30),
+              ProgressButton(
+                key: buttonKey,
+                child: Text(TR.of(context).save_changes),
+              ),
+            ],
           ),
         ),
       ),
@@ -93,8 +83,7 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPhoneNumberTextField(
-      BuildContext context, UserProfileViewModel vm) {
+  Widget buildPhoneNumberTextField(BuildContext context, UserProfileViewModel vm) {
     return CustomTextField(
       initialValue: vm.userModel?.phone,
       hint: TR.of(context).phone_number,
@@ -152,8 +141,7 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Future<void> showImageComponent(
-      BuildContext context, UserProfileViewModel vm) async {
+  Future<void> showImageComponent(BuildContext context, UserProfileViewModel vm) async {
     await Future.delayed(Duration.zero);
     showDialog(
         context: context,

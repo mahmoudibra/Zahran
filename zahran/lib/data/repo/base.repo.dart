@@ -22,7 +22,7 @@ abstract class BaseRepositryImpl extends BaseRepositry {
   @override
   Future<bool> onError(ApiFetchException error) async {
     if (error.statusCode == 401 && error.retryCount == 0) {
-      var res = await ScreenNames.login_sheet.showAsBottomSheet(context);
+      var res = await ScreenNames.LOGIN_SHEET.showAsBottomSheet(context);
       return res is LoginModel;
     } else if (!error.isCancel) {
       context.errorSnackBar(error.toString());

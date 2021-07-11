@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -60,8 +61,7 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +81,7 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -509,6 +508,90 @@ abstract class TR {
   /// **'Personal Info'**
   String get personal_info;
 
+  /// No description provided for @un_expected_error.
+  ///
+  /// In en, this message translates to:
+  /// **'unexpected error please try again later.'**
+  String get un_expected_error;
+
+  /// No description provided for @user_profile_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User profile data updates successfully.'**
+  String get user_profile_updated;
+
+  /// No description provided for @old_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password'**
+  String get old_password;
+
+  /// No description provided for @new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get new_password;
+
+  /// No description provided for @confirm_new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirm_new_password;
+
+  /// No description provided for @invalid_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'new password & confirm password are not matched'**
+  String get invalid_confirm_password;
+
+  /// No description provided for @user_password_changed_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'User Password changed successfully'**
+  String get user_password_changed_successfully;
+
+  /// No description provided for @user_setting_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User setting updated'**
+  String get user_setting_updated;
+
+  /// No description provided for @setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @allow_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get allow_notifications;
+
+  /// No description provided for @allow_notifications_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when you get a new inbox \naction item.'**
+  String get allow_notifications_description;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'english'**
+  String get english;
+
   /// No description provided for @distance_km.
   ///
   /// In en, this message translates to:
@@ -591,25 +674,27 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
+  
+
+
 // Lookup logic when only language code is specified.
-  switch (locale.languageCode) {
-    case 'ar':
-      return TRAr();
-    case 'en':
-      return TREn();
-  }
+switch (locale.languageCode) {
+  case 'ar': return TRAr();
+    case 'en': return TREn();
+}
+
 
   throw FlutterError(
-      'TR.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'TR.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
