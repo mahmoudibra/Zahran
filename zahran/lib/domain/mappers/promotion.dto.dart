@@ -1,8 +1,4 @@
-import 'package:zahran/domain/mappers/domain_mapper.dart';
-import 'package:zahran/domain/mappers/product.dto.dart';
-import 'package:zahran/domain/models/models.dart';
-import 'package:zahran/domain/models/promotion.dart';
-import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
+part of 'domain_mapper.dart';
 
 class PromotionDto extends DtoToDomainMapper<Promotion> {
   int? id;

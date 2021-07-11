@@ -1,7 +1,4 @@
-import 'package:zahran/domain/models/models.dart';
-import 'package:zahran/domain/models/product.dart';
-
-import 'domain_mapper.dart';
+part of 'domain_mapper.dart';
 
 class ProductDto extends DtoToDomainMapper<Product> {
   int? id;

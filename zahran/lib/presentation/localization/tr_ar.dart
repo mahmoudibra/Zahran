@@ -348,4 +348,10 @@ class TRAr extends TR {
 
   @override
   String get promotion_details => 'Promotion Details';
+
+  @override
+  String get get_direction => 'Get Direction';
+
+  @override
+  String get brand_product => 'Brands / Products';
 }
