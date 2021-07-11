@@ -41,7 +41,7 @@ class VisitsTab extends StatelessWidget {
       ),
       padding: EdgeInsets.all(20).copyWith(top: 10),
       builItem: (BranchModel item, index) {
-        return FadeItem(child: VisitView(model: item));
+        return SlideFadeItem(child: VisitView(model: item));
       },
       init: VisitsViewModel(),
     );

@@ -10,10 +10,11 @@ class BrandRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<ApiListResponse<BrandModel>> pagination({required int skip}) async {
+  Future<ApiListResponse<BrandModel>> pagination(
+      {required int skip, int? id}) async {
     return await this.paging(
       path: '/v1/mobile/brands',
-      queryParams: {"branch_id": 19},
+      queryParams: {"branch_id": id},
       mapItem: (json) => BrandDto.fromJson(json).dtoToDomainModel(),
       skip: skip,
     );

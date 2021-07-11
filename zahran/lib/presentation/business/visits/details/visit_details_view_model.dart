@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
+import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class VisitDetailsViewModel extends GetxController {
   late BranchModel _model;
@@ -12,12 +13,16 @@ class VisitDetailsViewModel extends GetxController {
     _model = ModalRoute.of(context)!.settings.arguments as BranchModel;
   }
 
-  void goToDirections(BranchModel model) {
+  void goToDirections() {
     launch(
         "https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
   }
 
-  void call(BranchModel model) {
+  void goToBrands() {
+    ScreenNames.BRANDS_LIST.push(_model.id);
+  }
+
+  void call() {
     launch("tel:${model.chain.media}");
   }
 

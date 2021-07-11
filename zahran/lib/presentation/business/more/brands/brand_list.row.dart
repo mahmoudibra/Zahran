@@ -23,6 +23,7 @@ class _BrandRowState extends State<BrandRow> with TickerProviderStateMixin {
     return AnimatedSize(
       vsync: this,
       curve: Curves.fastOutSlowIn,
+      alignment: Alignment.topCenter,
       duration: Duration(milliseconds: 400),
       child: GestureDetector(
         onTap: () {
@@ -30,47 +31,56 @@ class _BrandRowState extends State<BrandRow> with TickerProviderStateMixin {
             isExpanded = !isExpanded;
           });
         },
-        child: Container(
-            height: isExpanded ? null : 60,
-            margin: EdgeInsetsDirectional.only(bottom: 16),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(8)),
-              color: Colors.white,
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                  color: Theme.of(context).dividerColor,
-                  blurRadius: 4,
-                )
-              ],
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      brandImage(),
-                      ViewsToolbox.emptySpaceWidget(width: 10),
-                      Text(
-                        widget.brand.name.format(context),
-                        style: Theme.of(context).textTheme.subtitle2?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      Expanded(
-                        child: Container(),
-                      ),
-                      Image.asset(
-                        isExpanded ? R.assetsImagesArrowUp : R.assetsImagesArrowDown,
-                      )
-                    ],
-                  ),
-                  ViewsToolbox.emptySpaceWidget(height: 5),
-                  isExpanded ? buildSubBrandsList(context) : Container()
-                ],
-              ),
-            )),
+        child: _buildContainer(context),
       ),
     );
+  }
+
+  Container _buildContainer(BuildContext context) {
+    return Container(
+        height: isExpanded ? null : 60,
+        margin: EdgeInsetsDirectional.only(bottom: 16),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: Colors.white,
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Theme.of(context).dividerColor,
+              blurRadius: 4,
+            )
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  brandImage(),
+                  ViewsToolbox.emptySpaceWidget(width: 10),
+                  Text(
+                    widget.brand.name.format(context),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2
+                        ?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: Container(),
+                  ),
+                  Image.asset(
+                    isExpanded
+                        ? R.assetsImagesArrowUp
+                        : R.assetsImagesArrowDown,
+                  )
+                ],
+              ),
+              ViewsToolbox.emptySpaceWidget(height: 5),
+              isExpanded ? buildSubBrandsList(context) : Container()
+            ],
+          ),
+        ));
   }
 
   Widget brandImage() {
