@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:reusable/reusable.dart';
-
-part 'branch.dart';
-part 'location.dart';
-part 'models.g.dart';
+import 'package:hive/hive.dart';
+import 'package:zahran/domain/enums/visit_status.dart';
 part 'user_model.dart';
+part 'location.dart';
+part 'branch.dart';
+part 'models.g.dart';
+import 'package:reusable/reusable.dart';
 
 @HiveType(typeId: 1)
 class LocalizedName {

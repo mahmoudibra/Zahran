@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/mappers/domain_mapper.dart';
+import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
+import 'package:zahran/presentation/localization/tr.dart';
+import 'package:zahran/r.dart';
 
 import 'task_percent.dart';
 
@@ -16,7 +19,18 @@ class TaskView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text("Regular Check", style: context.bodyText1),
+            Row(
+              children: [
+                Expanded(
+                    child: Text("Regular Check", style: context.bodyText1)),
+                SizedBox(width: 10),
+                AssetIcon(R.assetsImagesCupponIcon),
+                Text(
+                  TR.of(context).promotion,
+                  style: TextStyle(color: Color(0xFF4DA850)),
+                )
+              ],
+            ),
             SizedBox(height: 7),
             Text(
                 "Existence is pain to a meeseeks Jerry, and we will do anything to alleviate that pain. Ew, Grandpa, so gross! You're talking about my mom!"),

@@ -1,3 +1,4 @@
+import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 
 part 'user.dto.dart';

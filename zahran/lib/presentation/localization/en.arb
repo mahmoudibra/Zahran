@@ -92,6 +92,28 @@
     "allow_notifications": "Allow Notifications",
     "allow_notifications_description": "Get notified when you get a new inbox \naction item.",
     "arabic": "arabic",
-    "english": "english"
-
+    "english": "english",
+    "personal_info": "Personal Info",
+    "distance_km": "{distnace}KM Away",
+    "@distance_km": {
+        "placeholders": {
+            "distnace": {}
+        }
+    },
+    "distance_m": "{distnace}M Away",
+    "@distance_m": {
+        "placeholders": {
+            "distnace": {}
+        }
+    },
+    "total_sell_out": "Total Sell-out",
+    "target": "Target",
+    "last_visit": "Last visit",
+    "promotions": "Promotions",
+    "branches": "Branches",
+    "brands_products": "Brands / Products",
+    "sallary_slip": "Sallary Slip",
+    "shared_documents": "Shared documents",
+    "settings": "Settings",
+    "logout": "Logout"
 }
