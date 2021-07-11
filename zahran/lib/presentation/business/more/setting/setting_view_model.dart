@@ -8,14 +8,16 @@ import 'package:zahran/presentation/localization/tr.dart';
 
 class SettingViewModel extends GetxController {
   final BuildContext context;
-  UserModel? userModel;
+  UserModel? _userModel;
+  bool notificationEnabledValue = false;
 
   SettingViewModel(this.context);
 
   Future _fetchUserInfo() async {
     try {
       var localUserModel = Get.find<AuthViewModel>().user;
-      userModel = localUserModel?.userProfile;
+      _userModel = localUserModel?.userProfile;
+      notificationEnabledValue = _userModel?.notificationEnabled ?? false;
       update();
     } catch (error) {
       context.errorSnackBar(TR.of(context).un_expected_error);
@@ -23,11 +25,11 @@ class SettingViewModel extends GetxController {
   }
 
   Future _updateNotificationStatus() async {
+    //TODO: ask why we consider 201 as error
     try {
-      await Repos.userRepo.receiveNotification(receiveNotification: true);
-      var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedUserModel = UserModel.copyWith(origin: userModel!, notificationEnabled: true);
-      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: updatedUserModel);
+      var userModel = await Repos.userRepo.receiveNotification(receiveNotification: true);
+      var localAuthModel = Get.find<AuthViewModel>().user;
+      var updatedLoginModel = LoginModel.copyWith(origin: localAuthModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       context.primarySnackBar(TR.of(context).user_setting_updated);
     } catch (error) {
@@ -35,15 +37,15 @@ class SettingViewModel extends GetxController {
     }
   }
 
-  String? validateUserName(String? v) {
-    return (v != null && v.length > 0).onFalse(TR.of(context).invalid_user_name);
+  void updateNotificationStatus(bool notificationStatus) {
+    notificationEnabledValue = notificationStatus;
+    update();
   }
 
-  String? validatePhoneNumber(String? v) {
-    return (v != null && v.length == 11).onFalse(TR.of(context).invalid_phone_number);
+  Future<void> submitChanges() async {
+    print("changes");
+    await _updateNotificationStatus();
   }
-
-  Future<void> submitChanges() async {}
 
   @override
   void onReady() {

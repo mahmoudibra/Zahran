@@ -591,6 +591,78 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'english'**
   String get english;
+
+  /// No description provided for @distance_km.
+  ///
+  /// In en, this message translates to:
+  /// **'{distnace}KM Away'**
+  String distance_km(Object distnace);
+
+  /// No description provided for @distance_m.
+  ///
+  /// In en, this message translates to:
+  /// **'{distnace}M Away'**
+  String distance_m(Object distnace);
+
+  /// No description provided for @total_sell_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sell-out'**
+  String get total_sell_out;
+
+  /// No description provided for @target.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get target;
+
+  /// No description provided for @last_visit.
+  ///
+  /// In en, this message translates to:
+  /// **'Last visit'**
+  String get last_visit;
+
+  /// No description provided for @promotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get promotions;
+
+  /// No description provided for @branches.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get branches;
+
+  /// No description provided for @brands_products.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands / Products'**
+  String get brands_products;
+
+  /// No description provided for @sallary_slip.
+  ///
+  /// In en, this message translates to:
+  /// **'Sallary Slip'**
+  String get sallary_slip;
+
+  /// No description provided for @shared_documents.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared documents'**
+  String get shared_documents;
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

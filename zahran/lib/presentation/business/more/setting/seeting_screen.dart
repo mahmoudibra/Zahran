@@ -31,16 +31,16 @@ class SettingScreen extends StatelessWidget {
         notificationSettingSection(context, vm),
         ViewsToolbox.emptySpaceWidget(height: 12),
         Divider(height: 1),
-        ViewsToolbox.emptySpaceWidget(height: 12),
-        Text(
-          TR.of(context).language,
-          style: Theme.of(context)
-              .textTheme
-              .subtitle1
-              ?.copyWith(fontWeight: FontWeight.w600, color: Theme.of(context).textTheme.headline4?.color),
-        ),
-        ViewsToolbox.emptySpaceWidget(height: 8),
-        languageSection(context),
+        // ViewsToolbox.emptySpaceWidget(height: 12),
+        // Text(
+        //   TR.of(context).language,
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .subtitle1
+        //       ?.copyWith(fontWeight: FontWeight.w600, color: Theme.of(context).textTheme.headline4?.color),
+        // ),
+        // ViewsToolbox.emptySpaceWidget(height: 8),
+        // languageSection(context),
         ViewsToolbox.emptySpaceWidget(height: 30),
         ProgressButton(
           onPressed: () => vm.submitChanges(),
@@ -76,8 +76,8 @@ class SettingScreen extends StatelessWidget {
           ),
         ),
         CupertinoSwitch(
-          onChanged: (isOpen) => onNotificationSettingsChanged(isOpen),
-          value: vm.userModel?.notificationEnabled ?? false,
+          onChanged: (isOpen) => vm.updateNotificationStatus(isOpen),
+          value: vm.notificationEnabledValue,
           activeColor: Colors.green,
         ),
       ],
@@ -134,9 +134,5 @@ class SettingScreen extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void onNotificationSettingsChanged(bool isNotificationOn) {
-    print("isNotificationOn: $isNotificationOn");
   }
 }

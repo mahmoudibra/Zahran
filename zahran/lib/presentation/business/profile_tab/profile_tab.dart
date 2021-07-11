@@ -64,7 +64,7 @@ class ProfileTab extends StatelessWidget {
         SliverToBoxAdapter(
           child: ListTile(
             onTap: () async {
-              ScreenNames.splash.pushAndRemoveAll();
+              ScreenNames.SPLASH.pushAndRemoveAll();
               await Get.find<AuthViewModel>().removeUser();
             },
             leading: AssetIcon(R.assetsImagesLogoutIcon),

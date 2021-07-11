@@ -259,4 +259,44 @@ class TREn extends TR {
 
   @override
   String get english => 'english';
+
+  @override
+  String distance_km(Object distnace) {
+    return '${distnace}KM Away';
+  }
+
+  @override
+  String distance_m(Object distnace) {
+    return '${distnace}M Away';
+  }
+
+  @override
+  String get total_sell_out => 'Total Sell-out';
+
+  @override
+  String get target => 'Target';
+
+  @override
+  String get last_visit => 'Last visit';
+
+  @override
+  String get promotions => 'Promotions';
+
+  @override
+  String get branches => 'Branches';
+
+  @override
+  String get brands_products => 'Brands / Products';
+
+  @override
+  String get sallary_slip => 'Sallary Slip';
+
+  @override
+  String get shared_documents => 'Shared documents';
+
+  @override
+  String get settings => 'Settings';
+
+  @override
+  String get logout => 'Logout';
 }

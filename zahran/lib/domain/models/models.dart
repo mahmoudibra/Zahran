@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:reusable/reusable.dart';
 import 'package:hive/hive.dart';
-import 'package:zahran/domain/enums/visit_status.dart';
-part 'user_model.dart';
-part 'location.dart';
-part 'branch.dart';
-part 'models.g.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/domain/enums/visit_status.dart';
+
+part 'branch.dart';
+part 'location.dart';
+part 'models.g.dart';
+part 'user_model.dart';
 
 @HiveType(typeId: 1)
 class LocalizedName {
@@ -14,6 +14,7 @@ class LocalizedName {
   String? ar;
   @HiveField(1)
   String? en;
+
   LocalizedName({this.ar, this.en});
 
   String format(BuildContext context) {
