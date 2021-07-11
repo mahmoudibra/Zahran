@@ -61,13 +61,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       target: fields[6] as Target,
       id: fields[0] as int,
       name: fields[1] as LocalizedName,
+      notificationEnabled: fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -81,7 +82,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(5)
       ..write(obj.lastVisit)
       ..writeByte(6)
-      ..write(obj.target);
+      ..write(obj.target)
+      ..writeByte(7)
+      ..write(obj.notificationEnabled);
   }
 
   @override
@@ -144,7 +147,7 @@ class LoginModelAdapter extends TypeAdapter<LoginModel> {
     };
     return LoginModel(
       authToken: fields[0] as String,
-      userProfile: fields[1] as UserModel,
+      userProfile: fields[1] as UserModel?,
     );
   }
 

@@ -1,25 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:reusable/reusable.dart';
 import 'package:hive/hive.dart';
+import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
-part 'user_model.dart';
-part 'location.dart';
+import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
+
 part 'branch.dart';
+part 'brand.dart';
+part 'chain.dart';
+part 'localization.dart';
+part 'location.dart';
 part 'models.g.dart';
-
-@HiveType(typeId: 1)
-class LocalizedName {
-  @HiveField(0)
-  String? ar;
-  @HiveField(1)
-  String? en;
-  LocalizedName({this.ar, this.en});
-
-  String format(BuildContext context) {
-    var locale = context.locale;
-    if (locale?.languageCode == "ar")
-      return ar ?? en ?? '';
-    else
-      return en ?? ar ?? '';
-  }
-}
+part 'product.dart';
+part 'promotion.dart';
+part 'user_model.dart';

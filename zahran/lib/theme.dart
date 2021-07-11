@@ -80,10 +80,7 @@ class ThemeGenerator {
     var textTheme = _textTheme(colors);
     return theme.copyWith(
       textTheme: textTheme,
-      primaryTextTheme: textTheme
-          .copyWith(
-              caption: textTheme.caption?.copyWith(color: Color(0xFFB4B3BE)))
-          .apply(
+      primaryTextTheme: textTheme.copyWith(caption: textTheme.caption?.copyWith(color: Color(0xFFB4B3BE))).apply(
             bodyColor: colors.onPrimary,
             decorationColor: colors.onPrimary,
           ),
@@ -165,8 +162,7 @@ class ThemeGenerator {
     );
   }
 
-  static OutlineInputBorder _buildInputBorder(
-      [Color color = Colors.transparent, double width = 0.0]) {
+  static OutlineInputBorder _buildInputBorder([Color color = Colors.transparent, double width = 0.0]) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(6),
       borderSide: BorderSide(

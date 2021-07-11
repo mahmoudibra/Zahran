@@ -17,3 +17,7 @@ Zahran Project
 > To enable GitHooks `git config core.hooksPath .githooks/`;
 
 > To disable GitHooks `git config core.hooksPath .git/hooks/`;
+
+
+# Hive
+> Generate hive code `flutter packages pub run build_runner build`;

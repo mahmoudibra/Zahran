@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:zahran/presentation/config/configs.dart';
 
+import '../../r.dart';
 import 'app_loader.dart';
 
 class CachedImage extends StatelessWidget {
@@ -17,18 +17,13 @@ class CachedImage extends StatelessWidget {
       alignment: Alignment.center,
       fit: BoxFit.cover,
       errorWidget: (pContext, pnContext, error) {
-        return Image.asset(
-            GeneralConfigs.IMAGE_ASSETS_PATH + "test_background.png",
-            fit: BoxFit.cover);
+        return Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover);
       },
       placeholder: (pContext, pnContext) {
         return Container(
           color: Theme.of(pContext).canvasColor,
           child: Center(
-            child: Container(
-                height: loadingIndicatorSize,
-                width: loadingIndicatorSize,
-                child: AppLoader()),
+            child: Container(height: loadingIndicatorSize, width: loadingIndicatorSize, child: AppLoader()),
           ),
         );
       },

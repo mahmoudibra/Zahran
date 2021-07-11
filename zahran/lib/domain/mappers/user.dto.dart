@@ -33,14 +33,14 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   @override
   UserModel dtoToDomainModel() {
     return UserModel(
-      id: id!,
-      name: name?.dtoToDomainModel() ?? LocalizedName(),
-      sabNumber: sabNumber ?? '',
-      phone: phone ?? '',
-      media: media ?? '',
-      lastVisit: lastVisit!,
-      target: target?.dtoToDomainModel() ?? Target(totalSellOut: 0, target: 0),
-    );
+        id: id!,
+        name: name?.dtoToDomainModel() ?? LocalizedName(),
+        sabNumber: sabNumber ?? '',
+        phone: phone ?? '',
+        media: media ?? '',
+        lastVisit: lastVisit!,
+        target: target?.dtoToDomainModel() ?? Target(totalSellOut: 0, target: 0),
+        notificationEnabled: false);
   }
 }
 
@@ -52,9 +52,7 @@ class LoginDto implements DtoToDomainMapper<LoginModel> {
 
   LoginDto.fromJson(Map<String, dynamic> json) {
     authToken = json['auth_token'];
-    userProfile = json['user_profile'] != null
-        ? new UserDto.fromJson(json['user_profile'])
-        : null;
+    userProfile = json['user_profile'] != null ? new UserDto.fromJson(json['user_profile']) : null;
   }
 
   Map<String, dynamic> toJson() {

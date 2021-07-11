@@ -16,6 +16,8 @@ class UserModel extends HiveObject {
   final DateTime lastVisit;
   @HiveField(6)
   final Target target;
+  @HiveField(7)
+  final bool notificationEnabled;
 
   UserModel({
     required this.sabNumber,
@@ -25,7 +27,29 @@ class UserModel extends HiveObject {
     required this.target,
     required this.id,
     required this.name,
+    required this.notificationEnabled,
   });
+
+  factory UserModel.copyWith(
+      {required UserModel origin,
+      int? id,
+      LocalizedName? name,
+      String? sabNumber,
+      String? phone,
+      String? media,
+      DateTime? lastVisit,
+      Target? target,
+      bool? notificationEnabled}) {
+    return UserModel(
+        notificationEnabled: notificationEnabled ?? origin.notificationEnabled,
+        id: id ?? origin.id,
+        name: name ?? origin.name,
+        sabNumber: sabNumber ?? origin.sabNumber,
+        media: media ?? origin.media,
+        lastVisit: lastVisit ?? origin.lastVisit,
+        phone: phone ?? origin.phone,
+        target: target ?? origin.target);
+  }
 
   @override
   String toString() {
@@ -37,7 +61,8 @@ class UserModel extends HiveObject {
     phone: $phone, 
     media: $media, 
     lastVisit: $lastVisit, 
-    target: $target
+    target: $target,
+    notificationEnabled: $notificationEnabled,
     } ''';
   }
 }

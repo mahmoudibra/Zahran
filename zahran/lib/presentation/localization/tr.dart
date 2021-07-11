@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -60,8 +61,7 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +81,7 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -509,6 +508,90 @@ abstract class TR {
   /// **'Personal Info'**
   String get personal_info;
 
+  /// No description provided for @un_expected_error.
+  ///
+  /// In en, this message translates to:
+  /// **'unexpected error please try again later.'**
+  String get un_expected_error;
+
+  /// No description provided for @user_profile_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User profile data updates successfully.'**
+  String get user_profile_updated;
+
+  /// No description provided for @old_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Old password'**
+  String get old_password;
+
+  /// No description provided for @new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get new_password;
+
+  /// No description provided for @confirm_new_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm new password'**
+  String get confirm_new_password;
+
+  /// No description provided for @invalid_confirm_password.
+  ///
+  /// In en, this message translates to:
+  /// **'new password & confirm password are not matched'**
+  String get invalid_confirm_password;
+
+  /// No description provided for @user_password_changed_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'User Password changed successfully'**
+  String get user_password_changed_successfully;
+
+  /// No description provided for @user_setting_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'User setting updated'**
+  String get user_setting_updated;
+
+  /// No description provided for @setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @allow_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow Notifications'**
+  String get allow_notifications;
+
+  /// No description provided for @allow_notifications_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified when you get a new inbox \naction item.'**
+  String get allow_notifications_description;
+
+  /// No description provided for @arabic.
+  ///
+  /// In en, this message translates to:
+  /// **'arabic'**
+  String get arabic;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'english'**
+  String get english;
+
   /// No description provided for @distance_km.
   ///
   /// In en, this message translates to:
@@ -580,6 +663,108 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @start_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get start_date;
+
+  /// No description provided for @end_date.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get end_date;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expired;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @display_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Type'**
+  String get display_type;
+
+  /// No description provided for @chain.
+  ///
+  /// In en, this message translates to:
+  /// **'chain'**
+  String get chain;
+
+  /// No description provided for @brands_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands List (brandNumber)'**
+  String brands_list(Object brandNumber);
+
+  /// No description provided for @sub_brands_list.
+  ///
+  /// In en, this message translates to:
+  /// **'SubBrands List (subBrandNumber)'**
+  String sub_brands_list(Object subBrandNumber);
+
+  /// No description provided for @problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem'**
+  String get problem;
+
+  /// No description provided for @competition.
+  ///
+  /// In en, this message translates to:
+  /// **'Competition'**
+  String get competition;
+
+  /// No description provided for @brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get brand;
+
+  /// No description provided for @sub_brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub brand'**
+  String get sub_brand;
+
+  /// No description provided for @campaign_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign Details'**
+  String get campaign_details;
+
+  /// No description provided for @promotion_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion Details'**
+  String get promotion_details;
+
+  /// No description provided for @get_direction.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Direction'**
+  String get get_direction;
+
+  /// No description provided for @brand_product.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands / Products'**
+  String get brand_product;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -591,25 +776,27 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
+  
+
+
 // Lookup logic when only language code is specified.
-  switch (locale.languageCode) {
-    case 'ar':
-      return TRAr();
-    case 'en':
-      return TREn();
-  }
+switch (locale.languageCode) {
+  case 'ar': return TRAr();
+    case 'en': return TREn();
+}
+
 
   throw FlutterError(
-      'TR.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'TR.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
