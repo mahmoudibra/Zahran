@@ -663,6 +663,96 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Logout'**
   String get logout;
+
+  /// No description provided for @start_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get start_date;
+
+  /// No description provided for @end_date.
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get end_date;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expired;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @display_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Display Type'**
+  String get display_type;
+
+  /// No description provided for @chain.
+  ///
+  /// In en, this message translates to:
+  /// **'chain'**
+  String get chain;
+
+  /// No description provided for @brands_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands List (brandNumber)'**
+  String brands_list(Object brandNumber);
+
+  /// No description provided for @sub_brands_list.
+  ///
+  /// In en, this message translates to:
+  /// **'SubBrands List (subBrandNumber)'**
+  String sub_brands_list(Object subBrandNumber);
+
+  /// No description provided for @problem.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem'**
+  String get problem;
+
+  /// No description provided for @competition.
+  ///
+  /// In en, this message translates to:
+  /// **'Competition'**
+  String get competition;
+
+  /// No description provided for @brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand'**
+  String get brand;
+
+  /// No description provided for @sub_brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Sub brand'**
+  String get sub_brand;
+
+  /// No description provided for @campaign_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign Details'**
+  String get campaign_details;
+
+  /// No description provided for @promotion_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotion Details'**
+  String get promotion_details;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

@@ -299,4 +299,53 @@ class TREn extends TR {
 
   @override
   String get logout => 'Logout';
+
+  @override
+  String get start_date => 'Start Date';
+
+  @override
+  String get end_date => 'End Date';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get expired => 'Expired';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get display_type => 'Display Type';
+
+  @override
+  String get chain => 'chain';
+
+  @override
+  String brands_list(Object brandNumber) {
+    return 'Brands List (brandNumber)';
+  }
+
+  @override
+  String sub_brands_list(Object subBrandNumber) {
+    return 'SubBrands List (subBrandNumber)';
+  }
+
+  @override
+  String get problem => 'Problem';
+
+  @override
+  String get competition => 'Competition';
+
+  @override
+  String get brand => 'Brand';
+
+  @override
+  String get sub_brand => 'Sub brand';
+
+  @override
+  String get campaign_details => 'Campaign Details';
+
+  @override
+  String get promotion_details => 'Promotion Details';
 }

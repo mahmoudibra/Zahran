@@ -3,6 +3,7 @@ part of 'domain_mapper.dart';
 class LocalizedNameDto implements DtoToDomainMapper<LocalizedName> {
   String? ar;
   String? en;
+
   LocalizedNameDto.fromJson(Map<String, dynamic> json) {
     ar = json["ar"];
     en = json["en"];
