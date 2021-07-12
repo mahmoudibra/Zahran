@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:fcm_config/fcm_config.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:reusable/reusable.dart';
@@ -25,25 +23,26 @@ Future<void> main() async {
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(TargetAdapter());
   Hive.registerAdapter(LoginModelAdapter());
-  if (kDebugMode) {
-    // Force disable Crashlytics collection while doing every day development.
-    // Temporarily toggle this to true if you want to test crash reporting in your app.
-    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-  }
-  // Pass all uncaught errors to Crashlytics.
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  // if (kDebugMode) {
+  //   // Force disable Crashlytics collection while doing every day development.
+  //   // Temporarily toggle this to true if you want to test crash reporting in your app.
+  //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  // }
+  // // Pass all uncaught errors to Crashlytics.
+  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  //
+  // runZonedGuarded(() {
+  //
+  // }, FirebaseCrashlytics.instance.recordError);
 
-  runZonedGuarded(() {
-    runApp(ZahranApp());
-  }, FirebaseCrashlytics.instance.recordError);
+  runApp(ZahranApp());
 }
 
 class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShapedRemoteImageConfig(
-      errorPlaceholder:
-          Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
+      errorPlaceholder: Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
       child: GetBuilder<AuthViewModel>(
           init: AuthViewModel(),
           builder: (_) {
