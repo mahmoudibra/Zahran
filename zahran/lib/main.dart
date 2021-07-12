@@ -59,7 +59,8 @@ class ZahranApp extends StatelessWidget {
                     ReusableLocalizations.delegate
                   ],
                   supportedLocales: TR.supportedLocales,
-                  locale: locale,
+                  // locale: locale,
+                  locale: Locale('en'),
                   routes: ScreenRouter.routes,
                   navigatorKey: ScreenRouter.key,
                   theme: ThemeGenerator.generate(),
