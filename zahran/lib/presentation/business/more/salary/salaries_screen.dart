@@ -3,24 +3,24 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/prefered_size_title.dart';
 import 'package:zahran/presentation/localization/tr.dart';
-import 'sallaries_view_model.dart';
-import 'sallary_view.dart';
+import 'salaries_view_model.dart';
+import 'salary_view.dart';
 
-class SallariesScreen extends StatefulWidget {
-  const SallariesScreen({Key? key}) : super(key: key);
+class SalariesScreen extends StatefulWidget {
+  const SalariesScreen({Key? key}) : super(key: key);
 
   @override
-  _SallariesScreenState createState() => _SallariesScreenState();
+  _SalariesScreenState createState() => _SalariesScreenState();
 }
 
-class _SallariesScreenState extends State<SallariesScreen> {
+class _SalariesScreenState extends State<SalariesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CompleteList.sliversWithList(
-        init: SallariesViewModel(),
+        init: SalariesViewModel(),
         enablePullUp: false,
-        headers: (SallariesViewModel ctrl) => [
+        headers: (SalariesViewModel ctrl) => [
           SliverAppBar(
             backgroundColor: Theme.of(context).backgroundColor,
             floating: true,
@@ -36,7 +36,7 @@ class _SallariesScreenState extends State<SallariesScreen> {
             ),
           ),
         ],
-        footers: (SallariesViewModel ctrl) => ctrl.loading
+        footers: (SalariesViewModel ctrl) => ctrl.loading
             ? []
             : [
                 SliverFillRemaining(
@@ -47,10 +47,10 @@ class _SallariesScreenState extends State<SallariesScreen> {
               ],
         itemShimmer: ShimmerEffect(builder: () => SallaryShimmer()),
         padding: EdgeInsets.all(20).copyWith(top: 10),
-        filterItems: (SallariesViewModel ctrl) => ctrl.filtered,
-        builItem: (SallaryModel item, index) {
+        filterItems: (SalariesViewModel ctrl) => ctrl.filtered,
+        builItem: (SalaryModel item, index) {
           return ScaleItem(
-            child: SallaryView(model: item),
+            child: SalaryView(model: item),
           );
         },
       ),

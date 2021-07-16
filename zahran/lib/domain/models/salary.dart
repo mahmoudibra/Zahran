@@ -1,6 +1,6 @@
 part of 'models.dart';
 
-class SallaryModel {
+class SalaryModel {
   final int id;
   final LocalizedName title;
   final EmployeeInfo employeeInfo;
@@ -10,7 +10,7 @@ class SallaryModel {
   final List<TrackValue> earnings;
   final List<TrackValue> desiccations;
   final String paymentType;
-  SallaryModel({
+  SalaryModel({
     required this.id,
     required this.title,
     required this.employeeInfo,
