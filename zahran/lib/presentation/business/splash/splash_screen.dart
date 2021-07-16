@@ -33,11 +33,12 @@ class _SplashStates extends State<SplashScreen> with TickerProviderStateMixin {
                   child: Opacity(
                     opacity: imageanimation,
                     child: Center(
-                      child: Transform.rotate(
-                        angle: pi * 3 * (1 - imageanimation),
+                      child: Transform(
+                        transform: Matrix4.rotationY(pi - pi * imageanimation),
+                        alignment: Alignment.center,
                         child: Transform.scale(
                           scale: imageanimation,
-                          child: Image.asset(R.assetsImagesAppLogo),
+                          child: Image.asset(R.assetsImgsLogo),
                         ),
                       ),
                     ),

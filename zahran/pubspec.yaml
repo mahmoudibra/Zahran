@@ -44,6 +44,7 @@ dependencies:
   preload_page_view: 0.1.6
   video_player: 2.1.6
   flutter_countdown_timer: 4.1.0
+  flutter_keyboard_visibility: ^5.0.2
   video_compress: 3.0.0
   cupertino_icons: 1.0.3
   share: 2.0.4
@@ -81,6 +82,7 @@ flutter:
   assets:
     # assets-generator-begin
     # assets/images/*
+    - assets/images/.DS_Store
     - assets/images/app_logo.png
     - assets/images/arrow_down.png
     - assets/images/arrow_left.png
@@ -91,7 +93,6 @@ flutter:
     - assets/images/brand_icon.png
     - assets/images/calender_icon.png
     - assets/images/call_icon.png
-    - assets/images/camera_access.png
     - assets/images/camera_blue_icon.png
     - assets/images/camera_icon.png
     - assets/images/capture_icon.png
@@ -104,15 +105,13 @@ flutter:
     - assets/images/delete_icon.png
     - assets/images/error_artwork.png
     - assets/images/filter_icon.png
-    - assets/images/gallery_access.png
     - assets/images/image_test.jpeg
+    - assets/images/in_range.png
     - assets/images/location.png
-    - assets/images/location_access.png
     - assets/images/location_artwork.png
     - assets/images/location_in_range_icon.png
     - assets/images/logout_icon.png
     - assets/images/marker.png
-    - assets/images/mic_access.png
     - assets/images/mic_black.png
     - assets/images/mic_blue_icon.png
     - assets/images/mic_gray.png
@@ -140,6 +139,29 @@ flutter:
     - assets/images/three_dots.png
     - assets/images/ticket_icon.png
     - assets/images/visits_icon.png
+    # assets/imgs/*
+    - assets/imgs/.DS_Store
+    - assets/imgs/artwork.png
+    - assets/imgs/bell.png
+    - assets/imgs/branchs.png
+    - assets/imgs/brands.png
+    - assets/imgs/camera_access.png
+    - assets/imgs/check_in.png
+    - assets/imgs/gallery_access.png
+    - assets/imgs/in_range.png
+    - assets/imgs/in_range_2.png
+    - assets/imgs/location_access.png
+    - assets/imgs/log_in_outlne.png
+    - assets/imgs/logo.png
+    - assets/imgs/logout.png
+    - assets/imgs/mic_access.png
+    - assets/imgs/person.png
+    - assets/imgs/phone.png
+    - assets/imgs/promotions.png
+    - assets/imgs/report.png
+    - assets/imgs/sallary.png
+    - assets/imgs/settings.png
+    - assets/imgs/shared_documnets.png
     # assets/animations/*
     - assets/animations/loading.flr
     # assets/svg/*

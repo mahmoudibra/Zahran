@@ -61,7 +61,7 @@ class VisitsAppBar extends StatelessWidget {
                     //TODO Notififications Page
                   },
                   icon: AssetIcon(
-                    R.assetsImagesNotificationIcon,
+                    R.assetsImgsBell,
                     color: Colors.white,
                   ),
                 )

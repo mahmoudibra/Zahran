@@ -20,9 +20,8 @@ class DateTimeManager implements DateManegerHelper {
   }
 
   static String convertDateTimeToAppFormat(DateTime dateTime) {
-    final DateTime now = DateTime.now();
-    final DateFormat formatter = DateFormat('yyyy-MM-dd hh:mm');
-    return formatter.format(now);
+    final DateFormat formatter = DateFormat.yMMMMd().add_jm();
+    return formatter.format(dateTime);
   }
 
   static int convertDateToDurationInSeconds(String date) {
@@ -36,23 +35,30 @@ class DateTimeManager implements DateManegerHelper {
   }
 
   static String getFormattedTimeFromUTCTime(String time) {
-    return formatDate(DateFormat("Hms").parse(time, true).toLocal(), ["h", ":", "nn", " ", "am"]);
+    return formatDate(DateFormat("Hms").parse(time, true).toLocal(),
+        ["h", ":", "nn", " ", "am"]);
   }
 
   static String getFormattedTimeFromUTCDate(String date) {
-    return formatDate(DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(), ["h", ":", "nn", " ", "am"]);
+    return formatDate(
+        DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(),
+        ["h", ":", "nn", " ", "am"]);
   }
 
   static String getFormattedDateFromUTCDate(String date) {
-    return formatDate(DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(), ["dd", " ", "M", " ", "yyyy"]);
+    return formatDate(
+        DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(),
+        ["dd", " ", "M", " ", "yyyy"]);
   }
 
   static String getFormattedNonUTCDateFromDate(String date) {
-    return formatDate(DateFormat("yyyy-MM-ddThh:mmZ").parse(date, false), ["dd", " ", "M", " ", "yyyy"]);
+    return formatDate(DateFormat("yyyy-MM-ddThh:mmZ").parse(date, false),
+        ["dd", " ", "M", " ", "yyyy"]);
   }
 
   static String getFormattedDateTimeFromUTCDate(String date) {
-    return formatDate(DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(),
+    return formatDate(
+        DateFormat("yyyy-MM-ddThh:mmZ").parse(date, true).toLocal(),
         ["dd", " ", "M", " ", "yyyy", " at ", "h", ":", "nn", " ", "am"]);
   }
 
@@ -60,9 +66,14 @@ class DateTimeManager implements DateManegerHelper {
     Time time = getTimeObjectFromString(value ?? '');
     Time start = getTimeObjectFromString(from ?? '');
     Time end = getTimeObjectFromString(to ?? '');
-    var currentDate = DateTime(2020, 1, 1, time.hour, time.minute).millisecondsSinceEpoch;
-    var startDate = DateTime.utc(2020, 1, 1, start.hour, start.minute).toLocal().millisecondsSinceEpoch;
-    var endDate = DateTime.utc(2020, 1, 1, end.hour, end.minute).toLocal().millisecondsSinceEpoch;
+    var currentDate =
+        DateTime(2020, 1, 1, time.hour, time.minute).millisecondsSinceEpoch;
+    var startDate = DateTime.utc(2020, 1, 1, start.hour, start.minute)
+        .toLocal()
+        .millisecondsSinceEpoch;
+    var endDate = DateTime.utc(2020, 1, 1, end.hour, end.minute)
+        .toLocal()
+        .millisecondsSinceEpoch;
 
     if (startDate == endDate) {
       return true;
@@ -100,12 +111,14 @@ class DateTimeManager implements DateManegerHelper {
   }
 
   static int getRemainingDaysCountByMinutes(String expiryDate) {
-    int minutes = DateTime.parse(expiryDate).difference(DateTime.now()).inMinutes;
+    int minutes =
+        DateTime.parse(expiryDate).difference(DateTime.now()).inMinutes;
     return (minutes / MINUTES_PER_DAY).ceil();
   }
 
   static int getRemainingDaysCountBySeconds(String expiryDate) {
-    int seconds = DateTime.parse(expiryDate).difference(DateTime.now()).inSeconds;
+    int seconds =
+        DateTime.parse(expiryDate).difference(DateTime.now()).inSeconds;
     return (seconds / SECONDS_PER_DAY).ceil();
   }
 }

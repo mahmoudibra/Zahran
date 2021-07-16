@@ -17,6 +17,15 @@ class LocalizedName {
       return en ?? ar ?? '';
   }
 
+  bool hasName(String val) {
+    return en?.toLowerCase().contains(val.toLowerCase()) == true ||
+        ar?.toLowerCase().contains(val.toLowerCase()) == true;
+  }
+
+  bool hasNameInLocale(BuildContext context, String val) {
+    return format(context).toLowerCase().contains(val.toLowerCase());
+  }
+
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['en'] = this.en;

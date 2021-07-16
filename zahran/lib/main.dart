@@ -29,7 +29,7 @@ Future<void> main() async {
   //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
   // }
   // // Pass all uncaught errors to Crashlytics.
-  // FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+
   //
   // runZonedGuarded(() {
   //
@@ -42,7 +42,8 @@ class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShapedRemoteImageConfig(
-      errorPlaceholder: Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
+      errorPlaceholder:
+          Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
       child: GetBuilder<AuthViewModel>(
           init: AuthViewModel(),
           builder: (_) {

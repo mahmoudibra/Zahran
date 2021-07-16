@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -61,7 +60,8 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,7 +81,8 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -400,6 +401,12 @@ abstract class TR {
   /// **'Tasks'**
   String get tasks;
 
+  /// No description provided for @tasksLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count,plural, =0{} =1{Task} =2{Tasks}  few{Tasks} other{Tasks}'**
+  String tasksLabel(int count);
+
   /// No description provided for @running.
   ///
   /// In en, this message translates to:
@@ -592,17 +599,17 @@ abstract class TR {
   /// **'english'**
   String get english;
 
-  /// No description provided for @distance_km.
+  /// No description provided for @distance.
   ///
   /// In en, this message translates to:
-  /// **'{distnace}KM Away'**
-  String distance_km(Object distnace);
+  /// **'{distnace} KM'**
+  String distance(Object distnace);
 
-  /// No description provided for @distance_m.
+  /// No description provided for @distance_away.
   ///
   /// In en, this message translates to:
-  /// **'{distnace}M Away'**
-  String distance_m(Object distnace);
+  /// **'{distnace}KM away'**
+  String distance_away(Object distnace);
 
   /// No description provided for @total_sell_out.
   ///
@@ -765,6 +772,72 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Brands / Products'**
   String get brand_product;
+
+  /// No description provided for @user_id.
+  ///
+  /// In en, this message translates to:
+  /// **'ID: {id}'**
+  String user_id(Object id);
+
+  /// No description provided for @search_month.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for month'**
+  String get search_month;
+
+  /// No description provided for @department.
+  ///
+  /// In en, this message translates to:
+  /// **'Department'**
+  String get department;
+
+  /// No description provided for @bank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get bank;
+
+  /// No description provided for @payment_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment type'**
+  String get payment_type;
+
+  /// No description provided for @total.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// No description provided for @desiccation.
+  ///
+  /// In en, this message translates to:
+  /// **'Desiccation'**
+  String get desiccation;
+
+  /// No description provided for @net_salary.
+  ///
+  /// In en, this message translates to:
+  /// **'Net Salary'**
+  String get net_salary;
+
+  /// No description provided for @earnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Earnings'**
+  String get earnings;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @rate.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate'**
+  String get rate;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -776,27 +849,25 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
-  
-
-
 // Lookup logic when only language code is specified.
-switch (locale.languageCode) {
-  case 'ar': return TRAr();
-    case 'en': return TREn();
-}
-
+  switch (locale.languageCode) {
+    case 'ar':
+      return TRAr();
+    case 'en':
+      return TREn();
+  }
 
   throw FlutterError(
-    'TR.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'TR.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

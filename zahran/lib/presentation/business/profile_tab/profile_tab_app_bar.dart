@@ -8,7 +8,8 @@ import 'package:zahran/presentation/localization/tr.dart';
 class ProfileTabsAppBar extends StatelessWidget {
   final double expansion;
 
-  const ProfileTabsAppBar({Key? key, required this.expansion}) : super(key: key);
+  const ProfileTabsAppBar({Key? key, required this.expansion})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +21,11 @@ class ProfileTabsAppBar extends StatelessWidget {
         return SafeArea(
           bottom: false,
           child: Container(
-            alignment:
-                AlignmentGeometryTween(begin: Alignment.center, end: Alignment.bottomCenter).transform(expansion),
-            padding: EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 15 * expansion, top: 15 * expansion),
+            alignment: AlignmentGeometryTween(
+                    begin: Alignment.center, end: Alignment.bottomCenter)
+                .transform(expansion),
+            padding: EdgeInsets.symmetric(horizontal: 16)
+                .copyWith(bottom: 15 * expansion, top: 15 * expansion),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -64,15 +67,21 @@ class ProfileTabsAppBar extends StatelessWidget {
                                 children: [
                                   Spacer(flex: 1),
                                   _counter(
-                                      context, vm.profile!.target.totalSellOut.toInt(), TR.of(context).total_sell_out),
+                                      context,
+                                      vm.profile!.target.totalSellOut.toInt(),
+                                      TR.of(context).total_sell_out),
                                   Spacer(flex: 3),
-                                  _counter(context, vm.profile!.target.target.toInt(), TR.of(context).target),
+                                  _counter(
+                                      context,
+                                      vm.profile!.target.target.toInt(),
+                                      TR.of(context).target),
                                   Spacer(flex: 1),
                                 ],
                               ),
                               Spacer(),
                               AutoSizeText(
-                                DateTimeManager.convertDateTimeToAppFormat(vm.profile!.lastVisit),
+                                DateFormat.yMMMMd()
+                                    .format(vm.profile!.lastVisit),
                                 style: context.headline6,
                                 maxLines: 1,
                                 textAlign: TextAlign.center,
@@ -108,14 +117,16 @@ class ProfileTabsAppBar extends StatelessWidget {
     );
   }
 
-  Row _profile(AuthViewModel vm, double avatarWidth, BuildContext context, double expansion) {
+  Row _profile(AuthViewModel vm, double avatarWidth, BuildContext context,
+      double expansion) {
     var progressWidth = avatarWidth + (0.25 * avatarWidth * expansion);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ShapedRemoteImage(
           url: vm.profile!.media,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(avatarWidth)),
+          decoration:
+              BoxDecoration(borderRadius: BorderRadius.circular(avatarWidth)),
           width: avatarWidth,
           height: avatarWidth,
         ),
@@ -132,10 +143,11 @@ class ProfileTabsAppBar extends StatelessWidget {
                   style: TextStyle(fontSize: 14 + 4 * expansion),
                 ),
               ),
+              SizedBox(height: 5 * expansion),
               PrimaryTextStyles.caption(
                 child: Text(
-                  TR.of(context).lets_get_to_work,
-                  style: TextStyle(fontSize: 14 * expansion),
+                  TR.of(context).user_id("${vm.profile?.id}"),
+                  style: TextStyle(fontSize: 16 * expansion),
                 ),
               )
             ],
@@ -180,7 +192,8 @@ class TrianglePainter extends CustomPainter {
       ..moveTo(size.width, size.height)
       ..lineTo(0, size.height)
       ..lineTo(size.width * 0.25, 0)
-      ..arcToPoint(Offset(size.width * 0.75, 0), radius: Radius.circular(size.width / 2), clockwise: false)
+      ..arcToPoint(Offset(size.width * 0.75, 0),
+          radius: Radius.circular(size.width / 2), clockwise: false)
       ..lineTo(size.width, size.height);
 
     canvas.drawPath(path, paint);

@@ -19,7 +19,7 @@ class ProfileTab extends StatelessWidget {
         _buildItem(
           context: context,
           label: TR.of(context).personal_info,
-          icon: R.assetsImagesPersonInfo,
+          icon: R.assetsImgsPerson,
           onTap: () {
             ScreenNames.USER_PROFILE.push();
           },
@@ -27,7 +27,7 @@ class ProfileTab extends StatelessWidget {
         _buildItem(
           context: context,
           label: TR.of(context).promotions,
-          icon: R.assetsImagesPromotionIcon,
+          icon: R.assetsImgsPromotions,
           onTap: () {
             ScreenNames.PROMOTION_LIST.push();
           },
@@ -35,7 +35,7 @@ class ProfileTab extends StatelessWidget {
         _buildItem(
           context: context,
           label: TR.of(context).branches,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsBranchs,
           onTap: () {
             ScreenNames.BRANCH_LIST.push();
           },
@@ -43,7 +43,7 @@ class ProfileTab extends StatelessWidget {
         _buildItem(
           context: context,
           label: TR.of(context).brands_products,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsBrands,
           onTap: () {
             ScreenNames.BRANDS_LIST.push();
           },
@@ -51,31 +51,33 @@ class ProfileTab extends StatelessWidget {
         _buildItem(
           context: context,
           label: TR.of(context).report,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsReport,
           onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).check_in,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsCheckIn,
           onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).sallary_slip,
-          icon: R.assetsImagesBranchMarker,
-          onTap: () {},
+          icon: R.assetsImgsSallary,
+          onTap: () {
+            ScreenNames.Sallery_LIST.push();
+          },
         ),
         _buildItem(
           context: context,
           label: TR.of(context).shared_documents,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsSharedDocumnets,
           onTap: () {},
         ),
         _buildItem(
           context: context,
           label: TR.of(context).settings,
-          icon: R.assetsImagesBranchMarker,
+          icon: R.assetsImgsSettings,
           onTap: () {
             ScreenNames.SETTING.push();
           },
@@ -86,7 +88,7 @@ class ProfileTab extends StatelessWidget {
               ScreenNames.SPLASH.pushAndRemoveAll();
               await Get.find<AuthViewModel>().removeUser();
             },
-            leading: AssetIcon(R.assetsImagesLogoutIcon),
+            leading: AssetIcon(R.assetsImgsLogout),
             horizontalTitleGap: 0,
             title: Text(
               TR.of(context).logout,

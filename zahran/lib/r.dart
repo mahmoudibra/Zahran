@@ -34,10 +34,6 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/images/call_icon.png)
   static final String assetsImagesCallIcon = 'assets/images/call_icon.png';
 
-  /// ![](http://127.0.0.1:9527/assets/images/camera_access.png)
-  static final String assetsImagesCameraAccess =
-      'assets/images/camera_access.png';
-
   /// ![](http://127.0.0.1:9527/assets/images/camera_blue_icon.png)
   static final String assetsImagesCameraBlueIcon =
       'assets/images/camera_blue_icon.png';
@@ -81,19 +77,14 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/images/filter_icon.png)
   static final String assetsImagesFilterIcon = 'assets/images/filter_icon.png';
 
-  /// ![](http://127.0.0.1:9527/assets/images/gallery_access.png)
-  static final String assetsImagesGalleryAccess =
-      'assets/images/gallery_access.png';
-
   /// ![](http://127.0.0.1:9527/assets/images/image_test.jpeg)
   static final String assetsImagesImageTest = 'assets/images/image_test.jpeg';
 
+  /// ![](http://127.0.0.1:9527/assets/images/in_range.png)
+  static final String assetsImagesInRange = 'assets/images/in_range.png';
+
   /// ![](http://127.0.0.1:9527/assets/images/location.png)
   static final String assetsImagesLocation = 'assets/images/location.png';
-
-  /// ![](http://127.0.0.1:9527/assets/images/location_access.png)
-  static final String assetsImagesLocationAccess =
-      'assets/images/location_access.png';
 
   /// ![](http://127.0.0.1:9527/assets/images/location_artwork.png)
   static final String assetsImagesLocationArtwork =
@@ -108,9 +99,6 @@ class R {
 
   /// ![](http://127.0.0.1:9527/assets/images/marker.png)
   static final String assetsImagesMarker = 'assets/images/marker.png';
-
-  /// ![](http://127.0.0.1:9527/assets/images/mic_access.png)
-  static final String assetsImagesMicAccess = 'assets/images/mic_access.png';
 
   /// ![](http://127.0.0.1:9527/assets/images/mic_black.png)
   static final String assetsImagesMicBlack = 'assets/images/mic_black.png';
@@ -207,6 +195,75 @@ class R {
 
   /// ![](http://127.0.0.1:9527/assets/images/visits_icon.png)
   static final String assetsImagesVisitsIcon = 'assets/images/visits_icon.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/.DS_Store)
+  static final String assetsImgs = 'assets/imgs/.DS_Store';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/artwork.png)
+  static final String assetsImgsArtwork = 'assets/imgs/artwork.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/bell.png)
+  static final String assetsImgsBell = 'assets/imgs/bell.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/branchs.png)
+  static final String assetsImgsBranchs = 'assets/imgs/branchs.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/brands.png)
+  static final String assetsImgsBrands = 'assets/imgs/brands.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/camera_access.png)
+  static final String assetsImgsCameraAccess = 'assets/imgs/camera_access.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/check_in.png)
+  static final String assetsImgsCheckIn = 'assets/imgs/check_in.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/gallery_access.png)
+  static final String assetsImgsGalleryAccess =
+      'assets/imgs/gallery_access.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/in_range.png)
+  static final String assetsImgsInRange = 'assets/imgs/in_range.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/in_range_2.png)
+  static final String assetsImgsInRange2 = 'assets/imgs/in_range_2.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/location_access.png)
+  static final String assetsImgsLocationAccess =
+      'assets/imgs/location_access.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/log_in_outlne.png)
+  static final String assetsImgsLogInOutlne = 'assets/imgs/log_in_outlne.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/logo.png)
+  static final String assetsImgsLogo = 'assets/imgs/logo.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/logout.png)
+  static final String assetsImgsLogout = 'assets/imgs/logout.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/mic_access.png)
+  static final String assetsImgsMicAccess = 'assets/imgs/mic_access.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/person.png)
+  static final String assetsImgsPerson = 'assets/imgs/person.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/phone.png)
+  static final String assetsImgsPhone = 'assets/imgs/phone.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/promotions.png)
+  static final String assetsImgsPromotions = 'assets/imgs/promotions.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/report.png)
+  static final String assetsImgsReport = 'assets/imgs/report.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/sallary.png)
+  static final String assetsImgsSallary = 'assets/imgs/sallary.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/settings.png)
+  static final String assetsImgsSettings = 'assets/imgs/settings.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/shared_documnets.png)
+  static final String assetsImgsSharedDocumnets =
+      'assets/imgs/shared_documnets.png';
 
   /// ![](http://127.0.0.1:9527/assets/animations/loading.flr)
   static final String assetsAnimationsLoading = 'assets/animations/loading.flr';

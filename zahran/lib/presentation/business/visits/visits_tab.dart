@@ -43,7 +43,7 @@ class VisitsTab extends StatelessWidget {
       builItem: (BranchModel item, index) {
         return SlideFadeItem(child: VisitView(model: item));
       },
-      init: VisitsViewModel(),
+      init: VisitsViewModel(context),
     );
   }
 }
