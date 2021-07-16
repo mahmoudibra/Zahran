@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
-import 'package:zahran/presentation/helpers/date/date-manager.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
 class ProfileTabsAppBar extends StatelessWidget {
