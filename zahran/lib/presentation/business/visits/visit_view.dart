@@ -58,21 +58,28 @@ class VisitView extends StatelessWidget {
         ),
         if (model.visitStatus != VisitStatus.PENDING) ...[
           SizedBox(width: 10),
-          VisitStatusChip(visitStatus: 'pending'),
+          VisitStatusChip(visitStatus: model.visitStatus),
         ]
       ],
     );
+  }
+
+  int getTasks() {
+    if (model.visitStatus.isInProgress || model.visitStatus.isCompleted)
+      return model.completedTasks;
+    if (model.visitStatus.isIncomplete) return model.incompletedTasks;
+    return model.totalTasks;
   }
 
   Widget _thirdRow(BuildContext context, List<BrandModel> brands) {
     return Row(
       children: [
         CounterView(
-          value: model.completedTasks,
+          value: getTasks(),
           of: model.visitStatus == VisitStatus.IN_PROGRESS
               ? model.totalTasks
               : null,
-          label: TR.of(context).tasks,
+          label: TR.of(context).tasksLabel(getTasks()),
         ),
         SizedBox(width: 10),
         Expanded(
@@ -85,7 +92,7 @@ class VisitView extends StatelessWidget {
   Row _secondRow(BuildContext context) {
     return Row(
       children: [
-        AssetIcon(R.assetsImagesLocationInRangeIcon),
+        AssetIcon(R.assetsImgsInRange, size: 16),
         SizedBox(width: 5),
         Expanded(
           child: Text(
@@ -96,10 +103,7 @@ class VisitView extends StatelessWidget {
           ),
         ),
         SizedBox(width: 5),
-        Text(
-            model.distance >= 1000
-                ? TR.of(context).distance_km((model.distance / 1000).format())
-                : TR.of(context).distance_m(model.distance.format()),
+        Text(TR.of(context).distance_away(model.distance.format()),
             style: context.overline)
       ],
     );

@@ -10,8 +10,10 @@ class BranchModel {
   final int totalBrands;
   final int totalTasks;
   final int completedTasks;
+  final int incompletedTasks;
   final VisitStatus visitStatus;
   final List<BrandModel> brands;
+  final List<TaskModel> tasks;
 
   BranchModel({
     required this.id,
@@ -25,6 +27,8 @@ class BranchModel {
     required this.totalTasks,
     required this.completedTasks,
     required this.visitStatus,
+    required this.tasks,
+    required this.incompletedTasks,
   });
   BranchModel copyWith({
     LocationModel? location,
@@ -35,13 +39,16 @@ class BranchModel {
     int? totalBrands,
     int? totalTasks,
     int? completedTasks,
+    int? incompletedTasks,
     VisitStatus? visitStatus,
     List<BrandModel>? brands,
+    List<TaskModel>? tasks,
   }) {
     return BranchModel(
       id: id,
       location: location ?? this.location,
       distance: distance ?? this.distance,
+      incompletedTasks: incompletedTasks ?? this.incompletedTasks,
       name: name ?? this.name,
       address: address ?? this.address,
       chain: chan ?? this.chain,
@@ -50,6 +57,7 @@ class BranchModel {
       totalTasks: totalTasks ?? this.totalTasks,
       completedTasks: completedTasks ?? this.completedTasks,
       visitStatus: visitStatus ?? this.visitStatus,
+      tasks: tasks ?? this.tasks,
     );
   }
 }

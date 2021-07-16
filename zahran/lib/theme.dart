@@ -80,7 +80,10 @@ class ThemeGenerator {
     var textTheme = _textTheme(colors);
     return theme.copyWith(
       textTheme: textTheme,
-      primaryTextTheme: textTheme.copyWith(caption: textTheme.caption?.copyWith(color: Color(0xFFB4B3BE))).apply(
+      primaryTextTheme: textTheme
+          .copyWith(
+              caption: textTheme.caption?.copyWith(color: Color(0xFFB4B3BE)))
+          .apply(
             bodyColor: colors.onPrimary,
             decorationColor: colors.onPrimary,
           ),
@@ -126,7 +129,7 @@ class ThemeGenerator {
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder: _buildInputBorder(),
         focusedBorder: _buildInputBorder(colors.secondary, 1),
-        disabledBorder: _buildInputBorder(colors.primary, 0.5),
+        disabledBorder: _buildInputBorder(),
         errorBorder: _buildInputBorder(colors.error, 1),
         focusedErrorBorder: _buildInputBorder(colors.error, 1),
         contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -154,6 +157,7 @@ class ThemeGenerator {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         shadowColor: Color(0xFFEDEDF3).withOpacity(0.25),
         elevation: 4,
+        margin: EdgeInsets.symmetric(vertical: 4),
       ),
       dividerTheme: DividerThemeData(
         color: Color(0xffE1E1EA).withOpacity(0.5),
@@ -162,7 +166,8 @@ class ThemeGenerator {
     );
   }
 
-  static OutlineInputBorder _buildInputBorder([Color color = Colors.transparent, double width = 0.0]) {
+  static OutlineInputBorder _buildInputBorder(
+      [Color color = Colors.transparent, double width = 0.0]) {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(6),
       borderSide: BorderSide(

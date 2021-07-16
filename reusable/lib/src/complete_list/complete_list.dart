@@ -347,9 +347,7 @@ class _CompleteListState<TItem, TController extends BaseListController<TItem>>
         reverse: widget.reverse,
         slivers: [
           if (widget.headers != null) ...widget.headers!(_ctrl),
-          if (widget.enablePullDown == true &&
-              items.isNotEmpty &&
-              _ctrl.paging != null)
+          if (widget.enablePullDown == true && _ctrl.paging != null)
             _RefreshIndicator(
               deltaExtent: deltaExtent,
               lisnable: _rereshController,

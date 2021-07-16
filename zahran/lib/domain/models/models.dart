@@ -13,3 +13,5 @@ part 'models.g.dart';
 part 'product.dart';
 part 'promotion.dart';
 part 'user_model.dart';
+part 'task.dart';
+part 'sallary.dart';

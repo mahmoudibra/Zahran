@@ -5,9 +5,8 @@ class TargetDto implements DtoToDomainMapper<Target> {
   double? target;
 
   TargetDto.fromJson(Map<String, dynamic> json) {
-    totalSellOut =
-        double.tryParse(json['total_sell_out']?.toString() ?? '0') ?? 0;
-    target = double.tryParse(json['target']?.toString() ?? '0') ?? 0;
+    totalSellOut = json['total_sell_out']?.toString().toDouble();
+    target = json['target']?.toString().toDouble();
   }
 
   Map<String, dynamic> toJson() {

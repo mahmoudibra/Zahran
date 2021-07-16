@@ -9,8 +9,16 @@ part 'localized_name.dto.dart';
 part 'product.dto.dart';
 part 'promotion.dto.dart';
 part 'target.dto.dart';
+part 'task.dto.dart';
 part 'user.dto.dart';
+part 'sallary.dto.dart';
 
 abstract class DtoToDomainMapper<V> {
   V dtoToDomainModel();
+}
+
+extension ToDoubleExt on String? {
+  double? toDouble() {
+    return double.tryParse(this?.toString().replaceAll(',', '') ?? '');
+  }
 }

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class AssetIcon extends StatelessWidget {
   final String name;
   final Color? color;
-  const AssetIcon(this.name, {this.color});
+  final double? size;
+  const AssetIcon(this.name, {this.color, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +12,8 @@ class AssetIcon extends StatelessWidget {
 
     return Image.asset(
       name,
-      width: iconTheme.size,
-      height: iconTheme.size,
+      width: size ?? iconTheme.size,
+      height: size ?? iconTheme.size,
       color: color,
     );
   }

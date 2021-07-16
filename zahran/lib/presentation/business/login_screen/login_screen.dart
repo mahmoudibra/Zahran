@@ -23,15 +23,12 @@ class LoginScreen extends StatelessWidget {
             child: GradientContainer(
               child: ScafoldWithBottomSheet(
                 background: Colors.transparent,
-                body: (offset) {
-                  return Container(
-                    height: MediaQuery.of(context).size.height * (1 - offset),
-                    alignment: Alignment.center,
-                    child: Image.asset(R.assetsImagesAppLogo),
-                  );
-                },
-                bottom: (scrollController, offset) => _LoginSheet(
-                    buttonKey: buttonKey, scrollController: scrollController),
+                appBar: (t) => Container(
+                  padding: EdgeInsets.all(10 + 10 * (1 - t)),
+                  alignment: Alignment.center,
+                  child: Image.asset(R.assetsImgsLogo),
+                ),
+                body: _LoginSheet(buttonKey: buttonKey),
               ),
             ),
           ),
@@ -60,63 +57,62 @@ class LoginSheet extends StatelessWidget {
 }
 
 class _LoginSheet extends StatelessWidget {
-  _LoginSheet({
-    Key? key,
-    required this.buttonKey,
-    this.scrollController,
-  }) : super(key: key);
+  _LoginSheet({Key? key, required this.buttonKey}) : super(key: key);
 
   final ProgressButtonKey buttonKey;
-  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
     var vm = Get.find<LoginViewModel>();
     bool isBottomSheet = ModalRoute.of(context) is PopupRoute;
+
     return ListView(
-      controller: scrollController,
       padding: const EdgeInsets.all(20).copyWith(
           bottom: 20 +
               (isBottomSheet ? MediaQuery.of(context).viewInsets.bottom : 0)),
       shrinkWrap: true,
-      children: [
-        AutoSizeText(
-          TR.of(context).login_title,
-          style: context.headline4,
-        ),
-        AutoSizeText(TR.of(context).login_sub_title),
-        SizedBox(height: 30),
-        Text(
-          TR.of(context).sab_number,
-          style: context.bodyText1,
-        ),
-        SizedBox(height: 10),
-        CustomTextField(
-          onSaved: (v) => vm.sab = v,
-          textInputType: TextInputType.number,
-          extraValidator: vm.validateSab,
-          maxLength: 8,
-        ),
-        SizedBox(height: 20),
-        Text(
-          TR.of(context).password,
-          style: context.bodyText1,
-        ),
-        SizedBox(height: 10),
-        CustomTextField(
-          onSaved: (v) => vm.password = v,
-          extraValidator: vm.validatePassword,
-          textInputAction: TextInputAction.go,
-          onFieldSubmitted: (v) {
-            buttonKey.onPressed();
-          },
-        ),
-        SizedBox(height: 30),
-        ProgressButton(
-          key: buttonKey,
-          child: Text(TR.of(context).login),
-        ),
-      ],
+      children: widgets(context, vm),
     );
+  }
+
+  List<Widget> widgets(BuildContext context, LoginViewModel vm) {
+    return [
+      AutoSizeText(
+        TR.of(context).login_title,
+        style: context.headline4,
+      ),
+      AutoSizeText(TR.of(context).login_sub_title),
+      SizedBox(height: 30),
+      Text(
+        TR.of(context).sab_number,
+        style: context.bodyText1,
+      ),
+      SizedBox(height: 10),
+      CustomTextField(
+        onSaved: (v) => vm.sab = v,
+        textInputType: TextInputType.number,
+        extraValidator: vm.validateSab,
+        maxLength: 8,
+      ),
+      SizedBox(height: 20),
+      Text(
+        TR.of(context).password,
+        style: context.bodyText1,
+      ),
+      SizedBox(height: 10),
+      CustomTextField.password(
+        onSaved: (v) => vm.password = v,
+        extraValidator: vm.validatePassword,
+        textInputAction: TextInputAction.go,
+        onFieldSubmitted: (v) {
+          buttonKey.onPressed();
+        },
+      ),
+      SizedBox(height: 30),
+      ProgressButton(
+        key: buttonKey,
+        child: Text(TR.of(context).login),
+      ),
+    ];
   }
 }

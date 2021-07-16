@@ -35,9 +35,14 @@ class VisitDetails extends StatelessWidget {
                     style: context.headline6),
               ),
               SliverSpacer(10),
-              for (var i = 0; i < 10; i++)
+              for (var task in model.tasks)
                 SliverPaddingBox(
-                  child: SlideFadeItem(child: TaskView()),
+                  child: SlideFadeItem(
+                    child: TaskView(
+                      task: task,
+                      showProgress: model.visitStatus.isInProgress,
+                    ),
+                  ),
                 ),
             ],
           ),
@@ -83,7 +88,7 @@ class VisitDetails extends StatelessWidget {
         ),
         if (model.visitStatus == VisitStatus.IN_PROGRESS) ...[
           SizedBox(width: 10),
-          VisitStatusChip(visitStatus: 'pending'),
+          VisitStatusChip(visitStatus: model.visitStatus),
         ]
       ],
     ));
@@ -94,11 +99,11 @@ class VisitDetails extends StatelessWidget {
     return SliverPaddingBox(
       child: Row(
         children: [
-          AssetIcon(R.assetsImagesLocationInRangeIcon),
+          AssetIcon(R.assetsImgsInRange2, size: 16),
           SizedBox(width: 5),
           Expanded(
             child: Text(
-              model.address.format(context),
+              "${model.address.format(context)} (${TR.of(context).distance(model.distance.format())})",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

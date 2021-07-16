@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/domain/mappers/domain_mapper.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -9,7 +9,10 @@ import 'package:zahran/r.dart';
 import 'task_percent.dart';
 
 class TaskView extends StatelessWidget {
-  const TaskView({Key? key}) : super(key: key);
+  final TaskModel task;
+  final bool showProgress;
+  const TaskView({Key? key, required this.task, required this.showProgress})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,33 +25,30 @@ class TaskView extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                    child: Text("Regular Check", style: context.bodyText1)),
-                SizedBox(width: 10),
-                AssetIcon(R.assetsImagesCupponIcon),
-                Text(
-                  TR.of(context).promotion,
-                  style: TextStyle(color: Color(0xFF4DA850)),
-                )
+                    child: Text(task.title.format(context),
+                        style: context.bodyText1)),
+                if (task.status) ...[
+                  SizedBox(width: 10),
+                  AssetIcon(R.assetsImagesCupponIcon),
+                  Text(
+                    TR.of(context).promotion,
+                    style: TextStyle(color: Color(0xFF4DA850)),
+                  )
+                ],
               ],
             ),
             SizedBox(height: 7),
-            Text(
-                "Existence is pain to a meeseeks Jerry, and we will do anything to alleviate that pain. Ew, Grandpa, so gross! You're talking about my mom!"),
+            Text(task.description.format(context)),
             Divider(height: 20),
             Row(
               children: [
-                BrandsView(
-                  brands: [
-                    BrandDto.fromJson({"id": 0}).dtoToDomainModel(),
-                    BrandDto.fromJson({"id": 0}).dtoToDomainModel(),
-                    BrandDto.fromJson({"id": 0}).dtoToDomainModel(),
-                    BrandDto.fromJson({"id": 0}).dtoToDomainModel(),
-                  ],
-                ),
-                SizedBox(width: 20),
-                Expanded(child: Text('Moulinex, Tefal,')),
+                BrandsView(brands: task.brands),
                 SizedBox(width: 10),
-                TaskPercent(percent: 0.7)
+                Expanded(child: Text(task.instructions.format(context))),
+                if (showProgress) ...[
+                  SizedBox(width: 10),
+                  TaskPercent(percent: 0.7)
+                ],
               ],
             )
           ],

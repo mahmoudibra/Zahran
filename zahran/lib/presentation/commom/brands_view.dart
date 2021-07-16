@@ -14,9 +14,11 @@ class BrandsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var min = math.min(max, brands.length);
+    if (min == max) min++;
     return SizedBox(
       height: 30,
-      width: (max + 1) * 25,
+      width: min * 25 + 5,
       child: Stack(
         children: reversed ? _items : _items.reversed.toList(),
       ),
@@ -70,7 +72,8 @@ class BrandsView extends StatelessWidget {
   BoxDecoration _buildDecoration() {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(50),
-      color: Colors.white,
+      color: Color(0xffF6F6F9),
+      border: Border.all(color: Color(0xFFF3F3F6)),
       boxShadow: [
         BoxShadow(
           color: Color(0xffF6F6F9),

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
 import 'package:zahran/presentation/localization/tr.dart';
+import 'package:zahran/r.dart';
 
 import '../toolbox.helper.dart';
 
 class PermissionPopUp extends StatelessWidget {
   final PermissionType service;
-  final MediaFileTypes mediaType;
+  final MediaFileTypes? mediaType;
   final VoidCallback? onOpenSettings;
   final VoidCallback? onDismiss;
   final bool isMandatory;
@@ -15,7 +16,7 @@ class PermissionPopUp extends StatelessWidget {
   PermissionPopUp({
     required this.service,
     this.onOpenSettings,
-    required this.mediaType,
+    this.mediaType,
     this.onDismiss,
     this.isMandatory = false,
   });
@@ -125,16 +126,16 @@ class PermissionPopUp extends StatelessWidget {
     String path = '';
     switch (service) {
       case PermissionType.Microphone:
-        path = 'assets/images/mic-access.png';
+        path = R.assetsImgsMicAccess;
         break;
       case PermissionType.Camera:
-        path = 'assets/images/camera-access.png';
+        path = R.assetsImgsCameraAccess;
         break;
       case PermissionType.Gallery:
-        path = 'assets/images/gallery-access.png';
+        path = R.assetsImgsGalleryAccess;
         break;
       case PermissionType.Location:
-        path = 'assets/images/location-access.png';
+        path = R.assetsImgsLocationAccess;
         break;
     }
     return path;

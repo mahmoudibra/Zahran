@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/promotion.repo.dart';
+import 'package:zahran/data/repo/sallary.repo.dart';
 import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/data/repo/visits.repo.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -15,6 +16,7 @@ class Repos {
   static VisitsRepo get visitsRepo => VisitsRepo();
   static PromotionRepo get promotionRepo => PromotionRepo();
   static BrandRepo get brandRepo => BrandRepo();
+  static SallaryRepo get sallaryRepo => SallaryRepo();
 }
 
 abstract class BaseRepositryImpl extends BaseRepositry {

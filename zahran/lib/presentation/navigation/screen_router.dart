@@ -7,6 +7,8 @@ import 'package:zahran/presentation/business/more/change_password/change_passwor
 import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_list_screen.dart';
+import 'package:zahran/presentation/business/more/sallary/details/sallary_details_screen.dart';
+import 'package:zahran/presentation/business/more/sallary/sallaries_screen.dart';
 import 'package:zahran/presentation/business/more/setting/seeting_screen.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
@@ -26,6 +28,8 @@ enum ScreenNames {
   PROMOTION_DETAILS,
   BRANCH_LIST,
   BRANDS_LIST,
+  Sallery_LIST,
+  Sallery_Details,
 }
 
 class ScreenRouter {
@@ -43,9 +47,12 @@ class ScreenRouter {
         "${ScreenNames.VISIT_DETAILS}": (_) => VisitDetails(),
         "${ScreenNames.SETTING}": (_) => SettingScreen(),
         "${ScreenNames.PROMOTION_LIST}": (_) => PromotionListScreen(),
-        "${ScreenNames.PROMOTION_DETAILS}": (_) => PromotionDetailsScreen(promotionId: 5),
+        "${ScreenNames.PROMOTION_DETAILS}": (_) =>
+            PromotionDetailsScreen(promotionId: 5),
         "${ScreenNames.BRANCH_LIST}": (_) => BranchesListScreen(),
         "${ScreenNames.BRANDS_LIST}": (_) => BrandsListScreen(),
+        "${ScreenNames.Sallery_LIST}": (_) => SallariesScreen(),
+        "${ScreenNames.Sallery_Details}": (_) => SallaryDetailsScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {
