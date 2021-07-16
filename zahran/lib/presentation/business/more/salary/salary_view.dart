@@ -5,9 +5,9 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
-class SallaryView extends StatelessWidget {
-  final SallaryModel model;
-  const SallaryView({Key? key, required this.model}) : super(key: key);
+class SalaryView extends StatelessWidget {
+  final SalaryModel model;
+  const SalaryView({Key? key, required this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

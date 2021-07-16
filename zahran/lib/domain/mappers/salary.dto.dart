@@ -1,6 +1,6 @@
 part of 'domain_mapper.dart';
 
-class SallaryDto implements DtoToDomainMapper<SallaryModel> {
+class SalaryDto implements DtoToDomainMapper<SalaryModel> {
   int? id;
   LocalizedNameDto? name;
   EmployeeInfoDto? employeeInfo;
@@ -10,7 +10,7 @@ class SallaryDto implements DtoToDomainMapper<SallaryModel> {
   List<TrackValueDto>? earnings;
   List<TrackValueDto>? desiccations;
   String? paymentType;
-  SallaryDto.fromJson(Map<String, dynamic> json) {
+  SalaryDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     paymentType = json['payment_type'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
@@ -34,8 +34,8 @@ class SallaryDto implements DtoToDomainMapper<SallaryModel> {
   }
 
   @override
-  SallaryModel dtoToDomainModel() {
-    return SallaryModel(
+  SalaryModel dtoToDomainModel() {
+    return SalaryModel(
       id: id!,
       title: name?.dtoToDomainModel() ?? LocalizedName(),
       desiccation: desiccation ?? 0,

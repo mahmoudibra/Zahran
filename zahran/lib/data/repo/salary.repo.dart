@@ -10,10 +10,10 @@ class SallaryRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<ApiListResponse<SallaryModel>> pagination(int skip) async {
+  Future<ApiListResponse<SalaryModel>> pagination(int skip) async {
     return await this.paging(
       path: '/v1/mobile/salaries',
-      mapItem: (json) => SallaryDto.fromJson(json).dtoToDomainModel(),
+      mapItem: (json) => SalaryDto.fromJson(json).dtoToDomainModel(),
       skip: skip,
     );
   }

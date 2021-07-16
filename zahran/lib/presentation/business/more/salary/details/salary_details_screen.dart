@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/presentation/business/more/sallary/details/sallary_details_view_model.dart';
+import 'salary_details_view_model.dart';
 import 'package:zahran/presentation/commom/prefered_size_title.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
-class SallaryDetailsScreen extends StatelessWidget {
-  const SallaryDetailsScreen({Key? key}) : super(key: key);
+class SalaryDetailsScreen extends StatelessWidget {
+  const SalaryDetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-        init: SallaryDetailsViewModel(context),
-        builder: (SallaryDetailsViewModel vm) {
+        init: SalaryDetailsViewModel(context),
+        builder: (SalaryDetailsViewModel vm) {
           return Scaffold(
             body: CustomScrollView(
               slivers: [
@@ -128,7 +128,7 @@ class SallaryDetailsScreen extends StatelessWidget {
     );
   }
 
-  SliverPaddingBox _infoRow1(SallaryDetailsViewModel vm) {
+  SliverPaddingBox _infoRow1(SalaryDetailsViewModel vm) {
     return SliverPaddingBox(
       child: Row(
         children: [
@@ -142,7 +142,7 @@ class SallaryDetailsScreen extends StatelessWidget {
     );
   }
 
-  SliverPaddingBox _infoRow2(SallaryDetailsViewModel vm) {
+  SliverPaddingBox _infoRow2(SalaryDetailsViewModel vm) {
     return SliverPaddingBox(
       child: Row(
         children: [
