@@ -9,7 +9,8 @@ class BaseDetailsViewModel<T> extends GetxController {
     _model = ModalRoute.of(context)!.settings.arguments as T;
   }
   @protected
-  set setModel(T n) {
+  set model(T n) {
     _model = n;
+    update();
   }
 }

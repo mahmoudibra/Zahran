@@ -838,6 +838,12 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Rate'**
   String get rate;
+
+  /// No description provided for @check_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Check-out'**
+  String get check_out;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

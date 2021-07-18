@@ -412,4 +412,7 @@ class TREn extends TR {
 
   @override
   String get rate => 'Rate';
+
+  @override
+  String get check_out => 'Check-out';
 }

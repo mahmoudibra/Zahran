@@ -410,4 +410,7 @@ class TRAr extends TR {
 
   @override
   String get rate => 'Rate';
+
+  @override
+  String get check_out => 'Check-out';
 }

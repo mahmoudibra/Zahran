@@ -163,5 +163,6 @@
     "net_salary": "Net Salary",
     "earnings": "Earnings",
     "amount": "Amount",
-    "rate": "Rate"
+    "rate": "Rate",
+    "check_out": "Check-out"
 }
