@@ -17,11 +17,15 @@ class FlareAnimation extends StatelessWidget {
       {required Future<TType> action, required BuildContext context}) {
     showDialog(
       context: context,
-      builder: (_) => Dialog(
-        child: SizedBox(
-          height: 60,
-          width: 60,
-          child: FlareAnimation(),
+      barrierColor: Colors.black26,
+      builder: (_) => AbsorbPointer(
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 60,
+            width: 60,
+            child: FlareAnimation(),
+          ),
         ),
       ),
       barrierDismissible: false,

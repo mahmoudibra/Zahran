@@ -22,13 +22,15 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
 
   void goToBrands() {
     ScreenNames.BRANDS_LIST.push(model.id);
+    getCurrentPosition();
+    checkEnabled();
   }
 
   void call() {
     launch("tel:${model.chain.media}");
   }
 
-  Future checkIn(BranchModel model) async {
+  Future checkIn(BranchModel item) async {
     await FlareAnimation.show(
         action:
             Repos.visitsRepo.checkIn(model.id, await getCurrentPosition(), 0),
@@ -36,6 +38,7 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
     model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
     Get.find<VisitsViewModel>()
         .replaceItems((e) => e.id == model.id ? model : e);
-    update();
   }
+
+  Future checkOut(BranchModel item) async {}
 }

@@ -1,18 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
-import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
-import 'package:zahran/presentation/localization/tr.dart';
-import 'package:zahran/r.dart';
-
-import 'task_percent.dart';
 
 class TaskView extends StatelessWidget {
   final TaskModel task;
-  final bool showProgress;
-  const TaskView({Key? key, required this.task, required this.showProgress})
-      : super(key: key);
+  const TaskView({Key? key, required this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +22,12 @@ class TaskView extends StatelessWidget {
                         style: context.bodyText1)),
                 if (task.status) ...[
                   SizedBox(width: 10),
-                  AssetIcon(R.assetsImagesCupponIcon),
-                  Text(
-                    TR.of(context).promotion,
-                    style: TextStyle(color: Color(0xFF4DA850)),
-                  )
+                  CircleAvatar(
+                    backgroundColor: Color(0xFF4DA850),
+                    foregroundColor: Colors.white,
+                    radius: 10,
+                    child: Icon(Icons.check, size: 15),
+                  ),
                 ],
               ],
             ),
@@ -45,10 +39,10 @@ class TaskView extends StatelessWidget {
                 BrandsView(brands: task.brands),
                 SizedBox(width: 10),
                 Expanded(child: Text(task.instructions.format(context))),
-                if (showProgress) ...[
-                  SizedBox(width: 10),
-                  TaskPercent(percent: 0.7)
-                ],
+                // if (showProgress) ...[
+                //   SizedBox(width: 10),
+                //   TaskPercent(percent: 0.7)
+                // ],
               ],
             )
           ],

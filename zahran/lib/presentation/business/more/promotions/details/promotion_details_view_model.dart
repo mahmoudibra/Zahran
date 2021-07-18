@@ -14,7 +14,8 @@ class PromotionDetailsViewModel extends GetxController {
 
   Future _fetchPromotionDetails() async {
     try {
-      promotion = (await Repos.promotionRepo.fetchPromotionDetails(promotionId))!;
+      promotion =
+          (await Repos.promotionRepo.fetchPromotionDetails(promotionId))!;
       update();
     } catch (error) {
       if (!(error is ApiFetchException)) {

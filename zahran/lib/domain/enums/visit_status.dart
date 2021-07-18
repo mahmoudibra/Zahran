@@ -18,4 +18,7 @@ class VisitStatus extends Enum<String> {
     else if (other is String) return other == this.value;
     return this == other;
   }
+
+  @override
+  int get hashCode => super.hashCode;
 }

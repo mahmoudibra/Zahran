@@ -38,10 +38,7 @@ class VisitDetails extends StatelessWidget {
               for (var task in model.tasks)
                 SliverPaddingBox(
                   child: SlideFadeItem(
-                    child: TaskView(
-                      task: task,
-                      showProgress: model.visitStatus.isInProgress,
-                    ),
+                    child: TaskView(task: task),
                   ),
                 ),
             ],
@@ -53,9 +50,13 @@ class VisitDetails extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ElevatedButton.icon(
-                    onPressed: () => _.checkIn(model),
+                    onPressed: () => model.visitStatus.isInProgress
+                        ? _.checkOut(model)
+                        : _.checkIn(model),
                     icon: Icon(Icons.login),
-                    label: Text(TR.of(context).check_in),
+                    label: Text(model.visitStatus.isInProgress
+                        ? TR.of(context).check_out
+                        : TR.of(context).check_in),
                   ),
                 ),
                 SizedBox(width: 10),

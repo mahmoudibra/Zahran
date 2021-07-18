@@ -49,7 +49,7 @@ class _SalariesScreenState extends State<SalariesScreen> {
         padding: EdgeInsets.all(20).copyWith(top: 10),
         filterItems: (SalariesViewModel ctrl) => ctrl.filtered,
         builItem: (SalaryModel item, index) {
-          return ScaleItem(
+          return FadeItem(
             child: SalaryView(model: item),
           );
         },
