@@ -5,6 +5,7 @@ import 'package:zahran/presentation/business/more/branch/branch_list_screen.dart
 import 'package:zahran/presentation/business/more/brands/brand_list_screen.dart';
 import 'package:zahran/presentation/business/more/change_password/change_password_screen.dart';
 import 'package:zahran/presentation/business/more/check_in/check_in_screen.dart';
+import 'package:zahran/presentation/business/more/documents/details/document_details_screen.dart';
 import 'package:zahran/presentation/business/more/documents/document_list_screen.dart';
 import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_screen.dart';
@@ -33,6 +34,7 @@ enum ScreenNames {
   Sallery_LIST,
   Sallery_Details,
   DOCUMENT_LIST,
+  DOCUMENT_DETAILS,
   CHECK_IN_LIST,
 }
 
@@ -57,6 +59,7 @@ class ScreenRouter {
         "${ScreenNames.Sallery_LIST}": (_) => SalariesScreen(),
         "${ScreenNames.Sallery_Details}": (_) => SalaryDetailsScreen(),
         "${ScreenNames.DOCUMENT_LIST}": (_) => DocumentListScreen(),
+        "${ScreenNames.DOCUMENT_DETAILS}": (_) => DocumentDetailsScreen(),
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
       };
 

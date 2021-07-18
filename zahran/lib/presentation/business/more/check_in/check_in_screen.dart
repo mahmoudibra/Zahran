@@ -20,7 +20,7 @@ class _CheckINScreenState extends State<CheckINScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CompleteList.sliversWithList(
-        init: CheckInListViewModel(),
+        init: CheckInListViewModel(context),
         enablePullUp: false,
         headers: (CheckInListViewModel ctrl) => [
           SliverAppBar(

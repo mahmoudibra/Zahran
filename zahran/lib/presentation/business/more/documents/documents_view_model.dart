@@ -1,6 +1,7 @@
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/document.dart';
+import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class DocumentsListViewModel extends ListController<Document> {
   @override
@@ -8,5 +9,9 @@ class DocumentsListViewModel extends ListController<Document> {
     return Repos.documentRepo.pagination(skip);
   }
 
-  Future<void> routeToDocumentDetails(int index) async {}
+  Future<void> routeToDocumentDetails(int index) async {
+    var documents = items;
+    var selectedDocument = documents.toList()[index];
+    ScreenNames.DOCUMENT_DETAILS.push(selectedDocument);
+  }
 }
