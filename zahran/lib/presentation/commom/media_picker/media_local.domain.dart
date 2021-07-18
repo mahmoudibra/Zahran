@@ -32,7 +32,7 @@ class MediaLocal {
   factory MediaLocal.fromJson(Map<String, dynamic> json,
       {String? tmpDirectory}) {
     MediaFileTypes mediaFileTypes;
-    File? mediaFile = null;
+    File? mediaFile;
     if (json['mediaFileTypes'] != null) {
       mediaFileTypes = MediaFileTypes(json['mediaFileTypes']);
     } else {

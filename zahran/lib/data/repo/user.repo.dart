@@ -1,5 +1,5 @@
 import 'package:fcm_config/fcm_config.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:zahran/data/base/base_api_request.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/mappers/domain_mapper.dart';
@@ -41,7 +41,8 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<EmptyModel?> changePassword({required ChangePasswordRequest changePasswordRequest}) async {
+  Future<EmptyModel?> changePassword(
+      {required ChangePasswordRequest changePasswordRequest}) async {
     var result = await post(
       path: '/v1/mobile/update-password',
       data: changePasswordRequest.toJson(),
@@ -50,7 +51,8 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<UserModel?> receiveNotification({required bool receiveNotification}) async {
+  Future<UserModel?> receiveNotification(
+      {required bool receiveNotification}) async {
     var result = await post(
       path: '/v1/mobile/notification-setting',
       data: {
@@ -85,7 +87,10 @@ class ChangePasswordRequest extends RequestMappable {
   final String newPassword;
   final String newPasswordConfirm;
 
-  ChangePasswordRequest({required this.oldPassword, required this.newPassword, required this.newPasswordConfirm});
+  ChangePasswordRequest(
+      {required this.oldPassword,
+      required this.newPassword,
+      required this.newPasswordConfirm});
 
   @override
   Map<String, dynamic> toJson() {
