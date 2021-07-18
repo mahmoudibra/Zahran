@@ -4,6 +4,8 @@ import 'package:zahran/presentation/business/login_screen/login_screen.dart';
 import 'package:zahran/presentation/business/more/branch/branch_list_screen.dart';
 import 'package:zahran/presentation/business/more/brands/brand_list_screen.dart';
 import 'package:zahran/presentation/business/more/change_password/change_password_screen.dart';
+import 'package:zahran/presentation/business/more/check_in/check_in_screen.dart';
+import 'package:zahran/presentation/business/more/documents/document_list_screen.dart';
 import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_list_screen.dart';
@@ -30,6 +32,8 @@ enum ScreenNames {
   BRANDS_LIST,
   Sallery_LIST,
   Sallery_Details,
+  DOCUMENT_LIST,
+  CHECK_IN_LIST,
 }
 
 class ScreenRouter {
@@ -47,12 +51,13 @@ class ScreenRouter {
         "${ScreenNames.VISIT_DETAILS}": (_) => VisitDetails(),
         "${ScreenNames.SETTING}": (_) => SettingScreen(),
         "${ScreenNames.PROMOTION_LIST}": (_) => PromotionListScreen(),
-        "${ScreenNames.PROMOTION_DETAILS}": (_) =>
-            PromotionDetailsScreen(promotionId: 5),
+        "${ScreenNames.PROMOTION_DETAILS}": (_) => PromotionDetailsScreen(promotionId: 5),
         "${ScreenNames.BRANCH_LIST}": (_) => BranchesListScreen(),
         "${ScreenNames.BRANDS_LIST}": (_) => BrandsListScreen(),
         "${ScreenNames.Sallery_LIST}": (_) => SalariesScreen(),
         "${ScreenNames.Sallery_Details}": (_) => SalaryDetailsScreen(),
+        "${ScreenNames.DOCUMENT_LIST}": (_) => DocumentListScreen(),
+        "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

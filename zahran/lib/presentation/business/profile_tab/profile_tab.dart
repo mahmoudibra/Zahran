@@ -58,7 +58,9 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).check_in,
           icon: R.assetsImgsCheckIn,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.CHECK_IN_LIST.push();
+          },
         ),
         _buildItem(
           context: context,
@@ -72,7 +74,9 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).shared_documents,
           icon: R.assetsImgsSharedDocumnets,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.DOCUMENT_LIST.push();
+          },
         ),
         _buildItem(
           context: context,

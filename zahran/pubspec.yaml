@@ -82,7 +82,6 @@ flutter:
   assets:
     # assets-generator-begin
     # assets/images/*
-    - assets/images/.DS_Store
     - assets/images/app_logo.png
     - assets/images/arrow_down.png
     - assets/images/arrow_left.png
@@ -140,7 +139,6 @@ flutter:
     - assets/images/ticket_icon.png
     - assets/images/visits_icon.png
     # assets/imgs/*
-    - assets/imgs/.DS_Store
     - assets/imgs/artwork.png
     - assets/imgs/bell.png
     - assets/imgs/branchs.png

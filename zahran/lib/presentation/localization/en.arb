@@ -164,5 +164,8 @@
     "earnings": "Earnings",
     "amount": "Amount",
     "rate": "Rate",
-    "check_out": "Check-out"
+    "check_out": "Check-out",
+    "documents": "Documents",
+    "check_in_list": "Check-In",
+    "check_in_search": "Search for city, chain and branch 🔎"
 }
