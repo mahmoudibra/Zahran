@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 
 class ShapedRemoteImage extends StatelessWidget {
   final _Paramters paramters;
@@ -15,9 +16,10 @@ class ShapedRemoteImage extends StatelessWidget {
     double? height,
     BoxFit? fit,
     Decoration? forgroundDecoration,
-    Widget? errorPlaceholder,
-    Widget? loadingPlaceholder,
+    LoadingErrorWidgetBuilder? errorPlaceholder,
+    ProgressIndicatorBuilder? loadingPlaceholder,
     Decoration? decoration,
+    ImageRenderMethodForWeb? imageRenderMethodForWeb,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
     Decoration? outerDecoration,
@@ -29,6 +31,7 @@ class ShapedRemoteImage extends StatelessWidget {
           url: url,
           queryParamters: queryParamters,
           width: width,
+          imageRenderMethodForWeb: imageRenderMethodForWeb,
           height: height,
           fit: fit,
           forgroundDecoration: forgroundDecoration,
@@ -47,8 +50,9 @@ class ShapedRemoteImage extends StatelessWidget {
     double aspectRatio = 1,
     BoxFit? fit,
     Decoration? forgroundDecoration,
-    Widget? errorPlaceholder,
-    Widget? loadingPlaceholder,
+    LoadingErrorWidgetBuilder? errorPlaceholder,
+    ProgressIndicatorBuilder? loadingPlaceholder,
+    ImageRenderMethodForWeb? imageRenderMethodForWeb,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
@@ -59,6 +63,7 @@ class ShapedRemoteImage extends StatelessWidget {
         key: key,
         paramters: _Paramters(
           url: url,
+          imageRenderMethodForWeb: imageRenderMethodForWeb,
           queryParamters: queryParamters,
           width: null,
           height: null,
@@ -99,10 +104,13 @@ class ShapedRemoteImage extends StatelessWidget {
       ShapedRemoteImageConfig.of(context)?.fit ??
       BoxFit.contain;
 
-  Widget? getErrorPlaceholder(BuildContext context) =>
+  ImageRenderMethodForWeb? getImageRenderMethodForWeb(BuildContext context) =>
+      paramters.imageRenderMethodForWeb ??
+      ShapedRemoteImageConfig.of(context)?.imageRenderMethodForWeb;
+  LoadingErrorWidgetBuilder? getErrorPlaceholder(BuildContext context) =>
       paramters.errorPlaceholder ??
       ShapedRemoteImageConfig.of(context)?.errorPlaceholder;
-  Widget? getLoadingPlaceholder(BuildContext context) =>
+  ProgressIndicatorBuilder? getLoadingPlaceholder(BuildContext context) =>
       paramters.loadingPlaceholder ??
       ShapedRemoteImageConfig.of(context)?.loadingPlaceholder;
   Map<String, String>? getQueryParameters(BuildContext context) =>
@@ -156,16 +164,19 @@ class ShapedRemoteImage extends StatelessWidget {
             imageUrl: _url.toString(),
             width: paramters.width,
             height: paramters.height,
+            imageRenderMethodForWeb: getImageRenderMethodForWeb(context) ??
+                ImageRenderMethodForWeb.HtmlImage,
             httpHeaders: {
               'Accept-Language':
                   Localizations.maybeLocaleOf(context)?.languageCode ?? 'en',
             },
-            errorWidget: (_, __, ___) =>
-                getErrorPlaceholder(context) ??
-                buildError(_, paramters.height, paramters.height),
+            errorWidget: getErrorPlaceholder(context) ??
+                (_, __, ___) =>
+                    buildError(_, paramters.height, paramters.height),
             fit: getFit(context),
-            placeholder: (_, __) =>
-                getLoadingPlaceholder(_) ?? CircularProgressIndicator(),
+            progressIndicatorBuilder: getLoadingPlaceholder(context) ??
+                (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
           )
         : buildError(context, paramters.height, paramters.height);
     var decoration = getDecoration(context) ?? BoxDecoration();
@@ -204,12 +215,13 @@ class HeroShapedRemoteImage extends StatelessWidget {
     double? height,
     BoxFit? fit,
     Decoration? forgroundDecoration,
-    Widget? loadingPlaceholder,
-    Widget? errorPlaceholder,
+    LoadingErrorWidgetBuilder? errorPlaceholder,
+    ProgressIndicatorBuilder? loadingPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
     Decoration? outerDecoration,
+    ImageRenderMethodForWeb? imageRenderMethodForWeb,
     Map<String, String>? queryParamters,
   }) =>
       HeroShapedRemoteImage._(
@@ -221,6 +233,7 @@ class HeroShapedRemoteImage extends StatelessWidget {
           queryParamters: queryParamters,
           height: height,
           fit: fit,
+          imageRenderMethodForWeb: imageRenderMethodForWeb,
           forgroundDecoration: forgroundDecoration,
           aspectRatio: null,
           loadingPlaceholder: loadingPlaceholder,
@@ -239,11 +252,12 @@ class HeroShapedRemoteImage extends StatelessWidget {
     Map<String, String>? queryParamters,
     BoxFit? fit,
     Decoration? forgroundDecoration,
-    Widget? errorPlaceholder,
-    Widget? loadingPlaceholder,
+    LoadingErrorWidgetBuilder? errorPlaceholder,
+    ProgressIndicatorBuilder? loadingPlaceholder,
     Decoration? decoration,
     EdgeInsetsGeometry? outerPadding,
     EdgeInsetsGeometry? innerPadding,
+    ImageRenderMethodForWeb? imageRenderMethodForWeb,
     Decoration? outerDecoration,
   }) =>
       HeroShapedRemoteImage._(
@@ -258,6 +272,7 @@ class HeroShapedRemoteImage extends StatelessWidget {
           forgroundDecoration: forgroundDecoration,
           aspectRatio: aspectRatio,
           errorPlaceholder: errorPlaceholder,
+          imageRenderMethodForWeb: imageRenderMethodForWeb,
           loadingPlaceholder: loadingPlaceholder,
           decoration: decoration,
           outerPadding: outerPadding,
@@ -338,15 +353,16 @@ class HeroShapedRemoteImage extends StatelessWidget {
 class ShapedRemoteImageConfig extends StatelessWidget {
   final Widget child;
   final String? baseUrl;
-  final Widget? errorPlaceholder;
+  final LoadingErrorWidgetBuilder? errorPlaceholder;
+  final ProgressIndicatorBuilder? loadingPlaceholder;
   final Decoration? forgroundDecoration;
   final Decoration? decoration;
   final Decoration? outerDecoration;
   final EdgeInsetsGeometry? outerPadding;
   final EdgeInsetsGeometry? innerPadding;
+  final ImageRenderMethodForWeb? imageRenderMethodForWeb;
   final Map<String, String>? queryParamters;
   final BoxFit fit;
-  final Widget? loadingPlaceholder;
   static ShapedRemoteImageConfig? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<ShapedRemoteImageConfig>();
   const ShapedRemoteImageConfig({
@@ -356,6 +372,7 @@ class ShapedRemoteImageConfig extends StatelessWidget {
     this.forgroundDecoration,
     this.decoration,
     this.outerDecoration,
+    this.imageRenderMethodForWeb,
     this.outerPadding,
     this.innerPadding,
     this.fit = BoxFit.contain,
@@ -374,9 +391,9 @@ class _Paramters {
   final Map<String, String>? queryParamters;
   final double? width;
   final double? height;
-
-  final Widget? errorPlaceholder;
-  final Widget? loadingPlaceholder;
+  final ImageRenderMethodForWeb? imageRenderMethodForWeb;
+  final LoadingErrorWidgetBuilder? errorPlaceholder;
+  final ProgressIndicatorBuilder? loadingPlaceholder;
   final Decoration? forgroundDecoration;
   final Decoration? decoration;
   final Decoration? outerDecoration;
@@ -399,14 +416,15 @@ class _Paramters {
     this.fit,
     this.aspectRatio,
     this.queryParamters,
+    this.imageRenderMethodForWeb,
   });
 
   _Paramters copyWith({
     String? url,
     double? width,
     double? height,
-    Widget? loadingPlaceholder,
-    Widget? errorPlaceholder,
+    LoadingErrorWidgetBuilder? errorPlaceholder,
+    ProgressIndicatorBuilder? loadingPlaceholder,
     Decoration? forgroundDecoration,
     Decoration? decoration,
     Decoration? outerDecoration,
