@@ -67,8 +67,9 @@ class _LoginSheet extends StatelessWidget {
     bool isBottomSheet = ModalRoute.of(context) is PopupRoute;
 
     return ListView(
-      padding: const EdgeInsets.all(20)
-          .copyWith(bottom: 20 + (isBottomSheet ? MediaQuery.of(context).viewInsets.bottom : 0)),
+      padding: const EdgeInsets.all(20).copyWith(
+          bottom: 20 +
+              (isBottomSheet ? MediaQuery.of(context).viewInsets.bottom : 0)),
       shrinkWrap: true,
       children: widgets(context, vm),
     );

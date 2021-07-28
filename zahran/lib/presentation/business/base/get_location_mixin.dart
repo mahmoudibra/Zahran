@@ -42,6 +42,7 @@ mixin GetLocationMixin on GetxController {
             builder: (_) {
               return PermissionPopUp(
                 service: PermissionType.Location,
+                isMandatory: true,
                 onOpenSettings: () async {
                   WidgetsBinding.instance?.addObserver(_Observer(_, this));
                   await Geolocator.openLocationSettings();

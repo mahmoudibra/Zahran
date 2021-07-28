@@ -13,7 +13,7 @@ class DocumentListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-        init: DocumentsListViewModel(),
+        init: DocumentsListViewModel(context),
         builder: (DocumentsListViewModel vm) {
           return ScaffoldListSilverAppBar(
             content: buildBranchList(context, vm),

@@ -15,6 +15,8 @@ dependencies:
     path: ../reusable
   fcm_config: ^3.0.7
   firebase_analytics: 8.1.2
+  path_provider: ^2.0.2
+  open_file: ^3.2.1
 #  firebase_crashlytics: 2.0.7
   geolocator: 7.2.0+1
   rxdart: 0.27.1

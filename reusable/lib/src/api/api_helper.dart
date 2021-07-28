@@ -37,6 +37,7 @@ class ROptions {
 }
 
 abstract class BaseRepositry {
+  static final observer = _Observer();
   Uri get baseUrl;
 
   Map<String, dynamic> resolveResponse(dio.Response response) {
@@ -401,5 +402,29 @@ abstract class BaseRepositry {
     );
 
     return result.data;
+  }
+}
+
+class _Observer extends NavigatorObserver {
+  Route? currentRoute;
+  bool get isPopupRout => currentRoute != null && currentRoute is PopupRoute;
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    currentRoute = route;
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    currentRoute = newRoute;
   }
 }

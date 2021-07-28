@@ -64,6 +64,7 @@ class ZahranApp extends StatelessWidget {
                   routes: ScreenRouter.routes,
                   navigatorKey: ScreenRouter.key,
                   theme: ThemeGenerator.generate(),
+                  navigatorObservers: [BaseRepositry.observer],
                 );
               },
             );

@@ -169,5 +169,9 @@
     "check_in_list": "Check-In",
     "check_in_search": "Search for city, chain and branch 🔎",
     "notification": "Notification",
-    "message_details": "Message Details"
+    "message_details": "Message Details",
+    "can_not_open_file":"Sorry! We can't find any app that can open this file",
+    "are_you_sure_logout":"are you sure you want to logout",
+    "yes":"Yes",
+    "no":"No"
 }

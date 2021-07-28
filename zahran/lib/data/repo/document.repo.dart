@@ -17,4 +17,8 @@ class DocumentRepo extends BaseRepositryImpl {
       skip: skip,
     );
   }
+
+  Future downloadDocument(Document document, String savePath) async {
+    return this.download(path: document.documentUrl, savePath: savePath);
+  }
 }

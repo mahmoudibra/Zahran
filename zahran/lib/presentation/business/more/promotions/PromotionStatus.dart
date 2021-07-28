@@ -10,7 +10,7 @@ class PromotionStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return promotionStatus.value.toLowerCase() == PromotionStatus.ACTIVE.value.toLowerCase()
+    return !promotionStatus.isExpired
         ? RoundedChip(
             backgroundColor: Color(int.parse("0xFFC8E6C9")),
             chipTextColor: Theme.of(context).textTheme.headline6!.color!,

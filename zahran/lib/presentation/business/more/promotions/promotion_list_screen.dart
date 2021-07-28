@@ -12,17 +12,14 @@ class PromotionListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder(
-        init: PromotionViewModel(),
-        builder: (PromotionViewModel vm) {
-          return ScaffoldListSilverAppBar(
-            content: buildPromotionList(context, vm),
-            title: TR.of(context).promotions,
-          );
-        });
+    return ScaffoldListSilverAppBar(
+      content: buildPromotionList(context),
+      title: TR.of(context).promotions,
+    );
   }
 
-  Widget buildPromotionList(BuildContext context, PromotionViewModel vm) {
+  PromotionViewModel get vm => Get.find<PromotionViewModel>();
+  Widget buildPromotionList(BuildContext context) {
     return CompleteList.sliversWithList(
       enablePullUp: false,
       innerHeaders: (ctrl) => [
@@ -47,7 +44,7 @@ class PromotionListScreen extends StatelessWidget {
           },
         ));
       },
-      init: vm,
+      init: PromotionViewModel(),
     );
   }
 }

@@ -36,7 +36,10 @@ abstract class BaseRepositryImpl extends BaseRepositry {
       var res = await ScreenNames.LOGIN_SHEET.showAsBottomSheet(context);
       return res is LoginModel;
     } else if (!error.isCancel) {
-      context.errorSnackBar(error.toString());
+      context.errorSnackBar(
+        error.toString(),
+        modalSheet: BaseRepositry.observer.isPopupRout,
+      );
     }
     return false;
   }
