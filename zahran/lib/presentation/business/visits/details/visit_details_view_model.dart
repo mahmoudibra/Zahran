@@ -11,13 +11,11 @@ import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
-class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
-    with GetLocationMixin {
+class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLocationMixin {
   VisitDetailsViewModel(BuildContext context) : super(context);
 
   void goToDirections() {
-    launch(
-        "https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
+    launch("https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
   }
 
   void goToBrands() {
@@ -32,12 +30,9 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
 
   Future checkIn(BranchModel item) async {
     await FlareAnimation.show(
-        action:
-            Repos.visitsRepo.checkIn(model.id, await getCurrentPosition(), 0),
-        context: context);
+        action: Repos.visitsRepo.checkIn(model.id, await getCurrentPosition(), 0), context: context);
     model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
-    Get.find<VisitsViewModel>()
-        .replaceItems((e) => e.id == model.id ? model : e);
+    Get.find<VisitsViewModel>().replaceItems((e) => e.id == model.id ? model : e);
   }
 
   Future checkOut(BranchModel item) async {}

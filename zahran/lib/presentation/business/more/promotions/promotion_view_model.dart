@@ -21,8 +21,7 @@ class PromotionViewModel extends ListController<Promotion> {
   void routeToPromotionDetails(int index) {
     var promotions = items;
     var selectedPromotion = promotions.toList()[index];
-    print("Route with id ${selectedPromotion.id}");
-    ScreenNames.PROMOTION_DETAILS.push();
+    ScreenNames.PROMOTION_DETAILS.push(selectedPromotion);
   }
 }
 

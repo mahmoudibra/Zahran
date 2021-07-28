@@ -3,10 +3,12 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/localization/tr.dart';
+import 'package:zahran/presentation/navigation/screen_router.dart';
 import 'package:zahran/r.dart';
 
 class VisitsAppBar extends StatelessWidget {
   final double expansion;
+
   const VisitsAppBar({Key? key, required this.expansion}) : super(key: key);
 
   @override
@@ -19,17 +21,14 @@ class VisitsAppBar extends StatelessWidget {
         return SafeArea(
           bottom: false,
           child: Container(
-            alignment: AlignmentGeometryTween(
-                    begin: Alignment.center, end: Alignment.bottomCenter)
-                .transform(expansion),
-            padding: EdgeInsets.symmetric(horizontal: 16)
-                .copyWith(bottom: 15 * expansion),
+            alignment:
+                AlignmentGeometryTween(begin: Alignment.center, end: Alignment.bottomCenter).transform(expansion),
+            padding: EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 15 * expansion),
             child: Row(
               children: [
                 ShapedRemoteImage(
                   url: vm.profile!.media,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(avatarWidth)),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(avatarWidth)),
                   width: avatarWidth,
                   height: avatarWidth,
                 ),
@@ -41,9 +40,7 @@ class VisitsAppBar extends StatelessWidget {
                     children: [
                       PrimaryTextStyles.headline6(
                         child: Text(
-                          TR
-                              .of(context)
-                              .welcome(vm.profile!.name.format(context)),
+                          TR.of(context).welcome(vm.profile!.name.format(context)),
                           style: TextStyle(fontSize: 14 + 4 * expansion),
                         ),
                       ),
@@ -58,7 +55,7 @@ class VisitsAppBar extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    //TODO Notififications Page
+                    ScreenNames.NOTIFICATION_LIST.push();
                   },
                   icon: AssetIcon(
                     R.assetsImgsBell,

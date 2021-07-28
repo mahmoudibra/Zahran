@@ -6,16 +6,15 @@ import 'package:zahran/presentation/business/base/base_details_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
-class PromotionDetailsViewModel extends BaseDetailsViewModel<Promotion> {
+class NotificationDetailsViewModel extends BaseDetailsViewModel<NotificationModel> {
   final BuildContext context;
-  Promotion promotion = Promotion.empty();
+  NotificationModel notification = NotificationModel.empty();
 
-  PromotionDetailsViewModel(this.context) : super(context);
+  NotificationDetailsViewModel(this.context) : super(context);
 
   Future _fetchPromotionDetails() async {
     try {
-      promotion = (await Repos.promotionRepo.fetchPromotionDetails(model.id))!;
-      print("🚀🚀🚀 promotion object $promotion");
+      notification = (await Repos.notificationRepo.fetchNotificationDetails(model.id))!;
       update();
     } catch (error) {
       if (!(error is ApiFetchException)) {

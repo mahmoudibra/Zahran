@@ -56,8 +56,7 @@ class PromotionRow extends StatelessWidget {
       height: 104,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       ),
     );
   }
@@ -96,14 +95,14 @@ class PromotionRow extends StatelessWidget {
             TR.of(context).start_date,
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
           ),
           Text(
             DateTimeManager.convertDateTimeToAppFormat(promotion.fromDate),
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
           ),
         ],
@@ -121,14 +120,14 @@ class PromotionRow extends StatelessWidget {
             TR.of(context).end_date,
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurface,
                 ),
           ),
           Text(
             DateTimeManager.convertDateTimeToAppFormat(promotion.toDate),
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
           ),
         ],
