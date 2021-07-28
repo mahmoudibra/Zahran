@@ -37,6 +37,7 @@ class ROptions {
 }
 
 abstract class BaseRepositry {
+  static final observer = _Observer();
   Uri get baseUrl;
 
   Map<String, dynamic> resolveResponse(dio.Response response) {
@@ -62,7 +63,7 @@ abstract class BaseRepositry {
   Duration get connectTimeout => Duration(seconds: 15);
   Future<Map<String, String>>? getHeaders(ROptions options);
   Future<bool> onError(ApiFetchException error);
-
+  Future authenticate(IAuthenticated user) async {}
   Future<T> _handleError<X, T>({
     required Future<dio.Response<X>> Function() action,
     required ResolveResponseCallback resolve,
@@ -72,7 +73,15 @@ abstract class BaseRepositry {
     ApiFetchException exception;
     try {
       var res = await action();
-      return map(res);
+      var _r = map(res);
+      if (_r is ApiDataResponse) {
+        if (_r.data is IAuthenticated) {
+          if ((_r.data as IAuthenticated).authenticated) {
+            await authenticate(_r.data);
+          }
+        }
+      }
+      return _r;
     } on ApiFetchException catch (e) {
       exception = e._withCount(retryCount);
     } on DioError catch (e) {
@@ -393,5 +402,29 @@ abstract class BaseRepositry {
     );
 
     return result.data;
+  }
+}
+
+class _Observer extends NavigatorObserver {
+  Route? currentRoute;
+  bool get isPopupRout => currentRoute != null && currentRoute is PopupRoute;
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    currentRoute = route;
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    currentRoute = newRoute;
   }
 }

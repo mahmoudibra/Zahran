@@ -42,7 +42,7 @@ class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShapedRemoteImageConfig(
-      errorPlaceholder:
+      errorPlaceholder: (_, __, ___) =>
           Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
       child: GetBuilder<AuthViewModel>(
           init: AuthViewModel(),
@@ -64,6 +64,7 @@ class ZahranApp extends StatelessWidget {
                   routes: ScreenRouter.routes,
                   navigatorKey: ScreenRouter.key,
                   theme: ThemeGenerator.generate(),
+                  navigatorObservers: [BaseRepositry.observer],
                 );
               },
             );

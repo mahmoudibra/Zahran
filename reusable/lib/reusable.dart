@@ -19,8 +19,7 @@ export './src/components/tab_controller_lisner.dart';
 export './src/components/responsive.dart';
 export './src/components/progress_button.dart';
 export './src/components/hero_decorated_box.dart';
-export './src/components/remote_image.dart'
-    if (dart.library.html) './src/web_elements/components/remote_image.dart';
+export './src/components/remote_image.dart';
 export './src/components/text_hero.dart';
 export 'src/forms/custom_text_field.dart';
 export './src/formatters/formatters.dart';
@@ -37,3 +36,4 @@ export './src/components/keyboard_unfocus.dart';
 export './src/components/slivers.dart';
 export './src/web_elements/web_admin_layout.dart';
 export 'package:cached_network_image/cached_network_image.dart';
+export 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
