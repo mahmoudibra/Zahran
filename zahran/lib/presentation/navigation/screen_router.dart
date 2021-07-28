@@ -7,6 +7,8 @@ import 'package:zahran/presentation/business/more/change_password/change_passwor
 import 'package:zahran/presentation/business/more/check_in/check_in_screen.dart';
 import 'package:zahran/presentation/business/more/documents/details/document_details_screen.dart';
 import 'package:zahran/presentation/business/more/documents/document_list_screen.dart';
+import 'package:zahran/presentation/business/more/notification/details/notification_details_screen.dart';
+import 'package:zahran/presentation/business/more/notification/notification_list_screen.dart';
 import 'package:zahran/presentation/business/more/profile/profile_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_screen.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_list_screen.dart';
@@ -36,6 +38,8 @@ enum ScreenNames {
   DOCUMENT_LIST,
   DOCUMENT_DETAILS,
   CHECK_IN_LIST,
+  NOTIFICATION_LIST,
+  NOTIFICATION_DETAILS,
 }
 
 class ScreenRouter {
@@ -61,6 +65,8 @@ class ScreenRouter {
         "${ScreenNames.DOCUMENT_LIST}": (_) => DocumentListScreen(),
         "${ScreenNames.DOCUMENT_DETAILS}": (_) => DocumentDetailsScreen(),
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
+        "${ScreenNames.NOTIFICATION_LIST}": (_) => NotificationListScreen(),
+        "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

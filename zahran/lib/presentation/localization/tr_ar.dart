@@ -413,4 +413,10 @@ class TRAr extends TR {
 
   @override
   String get check_in_search => 'Search for city, chain and branch 🔎';
+
+  @override
+  String get notification => 'Notification';
+
+  @override
+  String get message_details => 'Message Details';
 }

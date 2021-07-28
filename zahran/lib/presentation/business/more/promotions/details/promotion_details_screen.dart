@@ -41,12 +41,11 @@ class PromotionDetailsScreen extends StatelessWidget {
           promotionDate(context, vm),
           ViewsToolbox.emptySpaceWidget(height: 8),
           promotionDescription(context, vm),
-          ViewsToolbox.emptySpaceWidget(height: 16),
-          displayTypeHeader(context),
-          ViewsToolbox.emptySpaceWidget(height: 4),
-          displayTypeTitle(context),
-          displayTypeDescription(context),
-          ViewsToolbox.emptySpaceWidget(height: 8),
+          // ViewsToolbox.emptySpaceWidget(height: 16),
+          // displayTypeHeader(context),
+          // ViewsToolbox.emptySpaceWidget(height: 4),
+          // displayTypeTitle(context),
+          // displayTypeDescription(context),
           ViewsToolbox.emptySpaceWidget(height: 24),
           chainDetailsSection(context, vm),
           ViewsToolbox.emptySpaceWidget(height: 24),
@@ -58,14 +57,6 @@ class PromotionDetailsScreen extends StatelessWidget {
   }
 
   Widget promotionImage(BuildContext context, PromotionDetailsViewModel vm) {
-    // return Container(
-    //   height: 180,
-    //   width: MediaQuery.of(context).size.width,
-    //   child: CachedImage(
-    //     imageUrl: vm.promotion.cover,
-    //   ),
-    // );
-    print("🚀🚀🚀 Cover photo ${vm.promotion.cover}");
     return ShapedRemoteImage(
       url: vm.promotion.cover,
       height: 180,

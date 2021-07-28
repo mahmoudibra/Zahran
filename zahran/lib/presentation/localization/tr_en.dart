@@ -137,7 +137,7 @@ class TREn extends TR {
   String get login => 'Login';
 
   @override
-  String get invalid_sab => 'Sab-number should consist of 6 to 8 numbers';
+  String get invalid_sab => 'Sab-number should consist of 3 to 7 numbers';
 
   @override
   String get invalid_password => 'Password must be at least 6 numbers';
@@ -413,4 +413,10 @@ class TREn extends TR {
 
   @override
   String get check_in_search => 'Search for city, chain and branch 🔎';
+
+  @override
+  String get notification => 'Notification';
+
+  @override
+  String get message_details => 'Message Details';
 }

@@ -33,7 +33,7 @@ class _DocumentDetailsScreenState extends State<DocumentDetailsScreen> {
 
   Widget buildBody(BuildContext context, DocumentsDetailsViewModel vm) {
     return SfPdfViewer.network(
-      "https://pencilprod.com/zahran/dev/uploads/images/uYxdDgtDvLwjjDKuKEaBAhIXZsHnMgE7agFrRHej.pdf",
+      vm.model.documentUrl,
       initialScrollOffset: Offset(0, 500),
       initialZoomLevel: 1.5,
       onDocumentLoaded: (PdfDocumentLoadedDetails details) {

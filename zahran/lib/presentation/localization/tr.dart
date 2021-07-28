@@ -355,7 +355,7 @@ abstract class TR {
   /// No description provided for @invalid_sab.
   ///
   /// In en, this message translates to:
-  /// **'Sab-number should consist of 6 to 8 numbers'**
+  /// **'Sab-number should consist of 3 to 7 numbers'**
   String get invalid_sab;
 
   /// No description provided for @invalid_password.
@@ -861,6 +861,18 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Search for city, chain and branch 🔎'**
   String get check_in_search;
+
+  /// No description provided for @notification.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification'**
+  String get notification;
+
+  /// No description provided for @message_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Message Details'**
+  String get message_details;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

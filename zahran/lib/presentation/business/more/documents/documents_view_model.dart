@@ -12,6 +12,7 @@ class DocumentsListViewModel extends ListController<Document> {
   Future<void> routeToDocumentDetails(int index) async {
     var documents = items;
     var selectedDocument = documents.toList()[index];
+    print("🚀🚀🚀 ssssss $selectedDocument");
     ScreenNames.DOCUMENT_DETAILS.push(selectedDocument);
   }
 }

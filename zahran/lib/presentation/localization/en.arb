@@ -43,7 +43,7 @@
     "sab_number": "Sab-Number",
     "password": "Password",
     "login": "Login",
-    "invalid_sab": "Sab-number should consist of 6 to 8 numbers",
+    "invalid_sab": "Sab-number should consist of 3 to 7 numbers",
     "invalid_password": "Password must be at least 6 numbers",
     "visits": "Visits",
     "profile": "Profile",
@@ -167,5 +167,7 @@
     "check_out": "Check-out",
     "documents": "Documents",
     "check_in_list": "Check-In",
-    "check_in_search": "Search for city, chain and branch 🔎"
+    "check_in_search": "Search for city, chain and branch 🔎",
+    "notification": "Notification",
+    "message_details": "Message Details"
 }
