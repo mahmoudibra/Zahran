@@ -10,8 +10,8 @@ class Promotion {
   LocalizedName description;
   DateTime fromDate;
   DateTime toDate;
-  List<ChainModel> chain; //TODO: should be single
-  List<Product> products; //TODO: should be single
+  List<ChainModel> chain;
+  List<Product> products;
 
   Promotion(
       {required this.id,
@@ -39,5 +39,20 @@ class Promotion {
         toDate: DateTime.now(),
         chain: [],
         products: []);
+  }
+
+  @override
+  String toString() {
+    return '''
+    Promotion {
+    id: $id,
+    status $status,
+    cover: $cover,
+    promotionType: $promotionType,
+    value: $value,
+    title: $title,
+    startDate: $fromDate,
+    endDate: $toDate
+    } ''';
   }
 }

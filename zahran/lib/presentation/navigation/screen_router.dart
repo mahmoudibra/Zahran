@@ -53,7 +53,7 @@ class ScreenRouter {
         "${ScreenNames.VISIT_DETAILS}": (_) => VisitDetails(),
         "${ScreenNames.SETTING}": (_) => SettingScreen(),
         "${ScreenNames.PROMOTION_LIST}": (_) => PromotionListScreen(),
-        "${ScreenNames.PROMOTION_DETAILS}": (_) => PromotionDetailsScreen(promotionId: 5),
+        "${ScreenNames.PROMOTION_DETAILS}": (_) => PromotionDetailsScreen(),
         "${ScreenNames.BRANCH_LIST}": (_) => BranchesListScreen(),
         "${ScreenNames.BRANDS_LIST}": (_) => BrandsListScreen(),
         "${ScreenNames.Sallery_LIST}": (_) => SalariesScreen(),

@@ -5,6 +5,7 @@ class BaseDetailsViewModel<T> extends GetxController {
   final BuildContext context;
   late T _model;
   T get model => _model;
+
   BaseDetailsViewModel(this.context) {
     _model = ModalRoute.of(context)!.settings.arguments as T;
   }

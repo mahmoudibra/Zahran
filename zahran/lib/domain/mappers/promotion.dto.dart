@@ -2,7 +2,7 @@ part of 'domain_mapper.dart';
 
 class PromotionDto extends DtoToDomainMapper<Promotion> {
   int? id;
-  // String? status;
+  String? status;
   String? cover;
   String? promotionType;
   String? value;
@@ -15,7 +15,7 @@ class PromotionDto extends DtoToDomainMapper<Promotion> {
 
   PromotionDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    // status = json['status'];
+    status = json['status'];
     cover = json['cover'];
     promotionType = json['promotion_type'];
     value = json['value'];
@@ -30,7 +30,7 @@ class PromotionDto extends DtoToDomainMapper<Promotion> {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    // data['status'] = this.status;
+    data['status'] = this.status;
     data['cover'] = this.cover;
     data['promotion_type'] = this.promotionType;
     data['value'] = this.value;
@@ -47,7 +47,7 @@ class PromotionDto extends DtoToDomainMapper<Promotion> {
   Promotion dtoToDomainModel() {
     return Promotion(
         id: id!,
-        status: PromotionStatus.ALL, //TODO: change again once it's changed from the backend side
+        status: PromotionStatus(status ?? ""),
         cover: cover ?? "",
         promotionType: promotionType!,
         value: value ?? "0",

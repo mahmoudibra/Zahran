@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/more/promotions/details/promotion_details_view_model.dart';
-import 'package:zahran/presentation/commom/cashed_Image.component.dart';
 import 'package:zahran/presentation/commom/rounded_image.dart';
 import 'package:zahran/presentation/commom/scaffold_silver_app_bar.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
@@ -12,14 +11,12 @@ import '../../../../../r.dart';
 import '../PromotionStatus.dart';
 
 class PromotionDetailsScreen extends StatelessWidget {
-  final int promotionId;
-
-  PromotionDetailsScreen({required this.promotionId});
+  PromotionDetailsScreen();
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: PromotionDetailsViewModel(context, promotionId),
+      init: PromotionDetailsViewModel(context),
       builder: (PromotionDetailsViewModel vm) {
         return ScaffoldSilverAppBar(
           content: promotionDetailsContent(context, vm),
@@ -50,14 +47,6 @@ class PromotionDetailsScreen extends StatelessWidget {
           displayTypeTitle(context),
           displayTypeDescription(context),
           ViewsToolbox.emptySpaceWidget(height: 8),
-          //TODO: ask why there's no photo
-          // Visibility(
-          //   visible: promotion.images.length != 0,
-          //   child: HorizontalImageList(
-          //     onImageClicked: onImageClicked,
-          //     mediaList: promotion.images,
-          //   ),
-          // ),
           ViewsToolbox.emptySpaceWidget(height: 24),
           chainDetailsSection(context, vm),
           ViewsToolbox.emptySpaceWidget(height: 24),
@@ -69,11 +58,20 @@ class PromotionDetailsScreen extends StatelessWidget {
   }
 
   Widget promotionImage(BuildContext context, PromotionDetailsViewModel vm) {
-    return Container(
+    // return Container(
+    //   height: 180,
+    //   width: MediaQuery.of(context).size.width,
+    //   child: CachedImage(
+    //     imageUrl: vm.promotion.cover,
+    //   ),
+    // );
+    print("🚀🚀🚀 Cover photo ${vm.promotion.cover}");
+    return ShapedRemoteImage(
+      url: vm.promotion.cover,
       height: 180,
       width: MediaQuery.of(context).size.width,
-      child: CachedImage(
-        imageUrl: vm.promotion.cover,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       ),
     );
   }
