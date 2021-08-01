@@ -6,6 +6,7 @@ import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
+import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -17,14 +18,16 @@ class UserProfileViewModel extends GetxController {
   String? phoneNumber;
   UserModel? userModel;
 
+  MediaPickerType mediaPickerType = MediaPickerType.CAMERA_WITH_GALLERY;
+  MediaLocal? mediaFile;
+
   UserProfileViewModel(this.context);
 
   Future _fetchUserInfo() async {
     try {
       userModel = await Repos.userRepo.fetchUserInfo();
       var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel =
-          LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       lastFetch = DateTime.now().toIso8601String();
       update();
@@ -39,8 +42,7 @@ class UserProfileViewModel extends GetxController {
     try {
       userModel = await Repos.userRepo.updateProfile(userName!, phoneNumber!);
       var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel =
-          LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       context.primarySnackBar(TR.of(context).user_profile_updated);
     } catch (error) {
@@ -51,13 +53,11 @@ class UserProfileViewModel extends GetxController {
   }
 
   String? validateUserName(String? v) {
-    return (v != null && v.length > 0)
-        .onFalse(TR.of(context).invalid_user_name);
+    return (v != null && v.length > 0).onFalse(TR.of(context).invalid_user_name);
   }
 
   String? validatePhoneNumber(String? v) {
-    return (v != null && v.length == 11)
-        .onFalse(TR.of(context).invalid_phone_number);
+    return (v != null && v.length == 11).onFalse(TR.of(context).invalid_phone_number);
   }
 
   Future<void> submitChanges() async {
@@ -65,7 +65,27 @@ class UserProfileViewModel extends GetxController {
   }
 
   Future<void> selectImage() async {
-    print("🚀🚀🚀🚀 Action to open image PopUp");
+    ScreenRouter.showPopup(
+        type: PopupsNames.MEDIA_PICKER_POPUP,
+        parameters: _prepareMediaParameter(),
+        actionsCallbacks: _prepareMediaAction());
+  }
+
+  Map<String, Function>? _prepareMediaAction() {
+    Map<String, Function>? actionsCallbacks = Map();
+    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => () {
+          mediaFile = mediaModel;
+          update();
+        };
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
+
+    return actionsCallbacks;
+  }
+
+  Map<String, dynamic>? _prepareMediaParameter() {
+    Map<String, dynamic>? parameters = Map();
+    parameters["pickerType"] = mediaPickerType;
+    return parameters;
   }
 
   Future<void> changePassword() async {
@@ -76,12 +96,5 @@ class UserProfileViewModel extends GetxController {
   void onReady() {
     FlareAnimation.show(action: _fetchUserInfo(), context: context);
     super.onReady();
-  }
-
-  bool showMediaDialog = false;
-  MediaPickerType mediaPickerType = MediaPickerType.CAMERA_WITH_GALLERY;
-
-  void onMediaDismissed() {
-    showMediaDialog = false;
   }
 }

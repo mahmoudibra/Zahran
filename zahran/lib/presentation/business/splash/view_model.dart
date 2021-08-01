@@ -20,7 +20,9 @@ class SplashViewModel extends GetxController {
 
   void navigate() {
     var auth = Get.find<AuthViewModel>();
-    // ScreenNames.PROMOTION_LIST.pushReplacementNamed();
+    // ScreenNames.VIDEO_PREVIEW.pushReplacementNamed(
+    //     arguments:
+    //         "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1280px-Image_created_with_a_mobile_phone.png");
 
     if (auth.authenticated) {
       ScreenNames.HOME.pushReplacementNamed();

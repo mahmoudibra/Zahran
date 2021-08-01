@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 class ScaffoldSilverAppBar extends StatefulWidget {
   final String title;
   final Widget content;
+  late final double paddingVertical;
+  late final double paddingHorizontal;
 
-  ScaffoldSilverAppBar({required this.title, required this.content});
+  ScaffoldSilverAppBar(
+      {required this.title, required this.content, double paddingVertical = 16, double paddingHorizontal = 30.0}) {
+    this.paddingVertical = paddingVertical;
+    this.paddingHorizontal = paddingHorizontal;
+  }
 
   @override
   _ScaffoldSilverAppBarState createState() => _ScaffoldSilverAppBarState();
@@ -50,7 +56,8 @@ class _ScaffoldSilverAppBarState extends State<ScaffoldSilverAppBar> {
               ),
               SliverFillRemaining(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.only(start: 16, end: 16, bottom: 30),
+                  padding: EdgeInsetsDirectional.only(
+                      start: widget.paddingVertical, end: widget.paddingVertical, bottom: widget.paddingHorizontal),
                   child: widget.content,
                 ),
               )

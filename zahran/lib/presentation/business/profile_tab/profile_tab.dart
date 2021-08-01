@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
-import 'package:zahran/presentation/commom/pop_up/pop_up.component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 import 'package:zahran/r.dart';
@@ -90,28 +88,7 @@ class ProfileTab extends StatelessWidget {
         SliverToBoxAdapter(
           child: ListTile(
             onTap: () async {
-              await showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (_) {
-                    return PopUp(
-                      context: context,
-                      message: TR.of(context).are_you_sure_logout,
-                      onDismissedAction: () {},
-                      implicitDismiss: false,
-                      title: TR.of(context).logout,
-                      actions: {
-                        TR.of(context).yes: () async {
-                          ScreenRouter.pop();
-                          ScreenNames.SPLASH.pushAndRemoveAll();
-                          await Get.find<AuthViewModel>().removeUser();
-                        },
-                        TR.of(context).no: () async {
-                          ScreenRouter.pop();
-                        }
-                      },
-                    );
-                  });
+              await ScreenRouter.showPopup(type: PopupsNames.LOGOUT);
             },
             leading: AssetIcon(R.assetsImgsLogout),
             horizontalTitleGap: 0,

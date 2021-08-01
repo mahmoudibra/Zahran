@@ -15,8 +15,14 @@ import 'package:zahran/presentation/business/more/promotions/promotion_list_scre
 import 'package:zahran/presentation/business/more/salary/details/salary_details_screen.dart';
 import 'package:zahran/presentation/business/more/salary/salaries_screen.dart';
 import 'package:zahran/presentation/business/more/setting/seeting_screen.dart';
+import 'package:zahran/presentation/business/profile_tab/logout.popup.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
+import 'package:zahran/presentation/commom/image_preview/image_preview_screen.dart';
+import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
+import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
+import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
+import 'package:zahran/presentation/commom/video_preview/video_preview_view_model.dart';
 
 part 'screen_extensions.dart';
 
@@ -40,7 +46,11 @@ enum ScreenNames {
   CHECK_IN_LIST,
   NOTIFICATION_LIST,
   NOTIFICATION_DETAILS,
+  IMAGE_PREVIEW,
+  VIDEO_PREVIEW
 }
+
+enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
 
 class ScreenRouter {
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
@@ -67,9 +77,47 @@ class ScreenRouter {
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
         "${ScreenNames.NOTIFICATION_LIST}": (_) => NotificationListScreen(),
         "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
+        "${ScreenNames.IMAGE_PREVIEW}": (_) => ImagePreviewScreen(),
+        "${ScreenNames.VIDEO_PREVIEW}": (_) => VideoPreviewScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {
-    return key.currentState!.pop(result);
+    if (key.currentState!.canPop()) key.currentState!.pop(result);
+  }
+
+  static bool canPop() {
+    return key.currentState!.canPop();
+  }
+
+  static Future showPopup(
+      {required PopupsNames type,
+      Map<String, dynamic>? parameters,
+      Map<String, Function>? actionsCallbacks,
+      bool barrierDismissible = true}) {
+    Widget _popup;
+    switch (type) {
+      case PopupsNames.LOGOUT:
+        _popup = LogoutPopUp(parameters: parameters, actionsCallbacks: actionsCallbacks);
+        break;
+      case PopupsNames.MEDIA_PICKER_POPUP:
+        _popup = MediaPickerComponent(
+          mediaPickerFileCallback: ({MediaLocal? mediaModel}) async {
+            actionsCallbacks!['mediaPickerCallback']!(mediaModel);
+          },
+          mediaPickerType: parameters!["pickerType"] as MediaPickerType,
+          onMediaDismissedCallback: () {
+            actionsCallbacks!['dismissCallback']!();
+          },
+        );
+        break;
+    }
+
+    return showDialog(
+      context: key.currentState!.context,
+      barrierDismissible: barrierDismissible,
+      builder: (BuildContext context) {
+        return _popup;
+      },
+    );
   }
 }

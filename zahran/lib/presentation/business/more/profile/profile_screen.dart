@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/more/profile/profile_view_model.dart';
-import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
-import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
 import 'package:zahran/presentation/commom/scaffold_silver_app_bar.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -82,8 +80,7 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPhoneNumberTextField(
-      BuildContext context, UserProfileViewModel vm) {
+  Widget buildPhoneNumberTextField(BuildContext context, UserProfileViewModel vm) {
     return CustomTextField(
       initialValue: vm.userModel?.phone,
       hint: TR.of(context).phone_number,
@@ -118,8 +115,7 @@ class UserProfileScreen extends StatelessWidget {
             url: vm.userModel?.media ?? "",
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(150),
-              border: Border.all(
-                  color: Theme.of(context).colorScheme.primary, width: 2),
+              border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
             ),
           ),
         ),
@@ -138,23 +134,5 @@ class UserProfileScreen extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  Future<void> showImageComponent(
-      BuildContext context, UserProfileViewModel vm) async {
-    await Future.delayed(Duration.zero);
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return MediaPickerComponent(
-            mediaPickerFileCallback: ({required MediaLocal? mediaModel}) {
-              // widget.updateProfilePM.mediaFilePicked(mediaModel);
-            },
-            mediaPickerType: vm.mediaPickerType,
-            onMediaDismissedCallback: () {
-              vm.onMediaDismissed();
-            },
-          );
-        });
   }
 }

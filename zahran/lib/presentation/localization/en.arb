@@ -173,5 +173,6 @@
     "can_not_open_file":"Sorry! We can't find any app that can open this file",
     "are_you_sure_logout":"are you sure you want to logout",
     "yes":"Yes",
-    "no":"No"
+    "no":"No",
+    "image_preview": "Image Preview"
 }
