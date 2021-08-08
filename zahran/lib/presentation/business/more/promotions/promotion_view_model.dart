@@ -9,8 +9,7 @@ class PromotionViewModel extends ListController<Promotion> {
 
   @override
   Future<ApiListResponse<Promotion>> loadData(int skip) {
-    return Repos.promotionRepo
-        .pagination(skip: skip, filterType: selectedFilter);
+    return Repos.promotionRepo.pagination(skip: skip, filterType: selectedFilter);
   }
 
   void updateFilterType(PromotionStatus selectedFilter) {
@@ -28,8 +27,8 @@ class PromotionViewModel extends ListController<Promotion> {
 class PromotionStatus extends Enum<String> {
   const PromotionStatus(String val) : super(val);
   static const PromotionStatus ALL = const PromotionStatus('all');
-  static const PromotionStatus EXPIRED = const PromotionStatus('Expired');
-  static const PromotionStatus ACTIVE = const PromotionStatus('Upcomming');
+  static const PromotionStatus EXPIRED = const PromotionStatus('Expire');
+  static const PromotionStatus ACTIVE = const PromotionStatus('Active');
 
   bool get isActive => value.toLowerCase() == ACTIVE.value.toLowerCase();
   bool get isExpired => value.toLowerCase() == EXPIRED.value.toLowerCase();

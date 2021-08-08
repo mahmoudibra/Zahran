@@ -12,6 +12,7 @@ class PromotionRepo extends BaseRepositryImpl {
   BuildContext get context => ScreenRouter.key.currentContext!;
 
   Future<ApiListResponse<Promotion>> pagination({required int skip, required PromotionStatus filterType}) async {
+    print(" 🚀🚀🚀 Filter type: ${filterType.value}");
     return await this.paging(
       path: '/v1/mobile/promotions',
       queryParams: {"filter": filterType.value},

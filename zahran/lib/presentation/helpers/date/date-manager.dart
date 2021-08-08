@@ -24,6 +24,11 @@ class DateTimeManager implements DateManegerHelper {
     return formatter.format(dateTime);
   }
 
+  static String convertDateTimeToAppWithoutHours(DateTime dateTime) {
+    final DateFormat formatter = DateFormat.yMMMMd();
+    return formatter.format(dateTime);
+  }
+
   static int convertDateToDurationInSeconds(String date) {
     var now = new DateTime.now();
     var dateVar = DateTime.parse(date);

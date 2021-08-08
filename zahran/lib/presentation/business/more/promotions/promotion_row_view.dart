@@ -99,7 +99,7 @@ class PromotionRow extends StatelessWidget {
                 ),
           ),
           Text(
-            DateTimeManager.convertDateTimeToAppFormat(promotion.fromDate),
+            DateTimeManager.convertDateTimeToAppWithoutHours(promotion.fromDate),
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: Theme.of(context).colorScheme.primary,
@@ -124,7 +124,7 @@ class PromotionRow extends StatelessWidget {
                 ),
           ),
           Text(
-            DateTimeManager.convertDateTimeToAppFormat(promotion.toDate),
+            DateTimeManager.convertDateTimeToAppWithoutHours(promotion.toDate),
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: Theme.of(context).colorScheme.primary,

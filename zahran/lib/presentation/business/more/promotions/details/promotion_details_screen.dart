@@ -26,8 +26,7 @@ class PromotionDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget promotionDetailsContent(
-      BuildContext context, PromotionDetailsViewModel vm) {
+  Widget promotionDetailsContent(BuildContext context, PromotionDetailsViewModel vm) {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -63,8 +62,7 @@ class PromotionDetailsScreen extends StatelessWidget {
       height: 180,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       ),
     );
   }
@@ -86,8 +84,7 @@ class PromotionDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget promotionDescription(
-      BuildContext context, PromotionDetailsViewModel vm) {
+  Widget promotionDescription(BuildContext context, PromotionDetailsViewModel vm) {
     return Text(
       vm.promotion.description.format(context),
       style: Theme.of(context).textTheme.subtitle1?.copyWith(
@@ -137,8 +134,7 @@ class PromotionDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget chainDetailsSection(
-      BuildContext context, PromotionDetailsViewModel vm) {
+  Widget chainDetailsSection(BuildContext context, PromotionDetailsViewModel vm) {
     if (vm.promotion.chain.isNotEmpty) {
       return Column(
         mainAxisSize: MainAxisSize.min,
@@ -159,9 +155,10 @@ class PromotionDetailsScreen extends StatelessWidget {
               ViewsToolbox.emptySpaceWidget(width: 12),
               Text(
                 vm.promotion.chain[0].title.format(context),
-                style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                    color: Theme.of(context).textTheme.headline6?.color,
-                    fontWeight: FontWeight.w600),
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1
+                    ?.copyWith(color: Theme.of(context).textTheme.headline6?.color, fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -203,9 +200,10 @@ class PromotionDetailsScreen extends StatelessWidget {
                   ViewsToolbox.emptySpaceWidget(width: 12),
                   Text(
                     vm.promotion.products[0].name.format(context),
-                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                        color: Theme.of(context).textTheme.headline6?.color,
-                        fontWeight: FontWeight.w600),
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle1
+                        ?.copyWith(color: Theme.of(context).textTheme.headline6?.color, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
@@ -233,9 +231,10 @@ class PromotionDetailsScreen extends StatelessWidget {
         ViewsToolbox.emptySpaceWidget(width: 4),
         Text(
           TR.of(context).promotion,
-          style: Theme.of(context).textTheme.subtitle1?.copyWith(
-              fontWeight: FontWeight.w400,
-              color: Color(0xFF272727)), //TODO: change later
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1
+              ?.copyWith(fontWeight: FontWeight.w400, color: Color(0xFF272727)), //TODO: change later
         ),
       ],
     );
@@ -271,7 +270,7 @@ class PromotionDetailsScreen extends StatelessWidget {
                   ),
             ),
             Text(
-              DateTimeManager.convertDateTimeToAppFormat(vm.promotion.fromDate),
+              DateTimeManager.convertDateTimeToAppWithoutHours(vm.promotion.fromDate),
               style: Theme.of(context).textTheme.subtitle1?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: Theme.of(context).colorScheme.primary,
@@ -303,7 +302,7 @@ class PromotionDetailsScreen extends StatelessWidget {
                   ),
             ),
             Text(
-              DateTimeManager.convertDateTimeToAppFormat(vm.promotion.toDate),
+              DateTimeManager.convertDateTimeToAppWithoutHours(vm.promotion.toDate),
               style: Theme.of(context).textTheme.subtitle1?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: Theme.of(context).colorScheme.primary,

@@ -10,14 +10,18 @@ class PromotionStatusWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return !promotionStatus.isExpired
-        ? RoundedChip(
-            backgroundColor: Color(int.parse("0xFFC8E6C9")),
-            chipTextColor: Theme.of(context).textTheme.headline6!.color!,
-            chipText: TR.of(context).active)
-        : RoundedChip(
-            backgroundColor: Color(int.parse("0xFFFFCDD2")),
-            chipTextColor: Theme.of(context).textTheme.headline6!.color!,
-            chipText: TR.of(context).expired);
+    print(" 🚀 🚀 Promotion status is:  ${promotionStatus.value}");
+    print(" 🚀 🚀 Is active:  ${promotionStatus.isActive}");
+    if (promotionStatus.isActive) {
+      return RoundedChip(
+          backgroundColor: Color(int.parse("0xFFC8E6C9")),
+          chipTextColor: Theme.of(context).textTheme.headline6!.color!,
+          chipText: TR.of(context).active);
+    } else {
+      return RoundedChip(
+          backgroundColor: Color(int.parse("0xFFFFCDD2")),
+          chipTextColor: Theme.of(context).textTheme.headline6!.color!,
+          chipText: TR.of(context).expired);
+    }
   }
 }
