@@ -16,7 +16,7 @@ class MediaPickerManegerImpl extends MediaPickerManager {
   }
 
   Future<File> _getImage(ImageSource imageSource) async {
-    final pickedFile = await _imagePicker.getImage(
+    final pickedFile = await _imagePicker.pickImage(
       source: imageSource,
       maxWidth: 500,
       maxHeight: 500,
@@ -25,7 +25,7 @@ class MediaPickerManegerImpl extends MediaPickerManager {
   }
 
   Future<File> _pickVideo(ImageSource imageSource) async {
-    final pickedFile = await _imagePicker.getVideo(
+    final pickedFile = await _imagePicker.pickVideo(
       source: imageSource,
     );
     return File(pickedFile!.path);
@@ -39,5 +39,10 @@ class MediaPickerManegerImpl extends MediaPickerManager {
   @override
   Future<File> captureVideo() async {
     return await _pickVideo(ImageSource.camera);
+  }
+
+  @override
+  Future<LostDataResponse> reteriveLostData() async {
+    return await _imagePicker.retrieveLostData();
   }
 }

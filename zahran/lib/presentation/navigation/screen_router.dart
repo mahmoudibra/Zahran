@@ -102,7 +102,7 @@ class ScreenRouter {
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(
           mediaPickerFileCallback: ({MediaLocal? mediaModel}) async {
-            print("🚀🚀🚀🚀 Callback");
+            print("🚀🚀🚀🚀 Callback with data $mediaModel");
             actionsCallbacks!['mediaPickerCallback']!(mediaModel);
           },
           mediaPickerType: parameters!["pickerType"] as MediaPickerType,

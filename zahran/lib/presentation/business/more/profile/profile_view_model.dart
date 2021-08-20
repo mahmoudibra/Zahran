@@ -72,14 +72,11 @@ class UserProfileViewModel extends GetxController {
         actionsCallbacks: _prepareMediaAction());
   }
 
-  Map<String, Function>? _prepareMediaAction() {
-    print("Heeeereeeeeeeeee ----------------------------------------wewewewe");
-    Map<String, Function>? actionsCallbacks = Map();
-    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => () {
-          print("Heeeereeeeeeeeee ----------------------------------------");
-          mediaFile = mediaModel;
-          FlareAnimation.show(action: _uploadMedia(), context: context);
-        };
+  Map<String, Function> _prepareMediaAction() {
+    print("🚀🚀🚀🚀 Heeeereeeeeeeeee");
+    Map<String, Function> actionsCallbacks = Map();
+    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) =>
+        {mediaFile = mediaModel, FlareAnimation.show(action: _uploadMedia(), context: context)};
     actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
 
     return actionsCallbacks;
@@ -96,12 +93,11 @@ class UserProfileViewModel extends GetxController {
   }
 
   Future<void> _uploadMedia() async {
-    print("🚀🚀🚀 start to upload media: $uploadedMediaId ");
     try {
       var uploadedMedia = await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile);
       uploadedMediaId = uploadedMedia!.id;
       print("🚀🚀🚀 uploaded Media is: $uploadedMediaId ");
-      update();
+      // update();
     } catch (error) {
       print("🚀🚀🚀 exception while uploading media: $error ");
     }
