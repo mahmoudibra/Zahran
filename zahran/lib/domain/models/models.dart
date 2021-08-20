@@ -9,6 +9,7 @@ part 'brand.dart';
 part 'chain.dart';
 part 'localization.dart';
 part 'location.dart';
+part 'media_upload.dart';
 part 'models.g.dart';
 part 'notification.dart';
 part 'product.dart';

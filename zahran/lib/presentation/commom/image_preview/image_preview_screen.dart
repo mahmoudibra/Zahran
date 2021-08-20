@@ -25,7 +25,7 @@ class ImagePreviewScreen extends StatelessWidget {
   Widget content(BuildContext context, ImagePreviewViewModel vm) {
     print("🚀🚀🚀🚀 Image url ${vm.imageUrl}");
     return Container(
-      color: Theme.of(context).primaryColor,
+      color: Color(int.parse("0xFF040126")),
       child: ShapedRemoteImage(
         width: MediaQuery.of(context).size.height,
         height: MediaQuery.of(context).size.width,

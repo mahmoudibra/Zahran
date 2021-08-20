@@ -32,17 +32,17 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<UserModel?> updateProfile(String name, String phoneNumber) async {
+  Future<UserModel?> updateProfile(String name, String phoneNumber, int? avatarId) async {
+    print("Updated profile data is: $name, $phoneNumber, $avatarId");
     var result = await post(
       path: '/v1/mobile/update-profile',
-      data: UpdateProfileRequest(name: name, phoneNumber: phoneNumber).toJson(),
+      data: UpdateProfileRequest(name: name, phoneNumber: phoneNumber, avatarId: avatarId).toJson(),
       mapItem: (json) => UserDto.fromJson(json).dtoToDomainModel(),
     );
     return result.data;
   }
 
-  Future<EmptyModel?> changePassword(
-      {required ChangePasswordRequest changePasswordRequest}) async {
+  Future<EmptyModel?> changePassword({required ChangePasswordRequest changePasswordRequest}) async {
     var result = await post(
       path: '/v1/mobile/update-password',
       data: changePasswordRequest.toJson(),
@@ -51,8 +51,7 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<UserModel?> receiveNotification(
-      {required bool receiveNotification}) async {
+  Future<UserModel?> receiveNotification({required bool receiveNotification}) async {
     var result = await post(
       path: '/v1/mobile/notification-setting',
       data: {
@@ -67,10 +66,12 @@ class UserRepo extends BaseRepositryImpl {
 class UpdateProfileRequest extends RequestMappable {
   LocalizedName name = LocalizedName();
   String phoneNumber = "";
+  int? avatarId;
 
-  UpdateProfileRequest({required String name, required String phoneNumber}) {
+  UpdateProfileRequest({required String name, required String phoneNumber, int? avatarId}) {
     this.name = LocalizedName(en: name, ar: name);
     this.phoneNumber = phoneNumber;
+    this.avatarId = avatarId;
   }
 
   @override
@@ -78,6 +79,7 @@ class UpdateProfileRequest extends RequestMappable {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name.toJson();
     data['phone'] = this.phoneNumber;
+    data['avatar_id'] = this.avatarId;
     return data;
   }
 }
@@ -87,10 +89,7 @@ class ChangePasswordRequest extends RequestMappable {
   final String newPassword;
   final String newPasswordConfirm;
 
-  ChangePasswordRequest(
-      {required this.oldPassword,
-      required this.newPassword,
-      required this.newPasswordConfirm});
+  ChangePasswordRequest({required this.oldPassword, required this.newPassword, required this.newPasswordConfirm});
 
   @override
   Map<String, dynamic> toJson() {

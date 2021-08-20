@@ -903,6 +903,12 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Image Preview'**
   String get image_preview;
+
+  /// No description provided for @video_preview.
+  ///
+  /// In en, this message translates to:
+  /// **'Video Preview'**
+  String get video_preview;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

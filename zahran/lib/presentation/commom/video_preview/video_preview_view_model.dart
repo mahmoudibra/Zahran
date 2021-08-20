@@ -18,10 +18,20 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
 
   @override
   void initState() {
+    _initializeVideoController();
     super.initState();
-    var auth = Get.find<VideoPreviewViewModel>();
+  }
 
-    _videoPlayerController = VideoPlayerController.network(auth.videoUrl);
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
+  }
+
+  _initializeVideoController() {
+    //TODO: change this later to get from view model
+    _videoPlayerController =
+        VideoPlayerController.network("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4");
 
     _videoPlayerController.addListener(() {
       setState(() {});
@@ -31,19 +41,13 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     _videoPlayerController.play();
   }
 
-  @override
-  void dispose() {
-    _videoPlayerController.dispose();
-    super.dispose();
-  }
-
   Widget build(BuildContext context) {
     return GetBuilder(
       init: VideoPreviewViewModel(context),
       builder: (VideoPreviewViewModel vm) {
         return ScaffoldSilverAppBar(
           content: content(context, vm),
-          title: TR.of(context).image_preview,
+          title: TR.of(context).video_preview,
           paddingVertical: 0.0,
           paddingHorizontal: 0.0,
         );

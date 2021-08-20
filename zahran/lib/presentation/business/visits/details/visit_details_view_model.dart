@@ -29,10 +29,17 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLo
   }
 
   Future checkIn(BranchModel item) async {
-    await FlareAnimation.show(
-        action: Repos.visitsRepo.checkIn(model.id, await getCurrentPosition(), 0), context: context);
-    model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
-    Get.find<VisitsViewModel>().replaceItems((e) => e.id == model.id ? model : e);
+    try {
+      await FlareAnimation.show(
+          action: Repos.visitsRepo.checkIn(model.id, await getCurrentPosition(), 0), context: context);
+      model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
+      Get.find<VisitsViewModel>().replaceItems((e) => e.id == model.id ? model : e);
+    } catch (error) {
+      FlareAnimation.hide(context: context);
+      if (error is ApiFetchException) {
+        context.errorSnackBar(error.message ?? "");
+      }
+    }
   }
 
   Future checkOut(BranchModel item) async {}

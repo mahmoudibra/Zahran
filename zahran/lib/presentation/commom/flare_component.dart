@@ -13,8 +13,7 @@ class FlareAnimation extends StatelessWidget {
     );
   }
 
-  static Future<TType> show<TType>(
-      {required Future<TType> action, required BuildContext context}) {
+  static Future<TType> show<TType>({required Future<TType> action, required BuildContext context}) {
     showDialog(
       context: context,
       barrierColor: Colors.black26,
@@ -37,5 +36,9 @@ class FlareAnimation extends StatelessWidget {
       Navigator.of(context).pop();
       throw e;
     });
+  }
+
+  static hide({required BuildContext context}) {
+    Navigator.of(context).pop();
   }
 }

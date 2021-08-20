@@ -174,5 +174,6 @@
     "are_you_sure_logout":"are you sure you want to logout",
     "yes":"Yes",
     "no":"No",
-    "image_preview": "Image Preview"
+    "image_preview": "Image Preview",
+    "video_preview": "Video Preview"
 }

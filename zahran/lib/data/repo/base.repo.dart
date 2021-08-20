@@ -12,6 +12,7 @@ import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'brand.repo.dart';
 import 'document.repo.dart';
+import 'media.repo.dart';
 
 class Repos {
   static UserRepo get userRepo => UserRepo();
@@ -21,6 +22,7 @@ class Repos {
   static SallaryRepo get sallaryRepo => SallaryRepo();
   static DocumentRepo get documentRepo => DocumentRepo();
   static NotificationRepo get notificationRepo => NotificationRepo();
+  static MediaRepo get mediaRepo => MediaRepo();
 }
 
 abstract class BaseRepositryImpl extends BaseRepositry {

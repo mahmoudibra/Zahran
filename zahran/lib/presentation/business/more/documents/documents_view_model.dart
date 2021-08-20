@@ -23,7 +23,7 @@ class DocumentsListViewModel extends ListController<Document> {
   Future<void> routeToDocumentDetails(int index) async {
     var documents = items;
     var selectedDocument = documents.elementAt(index);
-    print("🚀🚀🚀 ssssss $selectedDocument");
+    print("🚀🚀🚀 selectedDocument $selectedDocument");
     if (selectedDocument.documentUrl.endsWith(".pdf")) {
       ScreenNames.DOCUMENT_DETAILS.push(selectedDocument);
     } else {
@@ -35,8 +35,7 @@ class DocumentsListViewModel extends ListController<Document> {
         _openFile(tempPath);
       } else {
         await FlareAnimation.show(
-          action:
-              Repos.documentRepo.downloadDocument(selectedDocument, tempPath),
+          action: Repos.documentRepo.downloadDocument(selectedDocument, tempPath),
           context: context,
         );
         _openFile(tempPath);

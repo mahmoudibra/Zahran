@@ -20,6 +20,7 @@ class UserProfileViewModel extends GetxController {
 
   MediaPickerType mediaPickerType = MediaPickerType.CAMERA_WITH_GALLERY;
   MediaLocal? mediaFile;
+  int? uploadedMediaId;
 
   UserProfileViewModel(this.context);
 
@@ -40,7 +41,7 @@ class UserProfileViewModel extends GetxController {
 
   Future _updateUserProfile() async {
     try {
-      userModel = await Repos.userRepo.updateProfile(userName!, phoneNumber!);
+      userModel = await Repos.userRepo.updateProfile(userName!, phoneNumber!, uploadedMediaId);
       var localUserModel = Get.find<AuthViewModel>().user;
       var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
@@ -72,10 +73,12 @@ class UserProfileViewModel extends GetxController {
   }
 
   Map<String, Function>? _prepareMediaAction() {
+    print("Heeeereeeeeeeeee ----------------------------------------wewewewe");
     Map<String, Function>? actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => () {
+          print("Heeeereeeeeeeeee ----------------------------------------");
           mediaFile = mediaModel;
-          update();
+          FlareAnimation.show(action: _uploadMedia(), context: context);
         };
     actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
 
@@ -90,6 +93,18 @@ class UserProfileViewModel extends GetxController {
 
   Future<void> changePassword() async {
     ScreenNames.CHANGE_PASSWORD.push();
+  }
+
+  Future<void> _uploadMedia() async {
+    print("🚀🚀🚀 start to upload media: $uploadedMediaId ");
+    try {
+      var uploadedMedia = await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile);
+      uploadedMediaId = uploadedMedia!.id;
+      print("🚀🚀🚀 uploaded Media is: $uploadedMediaId ");
+      update();
+    } catch (error) {
+      print("🚀🚀🚀 exception while uploading media: $error ");
+    }
   }
 
   @override

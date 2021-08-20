@@ -8,6 +8,7 @@ part 'brand.dto.dart';
 part 'chain.dto.dart';
 part 'document.dto.dart';
 part 'localized_name.dto.dart';
+part 'media_upload.dto.dart';
 part 'notification.dto.dart';
 part 'product.dto.dart';
 part 'promotion.dto.dart';

@@ -27,7 +27,7 @@ class PromotionViewModel extends ListController<Promotion> {
 class PromotionStatus extends Enum<String> {
   const PromotionStatus(String val) : super(val);
   static const PromotionStatus ALL = const PromotionStatus('all');
-  static const PromotionStatus EXPIRED = const PromotionStatus('Expire');
+  static const PromotionStatus EXPIRED = const PromotionStatus('Expired');
   static const PromotionStatus ACTIVE = const PromotionStatus('Active');
 
   bool get isActive => value.toLowerCase() == ACTIVE.value.toLowerCase();

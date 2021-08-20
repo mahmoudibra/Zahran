@@ -434,4 +434,7 @@ class TREn extends TR {
 
   @override
   String get image_preview => 'Image Preview';
+
+  @override
+  String get video_preview => 'Video Preview';
 }

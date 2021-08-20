@@ -102,10 +102,12 @@ class ScreenRouter {
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(
           mediaPickerFileCallback: ({MediaLocal? mediaModel}) async {
+            print("🚀🚀🚀🚀 Callback");
             actionsCallbacks!['mediaPickerCallback']!(mediaModel);
           },
           mediaPickerType: parameters!["pickerType"] as MediaPickerType,
           onMediaDismissedCallback: () {
+            print("🚀🚀🚀🚀 Dismiss");
             actionsCallbacks!['dismissCallback']!();
           },
         );
