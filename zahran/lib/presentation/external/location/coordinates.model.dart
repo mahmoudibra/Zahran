@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 class GeoPoint {
   double lat;
   double long;
@@ -15,6 +17,10 @@ class GeoPoint {
     }
   }
 
+  factory GeoPoint.fromPosition(Position position) {
+    return GeoPoint(position.latitude, position.longitude);
+  }
+
   bool isEmpty() {
     return lat == 0.0 && long == 0.0;
   }
@@ -25,8 +31,7 @@ class GeoPoint {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is GeoPoint && lat == other.lat && long == other.long;
+  bool operator ==(Object other) => other is GeoPoint && lat == other.lat && long == other.long;
 
   @override
   int get hashCode => lat.hashCode + long.hashCode;
@@ -36,8 +41,7 @@ class GeoPoint {
         'coordinates': [long, lat],
       };
 
-  Map<String, dynamic> toGeoLocationsJson() =>
-      {'latitude': lat, 'longitude': long};
+  Map<String, dynamic> toGeoLocationsJson() => {'latitude': lat, 'longitude': long};
 
   List<double> toList() {
     return [long, lat];
@@ -64,10 +68,7 @@ class GeoBound {
   }
 
   @override
-  bool operator ==(Object other) =>
-      other is GeoBound &&
-      southwest == other.southwest &&
-      northeast == other.northeast;
+  bool operator ==(Object other) => other is GeoBound && southwest == other.southwest && northeast == other.northeast;
 
   @override
   int get hashCode => southwest.hashCode + northeast.hashCode;

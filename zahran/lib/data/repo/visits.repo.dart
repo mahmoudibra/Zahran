@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/mappers/domain_mapper.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/external/location/coordinates.model.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'base.repo.dart';
@@ -11,8 +12,7 @@ class VisitsRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<ApiListResponse<BranchModel>> pagination(int skip,
-      [Position? position]) async {
+  Future<ApiListResponse<BranchModel>> pagination(int skip, [Position? position]) async {
     return await this.paging(
       path: '/v1/mobile/branches',
       queryParams: {
@@ -24,13 +24,13 @@ class VisitsRepo extends BaseRepositryImpl {
     );
   }
 
-  Future checkIn(int id, Position position, int imageId) async {
+  Future checkIn(int id, GeoPoint geoPoint, int imageId) async {
     return await this.post(
       path: '/v1/mobile/branches/checkin',
       data: {
         "branch_id": id,
-        "lat": position.latitude,
-        "lang": position.longitude,
+        "lat": geoPoint.lat,
+        "lang": geoPoint.long,
         "image_id": imageId,
       },
       mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
