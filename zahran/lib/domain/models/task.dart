@@ -1,6 +1,7 @@
 part of 'models.dart';
 
 class TaskModel {
+  int? visitId;
   final int id;
   final bool status;
   final String media;

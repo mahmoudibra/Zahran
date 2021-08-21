@@ -30,6 +30,7 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLo
   }
 
   routeToTaskDetailsAction(TaskModel task) {
+    task.visitId = model.id;
     ScreenNames.TAS_DETAILS.push(task);
   }
 

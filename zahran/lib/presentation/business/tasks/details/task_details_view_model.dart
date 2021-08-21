@@ -40,7 +40,7 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   }
 
   seeAllBrandsAction() {
-    print(" 🚀🚀🚀🚀 on See all brands clicked");
+    ScreenNames.BRANDS_LIST.push(model.visitId);
   }
 
   seeAllReportAction() {
