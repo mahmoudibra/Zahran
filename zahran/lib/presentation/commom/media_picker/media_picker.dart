@@ -1,17 +1,16 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/pop_up/choose_media_pop_up.dart';
 import 'package:zahran/presentation/commom/pop_up/permission_popup.component.dart';
 import 'package:zahran/presentation/external/image_picker/image_picker_maneger.impl.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.impl.dart';
 
 import '../retry_full_screen_error.dart';
-import 'media_local.domain.dart';
 import 'media_picker.pm.dart';
 
-typedef MediaPickerFileCallback = void Function(
-    {required MediaLocal? mediaModel});
+typedef MediaPickerFileCallback = void Function({required MediaLocal? mediaModel});
 
 class MediaPickerComponent extends StatefulWidget {
   final MediaPickerPM _mediaPickerPM;

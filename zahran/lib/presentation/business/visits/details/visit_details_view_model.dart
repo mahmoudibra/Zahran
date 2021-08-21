@@ -10,6 +10,7 @@ import 'package:zahran/presentation/business/base/get_location_mixin.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/external/location/coordinates.model.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLocationMixin {
@@ -55,5 +56,10 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLo
     await FlareAnimation.show(action: _checkIn(item), context: context);
   }
 
-  Future checkOut(BranchModel item) async {}
+  Future checkOut(BranchModel item) async {
+    var unCompletedTask = model.tasks.where((task) => !task.isCompleted);
+    if (unCompletedTask.isNotEmpty) {
+      context.errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
+    }
+  }
 }

@@ -452,4 +452,38 @@ class TRAr extends TR {
 
   @override
   String get complete_task => 'Complete Task';
+
+  @override
+  String task_completed_successfully(Object task_name) {
+    return 'Task ($task_name) completed successfully';
+  }
+
+  @override
+  String get mandatory => 'Mandatory';
+
+  @override
+  String get optional => 'Optional';
+
+  @override
+  String questions(Object mandatory_or_optional) {
+    return 'Questions ($mandatory_or_optional)';
+  }
+
+  @override
+  String get take_picture => 'Take picture';
+
+  @override
+  String get task_question => 'Questions';
+
+  @override
+  String get select_date => 'Select Date';
+
+  @override
+  String get question_answer => 'Question Answer...';
+
+  @override
+  String get answer_all_mandatory_question_first => 'Answer all mandatory questions first please.';
+
+  @override
+  String get complete_all_your_tasks_please_first => 'Complete all your tasks first Please .';
 }

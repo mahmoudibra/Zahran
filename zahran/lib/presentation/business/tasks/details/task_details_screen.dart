@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:zahran/presentation/business/tasks/details/question.component.dart';
 import 'package:zahran/presentation/business/tasks/details/task_brand_row.dart';
 import 'package:zahran/presentation/business/tasks/details/task_details_view_model.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
@@ -48,6 +49,7 @@ class TaskDetailsScreen extends StatelessWidget {
           buildSubBrandsListRow(context, vm),
           brandsList(vm, context),
           ViewsToolbox.emptySpaceWidget(height: 12),
+          buildQuestionSection(context, vm),
           // brandsList(),
           Divider(height: 1),
           taskReports(context, vm),
@@ -133,6 +135,24 @@ class TaskDetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget buildQuestionSection(BuildContext context, TaskDetailsViewModel vm) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Divider(height: 1),
+        ViewsToolbox.emptySpaceWidget(height: 16),
+        Text(
+          TR.of(context).task_question,
+          style: Theme.of(context).textTheme.headline6,
+        ),
+        ViewsToolbox.emptySpaceWidget(height: 8),
+        vm.model.questions?.length != 0 ? buildQuestionComponent(vm) : ViewsToolbox.emptySpaceWidget(),
+        ViewsToolbox.emptySpaceWidget(height: 12),
+      ],
+    );
+  }
+
   Widget footerSection(BuildContext context, TaskDetailsViewModel vm) {
     return Positioned(
       right: 16,
@@ -143,8 +163,7 @@ class TaskDetailsScreen extends StatelessWidget {
           Expanded(
             child: ProgressButton(
               onPressed: () async {
-                print("🚀🚀🚀🚀 Add the action right here");
-                return Future.delayed(Duration(seconds: 1));
+                return vm.completeTaskAction();
               },
               key: buttonKey,
               child: Text(TR.of(context).complete_task),
@@ -256,5 +275,28 @@ class TaskDetailsScreen extends StatelessWidget {
         label: Text(label),
       ),
     );
+  }
+
+  Widget buildQuestionComponent(TaskDetailsViewModel vm) {
+    return Container(
+        height: 350,
+        child: QuestionComponent(
+          questionTextChangeCallback: ({required int index, required String textChange}) {
+            vm.questionTextChangeAction(questionIndex: index, textChange: textChange);
+          },
+          questionSelectionChangeCallback: ({required int index, required int selectionIndex}) {
+            vm.questionSelectionChangeAction(questionIndex: index, selectionIndex: selectionIndex);
+          },
+          questionDateChangeCallback: ({required int index, required DateTime selectedDate}) {
+            vm.questionDateChangeAction(questionIndex: index, selectedDate: selectedDate);
+          },
+          questionMediaRemoveCallback: ({required int index, required int removeMediaIndex}) {
+            vm.questionMediaRemoveAction(questionIndex: index, removeMediaIndex: removeMediaIndex);
+          },
+          questionMediaChooseCallback: ({required int index}) {
+            vm.questionMediaChooseCallback(questionIndex: index);
+          },
+          questions: vm.model.questions ?? [],
+        ));
   }
 }

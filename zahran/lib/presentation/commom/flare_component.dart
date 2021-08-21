@@ -13,7 +13,7 @@ class FlareAnimation extends StatelessWidget {
     );
   }
 
-  static Future<TType> show<TType>({required Future<TType> action, required BuildContext context}) {
+  static Future<TType> show<TType>({required Future<TType> action, required BuildContext context}) async {
     showDialog(
       context: context,
       barrierColor: Colors.black26,
@@ -29,13 +29,14 @@ class FlareAnimation extends StatelessWidget {
       ),
       barrierDismissible: false,
     );
-    return action.then((value) {
+    try {
+      var value = await action;
       Navigator.of(context).pop();
-      return value;
-    }).catchError((e) {
+      return Future.value(value);
+    } catch (error) {
       Navigator.of(context).pop();
-      throw e;
-    });
+      return Future.error(error);
+    }
   }
 
   static hide({required BuildContext context}) {

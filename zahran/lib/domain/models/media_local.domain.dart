@@ -1,9 +1,4 @@
-import 'dart:io';
-
-import 'package:video_compress/video_compress.dart';
-import 'package:zahran/presentation/external/video_thubnail/video.helper.dart';
-
-import 'MediaFileTypes.dart';
+part of 'models.dart';
 
 class MediaLocal {
   MediaFileTypes mediaFileTypes;
@@ -29,8 +24,7 @@ class MediaLocal {
     }
   }
 
-  factory MediaLocal.fromJson(Map<String, dynamic> json,
-      {String? tmpDirectory}) {
+  factory MediaLocal.fromJson(Map<String, dynamic> json, {String? tmpDirectory}) {
     MediaFileTypes mediaFileTypes;
     File? mediaFile;
     if (json['mediaFileTypes'] != null) {
@@ -41,14 +35,11 @@ class MediaLocal {
     if (json['mediaFile'] != null) {
       print("🚀🚀🚀🚀🚀 Media File Type HashCode: ${mediaFileTypes.hashCode}");
       if (mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
-        mediaFile =
-            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
+        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
       } else if (mediaFileTypes.value == MediaFileTypes.VIDEO.value) {
-        mediaFile =
-            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
+        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
       } else if (mediaFileTypes.value == MediaFileTypes.AUDIO.value) {
-        mediaFile =
-            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
+        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
       }
       mediaFile!.writeAsBytesSync(List<int>.from(json['mediaFile']));
     }

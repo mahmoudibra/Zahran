@@ -186,5 +186,26 @@
             "count": {}
         }
     },
-    "complete_task": "Complete Task"
+    "complete_task": "Complete Task",
+    "task_completed_successfully": "Task ({task_name}) completed successfully",
+    "@task_completed_successfully": {
+        "placeholders": {
+            "task_name": {}
+        }
+    },
+    "mandatory": "Mandatory",
+    "optional": "Optional",
+    "questions": "Questions ({mandatory_or_optional})",
+    "@questions": {
+        "placeholders": {
+            "mandatory_or_optional": {}
+        }
+    },
+    "take_picture": "Take picture",
+    "task_question": "Questions",
+    "select_date": "Select Date",
+    "question_answer": "Question Answer...",
+    "answer_all_mandatory_question_first": "Answer all mandatory questions first please.",
+    "complete_all_your_tasks_please_first": "Complete all your tasks first Please ."
+
 }

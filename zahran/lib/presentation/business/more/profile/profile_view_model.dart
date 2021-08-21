@@ -6,7 +6,6 @@ import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
-import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -78,7 +77,6 @@ class UserProfileViewModel extends GetxController {
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) =>
         {mediaFile = mediaModel, FlareAnimation.show(action: _uploadMedia(), context: context)};
     actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
-
     return actionsCallbacks;
   }
 

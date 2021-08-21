@@ -939,6 +939,66 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Complete Task'**
   String get complete_task;
+
+  /// No description provided for @task_completed_successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Task ({task_name}) completed successfully'**
+  String task_completed_successfully(Object task_name);
+
+  /// No description provided for @mandatory.
+  ///
+  /// In en, this message translates to:
+  /// **'Mandatory'**
+  String get mandatory;
+
+  /// No description provided for @optional.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional'**
+  String get optional;
+
+  /// No description provided for @questions.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions ({mandatory_or_optional})'**
+  String questions(Object mandatory_or_optional);
+
+  /// No description provided for @take_picture.
+  ///
+  /// In en, this message translates to:
+  /// **'Take picture'**
+  String get take_picture;
+
+  /// No description provided for @task_question.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions'**
+  String get task_question;
+
+  /// No description provided for @select_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date'**
+  String get select_date;
+
+  /// No description provided for @question_answer.
+  ///
+  /// In en, this message translates to:
+  /// **'Question Answer...'**
+  String get question_answer;
+
+  /// No description provided for @answer_all_mandatory_question_first.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer all mandatory questions first please.'**
+  String get answer_all_mandatory_question_first;
+
+  /// No description provided for @complete_all_your_tasks_please_first.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete all your tasks first Please .'**
+  String get complete_all_your_tasks_please_first;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

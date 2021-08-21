@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/external/image_picker/image_picker_maneger.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 import 'MediaFileTypes.dart';
-import 'media_local.domain.dart';
 import 'media_picker.dart';
 
 enum MediaPickerStatues { READY, PROBLEMATIC }
@@ -19,11 +19,9 @@ class MediaPickerPM {
   MediaPickerFileCallback mediaPickerFileCallback;
 
   // Observables
-  StreamController<MediaPickerStatues> _mediaPickerStateStream =
-      StreamController();
+  StreamController<MediaPickerStatues> _mediaPickerStateStream = StreamController();
 
-  Stream<MediaPickerStatues> get mediaPickerStream =>
-      _mediaPickerStateStream.stream;
+  Stream<MediaPickerStatues> get mediaPickerStream => _mediaPickerStateStream.stream;
 
   // Data
   bool showPermissionDialog = false;
@@ -44,41 +42,31 @@ class MediaPickerPM {
   Future<void> captureImageFromCamera() async {
     permissionType = PermissionType.Camera;
     mediaType = MediaFileTypes.IMAGE;
-    await permissionManager
-        .checkPermission(service: permissionType)
-        .then(_onPhotoCameraPermissionResolved);
+    await permissionManager.checkPermission(service: permissionType).then(_onPhotoCameraPermissionResolved);
   }
 
   Future<void> pickImageFromGallery() async {
     permissionType = PermissionType.Gallery;
     mediaType = MediaFileTypes.IMAGE;
-    await permissionManager
-        .checkPermission(service: permissionType)
-        .then(_onPhotoGalleryPermissionResolved);
+    await permissionManager.checkPermission(service: permissionType).then(_onPhotoGalleryPermissionResolved);
   }
 
   Future<void> captureVideoFromCamera() async {
     permissionType = PermissionType.Camera;
     mediaType = MediaFileTypes.VIDEO;
-    await permissionManager
-        .checkPermission(service: permissionType)
-        .then(_onVideoCameraPermissionResolved);
+    await permissionManager.checkPermission(service: permissionType).then(_onVideoCameraPermissionResolved);
   }
 
   Future<void> pickVideoFromGallery() async {
     permissionType = PermissionType.Gallery;
     mediaType = MediaFileTypes.VIDEO;
-    await permissionManager
-        .checkPermission(service: permissionType)
-        .then(_onVideoGalleryPermissionResolved);
+    await permissionManager.checkPermission(service: permissionType).then(_onVideoGalleryPermissionResolved);
   }
 
-  Future<void> _onPhotoGalleryPermissionResolved(
-      PermissionState permissionState) async {
+  Future<void> _onPhotoGalleryPermissionResolved(PermissionState permissionState) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.pickImageFromGallery();
-      mediaPickerFileCallback(
-          mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -86,12 +74,10 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onPhotoCameraPermissionResolved(
-      PermissionState permissionState) async {
+  Future<void> _onPhotoCameraPermissionResolved(PermissionState permissionState) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.capturePicture();
-      mediaPickerFileCallback(
-          mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -99,12 +85,10 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onVideoGalleryPermissionResolved(
-      PermissionState permissionState) async {
+  Future<void> _onVideoGalleryPermissionResolved(PermissionState permissionState) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.pickVideoFromGallery();
-      mediaPickerFileCallback(
-          mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -112,12 +96,10 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onVideoCameraPermissionResolved(
-      PermissionState permissionState) async {
+  Future<void> _onVideoCameraPermissionResolved(PermissionState permissionState) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.captureVideo();
-      mediaPickerFileCallback(
-          mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {

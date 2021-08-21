@@ -3,6 +3,7 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/notification.repo.dart';
 import 'package:zahran/data/repo/promotion.repo.dart';
 import 'package:zahran/data/repo/salary.repo.dart';
+import 'package:zahran/data/repo/task.repo.dart';
 import 'package:zahran/data/repo/user.repo.dart';
 import 'package:zahran/data/repo/visits.repo.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -23,6 +24,7 @@ class Repos {
   static DocumentRepo get documentRepo => DocumentRepo();
   static NotificationRepo get notificationRepo => NotificationRepo();
   static MediaRepo get mediaRepo => MediaRepo();
+  static TaskRepo get taskRepo => TaskRepo();
 }
 
 abstract class BaseRepositryImpl extends BaseRepositry {
