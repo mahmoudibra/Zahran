@@ -715,8 +715,8 @@ abstract class TR {
   /// No description provided for @brands_list.
   ///
   /// In en, this message translates to:
-  /// **'Brands List (brandNumber)'**
-  String brands_list(Object brandNumber);
+  /// **'Brands ({count})'**
+  String brands_list(Object count);
 
   /// No description provided for @sub_brands_list.
   ///
@@ -909,6 +909,36 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Video Preview'**
   String get video_preview;
+
+  /// No description provided for @reports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get reports;
+
+  /// No description provided for @task_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Task Details'**
+  String get task_details;
+
+  /// No description provided for @task_description.
+  ///
+  /// In en, this message translates to:
+  /// **'Task Description'**
+  String get task_description;
+
+  /// No description provided for @action_to_be_done.
+  ///
+  /// In en, this message translates to:
+  /// **'Action to be done'**
+  String get action_to_be_done;
+
+  /// No description provided for @complete_task.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete Task'**
+  String get complete_task;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

@@ -175,5 +175,16 @@
     "yes":"Yes",
     "no":"No",
     "image_preview": "Image Preview",
-    "video_preview": "Video Preview"
+    "video_preview": "Video Preview",
+    "reports": "Reports",
+    "task_details": "Task Details",
+    "task_description": "Task Description",
+    "action_to_be_done": "Action to be done",
+    "brands_list": "Brands ({count})",
+    "@brands_list": {
+        "placeholders": {
+            "count": {}
+        }
+    },
+    "complete_task": "Complete Task"
 }

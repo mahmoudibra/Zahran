@@ -14,9 +14,7 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
     title = LocalizedNameDto.fromJson(json["title"] ?? {});
     description = LocalizedNameDto.fromJson(json["description"] ?? {});
     instructions = LocalizedNameDto.fromJson(json["instructions"] ?? {});
-    brands =
-        (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ??
-            [];
+    brands = (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ?? [];
     status = json["status"] == true;
     isCompleted = json["is_completed"] == true;
   }
@@ -39,8 +37,8 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
     return TaskModel(
       id: id!,
       title: title?.dtoToDomainModel() ?? LocalizedName(),
-      description: title?.dtoToDomainModel() ?? LocalizedName(),
-      instructions: title?.dtoToDomainModel() ?? LocalizedName(),
+      description: description?.dtoToDomainModel() ?? LocalizedName(),
+      instructions: instructions?.dtoToDomainModel() ?? LocalizedName(),
       isCompleted: isCompleted ?? false,
       status: status ?? true,
       brands: (brands ?? []).map((e) => e.dtoToDomainModel()).toList(),

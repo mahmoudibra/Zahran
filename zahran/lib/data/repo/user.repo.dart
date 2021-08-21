@@ -79,7 +79,7 @@ class UpdateProfileRequest extends RequestMappable {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name.toJson();
     data['phone'] = this.phoneNumber;
-    data['avatar_id'] = this.avatarId;
+    data['media_id'] = this.avatarId;
     return data;
   }
 }

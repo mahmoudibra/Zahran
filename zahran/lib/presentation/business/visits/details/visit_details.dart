@@ -19,8 +19,8 @@ class VisitDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<VisitDetailsViewModel>(
       init: VisitDetailsViewModel(context),
-      builder: (_) {
-        BranchModel model = _.model;
+      builder: (VisitDetailsViewModel vm) {
+        BranchModel model = vm.model;
         return Scaffold(
           body: CustomScrollView(
             shrinkWrap: true,
@@ -31,14 +31,19 @@ class VisitDetails extends StatelessWidget {
               _brandsnRow(model, context),
               SliverSpacer(),
               SliverPaddingBox(
-                child: Text(TR.of(context).task_count(model.totalTasks),
-                    style: context.headline6),
+                child: Text(TR.of(context).task_count(model.totalTasks), style: context.headline6),
               ),
               SliverSpacer(10),
               for (var task in model.tasks)
                 SliverPaddingBox(
                   child: SlideFadeItem(
-                    child: TaskView(task: task),
+                    child: TaskView(
+                      task: task,
+                      onOpenTaskDetailsAction: () {
+                        print(" 🚀🚀🚀🚀 Action here");
+                        vm.routeToTaskDetailsAction(task);
+                      },
+                    ),
                   ),
                 ),
             ],
@@ -50,21 +55,16 @@ class VisitDetails extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ElevatedButton.icon(
-                    onPressed: () => model.visitStatus.isInProgress
-                        ? _.checkOut(model)
-                        : _.checkIn(model),
+                    onPressed: () => model.visitStatus.isInProgress ? vm.checkOut(model) : vm.checkIn(model),
                     icon: Icon(Icons.login),
-                    label: Text(model.visitStatus.isInProgress
-                        ? TR.of(context).check_out
-                        : TR.of(context).check_in),
+                    label: Text(model.visitStatus.isInProgress ? TR.of(context).check_out : TR.of(context).check_in),
                   ),
                 ),
                 SizedBox(width: 10),
                 Expanded(
                   flex: 2,
                   child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                        primary: context.theme.primaryColor),
+                    style: ElevatedButton.styleFrom(primary: context.theme.primaryColor),
                     onPressed: () {
                       //TODO report
                     },
@@ -110,19 +110,15 @@ class VisitDetails extends StatelessWidget {
             ),
           ),
           SizedBox(width: 5),
-          _buildButton(
-              context, model, vm.goToDirections, TR.of(context).get_directions),
+          _buildButton(context, model, vm.goToDirections, TR.of(context).get_directions),
         ],
       ),
     );
   }
 
-  Directionality _buildButton(BuildContext context, BranchModel model,
-      VoidCallback callback, String label) {
+  Directionality _buildButton(BuildContext context, BranchModel model, VoidCallback callback, String label) {
     return Directionality(
-      textDirection: Directionality.of(context) == TextDirection.rtl
-          ? TextDirection.ltr
-          : TextDirection.rtl,
+      textDirection: Directionality.of(context) == TextDirection.rtl ? TextDirection.ltr : TextDirection.rtl,
       child: TextButton.icon(
         style: TextButton.styleFrom(
           padding: EdgeInsetsDirectional.only(top: 5, bottom: 5, end: 10),

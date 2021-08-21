@@ -11,7 +11,7 @@ class UserModel extends HiveObject {
   @HiveField(3)
   final String phone;
   @HiveField(4)
-  final String media;
+  String media;
   @HiveField(5)
   final DateTime lastVisit;
   @HiveField(6)

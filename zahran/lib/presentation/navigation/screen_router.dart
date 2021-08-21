@@ -17,6 +17,7 @@ import 'package:zahran/presentation/business/more/salary/salaries_screen.dart';
 import 'package:zahran/presentation/business/more/setting/seeting_screen.dart';
 import 'package:zahran/presentation/business/profile_tab/logout.popup.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
+import 'package:zahran/presentation/business/tasks/details/task_details_screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 import 'package:zahran/presentation/commom/image_preview/image_preview_screen.dart';
 import 'package:zahran/presentation/commom/media_picker/media_local.domain.dart';
@@ -47,7 +48,8 @@ enum ScreenNames {
   NOTIFICATION_LIST,
   NOTIFICATION_DETAILS,
   IMAGE_PREVIEW,
-  VIDEO_PREVIEW
+  VIDEO_PREVIEW,
+  TAS_DETAILS,
 }
 
 enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
@@ -79,6 +81,7 @@ class ScreenRouter {
         "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
         "${ScreenNames.IMAGE_PREVIEW}": (_) => ImagePreviewScreen(),
         "${ScreenNames.VIDEO_PREVIEW}": (_) => VideoPreviewScreen(),
+        "${ScreenNames.TAS_DETAILS}": (_) => TaskDetailsScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

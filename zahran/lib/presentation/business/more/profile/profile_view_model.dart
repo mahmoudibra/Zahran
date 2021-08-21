@@ -96,8 +96,9 @@ class UserProfileViewModel extends GetxController {
     try {
       var uploadedMedia = await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile);
       uploadedMediaId = uploadedMedia!.id;
+      userModel!.media = uploadedMedia.path;
       print("🚀🚀🚀 uploaded Media is: $uploadedMediaId ");
-      // update();
+      update();
     } catch (error) {
       print("🚀🚀🚀 exception while uploading media: $error ");
     }

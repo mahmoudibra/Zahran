@@ -29,6 +29,10 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLo
     launch("tel:${model.chain.media}");
   }
 
+  routeToTaskDetailsAction(TaskModel task) {
+    ScreenNames.TAS_DETAILS.push(task);
+  }
+
   Future<void> _checkIn(BranchModel item) async {
     try {
       var position = await getCurrentPosition();

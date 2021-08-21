@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:http_parser/http_parser.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/mappers/domain_mapper.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -14,9 +13,7 @@ class MediaRepo extends BaseRepositryImpl {
   BuildContext get context => ScreenRouter.key.currentContext!;
 
   Future<MediaUpload?> uploadMedia({required File uploadedFile}) async {
-    print("🚀🚀🚀🚀🚀Uploaded Media path $uploadedFile");
-    Future<MultipartFile> multipartFile =
-        MultipartFile.fromFile(uploadedFile.path, filename: "selectedFile", contentType: MediaType("image", "jpg"));
+    MultipartFile multipartFile = MultipartFile.fromFileSync(uploadedFile.path);
 
     var result = await post(
         path: '/v1/mobile/upload',

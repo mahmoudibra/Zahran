@@ -334,8 +334,8 @@ class TRAr extends TR {
   String get chain => 'chain';
 
   @override
-  String brands_list(Object brandNumber) {
-    return 'Brands List (brandNumber)';
+  String brands_list(Object count) {
+    return 'Brands ($count)';
   }
 
   @override
@@ -437,4 +437,19 @@ class TRAr extends TR {
 
   @override
   String get video_preview => 'Video Preview';
+
+  @override
+  String get reports => 'Reports';
+
+  @override
+  String get task_details => 'Task Details';
+
+  @override
+  String get task_description => 'Task Description';
+
+  @override
+  String get action_to_be_done => 'Action to be done';
+
+  @override
+  String get complete_task => 'Complete Task';
 }
