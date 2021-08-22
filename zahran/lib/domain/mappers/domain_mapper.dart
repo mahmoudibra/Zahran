@@ -11,6 +11,7 @@ part 'document.dto.dart';
 part 'localized_name.dto.dart';
 part 'media_upload.dto.dart';
 part 'notification.dto.dart';
+part 'option.dto.dart';
 part 'product.dto.dart';
 part 'promotion.dto.dart';
 part 'question.dto.dart';

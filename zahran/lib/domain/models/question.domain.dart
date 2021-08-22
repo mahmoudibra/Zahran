@@ -18,12 +18,14 @@ class Question {
 
   List<int> answerMediaList = []; // id that reflect selected mulimedia
 
-  Question(
-      {required this.id,
-      required this.taskId,
-      required this.answerType,
-      required this.mandatory,
-      required this.question});
+  Question({
+    required this.id,
+    required this.taskId,
+    required this.answerType,
+    required this.mandatory,
+    required this.question,
+    required this.options,
+  });
 
   @override
   String toString() {

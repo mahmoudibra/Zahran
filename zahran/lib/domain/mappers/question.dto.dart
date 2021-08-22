@@ -6,6 +6,7 @@ class QuestionDto implements DtoToDomainMapper<Question> {
   String? answerType;
   bool? mandatory;
   LocalizedNameDto? question;
+  List<OptionDto>? options;
 
   QuestionDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -13,6 +14,7 @@ class QuestionDto implements DtoToDomainMapper<Question> {
     answerType = json['answer_type'];
     mandatory = json['mandatory'];
     question = LocalizedNameDto.fromJson(json['question'] ?? {});
+    options = (json["options"] as List?)?.map((e) => OptionDto.fromJson(e)).toList() ?? [];
   }
 
   Map<String, dynamic> toJson() {
@@ -22,16 +24,19 @@ class QuestionDto implements DtoToDomainMapper<Question> {
       "answer_type": answerType,
       "mandatory": mandatory,
       "question": question?.tojson(),
+      "options": options?.map((e) => e.toJson()).toList(),
     };
   }
 
   @override
   Question dtoToDomainModel() {
     return Question(
-        id: id!,
-        taskId: taskID!,
-        answerType: answerType ?? QuestionTypes.TEXT.value,
-        mandatory: mandatory ?? false,
-        question: question?.dtoToDomainModel() ?? LocalizedName());
+      id: id!,
+      taskId: taskID!,
+      answerType: answerType ?? QuestionTypes.TEXT.value,
+      mandatory: mandatory ?? false,
+      question: question?.dtoToDomainModel() ?? LocalizedName(),
+      options: (options ?? []).map((e) => e.dtoToDomainModel()).toList(),
+    );
   }
 }
