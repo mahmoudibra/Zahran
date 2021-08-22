@@ -9,12 +9,15 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
   LocalizedNameDto? description;
   LocalizedNameDto? instructions;
   List<BrandDto>? brands;
+  List<QuestionDto>? questions;
+
   TaskDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = LocalizedNameDto.fromJson(json["title"] ?? {});
     description = LocalizedNameDto.fromJson(json["description"] ?? {});
     instructions = LocalizedNameDto.fromJson(json["instructions"] ?? {});
     brands = (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ?? [];
+    questions = (json["questions"] as List?)?.map((e) => QuestionDto.fromJson(e)).toList() ?? [];
     status = json["status"] == true;
     isCompleted = json["is_completed"] == true;
   }
@@ -28,6 +31,7 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
       "description": description?.tojson(),
       "instructions": instructions?.tojson(),
       "brands": brands?.map((e) => e.toJson()).toList(),
+      "questions": questions?.map((e) => e.toJson()).toList(),
       "media": media
     };
   }
@@ -43,6 +47,7 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
       status: status ?? true,
       brands: (brands ?? []).map((e) => e.dtoToDomainModel()).toList(),
       media: media ?? "",
+      questions: (questions ?? []).map((e) => e.dtoToDomainModel()).toList(),
     );
   }
 }

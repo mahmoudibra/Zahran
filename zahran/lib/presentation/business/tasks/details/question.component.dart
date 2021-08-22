@@ -490,13 +490,13 @@ class _SelectionsQuestionPromotionalTaskComponentState extends State<SelectionsQ
     return ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        itemCount: widget.questionModel.options?.length,
+        itemCount: widget.questionModel.options.length,
         itemBuilder: (context, index) {
           return ListTile(
               selectedTileColor: Theme.of(context).primaryColor,
-              title: Text(widget.questionModel.options![index].value),
+              title: Text(widget.questionModel.options[index].value),
               leading: Radio(
-                value: widget.questionModel.options![index].value,
+                value: widget.questionModel.options[index].value,
                 groupValue: selectedOptions,
                 onChanged: (value) {
                   setState(() {

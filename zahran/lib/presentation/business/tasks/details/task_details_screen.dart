@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/tasks/details/question.component.dart';
-import 'package:zahran/presentation/business/tasks/details/task_brand_row.dart';
 import 'package:zahran/presentation/business/tasks/details/task_details_view_model.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
 import 'package:zahran/presentation/commom/scaffold_list_silver_app_bar.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/localization/tr.dart';
-
-import '../../../../r.dart';
 
 typedef CaptureImageCallback = void Function({@required int subBrandIndex, @required int productIndex});
 
@@ -46,38 +43,38 @@ class TaskDetailsScreen extends StatelessWidget {
         children: <Widget>[
           _brandsRow(vm, context),
           regularTaskDetails(context, vm),
-          buildSubBrandsListRow(context, vm),
-          brandsList(vm, context),
+          // buildSubBrandsListRow(context, vm),
+          // brandsList(vm, context),
           ViewsToolbox.emptySpaceWidget(height: 12),
           buildQuestionSection(context, vm),
           // brandsList(),
-          Divider(height: 1),
-          taskReports(context, vm),
-          ViewsToolbox.emptySpaceWidget(height: 12),
-          Divider(height: 1),
+          // Divider(height: 1),
+          // taskReports(context, vm),
+          // ViewsToolbox.emptySpaceWidget(height: 12),
+          // Divider(height: 1),
           ViewsToolbox.emptySpaceWidget(height: 70),
         ],
       ),
     );
   }
 
-  Widget taskReports(BuildContext context, TaskDetailsViewModel vm) {
-    return GestureDetector(
-      onTap: vm.showReportListAction(),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Image.asset(R.assetsImagesReportIcon),
-          ViewsToolbox.emptySpaceWidget(width: 6),
-          Expanded(
-            child: Text(TR.of(context).reports, style: Theme.of(context).textTheme.headline6),
-          ),
-          _buildSeeAllButton(context, vm.seeAllReportAction, TR.of(context).see_all),
-        ],
-      ),
-    );
-  }
+  // Widget taskReports(BuildContext context, TaskDetailsViewModel vm) {
+  //   return GestureDetector(
+  //     onTap: vm.showReportListAction(),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.start,
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       children: <Widget>[
+  //         Image.asset(R.assetsImagesReportIcon),
+  //         ViewsToolbox.emptySpaceWidget(width: 6),
+  //         Expanded(
+  //           child: Text(TR.of(context).reports, style: Theme.of(context).textTheme.headline6),
+  //         ),
+  //         _buildSeeAllButton(context, vm.seeAllReportAction, TR.of(context).see_all),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget regularTaskDetails(BuildContext context, TaskDetailsViewModel vm) {
     return Column(
@@ -147,7 +144,7 @@ class TaskDetailsScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
         ViewsToolbox.emptySpaceWidget(height: 8),
-        vm.model.questions?.length != 0 ? buildQuestionComponent(vm) : ViewsToolbox.emptySpaceWidget(),
+        vm.model.questions.length != 0 ? buildQuestionComponent(vm) : ViewsToolbox.emptySpaceWidget(),
         ViewsToolbox.emptySpaceWidget(height: 12),
       ],
     );
@@ -226,21 +223,21 @@ class TaskDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget brandsList(TaskDetailsViewModel vm, BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: vm.model.brands.length,
-      itemBuilder: (context, index) {
-        return TaskBrandRow(
-          subBrands: vm.model.brands[index],
-          captureImageCallback: ({int? productIndex}) {
-            vm.pickImageAction(brandIndex: index, productIndex: productIndex!);
-          },
-        );
-      },
-    );
-  }
+  // Widget brandsList(TaskDetailsViewModel vm, BuildContext context) {
+  //   return ListView.builder(
+  //     shrinkWrap: true,
+  //     physics: NeverScrollableScrollPhysics(),
+  //     itemCount: vm.model.brands.length,
+  //     itemBuilder: (context, index) {
+  //       return TaskBrandRow(
+  //         subBrands: vm.model.brands[index],
+  //         captureImageCallback: ({int? productIndex}) {
+  //           vm.pickImageAction(brandIndex: index, productIndex: productIndex!);
+  //         },
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget _brandsRow(TaskDetailsViewModel vm, BuildContext context) {
     return Row(
@@ -296,7 +293,7 @@ class TaskDetailsScreen extends StatelessWidget {
           questionMediaChooseCallback: ({required int index}) {
             vm.questionMediaChooseCallback(questionIndex: index);
           },
-          questions: vm.model.questions ?? [],
+          questions: vm.model.questions,
         ));
   }
 }

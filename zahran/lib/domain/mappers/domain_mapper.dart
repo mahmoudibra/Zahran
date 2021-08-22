@@ -1,6 +1,7 @@
 import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/document.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/domain/models/question_types.enum.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
 
 part 'branch.dto.dart';
@@ -12,6 +13,7 @@ part 'media_upload.dto.dart';
 part 'notification.dto.dart';
 part 'product.dto.dart';
 part 'promotion.dto.dart';
+part 'question.dto.dart';
 part 'salary.dto.dart';
 part 'sender.dto.dart';
 part 'target.dto.dart';

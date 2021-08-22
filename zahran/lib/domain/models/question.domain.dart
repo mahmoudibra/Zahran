@@ -2,15 +2,16 @@ part of 'models.dart';
 
 class Question {
   int id;
-  int taskId;
+  String taskId;
   String answerType;
   bool mandatory;
   LocalizedName question;
 
-  List<Option>? options;
+  List<Option> options = [];
 
   // answers
   String answerText = "";
+  int? selectedOptionId;
 
   // selected multimedia for question from type media only
   List<MediaLocal> selectedMultimedia = [];
