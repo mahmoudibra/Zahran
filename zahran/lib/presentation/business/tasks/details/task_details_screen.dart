@@ -42,11 +42,33 @@ class TaskDetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _brandsRow(vm, context),
-          regularTaskDetails(context, vm),
+          Visibility(
+            visible: !(vm.model.description.format(context).isBlank ?? true),
+            child: buildDescriptionSection(context, vm),
+          ),
+          Visibility(
+            visible: vm.model.media.length > 0,
+            child: ViewsToolbox.emptySpaceWidget(height: 8),
+          ),
+          // Visibility(
+          //   visible: taskDetails.media.length > 0,
+          //   child: HorizontalImageList(
+          //     mediaList: taskDetails.media,
+          //     onImageClicked: onImageClicked,
+          //   ),
+          // ),
+          ViewsToolbox.emptySpaceWidget(height: 16),
+          Visibility(
+            visible: !(vm.model.instructions.format(context).isBlank ?? true),
+            child: buildInstructionSection(context, vm),
+          ),
           // buildSubBrandsListRow(context, vm),
           // brandsList(vm, context),
           ViewsToolbox.emptySpaceWidget(height: 12),
-          buildQuestionSection(context, vm),
+          Visibility(
+            visible: vm.model.questions.isNotEmpty,
+            child: buildQuestionSection(context, vm),
+          ),
           // brandsList(),
           // Divider(height: 1),
           // taskReports(context, vm),
@@ -76,7 +98,7 @@ class TaskDetailsScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget regularTaskDetails(BuildContext context, TaskDetailsViewModel vm) {
+  Widget buildDescriptionSection(BuildContext context, TaskDetailsViewModel vm) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,18 +110,18 @@ class TaskDetailsScreen extends StatelessWidget {
         ),
         ViewsToolbox.emptySpaceWidget(height: 4),
         Text(vm.model.description.format(context), style: Theme.of(context).textTheme.subtitle2),
-        Visibility(
-          visible: vm.model.media.length > 0,
-          child: ViewsToolbox.emptySpaceWidget(height: 8),
-        ),
-        // Visibility(
-        //   visible: taskDetails.media.length > 0,
-        //   child: HorizontalImageList(
-        //     mediaList: taskDetails.media,
-        //     onImageClicked: onImageClicked,
-        //   ),
-        // ),
-        ViewsToolbox.emptySpaceWidget(height: 16),
+      ],
+    );
+  }
+
+  Widget buildInstructionSection(BuildContext context, TaskDetailsViewModel vm) {
+    if (vm.model.instructions.format(context).isBlank ?? false) {
+      return ViewsToolbox.emptyWidget();
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
         Divider(height: 1),
         ViewsToolbox.emptySpaceWidget(height: 10),
         Text(
