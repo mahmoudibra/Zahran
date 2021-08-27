@@ -103,7 +103,7 @@ class VisitView extends StatelessWidget {
           ),
         ),
         SizedBox(width: 5),
-        Text(TR.of(context).distance_away(model.distance.format()),
+        Text(TR.of(context).distance_away(model.distance.noTrailing()),
             style: context.overline)
       ],
     );

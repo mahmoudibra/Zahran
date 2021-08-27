@@ -180,15 +180,16 @@ class ShapedRemoteImage extends StatelessWidget {
           )
         : buildError(context, paramters.height, paramters.height);
     var decoration = getDecoration(context) ?? BoxDecoration();
+    var radius = (decoration is BoxDecoration)
+        ? decoration.borderRadius?.resolve(Directionality.of(context))
+        : BorderRadius.zero;
     return Container(
-      decoration: getDecoration(context) ?? BoxDecoration(),
+      decoration: decoration,
       foregroundDecoration: getForgroundDecoration(context),
       padding: getInnerPadding(context),
       child: ClipRRect(
         clipBehavior: Clip.antiAlias,
-        borderRadius: (decoration is BoxDecoration)
-            ? decoration.borderRadius?.resolve(Directionality.of(context))
-            : BorderRadius.zero,
+        borderRadius: radius ?? BorderRadius.zero,
         child: child,
       ),
     );

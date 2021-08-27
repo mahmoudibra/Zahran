@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:hive/hive.dart';
 import 'package:reusable/reusable.dart';
 import 'package:video_compress/video_compress.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
-import 'package:zahran/domain/models/question_types.enum.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
 import 'package:zahran/presentation/external/video_thubnail/video.helper.dart';
 
@@ -28,3 +29,7 @@ part 'salary.dart';
 part 'sender.dart';
 part 'task.dart';
 part 'user_model.dart';
+part 'report_comment_model.dart';
+part 'report_items.dart';
+part 'report_models.dart';
+part 'report_problem.dart';

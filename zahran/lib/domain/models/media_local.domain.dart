@@ -24,7 +24,18 @@ class MediaLocal {
     }
   }
 
-  factory MediaLocal.fromJson(Map<String, dynamic> json, {String? tmpDirectory}) {
+  static Future<Uint8List?> compressImage(String path) {
+    return FlutterImageCompress.compressWithFile(
+      path,
+      minWidth: 2300,
+      minHeight: 1500,
+      quality: 94,
+      rotate: 90,
+    );
+  }
+
+  factory MediaLocal.fromJson(Map<String, dynamic> json,
+      {String? tmpDirectory}) {
     MediaFileTypes mediaFileTypes;
     File? mediaFile;
     if (json['mediaFileTypes'] != null) {
@@ -35,11 +46,14 @@ class MediaLocal {
     if (json['mediaFile'] != null) {
       print("🚀🚀🚀🚀🚀 Media File Type HashCode: ${mediaFileTypes.hashCode}");
       if (mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.jpg');
       } else if (mediaFileTypes.value == MediaFileTypes.VIDEO.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp4');
       } else if (mediaFileTypes.value == MediaFileTypes.AUDIO.value) {
-        mediaFile = File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
+        mediaFile =
+            File('$tmpDirectory/media-file-${mediaFileTypes.hashCode}.mp3');
       }
       mediaFile!.writeAsBytesSync(List<int>.from(json['mediaFile']));
     }

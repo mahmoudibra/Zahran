@@ -20,6 +20,7 @@ part 'sender.dto.dart';
 part 'target.dto.dart';
 part 'task.dto.dart';
 part 'user.dto.dart';
+part 'report.dto.dart';
 
 abstract class DtoToDomainMapper<V> {
   V dtoToDomainModel();

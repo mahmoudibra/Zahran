@@ -6,7 +6,9 @@ import 'package:zahran/presentation/commom/brands_view.dart';
 class TaskView extends StatelessWidget {
   final TaskModel task;
   final VoidCallback onOpenTaskDetailsAction;
-  const TaskView({Key? key, required this.task, required this.onOpenTaskDetailsAction}) : super(key: key);
+  const TaskView(
+      {Key? key, required this.task, required this.onOpenTaskDetailsAction})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +22,10 @@ class TaskView extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Expanded(child: Text(task.title.format(context), style: context.bodyText1)),
-                  if (task.status) ...[
+                  Expanded(
+                      child: Text(task.title.format(context),
+                          style: context.bodyText1)),
+                  if (task.isCompleted) ...[
                     SizedBox(width: 10),
                     CircleAvatar(
                       backgroundColor: Color(0xFF4DA850),

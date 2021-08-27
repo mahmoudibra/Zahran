@@ -24,6 +24,29 @@ class TaskModel {
     required this.questions,
   });
 
+  TaskModel copyWith({
+    bool? status,
+    String? media,
+    bool? isCompleted,
+    LocalizedName? title,
+    LocalizedName? description,
+    LocalizedName? instructions,
+    List<BrandModel>? brands,
+    List<Question>? questions,
+  }) {
+    return TaskModel(
+      status: status ?? this.status,
+      media: media ?? this.media,
+      isCompleted: isCompleted ?? this.isCompleted,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      instructions: instructions ?? this.instructions,
+      brands: brands ?? this.brands,
+      questions: questions ?? this.questions,
+      id: id,
+    );
+  }
+
   // _prepareTestQuestion() {
   //   var questionOne = Question(
   //       id: 200,

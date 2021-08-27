@@ -1,7 +1,10 @@
 part of 'models.dart';
 
-class MediaUpload {
+@HiveType(typeId: 0)
+class MediaUpload extends HiveObject {
+  @HiveField(0)
   final int id;
+  @HiveField(1)
   final String path;
 
   MediaUpload({required this.id, required this.path});

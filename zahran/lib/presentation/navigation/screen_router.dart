@@ -19,6 +19,14 @@ import 'package:zahran/presentation/business/more/setting/seeting_screen.dart';
 import 'package:zahran/presentation/business/profile_tab/logout.popup.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/tasks/details/task_details_screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/comment/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/competition_sell_out/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/competition_stock_count/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/problem/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/return/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/sell_out/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/stock_count/screen.dart';
+import 'package:zahran/presentation/business/visits/details/reports/supply_report/screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 import 'package:zahran/presentation/commom/image_preview/image_preview_screen.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
@@ -50,6 +58,14 @@ enum ScreenNames {
   IMAGE_PREVIEW,
   VIDEO_PREVIEW,
   TAS_DETAILS,
+  COMMENT_REPORT,
+  PROBLEM_REPORT,
+  COMPITION_STOCK_COUNT_REPORT,
+  COMPITION_SELL_OUT_REPORT,
+  SELL_OUT_REPORT,
+  STOCK_COUNT_REPORT,
+  RETURN_REPORT,
+  SUPPLY_REPORT,
 }
 
 enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
@@ -78,10 +94,21 @@ class ScreenRouter {
         "${ScreenNames.DOCUMENT_DETAILS}": (_) => DocumentDetailsScreen(),
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
         "${ScreenNames.NOTIFICATION_LIST}": (_) => NotificationListScreen(),
-        "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
+        "${ScreenNames.NOTIFICATION_DETAILS}": (_) =>
+            NotificationDetailsScreen(),
         "${ScreenNames.IMAGE_PREVIEW}": (_) => ImagePreviewScreen(),
         "${ScreenNames.VIDEO_PREVIEW}": (_) => VideoPreviewScreen(),
         "${ScreenNames.TAS_DETAILS}": (_) => TaskDetailsScreen(),
+        "${ScreenNames.COMMENT_REPORT}": (_) => CommentReportScreen(),
+        "${ScreenNames.PROBLEM_REPORT}": (_) => ProblemReportScreen(),
+        "${ScreenNames.COMPITION_SELL_OUT_REPORT}": (_) =>
+            CompitionSellOutReportScreen(),
+        "${ScreenNames.COMPITION_STOCK_COUNT_REPORT}": (_) =>
+            CompitionStockCountReportScreen(),
+        "${ScreenNames.SELL_OUT_REPORT}": (_) => SellOutReportScreen(),
+        "${ScreenNames.STOCK_COUNT_REPORT}": (_) => StockCountReportScreen(),
+        "${ScreenNames.SUPPLY_REPORT}": (_) => SupplyReportScreen(),
+        "${ScreenNames.RETURN_REPORT}": (_) => ReturnReportScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {
@@ -100,7 +127,8 @@ class ScreenRouter {
     Widget _popup;
     switch (type) {
       case PopupsNames.LOGOUT:
-        _popup = LogoutPopUp(parameters: parameters, actionsCallbacks: actionsCallbacks);
+        _popup = LogoutPopUp(
+            parameters: parameters, actionsCallbacks: actionsCallbacks);
         break;
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(

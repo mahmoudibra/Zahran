@@ -26,7 +26,44 @@ class __DismissState extends State<_Dismiss> {
   }
 }
 
+class _Observer extends NavigatorObserver {
+  Route? currentRoute;
+  bool get isPopupRout => currentRoute != null && currentRoute is PopupRoute;
+  bool get isDialog => currentRoute != null && currentRoute is DialogRoute;
+  @override
+  void didPop(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didPush(Route route, Route? previousRoute) {
+    currentRoute = route;
+  }
+
+  @override
+  void didRemove(Route route, Route? previousRoute) {
+    currentRoute = previousRoute;
+  }
+
+  @override
+  void didReplace({Route? newRoute, Route? oldRoute}) {
+    currentRoute = newRoute;
+  }
+}
+
 extension SnackBarExtention on BuildContext {
+  static final _observer = _Observer();
+  _Observer get snackBarObserver => SnackBarExtention._observer;
+  void waitDialog(Function callBack) {
+    if (snackBarObserver.isDialog) {
+      Future.delayed(Duration(milliseconds: 300)).then((value) {
+        waitDialog(callBack);
+      });
+    } else {
+      callBack();
+    }
+  }
+
   void showSnackBar(
     String message, {
     Color? backgroundColor,
@@ -41,72 +78,84 @@ extension SnackBarExtention on BuildContext {
     Duration duration = const Duration(seconds: 4),
     Animation<double>? animation,
     VoidCallback? onVisible,
-    bool modalSheet = false,
+    bool? modalSheet,
+    bool waitDialogToPop = true,
   }) {
-    if (modalSheet) {
-      showModalBottomSheet(
-        context: this,
-        backgroundColor: Colors.transparent,
-        isScrollControlled: true,
-        builder: (ctx) => _Dismiss(
-          duration: duration,
-          child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Card(
-                  color: backgroundColor,
-                  shape: shape,
-                  elevation: elevation,
-                  margin: margin ?? EdgeInsets.all(15),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: padding ?? const EdgeInsets.all(15),
-                          child: Text(
-                            message,
-                            style: TextStyle(color: textColor),
-                            textAlign: TextAlign.center,
+    var _modalSheet = modalSheet ?? SnackBarExtention._observer.isPopupRout;
+    var fn = () {
+      if (_modalSheet) {
+        showModalBottomSheet(
+          context: this,
+          backgroundColor: Colors.transparent,
+          isScrollControlled: true,
+          builder: (ctx) => _Dismiss(
+            duration: duration,
+            child: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Card(
+                    color: backgroundColor,
+                    shape: shape,
+                    elevation: elevation,
+                    margin: margin ?? EdgeInsets.all(15),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: padding ?? const EdgeInsets.all(15),
+                            child: Text(
+                              message,
+                              style: TextStyle(color: textColor),
+                              textAlign: action == null
+                                  ? TextAlign.center
+                                  : TextAlign.start,
+                            ),
                           ),
                         ),
-                      ),
-                      if (action != null)
-                        TextButton(
-                          style:
-                              TextButton.styleFrom(primary: action.textColor),
-                          onPressed: action.onPressed,
-                          child: Text(action.label),
-                        )
-                    ],
+                        if (action != null)
+                          TextButton(
+                            style:
+                                TextButton.styleFrom(primary: action.textColor),
+                            onPressed: action.onPressed,
+                            child: Text(action.label),
+                          )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      );
-      if (onVisible != null) onVisible();
+        );
+        if (onVisible != null) onVisible();
+      } else {
+        var manager = ScaffoldMessenger.maybeOf(this);
+        manager?.showSnackBar(SnackBar(
+          content: Text(
+            message,
+            style: TextStyle(color: textColor),
+            textAlign: action == null ? TextAlign.center : TextAlign.start,
+          ),
+          backgroundColor: backgroundColor,
+          elevation: elevation,
+          margin: margin,
+          padding: padding,
+          width: width,
+          shape: shape,
+          behavior: behavior,
+          action: action,
+          duration: duration,
+          animation: animation,
+          onVisible: onVisible,
+        ));
+      }
+    };
+    if (waitDialogToPop) {
+      waitDialog(fn);
     } else {
-      var manager = ScaffoldMessenger.maybeOf(this);
-      manager?.showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: TextStyle(color: textColor),
-        ),
-        backgroundColor: backgroundColor,
-        elevation: elevation,
-        margin: margin,
-        padding: padding,
-        width: width,
-        shape: shape,
-        behavior: behavior,
-        action: action,
-        duration: duration,
-        animation: animation,
-        onVisible: onVisible,
-      ));
+      fn();
     }
   }
 
@@ -122,7 +171,8 @@ extension SnackBarExtention on BuildContext {
     Duration duration = const Duration(seconds: 4),
     Animation<double>? animation,
     VoidCallback? onVisible,
-    bool modalSheet = false,
+    bool? modalSheet,
+    bool waitDialogToPop = true,
   }) {
     showSnackBar(
       message,
@@ -139,6 +189,7 @@ extension SnackBarExtention on BuildContext {
       animation: animation,
       onVisible: onVisible,
       modalSheet: modalSheet,
+      waitDialogToPop: waitDialogToPop,
     );
   }
 
@@ -154,7 +205,8 @@ extension SnackBarExtention on BuildContext {
     Duration duration = const Duration(seconds: 4),
     Animation<double>? animation,
     VoidCallback? onVisible,
-    bool modalSheet = false,
+    bool? modalSheet,
+    bool waitDialogToPop = true,
   }) {
     showSnackBar(
       message,
@@ -171,6 +223,7 @@ extension SnackBarExtention on BuildContext {
       animation: animation,
       onVisible: onVisible,
       modalSheet: modalSheet,
+      waitDialogToPop: waitDialogToPop,
     );
   }
 
@@ -186,7 +239,8 @@ extension SnackBarExtention on BuildContext {
     Duration duration = const Duration(seconds: 4),
     Animation<double>? animation,
     VoidCallback? onVisible,
-    bool modalSheet = false,
+    bool? modalSheet,
+    bool waitDialogToPop = true,
   }) {
     showSnackBar(
       message,
@@ -203,6 +257,7 @@ extension SnackBarExtention on BuildContext {
       animation: animation,
       onVisible: onVisible,
       modalSheet: modalSheet,
+      waitDialogToPop: waitDialogToPop,
     );
   }
 }

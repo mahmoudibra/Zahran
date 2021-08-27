@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
@@ -19,6 +20,23 @@ class MediaRepo extends BaseRepositryImpl {
         path: '/v1/mobile/upload',
         mapItem: (json) => MediaUploadDto.fromJson(json).dtoToDomainModel(),
         formData: true,
+        data: {"selectedFile": multipartFile});
+    return result.data;
+  }
+
+  Future<MediaUpload?> uploadUint8ListMedia({
+    required Uint8List data,
+    String? fileName,
+    Function(double progress)? onProgress,
+  }) async {
+    MultipartFile multipartFile =
+        MultipartFile.fromBytes(data, filename: fileName ?? "file.png");
+
+    var result = await post(
+        path: '/v1/mobile/upload',
+        mapItem: (json) => MediaUploadDto.fromJson(json).dtoToDomainModel(),
+        formData: true,
+        onSendProgress: onProgress,
         data: {"selectedFile": multipartFile});
     return result.data;
   }

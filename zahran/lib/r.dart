@@ -211,11 +211,30 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/imgs/brands.png)
   static final String assetsImgsBrands = 'assets/imgs/brands.png';
 
+  /// ![](http://127.0.0.1:9527/assets/imgs/camera.png)
+  static final String assetsImgsCamera = 'assets/imgs/camera.png';
+
   /// ![](http://127.0.0.1:9527/assets/imgs/camera_access.png)
   static final String assetsImgsCameraAccess = 'assets/imgs/camera_access.png';
 
   /// ![](http://127.0.0.1:9527/assets/imgs/check_in.png)
   static final String assetsImgsCheckIn = 'assets/imgs/check_in.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/comment.png)
+  static final String assetsImgsComment = 'assets/imgs/comment.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/competetion.png)
+  static final String assetsImgsCompetetion = 'assets/imgs/competetion.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/delete_action.png)
+  static final String assetsImgsDeleteAction = 'assets/imgs/delete_action.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/edit_action.png)
+  static final String assetsImgsEditAction = 'assets/imgs/edit_action.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/empty_products.png)
+  static final String assetsImgsEmptyProducts =
+      'assets/imgs/empty_products.png';
 
   /// ![](http://127.0.0.1:9527/assets/imgs/gallery_access.png)
   static final String assetsImgsGalleryAccess =
@@ -240,6 +259,9 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/imgs/logout.png)
   static final String assetsImgsLogout = 'assets/imgs/logout.png';
 
+  /// ![](http://127.0.0.1:9527/assets/imgs/mic.png)
+  static final String assetsImgsMic = 'assets/imgs/mic.png';
+
   /// ![](http://127.0.0.1:9527/assets/imgs/mic_access.png)
   static final String assetsImgsMicAccess = 'assets/imgs/mic_access.png';
 
@@ -249,14 +271,23 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/imgs/phone.png)
   static final String assetsImgsPhone = 'assets/imgs/phone.png';
 
+  /// ![](http://127.0.0.1:9527/assets/imgs/problem.png)
+  static final String assetsImgsProblem = 'assets/imgs/problem.png';
+
   /// ![](http://127.0.0.1:9527/assets/imgs/promotions.png)
   static final String assetsImgsPromotions = 'assets/imgs/promotions.png';
 
   /// ![](http://127.0.0.1:9527/assets/imgs/report.png)
   static final String assetsImgsReport = 'assets/imgs/report.png';
 
+  /// ![](http://127.0.0.1:9527/assets/imgs/return.png)
+  static final String assetsImgsReturn = 'assets/imgs/return.png';
+
   /// ![](http://127.0.0.1:9527/assets/imgs/sallary.png)
   static final String assetsImgsSallary = 'assets/imgs/sallary.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/sell_out.png)
+  static final String assetsImgsSellOut = 'assets/imgs/sell_out.png';
 
   /// ![](http://127.0.0.1:9527/assets/imgs/settings.png)
   static final String assetsImgsSettings = 'assets/imgs/settings.png';
@@ -264,6 +295,12 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/imgs/shared_documnets.png)
   static final String assetsImgsSharedDocumnets =
       'assets/imgs/shared_documnets.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/stock_count.png)
+  static final String assetsImgsStockCount = 'assets/imgs/stock_count.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/supply_order.png)
+  static final String assetsImgsSupplyOrder = 'assets/imgs/supply_order.png';
 
   /// ![](http://127.0.0.1:9527/assets/animations/loading.flr)
   static final String assetsAnimationsLoading = 'assets/animations/loading.flr';

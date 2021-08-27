@@ -14,7 +14,9 @@ class CheckINView extends StatelessWidget {
   final BranchModel model;
   final VoidCallback onCheckInSelectedCallback;
 
-  const CheckINView({Key? key, required this.model, required this.onCheckInSelectedCallback}) : super(key: key);
+  const CheckINView(
+      {Key? key, required this.model, required this.onCheckInSelectedCallback})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,11 @@ class CheckINView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(width: 5),
-                    Text(TR.of(context).distance_away(model.distance.format()), style: context.overline)
+                    Text(
+                        TR
+                            .of(context)
+                            .distance_away(model.distance.noTrailing()),
+                        style: context.overline)
                   ],
                 )
               ],

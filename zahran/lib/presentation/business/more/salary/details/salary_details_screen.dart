@@ -101,11 +101,11 @@ class SalaryDetailsScreen extends StatelessWidget {
               children: [
                 if (rate != null) ...[
                   _buildAmount(
-                      context, TR.of(context).rate, rate.format(), true),
+                      context, TR.of(context).rate, rate.noTrailing(), true),
                   SizedBox(width: 20),
                 ],
-                _buildAmount(context, TR.of(context).amount, amount.format(),
-                    rate != null),
+                _buildAmount(context, TR.of(context).amount,
+                    amount.currency(symbol: ""), rate != null),
               ],
             ),
           ),

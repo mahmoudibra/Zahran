@@ -3,6 +3,7 @@ import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/notification.repo.dart';
 import 'package:zahran/data/repo/promotion.repo.dart';
 import 'package:zahran/data/repo/question.repo.dart';
+import 'package:zahran/data/repo/reports.repo.dart';
 import 'package:zahran/data/repo/salary.repo.dart';
 import 'package:zahran/data/repo/task.repo.dart';
 import 'package:zahran/data/repo/user.repo.dart';
@@ -27,6 +28,7 @@ class Repos {
   static MediaRepo get mediaRepo => MediaRepo();
   static TaskRepo get taskRepo => TaskRepo();
   static QuestionRepo get questionRepo => QuestionRepo();
+  static ReportsRepo get reports => ReportsRepo();
 }
 
 abstract class BaseRepositryImpl extends BaseRepositry {
@@ -42,10 +44,7 @@ abstract class BaseRepositryImpl extends BaseRepositry {
       var res = await ScreenNames.LOGIN_SHEET.showAsBottomSheet(context);
       return res is LoginModel;
     } else if (!error.isCancel) {
-      context.errorSnackBar(
-        error.toString(),
-        modalSheet: BaseRepositry.observer.isPopupRout,
-      );
+      context.errorSnackBar(error.toString());
     }
     return false;
   }
