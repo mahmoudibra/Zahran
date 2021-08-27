@@ -6,7 +6,9 @@ import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
 class LogoutPopUp extends StatelessWidget {
+  // ignore: unused_field
   final Map<String, dynamic>? _parameters;
+  // ignore: unused_field
   final Map<String, Function>? _actionsCallbacks;
 
   LogoutPopUp({

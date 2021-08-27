@@ -5,7 +5,6 @@ import 'package:zahran/data/repo/question.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/domain/models/question_types.enum.dart';
 import 'package:zahran/presentation/business/base/base_details_view_model.dart';
-import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
