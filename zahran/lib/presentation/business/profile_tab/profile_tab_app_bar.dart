@@ -162,7 +162,7 @@ class ProfileTabsAppBar extends StatelessWidget {
             center: SizedBox(
               width: avatarWidth - 10,
               child: AutoSizeText(
-                "${(vm.targetPercentage * 100).format()}%",
+                "${(vm.targetPercentage * 100).percentPattern()}",
                 maxLines: 1,
                 minFontSize: 5,
                 style: TextStyle(color: context.theme.accentColor),

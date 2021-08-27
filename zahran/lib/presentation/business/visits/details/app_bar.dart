@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
@@ -18,7 +19,9 @@ class DetailsAppBar extends StatelessWidget {
       return SliverAppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              launch("tel:06666666");
+            },
             icon: AssetIcon(R.assetsImagesCallIcon),
           )
         ],

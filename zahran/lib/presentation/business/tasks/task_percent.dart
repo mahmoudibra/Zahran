@@ -14,7 +14,7 @@ class TaskPercent extends StatelessWidget {
       percent: percent,
       center: SizedBox(
         width: 20,
-        child: AutoSizeText("${(percent * 100).format()}%",
+        child: AutoSizeText("${(percent * 100).percentPattern()}",
             maxLines: 1, minFontSize: 5),
       ),
       progressColor: color(context),

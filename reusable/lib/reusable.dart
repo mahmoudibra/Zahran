@@ -1,6 +1,7 @@
 library reusable;
 
-export 'package:get/get.dart' hide FormData, Response, MultipartFile;
+export 'package:get/get.dart'
+    hide FormData, Response, MultipartFile, IterableExtensions;
 export 'package:ansi_logger/ansi_logger.dart' hide IFile;
 export 'package:dio/dio.dart';
 export 'package:simple/simple.dart';

@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   reusable:
     path: ../reusable
-  fcm_config: ^3.0.7
+  fcm_config: ^3.0.9
   firebase_analytics: 8.1.2
   path_provider: ^2.0.2
   open_file: ^3.2.1
@@ -33,7 +33,8 @@ dependencies:
   webview_flutter: ^2.0.10
   # flutter_sound: 8.1.9
   url_launcher: ^6.0.9
-  permission_handler: 8.1.2
+  permission_handler: ^8.1.4+2
+  flutter_swipe_action_cell: ^2.1.1
   # stack_trace: 1.10.0
   # flutter_keyboard_visibility: 5.0.2
   android_intent: 2.0.2
@@ -49,11 +50,13 @@ dependencies:
   flutter_countdown_timer: 4.1.0
   flutter_keyboard_visibility: ^5.0.2
   video_compress: 3.0.0
+  flutter_image_compress: ^1.1.0
   cupertino_icons: 1.0.3
   share: 2.0.4
   flutter_svg: 0.22.0
   hive: 2.0.4
   hive_flutter: 1.1.0
+  percent_indicator: ^3.3.0-nullsafety.1
 #  advance_pdf_viewer: ^2.0.0
 #  flutter_pdfview: ^1.0.4
   syncfusion_flutter_pdfviewer: 19.1.66-beta
@@ -65,7 +68,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_generator: 1.1.0
-  build_runner: 2.0.5
+  build_runner: ^2.1.1
 
 flutter:
   uses-material-design: true
@@ -90,6 +93,7 @@ flutter:
   assets:
     # assets-generator-begin
     # assets/images/*
+    - assets/images/.DS_Store
     - assets/images/app_logo.png
     - assets/images/arrow_down.png
     - assets/images/arrow_left.png
@@ -147,12 +151,19 @@ flutter:
     - assets/images/ticket_icon.png
     - assets/images/visits_icon.png
     # assets/imgs/*
+    - assets/imgs/.DS_Store
     - assets/imgs/artwork.png
     - assets/imgs/bell.png
     - assets/imgs/branchs.png
     - assets/imgs/brands.png
+    - assets/imgs/camera.png
     - assets/imgs/camera_access.png
     - assets/imgs/check_in.png
+    - assets/imgs/comment.png
+    - assets/imgs/competetion.png
+    - assets/imgs/delete_action.png
+    - assets/imgs/edit_action.png
+    - assets/imgs/empty_products.png
     - assets/imgs/gallery_access.png
     - assets/imgs/in_range.png
     - assets/imgs/in_range_2.png
@@ -160,14 +171,20 @@ flutter:
     - assets/imgs/log_in_outlne.png
     - assets/imgs/logo.png
     - assets/imgs/logout.png
+    - assets/imgs/mic.png
     - assets/imgs/mic_access.png
     - assets/imgs/person.png
     - assets/imgs/phone.png
+    - assets/imgs/problem.png
     - assets/imgs/promotions.png
     - assets/imgs/report.png
+    - assets/imgs/return.png
     - assets/imgs/sallary.png
+    - assets/imgs/sell_out.png
     - assets/imgs/settings.png
     - assets/imgs/shared_documnets.png
+    - assets/imgs/stock_count.png
+    - assets/imgs/supply_order.png
     # assets/animations/*
     - assets/animations/loading.flr
     # assets/svg/*

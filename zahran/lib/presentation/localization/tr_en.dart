@@ -1,5 +1,3 @@
-
-
 import 'package:intl/intl.dart' as intl;
 import 'tr.dart';
 
@@ -44,19 +42,23 @@ class TREn extends TR {
   String get we_are_sorry => 'We Are Sorry';
 
   @override
-  String get generic_error_message => 'The App is running into a problem please try again after a few minutes';
+  String get generic_error_message =>
+      'The App is running into a problem please try again after a few minutes';
 
   @override
   String get try_again => 'Try Again';
 
   @override
-  String get internet_connection_error_title => 'Issue while connecting to internet';
+  String get internet_connection_error_title =>
+      'Issue while connecting to internet';
 
   @override
-  String get internet_connection_error_msg => 'Issue while connecting to internet';
+  String get internet_connection_error_msg =>
+      'Issue while connecting to internet';
 
   @override
-  String get internet_connection_error_try_again_button => 'Try again after connecting to your internet';
+  String get internet_connection_error_try_again_button =>
+      'Try again after connecting to your internet';
 
   @override
   String get capture_image => 'Take a Picture';
@@ -80,31 +82,37 @@ class TREn extends TR {
   String get permission_access_microphone_title => 'Microphone Access';
 
   @override
-  String get permission_access_microphone_message => 'We need to access your microphone to be able to record voice notes!';
+  String get permission_access_microphone_message =>
+      'We need to access your microphone to be able to record voice notes!';
 
   @override
   String get permission_access_location_title => 'Location Access';
 
   @override
-  String get permission_access_location_message => 'We need to access your location to detect your zone!';
+  String get permission_access_location_message =>
+      'We need to access your location to detect your zone!';
 
   @override
   String get permission_access_camera_title => 'Camera Access';
 
   @override
-  String get permission_access_camera_message => 'We need to access your camera to be able to take photos!';
+  String get permission_access_camera_message =>
+      'We need to access your camera to be able to take photos!';
 
   @override
-  String get permission_access_video_camera_message => 'We need to access your camera to be able to take video!';
+  String get permission_access_video_camera_message =>
+      'We need to access your camera to be able to take video!';
 
   @override
   String get permission_access_gallery_title => 'Gallery Access';
 
   @override
-  String get permission_access_gallery_message => 'We need to access your gallery to be able to pick photos!';
+  String get permission_access_gallery_message =>
+      'We need to access your gallery to be able to pick photos!';
 
   @override
-  String get permission_access_video_gallery_message => 'We need to access your gallery to be able to pick video!';
+  String get permission_access_video_gallery_message =>
+      'We need to access your gallery to be able to pick video!';
 
   @override
   String get permission_access_change_settings_button => 'Change Settings';
@@ -246,10 +254,12 @@ class TREn extends TR {
   String get confirm_new_password => 'Confirm new password';
 
   @override
-  String get invalid_confirm_password => 'new password & confirm password are not matched';
+  String get invalid_confirm_password =>
+      'new password & confirm password are not matched';
 
   @override
-  String get user_password_changed_successfully => 'User Password changed successfully';
+  String get user_password_changed_successfully =>
+      'User Password changed successfully';
 
   @override
   String get user_setting_updated => 'User setting updated';
@@ -264,7 +274,8 @@ class TREn extends TR {
   String get allow_notifications => 'Allow Notifications';
 
   @override
-  String get allow_notifications_description => 'Get notified when you get a new inbox \naction item.';
+  String get allow_notifications_description =>
+      'Get notified when you get a new inbox \naction item.';
 
   @override
   String get arabic => 'arabic';
@@ -334,8 +345,8 @@ class TREn extends TR {
   String get chain => 'chain';
 
   @override
-  String brands_list(Object count) {
-    return 'Brands ($count)';
+  String brands_list_num(Object brandNumber) {
+    return 'Brands List (brandNumber)';
   }
 
   @override
@@ -421,7 +432,8 @@ class TREn extends TR {
   String get message_details => 'Message Details';
 
   @override
-  String get can_not_open_file => 'Sorry! We can\'t find any app that can open this file';
+  String get can_not_open_file =>
+      'Sorry! We can\'t find any app that can open this file';
 
   @override
   String get are_you_sure_logout => 'are you sure you want to logout';
@@ -449,6 +461,11 @@ class TREn extends TR {
 
   @override
   String get action_to_be_done => 'Action to be done';
+
+  @override
+  String brands_num(Object count) {
+    return 'Brands ($count)';
+  }
 
   @override
   String get complete_task => 'Complete Task';
@@ -482,8 +499,131 @@ class TREn extends TR {
   String get question_answer => 'Question Answer...';
 
   @override
-  String get answer_all_mandatory_question_first => 'Answer all mandatory questions first please.';
+  String get answer_all_mandatory_question_first =>
+      'Answer all mandatory questions first please.';
 
   @override
-  String get complete_all_your_tasks_please_first => 'Complete all your tasks first Please .';
+  String get complete_all_your_tasks_please_first =>
+      'Complete all your tasks first Please .';
+
+  @override
+  String get you_must_take_image =>
+      'You must take a photo of the branch to be able to complete this process';
+
+  @override
+  String get comment => 'Comment';
+
+  @override
+  String get competition_sell_out => 'Competition sell-out';
+
+  @override
+  String get competition_stock_count => 'Competition stock-count';
+
+  @override
+  String get sell_out => 'Sell Out';
+
+  @override
+  String get stock_count => 'Stock Count';
+
+  @override
+  String get return_report => 'Return';
+
+  @override
+  String get supply => 'Supply Order';
+
+  @override
+  String get select_report_option => 'Select report option';
+
+  @override
+  String get comment_report => 'Comment report';
+
+  @override
+  String get enter_decription_here => 'Enter decription here';
+
+  @override
+  String get add_product => 'ADD PRODUCT';
+
+  @override
+  String get search_brand => 'Search for Brands / Products';
+
+  @override
+  String get add_product_hint => 'Add Product';
+
+  @override
+  String get add_product_hint_2 => 'To complete report add the products';
+
+  @override
+  String get product => 'Product';
+
+  @override
+  String get product_already_added => 'Product already added';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get competition_name => 'Competition name';
+
+  @override
+  String get low => 'Low';
+
+  @override
+  String get medium => 'Medium';
+
+  @override
+  String get high => 'High';
+
+  @override
+  String get problem_title => 'Problem title';
+
+  @override
+  String get problem_type => 'Problem type';
+
+  @override
+  String get enter_problem_title => 'Enter problem title';
+
+  @override
+  String get enter_problem_type => 'Enter Problem type';
+
+  @override
+  String get severity => 'Severity Level';
+
+  @override
+  String get sell_out_report => 'Sell out report';
+
+  @override
+  String get stock_count_report => 'Stock count report';
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get quantity_hint => 'Enter quantity here';
+
+  @override
+  String get price => 'price';
+
+  @override
+  String get price_hint => 'Enter price here';
+
+  @override
+  String get add => 'Add';
+
+  @override
+  String get edit => 'Edit';
+
+  @override
+  String get invalid_quantity => 'Invalid quantity';
+
+  @override
+  String get invalid_price => 'Invalid price';
+
+  @override
+  String get return_report_title => 'Return report';
+
+  @override
+  String get return_reason => 'Reason of return';
+
+  @override
+  String get return_reason_hint => 'Enter reason here';
 }

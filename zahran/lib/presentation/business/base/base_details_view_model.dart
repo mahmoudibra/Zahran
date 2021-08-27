@@ -15,4 +15,9 @@ class BaseDetailsViewModel<T> extends GetxController {
     _model = n;
     update();
   }
+
+  T? getController<T extends GetxController>() {
+    if (Get.isRegistered<T>()) return Get.find<T>();
+    return null;
+  }
 }

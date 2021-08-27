@@ -128,8 +128,8 @@
     "all": "All",
     "display_type": "Display Type",
     "chain": "chain",
-    "brands_list": "Brands List (brandNumber)",
-    "@brands_list": {
+    "brands_list_num": "Brands List (brandNumber)",
+    "@brands_list_num": {
         "placeholders": {
             "brandNumber": {}
         }
@@ -180,8 +180,8 @@
     "task_details": "Task Details",
     "task_description": "Task Description",
     "action_to_be_done": "Action to be done",
-    "brands_list": "Brands ({count})",
-    "@brands_list": {
+    "brands_num": "Brands ({count})",
+    "@brands_num": {
         "placeholders": {
             "count": {}
         }
@@ -206,6 +206,46 @@
     "select_date": "Select Date",
     "question_answer": "Question Answer...",
     "answer_all_mandatory_question_first": "Answer all mandatory questions first please.",
-    "complete_all_your_tasks_please_first": "Complete all your tasks first Please ."
+    "complete_all_your_tasks_please_first": "Complete all your tasks first Please .",
+    "you_must_take_image":"You must take a photo of the branch to be able to complete this process",
+    "comment":"Comment",
+    "competition_sell_out":"Competition sell-out",
+    "competition_stock_count":"Competition stock-count",
+    "sell_out":"Sell Out",
+    "stock_count":"Stock Count",
+    "return_report":"Return",
+    "supply":"Supply Order",
+    "select_report_option":"Select report option",
+    "comment_report":"Comment report",
+    "enter_decription_here":"Enter decription here",
+    "add_product":"ADD PRODUCT",
+    "search_brand": "Search for Brands / Products",
+    "add_product_hint":"Add Product",
+    "add_product_hint_2":"To complete report add the products",
+    "product":"Product",
+    "product_already_added":"Product already added",
+    "send":"Send",
+    "competition_name":"Competition name",
+    "low":"Low",
+    "medium":"Medium",
+    "high":"High",
+    "problem_title":"Problem title",
+    "problem_type":"Problem type",
+    "enter_problem_title":"Enter problem title",
+    "enter_problem_type":"Enter Problem type",
+    "severity":"Severity Level",
+    "sell_out_report":"Sell out report",
+    "stock_count_report":"Stock count report",
+    "quantity":"Quantity",
+    "quantity_hint":"Enter quantity here",
+    "price":"price",
+    "price_hint":"Enter price here",
+    "add":"Add",
+    "edit":"Edit",
+    "invalid_quantity":"Invalid quantity",
+    "invalid_price":"Invalid price",
+    "return_report_title":"Return report",
+    "return_reason":"Reason of return",
+    "return_reason_hint":"Enter reason here"
 
 }

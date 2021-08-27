@@ -12,7 +12,8 @@ class VisitsRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<ApiListResponse<BranchModel>> pagination(int skip, [Position? position]) async {
+  Future<ApiListResponse<BranchModel>> pagination(int skip,
+      [Position? position]) async {
     return await this.paging(
       path: '/v1/mobile/branches',
       queryParams: {
@@ -33,6 +34,14 @@ class VisitsRepo extends BaseRepositryImpl {
         "lang": geoPoint.long,
         "image_id": imageId,
       },
+      mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
+    );
+  }
+
+  Future checkOut(int id) async {
+    return await this.get(
+      path: '/v1/mobile/branches/checkout',
+      queryParams: {"branch_id": id},
       mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
     );
   }

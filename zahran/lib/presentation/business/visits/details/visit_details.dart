@@ -11,12 +11,25 @@ import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
 import 'app_bar.dart';
+import 'reports/reports_sheet.dart';
 
-class VisitDetails extends StatelessWidget {
+class VisitDetails extends StatefulWidget {
   const VisitDetails({Key? key}) : super(key: key);
 
   @override
+  _VisitDetailsState createState() => _VisitDetailsState();
+}
+
+class _VisitDetailsState extends State<VisitDetails> {
+  bool firstBuild = true;
+  @override
   Widget build(BuildContext context) {
+    if (firstBuild)
+      WidgetsBinding.instance?.addPostFrameCallback((_) {
+        setState(() {
+          firstBuild = false;
+        });
+      });
     return GetBuilder<VisitDetailsViewModel>(
       init: VisitDetailsViewModel(context),
       builder: (VisitDetailsViewModel vm) {
@@ -31,21 +44,27 @@ class VisitDetails extends StatelessWidget {
               _brandsnRow(model, context),
               SliverSpacer(),
               SliverPaddingBox(
-                child: Text(TR.of(context).task_count(model.totalTasks), style: context.headline6),
+                child: Text(TR.of(context).task_count(model.totalTasks),
+                    style: context.headline6),
               ),
               SliverSpacer(10),
-              for (var task in model.tasks)
+              for (var i = 0; i < model.tasks.length; i++)
                 SliverPaddingBox(
-                  child: SlideFadeItem(
-                    child: TaskView(
-                      task: task,
-                      onOpenTaskDetailsAction: () {
-                        print(" 🚀🚀🚀🚀 Action here");
-                        vm.routeToTaskDetailsAction(task);
-                      },
+                  child: AnimatedItemConfig(
+                    index: i,
+                    firstBuild: firstBuild,
+                    child: SlideFadeItem(
+                      child: TaskView(
+                        task: model.tasks[i],
+                        onOpenTaskDetailsAction: () {
+                          print(" 🚀🚀🚀🚀 Action here");
+                          vm.routeToTaskDetailsAction(model.tasks[i]);
+                        },
+                      ),
                     ),
                   ),
                 ),
+              SliverSpacer.safeArea(100)
             ],
           ),
           bottomSheet: Padding(
@@ -55,18 +74,23 @@ class VisitDetails extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: ElevatedButton.icon(
-                    onPressed: () => model.visitStatus.isInProgress ? vm.checkOut(model) : vm.checkIn(model),
+                    onPressed: () => model.visitStatus.isInProgress
+                        ? vm.checkOut(model)
+                        : vm.checkIn(model, context),
                     icon: Icon(Icons.login),
-                    label: Text(model.visitStatus.isInProgress ? TR.of(context).check_out : TR.of(context).check_in),
+                    label: Text(model.visitStatus.isInProgress
+                        ? TR.of(context).check_out
+                        : TR.of(context).check_in),
                   ),
                 ),
                 SizedBox(width: 10),
                 Expanded(
                   flex: 2,
                   child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(primary: context.theme.primaryColor),
+                    style: ElevatedButton.styleFrom(
+                        primary: context.theme.primaryColor),
                     onPressed: () {
-                      //TODO report
+                      VisitReportsSheet.show(context);
                     },
                     icon: Icon(Icons.summarize),
                     label: Text(TR.of(context).report),
@@ -104,21 +128,25 @@ class VisitDetails extends StatelessWidget {
           SizedBox(width: 5),
           Expanded(
             child: Text(
-              "${model.address.format(context)} (${TR.of(context).distance(model.distance.format())})",
+              "${model.address.format(context)} (${TR.of(context).distance(model.distance.noTrailing())})",
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           SizedBox(width: 5),
-          _buildButton(context, model, vm.goToDirections, TR.of(context).get_directions),
+          _buildButton(
+              context, model, vm.goToDirections, TR.of(context).get_directions),
         ],
       ),
     );
   }
 
-  Directionality _buildButton(BuildContext context, BranchModel model, VoidCallback callback, String label) {
+  Directionality _buildButton(BuildContext context, BranchModel model,
+      VoidCallback callback, String label) {
     return Directionality(
-      textDirection: Directionality.of(context) == TextDirection.rtl ? TextDirection.ltr : TextDirection.rtl,
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.rtl,
       child: TextButton.icon(
         style: TextButton.styleFrom(
           padding: EdgeInsetsDirectional.only(top: 5, bottom: 5, end: 10),

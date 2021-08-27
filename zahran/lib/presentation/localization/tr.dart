@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -61,7 +60,8 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,7 +81,8 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -712,11 +713,11 @@ abstract class TR {
   /// **'chain'**
   String get chain;
 
-  /// No description provided for @brands_list.
+  /// No description provided for @brands_list_num.
   ///
   /// In en, this message translates to:
-  /// **'Brands ({count})'**
-  String brands_list(Object count);
+  /// **'Brands List (brandNumber)'**
+  String brands_list_num(Object brandNumber);
 
   /// No description provided for @sub_brands_list.
   ///
@@ -934,6 +935,12 @@ abstract class TR {
   /// **'Action to be done'**
   String get action_to_be_done;
 
+  /// No description provided for @brands_num.
+  ///
+  /// In en, this message translates to:
+  /// **'Brands ({count})'**
+  String brands_num(Object count);
+
   /// No description provided for @complete_task.
   ///
   /// In en, this message translates to:
@@ -999,6 +1006,246 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Complete all your tasks first Please .'**
   String get complete_all_your_tasks_please_first;
+
+  /// No description provided for @you_must_take_image.
+  ///
+  /// In en, this message translates to:
+  /// **'You must take a photo of the branch to be able to complete this process'**
+  String get you_must_take_image;
+
+  /// No description provided for @comment.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment'**
+  String get comment;
+
+  /// No description provided for @competition_sell_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Competition sell-out'**
+  String get competition_sell_out;
+
+  /// No description provided for @competition_stock_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Competition stock-count'**
+  String get competition_stock_count;
+
+  /// No description provided for @sell_out.
+  ///
+  /// In en, this message translates to:
+  /// **'Sell Out'**
+  String get sell_out;
+
+  /// No description provided for @stock_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock Count'**
+  String get stock_count;
+
+  /// No description provided for @return_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Return'**
+  String get return_report;
+
+  /// No description provided for @supply.
+  ///
+  /// In en, this message translates to:
+  /// **'Supply Order'**
+  String get supply;
+
+  /// No description provided for @select_report_option.
+  ///
+  /// In en, this message translates to:
+  /// **'Select report option'**
+  String get select_report_option;
+
+  /// No description provided for @comment_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Comment report'**
+  String get comment_report;
+
+  /// No description provided for @enter_decription_here.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter decription here'**
+  String get enter_decription_here;
+
+  /// No description provided for @add_product.
+  ///
+  /// In en, this message translates to:
+  /// **'ADD PRODUCT'**
+  String get add_product;
+
+  /// No description provided for @search_brand.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for Brands / Products'**
+  String get search_brand;
+
+  /// No description provided for @add_product_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Product'**
+  String get add_product_hint;
+
+  /// No description provided for @add_product_hint_2.
+  ///
+  /// In en, this message translates to:
+  /// **'To complete report add the products'**
+  String get add_product_hint_2;
+
+  /// No description provided for @product.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get product;
+
+  /// No description provided for @product_already_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Product already added'**
+  String get product_already_added;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
+
+  /// No description provided for @competition_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Competition name'**
+  String get competition_name;
+
+  /// No description provided for @low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get low;
+
+  /// No description provided for @medium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get medium;
+
+  /// No description provided for @high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get high;
+
+  /// No description provided for @problem_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem title'**
+  String get problem_title;
+
+  /// No description provided for @problem_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem type'**
+  String get problem_type;
+
+  /// No description provided for @enter_problem_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter problem title'**
+  String get enter_problem_title;
+
+  /// No description provided for @enter_problem_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter Problem type'**
+  String get enter_problem_type;
+
+  /// No description provided for @severity.
+  ///
+  /// In en, this message translates to:
+  /// **'Severity Level'**
+  String get severity;
+
+  /// No description provided for @sell_out_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Sell out report'**
+  String get sell_out_report;
+
+  /// No description provided for @stock_count_report.
+  ///
+  /// In en, this message translates to:
+  /// **'Stock count report'**
+  String get stock_count_report;
+
+  /// No description provided for @quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantity;
+
+  /// No description provided for @quantity_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter quantity here'**
+  String get quantity_hint;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'price'**
+  String get price;
+
+  /// No description provided for @price_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter price here'**
+  String get price_hint;
+
+  /// No description provided for @add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @invalid_quantity.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid quantity'**
+  String get invalid_quantity;
+
+  /// No description provided for @invalid_price.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid price'**
+  String get invalid_price;
+
+  /// No description provided for @return_report_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Return report'**
+  String get return_report_title;
+
+  /// No description provided for @return_reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason of return'**
+  String get return_reason;
+
+  /// No description provided for @return_reason_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter reason here'**
+  String get return_reason_hint;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -1010,27 +1257,25 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
-  
-
-
 // Lookup logic when only language code is specified.
-switch (locale.languageCode) {
-  case 'ar': return TRAr();
-    case 'en': return TREn();
-}
-
+  switch (locale.languageCode) {
+    case 'ar':
+      return TRAr();
+    case 'en':
+      return TREn();
+  }
 
   throw FlutterError(
-    'TR.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'TR.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

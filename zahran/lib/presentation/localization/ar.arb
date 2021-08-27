@@ -55,5 +55,6 @@
   "incomplete": "غير مكتمل",
   "completed": "مكتمل",
   "invalid_user_name": "اسم المستخدم يجب ان لا يكون فارغ",
-  "invalid_phone_number": "رقم الهاتف يجب ان يتكون من ١١ رقم"
+  "invalid_phone_number": "رقم الهاتف يجب ان يتكون من ١١ رقم",
+  "you_must_take_image":"يجب عليك تصوير الفرع حتي تتمكن من إتمام هذه العملية"
 }
