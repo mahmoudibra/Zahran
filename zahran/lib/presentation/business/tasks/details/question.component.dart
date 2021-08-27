@@ -386,7 +386,7 @@ class DateQuestionPromotionalTaskComponent extends StatelessWidget {
   }
 
   Widget buildTextField(BuildContext context) {
-    return OutlineButton(
+    return OutlinedButton(
       onPressed: () {
         showDatePicker(
                 context: context,
