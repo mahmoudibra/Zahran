@@ -3,26 +3,22 @@ part of 'domain_mapper.dart';
 class TaskDto implements DtoToDomainMapper<TaskModel> {
   int? id;
   bool? status;
-  String? media;
   bool? isCompleted;
   LocalizedNameDto? title;
   LocalizedNameDto? description;
   LocalizedNameDto? instructions;
   List<BrandDto>? brands;
   List<QuestionDto>? questions;
+  List<MediaDto>? media;
 
   TaskDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = LocalizedNameDto.fromJson(json["title"] ?? {});
     description = LocalizedNameDto.fromJson(json["description"] ?? {});
     instructions = LocalizedNameDto.fromJson(json["instructions"] ?? {});
-    brands =
-        (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ??
-            [];
-    questions = (json["questions"] as List?)
-            ?.map((e) => QuestionDto.fromJson(e))
-            .toList() ??
-        [];
+    brands = (json["brands"] as List?)?.map((e) => BrandDto.fromJson(e)).toList() ?? [];
+    questions = (json["questions"] as List?)?.map((e) => QuestionDto.fromJson(e)).toList() ?? [];
+    media = (json["media"] as List?)?.map((e) => MediaDto.fromJson(e)).toList() ?? [];
     status = json["status"] == true;
     isCompleted = json["is_completed"] == true;
   }
@@ -37,7 +33,7 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
       "instructions": instructions?.tojson(),
       "brands": brands?.map((e) => e.toJson()).toList(),
       "questions": questions?.map((e) => e.toJson()).toList(),
-      "media": media
+      "media": media?.map((e) => e.toJson()).toList()
     };
   }
 
@@ -51,7 +47,7 @@ class TaskDto implements DtoToDomainMapper<TaskModel> {
       isCompleted: isCompleted ?? false,
       status: status ?? true,
       brands: (brands ?? []).map((e) => e.dtoToDomainModel()).toList(),
-      media: media ?? "",
+      media: (media ?? []).map((e) => e.dtoToDomainModel()).toList(),
       questions: (questions ?? []).map((e) => e.dtoToDomainModel()).toList(),
     );
   }

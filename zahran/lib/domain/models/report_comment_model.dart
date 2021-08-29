@@ -4,16 +4,16 @@ part of 'models.dart';
 class CommentModel extends HiveObject {
   CommentModel({
     this.comment = '',
-    List<MediaUpload>? media,
+    List<Media>? media,
   }) : media = media ?? List.empty(growable: true);
   @HiveField(0)
   String comment;
   @HiveField(1)
-  List<MediaUpload> media;
+  List<Media> media;
 
   CommentModel copyWith({
     String? comment,
-    List<MediaUpload> Function(List<MediaUpload> old)? media,
+    List<Media> Function(List<Media> old)? media,
   }) =>
       CommentModel(
         comment: comment ?? this.comment,

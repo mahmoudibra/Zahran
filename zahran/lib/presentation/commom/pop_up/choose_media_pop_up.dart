@@ -43,9 +43,12 @@ class MediaPickerPopUp extends StatelessWidget {
       return {
         TR.of(context).record_video: onRecordVideoCallback,
       };
-    } else if (mediaPickerType == MediaPickerType.CAMERA) {
+    } else if (mediaPickerType == MediaPickerType.BOTH) {
       return {
         TR.of(context).capture_image: onPickFromCameraCallback,
+        TR.of(context).choose_from_gallery: onPickFromGalleryCallback,
+        TR.of(context).record_video: onRecordVideoCallback,
+        TR.of(context).choose_video_from_gallery: onChooseVideoCallabck,
       };
     } else if (mediaPickerType == MediaPickerType.CAMERA_WITH_GALLERY) {
       return {
@@ -55,7 +58,6 @@ class MediaPickerPopUp extends StatelessWidget {
     } else {
       return {
         TR.of(context).capture_image: onPickFromCameraCallback,
-        TR.of(context).record_video: onRecordVideoCallback,
       };
     }
   }

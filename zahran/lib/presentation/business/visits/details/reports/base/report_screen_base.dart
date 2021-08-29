@@ -42,8 +42,7 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
         });
     });
     var direction = _controller.position.userScrollDirection;
-    if (direction == ScrollDirection.forward ||
-        direction == ScrollDirection.idle) {
+    if (direction == ScrollDirection.forward || direction == ScrollDirection.idle) {
       if (hide)
         setState(() {
           hide = false;
@@ -83,10 +82,11 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
               children: [
                 _buildBody(context, vm),
                 AnimatedPositioned(
+                  curve: Curves.easeInOut,
                   left: 20,
                   right: 20,
                   bottom: hide ? -100 : 20,
-                  duration: Duration(milliseconds: 300),
+                  duration: Duration(milliseconds: 800),
                   child: SafeArea(
                     child: ProgressButton(
                       onPressed: vm.hasItems.onTrue(() => widget.callBack(vm)),

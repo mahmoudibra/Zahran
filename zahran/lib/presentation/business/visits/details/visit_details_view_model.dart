@@ -11,17 +11,16 @@ import 'package:zahran/presentation/business/base/base_details_view_model.dart';
 import 'package:zahran/presentation/business/base/get_location_mixin.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
+import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/external/location/coordinates.model.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 
-class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
-    with GetLocationMixin {
+class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel> with GetLocationMixin {
   VisitDetailsViewModel(BuildContext context) : super(context);
 
   void goToDirections() {
-    launch(
-        "https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
+    launch("https://www.google.com/maps/dir/?api=1&destination=${model.location.lat},${model.location.lang}");
   }
 
   void goToBrands() {
@@ -36,9 +35,7 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
 
   setTaskCompleted(int id) {
     model = model.copyWith(
-      tasks: model.tasks
-          .map((e) => e.id == id ? e.copyWith(isCompleted: true) : e)
-          .toList(),
+      tasks: model.tasks.map((e) => e.id == id ? e.copyWith(isCompleted: true) : e).toList(),
     );
     update();
   }
@@ -50,38 +47,31 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
 
   Future<void> _checkIn(BranchModel item, BuildContext context) async {
     var position = await getCurrentPosition();
-    GeoPoint geoPoint = kDebugMode
-        ? GeoPoint(model.location.lat, model.location.lang)
-        : GeoPoint.fromPosition(position);
-    var image = await ImagePicker().pickImage(
-        source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
+    GeoPoint geoPoint =
+        kDebugMode ? GeoPoint(model.location.lat, model.location.lang) : GeoPoint.fromPosition(position);
+    var image = await ImagePicker().pickImage(source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
     if (image == null) {
       throw TR.of(context).you_must_take_image;
     }
     var data = await MediaLocal.compressImage(image.path);
     var media = await Repos.mediaRepo
-        .uploadUint8ListMedia(data: data!, fileName: image.name);
+        .uploadUint8ListMedia(data: data!, fileName: image.name, mediaFileTypes: MediaFileTypes.IMAGE);
     await Repos.visitsRepo.checkIn(model.id, geoPoint, media!.id);
     model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
-    Get.find<VisitsViewModel>()
-        .replaceItems((e) => e.id == model.id ? model : e);
+    Get.find<VisitsViewModel>().replaceItems((e) => e.id == model.id ? model : e);
   }
 
   Future checkIn(BranchModel item, BuildContext context) async {
-    await FlareAnimation.show(
-        action: _checkIn(item, context), context: context);
+    await FlareAnimation.show(action: _checkIn(item, context), context: context);
   }
 
   Future checkOut(BranchModel item) async {
     var unCompletedTask = model.tasks.where((task) => !task.isCompleted);
     if (unCompletedTask.isNotEmpty) {
-      context
-          .errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
+      context.errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
     }
-    await FlareAnimation.show(
-        action: Repos.visitsRepo.checkOut(model.id), context: context);
+    await FlareAnimation.show(action: Repos.visitsRepo.checkOut(model.id), context: context);
     model = model.copyWith(visitStatus: VisitStatus.COMPLETED);
-    Get.find<VisitsViewModel>()
-        .replaceItems((e) => e.id == model.id ? model : e);
+    Get.find<VisitsViewModel>().replaceItems((e) => e.id == model.id ? model : e);
   }
 }

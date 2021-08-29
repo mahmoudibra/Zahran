@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 import 'package:zahran/r.dart';
@@ -24,16 +25,13 @@ class CommentFormField extends StatefulWidget {
   _CommentFormFieldState createState() => _CommentFormFieldState();
 }
 
-class _CommentFormFieldState extends State<CommentFormField>
-    with TickerProviderStateMixin {
+class _CommentFormFieldState extends State<CommentFormField> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FormField(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null
-          ? null
-          : ReusableLocalizations.of(context)?.requiredField,
+      validator: (v) => widget.optional || v != null ? null : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -54,10 +52,8 @@ class _CommentFormFieldState extends State<CommentFormField>
                 MediaView(
                   media: media,
                   onDelete: (e) {
-                    field.didChange(field.value?.copyWith(
-                        media: (old) => old
-                            .where((element) => element.id != e.id)
-                            .toList()));
+                    field.didChange(
+                        field.value?.copyWith(media: (old) => old.where((element) => element.id != e.id).toList()));
                     widget.onChanged(field.value);
                   },
                 ),
@@ -89,16 +85,14 @@ class _CommentFormFieldState extends State<CommentFormField>
     );
   }
 
-  Expanded _buildTextField(
-      BuildContext context, FormFieldState<CommentModel> field) {
+  Expanded _buildTextField(BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
       child: CustomTextField(
         validator: (v) => null,
         hint: TR.of(context).enter_decription_here,
         initialValue: field.value?.comment,
         onChanged: (v) {
-          field.didChange(field.value?.copyWith(comment: v) ??
-              CommentModel(comment: v ?? ''));
+          field.didChange(field.value?.copyWith(comment: v) ?? CommentModel(comment: v ?? ''));
           widget.onChanged(field.value);
         },
       ),
@@ -114,8 +108,7 @@ class _CommentFormFieldState extends State<CommentFormField>
         actionsCallbacks: _prepareMediaAction(field));
   }
 
-  Map<String, Function> _prepareMediaAction(
-      FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareMediaAction(FormFieldState<CommentModel> field) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
@@ -123,26 +116,22 @@ class _CommentFormFieldState extends State<CommentFormField>
           mediaModel!.mediaFile.path,
         );
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!),
+          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(
-            field.value?.copyWith(media: (old) => [...old, result!]) ??
-                CommentModel(media: [result!]));
+        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
         widget.onChanged(field.value);
       } catch (e) {}
     };
-    actionsCallbacks['dismissCallback'] =
-        () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 }
 
 class MediaView extends StatelessWidget {
-  final List<MediaUpload> media;
-  final ValueChanged<MediaUpload>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete})
-      : super(key: key);
+  final List<Media> media;
+  final ValueChanged<Media>? onDelete;
+  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -157,35 +146,48 @@ class MediaView extends StatelessWidget {
     );
   }
 
-  Widget _buildMediaItem(MediaUpload e, BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
-        ShapedRemoteImage.aspectRatio(
-          outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+  Widget _buildMediaItem(Media e, BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        if (e.type == MediaFileTypes.IMAGE.value) {
+          print("🚀🚀🚀🚀 Open Image Preview");
+          ScreenNames.IMAGE_PREVIEW.push(e.mediaPath);
+        } else if (e.type == MediaFileTypes.VIDEO.value) {
+          print("🚀🚀🚀🚀 Open Video Preview");
+          ScreenNames.VIDEO_PREVIEW.push(e.mediaPath);
+        } else {
+          print("🚀🚀🚀🚀 Open Sound Component To Be Implemented");
+        }
+      },
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          ShapedRemoteImage.aspectRatio(
+            outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            url: e.mediaPath,
           ),
-          url: e.path,
-        ),
-        if (onDelete != null)
-          PositionedDirectional(
-            top: 0,
-            end: 0,
-            child: InkWell(
-              onTap: () => onDelete?.call(e),
-              child: CircleAvatar(
-                radius: 10,
-                backgroundColor: Theme.of(context).backgroundColor,
-                foregroundColor: Theme.of(context).colorScheme.onBackground,
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: FittedBox(child: Icon(Icons.highlight_off_rounded)),
+          if (onDelete != null)
+            PositionedDirectional(
+              top: 0,
+              end: 0,
+              child: InkWell(
+                onTap: () => onDelete?.call(e),
+                child: CircleAvatar(
+                  radius: 10,
+                  backgroundColor: Theme.of(context).backgroundColor,
+                  foregroundColor: Theme.of(context).colorScheme.onBackground,
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: FittedBox(child: Icon(Icons.highlight_off_rounded)),
+                  ),
                 ),
               ),
-            ),
-          )
-      ],
+            )
+        ],
+      ),
     );
   }
 }

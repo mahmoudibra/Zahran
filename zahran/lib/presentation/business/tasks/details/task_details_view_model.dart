@@ -8,6 +8,7 @@ import 'package:zahran/presentation/business/base/base_details_view_model.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
 import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
+import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/helpers/date/date-manager.dart';
 import 'package:zahran/presentation/localization/tr.dart';
@@ -18,17 +19,14 @@ class BrandProductTaskMedia {
   int productId;
   int uploadedMedia;
 
-  BrandProductTaskMedia(
-      {required this.brandId,
-      required this.productId,
-      required this.uploadedMedia});
+  BrandProductTaskMedia({required this.brandId, required this.productId, required this.uploadedMedia});
 }
 
 class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   final BuildContext context;
   Promotion promotion = Promotion.empty();
 
-  MediaPickerType mediaPickerType = MediaPickerType.CAMERA_WITH_GALLERY;
+  MediaPickerType mediaPickerType = MediaPickerType.BOTH;
   MediaLocal? mediaFile;
   int? uploadedMediaId;
 
@@ -48,16 +46,13 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
     // await FlareAnimation.show<EmptyModel?>(action: Repos.taskRepo.completeTask(taskId: model.id), context: context);
     if (_checkAllMandatoryQuestionAreAnswered()) {
       try {
-        await Repos.questionRepo
-            .answerTaskQuestions(model.id, _prepareAnswers());
+        await Repos.questionRepo.answerTaskQuestions(model.id, _prepareAnswers());
         await Repos.taskRepo.completeTask(taskId: model.id);
 
         getController<VisitDetailsViewModel>()?.setTaskCompleted(model.id);
         getController<VisitsViewModel>()?.setTaskCompleted(model.id);
 
-        context.primarySnackBar(TR
-            .of(context)
-            .task_completed_successfully(model.title.format(context)));
+        context.primarySnackBar(TR.of(context).task_completed_successfully(model.title.format(context)));
       } catch (error) {
         if (!(error is ApiFetchException)) {
           context.errorSnackBar(TR.of(context).un_expected_error);
@@ -69,15 +64,11 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   }
 
   List<AnswerRequest> _prepareAnswers() {
-    return model.questions
-        .map<AnswerRequest>(
-            (question) => AnswerRequest.fromQuestionModel(question))
-        .toList();
+    return model.questions.map<AnswerRequest>((question) => AnswerRequest.fromQuestionModel(question)).toList();
   }
 
   bool _checkAllMandatoryQuestionAreAnswered() {
-    var filteredMandatoryQuestions =
-        model.questions.where((element) => element.mandatory);
+    var filteredMandatoryQuestions = model.questions.where((element) => element.mandatory);
 
     var unAnsweredQuestions = filteredMandatoryQuestions.where((element) {
       if (element.answerType == QuestionTypes.MEDIA.value) {
@@ -109,8 +100,7 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
     ScreenRouter.showPopup(
         type: PopupsNames.MEDIA_PICKER_POPUP,
         parameters: _prepareMediaParameter(),
-        actionsCallbacks:
-            _prepareMediaActionForQuestions(questionIndex: questionIndex));
+        actionsCallbacks: _prepareMediaActionForQuestions(questionIndex: questionIndex));
   }
 
   Map<String, dynamic>? _prepareMediaParameter() {
@@ -134,17 +124,13 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   //   return actionsCallbacks;
   // }
 
-  Map<String, Function> _prepareMediaActionForQuestions(
-      {required int questionIndex}) {
+  Map<String, Function> _prepareMediaActionForQuestions({required int questionIndex}) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => {
           mediaFile = mediaModel,
-          FlareAnimation.show(
-              action: _uploadMediaForQuestion(questionIndex: questionIndex),
-              context: context)
+          FlareAnimation.show(action: _uploadMediaForQuestion(questionIndex: questionIndex), context: context)
         };
-    actionsCallbacks['dismissCallback'] =
-        () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
 
     return actionsCallbacks;
   }
@@ -166,8 +152,10 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
 
   Future<void> _uploadMediaForQuestion({required int questionIndex}) async {
     try {
-      var uploadedMedia =
-          await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile);
+      await mediaFile?.compressVideo();
+      await mediaFile?.extractVideoThumbnailFromFile();
+      var uploadedMedia = await Repos.mediaRepo.uploadMedia(
+          uploadedFile: mediaFile!.mediaFile, mediaFileTypes: mediaFile?.mediaFileTypes ?? MediaFileTypes.IMAGE);
       model.questions[questionIndex].answerMediaList.add(uploadedMedia!.id);
       model.questions[questionIndex].selectedMultimedia.add(mediaFile!);
       update();
@@ -179,49 +167,33 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
     }
   }
 
-  questionTextChangeAction(
-      {required int questionIndex, required String textChange}) {
+  questionTextChangeAction({required int questionIndex, required String textChange}) {
     model.questions[questionIndex].answerText = textChange;
     print("${model.questions}");
     update();
-    print(
-        "🚀🚀🚀 Question Text change action with index: $questionIndex and text: $textChange ");
   }
 
-  questionSelectionChangeAction(
-      {required int questionIndex, required int selectionIndex}) {
-    model.questions[questionIndex].answerText =
-        model.questions[questionIndex].options[selectionIndex].value;
+  questionSelectionChangeAction({required int questionIndex, required int selectionIndex}) {
+    model.questions[questionIndex].answerText = model.questions[questionIndex].options[selectionIndex].value;
     update();
     print("${model.questions[questionIndex]}");
-    print(
-        "🚀🚀🚀 Question selection change action with index: $questionIndex and selectedIndex: $selectionIndex ");
   }
 
-  questionMediaRemoveAction(
-      {required int questionIndex, required int removeMediaIndex}) {
-    model.questions[questionIndex].selectedMultimedia
-        .removeAt(removeMediaIndex);
+  questionMediaRemoveAction({required int questionIndex, required int removeMediaIndex}) {
+    model.questions[questionIndex].selectedMultimedia.removeAt(removeMediaIndex);
     model.questions[questionIndex].answerMediaList.removeAt(removeMediaIndex);
     update();
-    print(
-        "🚀🚀🚀 Question media remove action with index: $questionIndex and media index: $removeMediaIndex ");
   }
 
-  questionDateChangeAction(
-      {required int questionIndex, required DateTime selectedDate}) {
-    model.questions[questionIndex].answerText =
-        DateTimeManager.convertDateTimeToAppFormat(selectedDate);
+  questionDateChangeAction({required int questionIndex, required DateTime selectedDate}) {
+    model.questions[questionIndex].answerText = DateTimeManager.convertDateTimeToAppFormat(selectedDate);
     print("${model.questions}");
     update();
-    print(
-        "🚀🚀🚀 Question date change action with index: $questionIndex and selected date: $selectedDate ");
   }
 
   questionMediaChooseCallback({required int questionIndex}) {
     pickImageForQuestionAction(questionIndex: questionIndex);
     update();
-    print("🚀🚀🚀 Question Media choose action with index: $questionIndex");
   }
 
   @override

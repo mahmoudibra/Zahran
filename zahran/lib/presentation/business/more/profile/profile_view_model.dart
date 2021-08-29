@@ -6,6 +6,7 @@ import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/auth_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
+import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -27,8 +28,7 @@ class UserProfileViewModel extends GetxController {
     try {
       userModel = await Repos.userRepo.fetchUserInfo();
       var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel =
-          LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       lastFetch = DateTime.now().toIso8601String();
       update();
@@ -41,11 +41,9 @@ class UserProfileViewModel extends GetxController {
 
   Future _updateUserProfile() async {
     try {
-      userModel = await Repos.userRepo
-          .updateProfile(userName!, phoneNumber!, uploadedMediaId);
+      userModel = await Repos.userRepo.updateProfile(userName!, phoneNumber!, uploadedMediaId);
       var localUserModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel =
-          LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
+      var updatedLoginModel = LoginModel.copyWith(origin: localUserModel!, userProfile: userModel);
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       context.primarySnackBar(TR.of(context).user_profile_updated);
     } catch (error) {
@@ -56,13 +54,11 @@ class UserProfileViewModel extends GetxController {
   }
 
   String? validateUserName(String? v) {
-    return (v != null && v.length > 0)
-        .onFalse(TR.of(context).invalid_user_name);
+    return (v != null && v.length > 0).onFalse(TR.of(context).invalid_user_name);
   }
 
   String? validatePhoneNumber(String? v) {
-    return (v != null && v.length == 11)
-        .onFalse(TR.of(context).invalid_phone_number);
+    return (v != null && v.length == 11).onFalse(TR.of(context).invalid_phone_number);
   }
 
   Future<void> submitChanges() async {
@@ -79,12 +75,9 @@ class UserProfileViewModel extends GetxController {
   Map<String, Function> _prepareMediaAction() {
     print("🚀🚀🚀🚀 Heeeereeeeeeeeee");
     Map<String, Function> actionsCallbacks = Map();
-    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => {
-          mediaFile = mediaModel,
-          FlareAnimation.show(action: _uploadMedia(), context: context)
-        };
-    actionsCallbacks['dismissCallback'] =
-        () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) =>
+        {mediaFile = mediaModel, FlareAnimation.show(action: _uploadMedia(), context: context)};
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 
@@ -101,9 +94,9 @@ class UserProfileViewModel extends GetxController {
   Future<void> _uploadMedia() async {
     try {
       var uploadedMedia =
-          await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile);
+          await Repos.mediaRepo.uploadMedia(uploadedFile: mediaFile!.mediaFile, mediaFileTypes: MediaFileTypes.IMAGE);
       uploadedMediaId = uploadedMedia!.id;
-      userModel!.media = uploadedMedia.path;
+      userModel!.media = uploadedMedia.mediaPath;
       print("🚀🚀🚀 uploaded Media is: $uploadedMediaId ");
       update();
     } catch (error) {

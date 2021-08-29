@@ -29,9 +29,9 @@ Future<void> main() async {
   Hive.registerAdapter(CommentModelAdapter());
   Hive.registerAdapter(ReportTypesAdapter());
   Hive.registerAdapter(ProductAdapter());
-  Hive.registerAdapter(MediaUploadAdapter());
   Hive.registerAdapter(ProblemDetailsModelAdapter());
   Hive.registerAdapter(SeverityAdapter());
+  Hive.registerAdapter(MediaAdapter());
   // if (kDebugMode) {
   //   // Force disable Crashlytics collection while doing every day development.
   //   // Temporarily toggle this to true if you want to test crash reporting in your app.
@@ -51,8 +51,7 @@ class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShapedRemoteImageConfig(
-      errorPlaceholder: (_, __, ___) =>
-          Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
+      errorPlaceholder: (_, __, ___) => Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
       loadingPlaceholder: (_, __, ___) {
         return Container(
           color: Theme.of(_).canvasColor,
