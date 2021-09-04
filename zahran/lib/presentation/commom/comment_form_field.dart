@@ -163,6 +163,7 @@ class MediaView extends StatelessWidget {
       children: [
         ShapedRemoteImage.aspectRatio(
           outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+          fit: BoxFit.cover,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
           ),

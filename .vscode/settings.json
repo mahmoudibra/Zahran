@@ -1,6 +1,6 @@
 {
     "files.exclude": {
-    //    "**/reusable": true,
+       "**/reusable": true,
         "zahran/.*":true,
         ".githooks":true,
         ".metadata":true,

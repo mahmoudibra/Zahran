@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/commom/flare_component.dart';
+import 'package:zahran/presentation/commom/pop_up/pop_up.component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
@@ -89,7 +91,27 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
                   duration: Duration(milliseconds: 300),
                   child: SafeArea(
                     child: ProgressButton(
-                      onPressed: vm.hasItems.onTrue(() => widget.callBack(vm)),
+                      onPressed: vm.hasItems.onTrue(() async {
+                        showDialog(
+                            context: context,
+                            builder: (_) {
+                              return PopUp(
+                                context: context,
+                                message: TR.of(context).sendReportPopUpContent,
+                                onDismissedAction: () {},
+                                title: widget.title,
+                                actions: {
+                                  TR.of(context).send: () {
+                                    Navigator.of(context).pop();
+                                    FlareAnimation.show(
+                                      action: widget.callBack(vm),
+                                      context: context,
+                                    );
+                                  },
+                                },
+                              );
+                            });
+                      }),
                       child: Text(TR.of(context).send),
                     ),
                   ),

@@ -624,4 +624,8 @@ class TRAr extends TR {
 
   @override
   String get return_reason_hint => 'Enter reason here';
+
+  @override
+  String get sendReportPopUpContent =>
+      'Do you want to send the report now, you won\'t be able to send the report again until tomorrow';
 }

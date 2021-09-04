@@ -246,6 +246,7 @@
     "invalid_price":"Invalid price",
     "return_report_title":"Return report",
     "return_reason":"Reason of return",
-    "return_reason_hint":"Enter reason here"
+    "return_reason_hint":"Enter reason here",
+    "sendReportPopUpContent":"Do you want to send the report now, you won't be able to send the report again until tomorrow"
 
 }

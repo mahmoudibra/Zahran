@@ -40,7 +40,7 @@ class _EditItemState extends State<EditItem> {
       child: ListView(
         shrinkWrap: true,
         padding: EdgeInsets.all(20).copyWith(
-            top: 30, bottom: MediaQuery.of(context).padding.bottom + 30),
+            top: 30, bottom: MediaQuery.of(context).viewInsets.bottom + 30),
         children: [
           Text(
             widget.item.product.name.format(context),

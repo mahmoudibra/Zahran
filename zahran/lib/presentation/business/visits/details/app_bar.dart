@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
-import 'package:zahran/presentation/commom/asset_icon.dart';
-import 'package:zahran/r.dart';
 
 import 'map_view.dart';
 import 'visit_details_view_model.dart';
@@ -15,26 +12,10 @@ class DetailsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BranchModel model = Get.find<VisitDetailsViewModel>().model;
-    if (model.visitStatus != VisitStatus.PENDING)
-      return SliverAppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              launch("tel:06666666");
-            },
-            icon: AssetIcon(R.assetsImagesCallIcon),
-          )
-        ],
-      );
+    if (model.visitStatus != VisitStatus.PENDING) return SliverAppBar();
     var h = MediaQuery.of(context).size.height;
     return SliverAppBar(
       expandedHeight: h * 0.3,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: AssetIcon(R.assetsImagesCallIcon),
-        )
-      ],
       pinned: true,
       elevation: 0,
       flexibleSpace: Builder(

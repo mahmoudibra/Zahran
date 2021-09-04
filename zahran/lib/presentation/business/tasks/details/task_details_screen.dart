@@ -187,9 +187,9 @@ class TaskDetailsScreen extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ProgressButton(
-              onPressed: () async {
+              onPressed: vm.model.isCompleted.onFalse(() async {
                 return vm.completeTaskAction();
-              },
+              }),
               key: buttonKey,
               child: Text(TR.of(context).complete_task),
             ),
