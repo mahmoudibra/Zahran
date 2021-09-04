@@ -248,5 +248,6 @@
     "return_reason":"Reason of return",
     "return_reason_hint":"Enter reason here",
     "sendReportPopUpContent":"Do you want to send the report now, you won't be able to send the report again until tomorrow"
+    "take_picture_or_video":"Pick Media"
 
 }

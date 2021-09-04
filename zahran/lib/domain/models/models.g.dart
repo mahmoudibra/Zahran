@@ -43,30 +43,33 @@ class LocalizedNameAdapter extends TypeAdapter<LocalizedName> {
           typeId == other.typeId;
 }
 
-class MediaUploadAdapter extends TypeAdapter<MediaUpload> {
+class MediaAdapter extends TypeAdapter<Media> {
   @override
   final int typeId = 0;
 
   @override
-  MediaUpload read(BinaryReader reader) {
+  Media read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return MediaUpload(
+    return Media(
       id: fields[0] as int,
-      path: fields[1] as String,
+      mediaPath: fields[1] as String,
+      type: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, MediaUpload obj) {
+  void write(BinaryWriter writer, Media obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.path);
+      ..write(obj.mediaPath)
+      ..writeByte(2)
+      ..write(obj.type);
   }
 
   @override
@@ -75,7 +78,7 @@ class MediaUploadAdapter extends TypeAdapter<MediaUpload> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MediaUploadAdapter &&
+      other is MediaAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -126,135 +129,6 @@ class ProductAdapter extends TypeAdapter<Product> {
           typeId == other.typeId;
 }
 
-class UserModelAdapter extends TypeAdapter<UserModel> {
-  @override
-  final int typeId = 2;
-
-  @override
-  UserModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return UserModel(
-      sabNumber: fields[2] as String,
-      phone: fields[3] as String,
-      media: fields[4] as String,
-      lastVisit: fields[5] as DateTime,
-      target: fields[6] as Target,
-      id: fields[0] as int,
-      name: fields[1] as LocalizedName,
-      notificationEnabled: fields[7] as bool,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, UserModel obj) {
-    writer
-      ..writeByte(8)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.name)
-      ..writeByte(2)
-      ..write(obj.sabNumber)
-      ..writeByte(3)
-      ..write(obj.phone)
-      ..writeByte(4)
-      ..write(obj.media)
-      ..writeByte(5)
-      ..write(obj.lastVisit)
-      ..writeByte(6)
-      ..write(obj.target)
-      ..writeByte(7)
-      ..write(obj.notificationEnabled);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is UserModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class TargetAdapter extends TypeAdapter<Target> {
-  @override
-  final int typeId = 3;
-
-  @override
-  Target read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return Target(
-      totalSellOut: fields[0] as double,
-      target: fields[1] as double,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, Target obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.totalSellOut)
-      ..writeByte(1)
-      ..write(obj.target);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is TargetAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class LoginModelAdapter extends TypeAdapter<LoginModel> {
-  @override
-  final int typeId = 4;
-
-  @override
-  LoginModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return LoginModel(
-      authToken: fields[0] as String,
-      userProfile: fields[1] as UserModel?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, LoginModel obj) {
-    writer
-      ..writeByte(2)
-      ..writeByte(0)
-      ..write(obj.authToken)
-      ..writeByte(1)
-      ..write(obj.userProfile);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is LoginModelAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class CommentModelAdapter extends TypeAdapter<CommentModel> {
   @override
   final int typeId = 5;
@@ -267,7 +141,7 @@ class CommentModelAdapter extends TypeAdapter<CommentModel> {
     };
     return CommentModel(
       comment: fields[0] as String,
-      media: (fields[1] as List?)?.cast<MediaUpload>(),
+      media: (fields[1] as List?)?.cast<Media>(),
     );
   }
 
@@ -536,6 +410,135 @@ class ProblemDetailsModelAdapter extends TypeAdapter<ProblemDetailsModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ProblemDetailsModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class UserModelAdapter extends TypeAdapter<UserModel> {
+  @override
+  final int typeId = 2;
+
+  @override
+  UserModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return UserModel(
+      sabNumber: fields[2] as String,
+      phone: fields[3] as String,
+      media: fields[4] as String,
+      lastVisit: fields[5] as DateTime,
+      target: fields[6] as Target,
+      id: fields[0] as int,
+      name: fields[1] as LocalizedName,
+      notificationEnabled: fields[7] as bool,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, UserModel obj) {
+    writer
+      ..writeByte(8)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.sabNumber)
+      ..writeByte(3)
+      ..write(obj.phone)
+      ..writeByte(4)
+      ..write(obj.media)
+      ..writeByte(5)
+      ..write(obj.lastVisit)
+      ..writeByte(6)
+      ..write(obj.target)
+      ..writeByte(7)
+      ..write(obj.notificationEnabled);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class TargetAdapter extends TypeAdapter<Target> {
+  @override
+  final int typeId = 3;
+
+  @override
+  Target read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return Target(
+      totalSellOut: fields[0] as double,
+      target: fields[1] as double,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, Target obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.totalSellOut)
+      ..writeByte(1)
+      ..write(obj.target);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is TargetAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class LoginModelAdapter extends TypeAdapter<LoginModel> {
+  @override
+  final int typeId = 4;
+
+  @override
+  LoginModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return LoginModel(
+      authToken: fields[0] as String,
+      userProfile: fields[1] as UserModel?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, LoginModel obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.authToken)
+      ..writeByte(1)
+      ..write(obj.userProfile);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is LoginModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

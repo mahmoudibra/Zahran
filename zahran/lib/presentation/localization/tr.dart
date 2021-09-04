@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -60,8 +61,7 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +81,7 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -1247,11 +1246,19 @@ abstract class TR {
   /// **'Enter reason here'**
   String get return_reason_hint;
 
+
   /// No description provided for @sendReportPopUpContent.
   ///
   /// In en, this message translates to:
   /// **'Do you want to send the report now, you won\'t be able to send the report again until tomorrow'**
   String get sendReportPopUpContent;
+
+  /// No description provided for @take_picture_or_video.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick Media'**
+  String get take_picture_or_video;
+
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -1263,25 +1270,27 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
 TR _lookupTR(Locale locale) {
+  
+
+
 // Lookup logic when only language code is specified.
-  switch (locale.languageCode) {
-    case 'ar':
-      return TRAr();
-    case 'en':
-      return TREn();
-  }
+switch (locale.languageCode) {
+  case 'ar': return TRAr();
+    case 'en': return TREn();
+}
+
 
   throw FlutterError(
-      'TR.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'TR.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }
