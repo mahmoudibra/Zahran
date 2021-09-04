@@ -613,5 +613,10 @@ class TREn extends TR {
   String get return_reason_hint => 'Enter reason here';
 
   @override
+
+  String get sendReportPopUpContent =>
+      'Do you want to send the report now, you won\'t be able to send the report again until tomorrow';
+
   String get take_picture_or_video => 'Pick Media';
+
 }

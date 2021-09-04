@@ -48,7 +48,7 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
       try {
         await Repos.questionRepo.answerTaskQuestions(model.id, _prepareAnswers());
         await Repos.taskRepo.completeTask(taskId: model.id);
-
+        model = model.copyWith(isCompleted: true);
         getController<VisitDetailsViewModel>()?.setTaskCompleted(model.id);
         getController<VisitsViewModel>()?.setTaskCompleted(model.id);
 

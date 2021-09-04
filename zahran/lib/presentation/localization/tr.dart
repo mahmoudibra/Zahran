@@ -1246,11 +1246,19 @@ abstract class TR {
   /// **'Enter reason here'**
   String get return_reason_hint;
 
+
+  /// No description provided for @sendReportPopUpContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to send the report now, you won\'t be able to send the report again until tomorrow'**
+  String get sendReportPopUpContent;
+
   /// No description provided for @take_picture_or_video.
   ///
   /// In en, this message translates to:
   /// **'Pick Media'**
   String get take_picture_or_video;
+
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

@@ -146,6 +146,7 @@ class MediaView extends StatelessWidget {
     );
   }
 
+
   Widget _buildMediaItem(Media e, BuildContext context) {
     return GestureDetector(
       onTap: () {
