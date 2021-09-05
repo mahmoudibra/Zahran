@@ -25,13 +25,16 @@ class CommentFormField extends StatefulWidget {
   _CommentFormFieldState createState() => _CommentFormFieldState();
 }
 
-class _CommentFormFieldState extends State<CommentFormField> with TickerProviderStateMixin {
+class _CommentFormFieldState extends State<CommentFormField>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FormField(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null ? null : ReusableLocalizations.of(context)?.requiredField,
+      validator: (v) => widget.optional || v != null
+          ? null
+          : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -52,8 +55,10 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
                 MediaView(
                   media: media,
                   onDelete: (e) {
-                    field.didChange(
-                        field.value?.copyWith(media: (old) => old.where((element) => element.id != e.id).toList()));
+                    field.didChange(field.value?.copyWith(
+                        media: (old) => old
+                            .where((element) => element.id != e.id)
+                            .toList()));
                     widget.onChanged(field.value);
                   },
                 ),
@@ -85,14 +90,16 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
     );
   }
 
-  Expanded _buildTextField(BuildContext context, FormFieldState<CommentModel> field) {
+  Expanded _buildTextField(
+      BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
       child: CustomTextField(
         validator: (v) => null,
         hint: TR.of(context).enter_decription_here,
         initialValue: field.value?.comment,
         onChanged: (v) {
-          field.didChange(field.value?.copyWith(comment: v) ?? CommentModel(comment: v ?? ''));
+          field.didChange(field.value?.copyWith(comment: v) ??
+              CommentModel(comment: v ?? ''));
           widget.onChanged(field.value);
         },
       ),
@@ -108,22 +115,28 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
         actionsCallbacks: _prepareMediaAction(field));
   }
 
-  Map<String, Function> _prepareMediaAction(FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareMediaAction(
+      FormFieldState<CommentModel> field) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
         var data = await MediaLocal.compressImage(
           mediaModel!.mediaFile.path,
         );
+
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadUint8ListMedia(
+              data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
+        field.didChange(
+            field.value?.copyWith(media: (old) => [...old, result!]) ??
+                CommentModel(media: [result!]));
         widget.onChanged(field.value);
       } catch (e) {}
     };
-    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] =
+        () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 }
@@ -131,7 +144,8 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
 class MediaView extends StatelessWidget {
   final List<Media> media;
   final ValueChanged<Media>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
+  const MediaView({Key? key, required this.media, this.onDelete})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +159,6 @@ class MediaView extends StatelessWidget {
       children: media.map((e) => _buildMediaItem(e, context)).toList(),
     );
   }
-
 
   Widget _buildMediaItem(Media e, BuildContext context) {
     return GestureDetector(

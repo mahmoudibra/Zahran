@@ -56,7 +56,7 @@ class MediaAdapter extends TypeAdapter<Media> {
     return Media(
       id: fields[0] as int,
       mediaPath: fields[1] as String,
-      type: fields[2] as String,
+      type: fields[2] as String?,
     );
   }
 
