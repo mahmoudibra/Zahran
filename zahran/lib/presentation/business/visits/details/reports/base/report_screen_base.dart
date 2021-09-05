@@ -44,7 +44,8 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
         });
     });
     var direction = _controller.position.userScrollDirection;
-    if (direction == ScrollDirection.forward || direction == ScrollDirection.idle) {
+    if (direction == ScrollDirection.forward ||
+        direction == ScrollDirection.idle) {
       if (hide)
         setState(() {
           hide = false;
@@ -83,44 +84,49 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
             return Stack(
               children: [
                 _buildBody(context, vm),
-                AnimatedPositioned(
-                  curve: Curves.easeInOut,
-                  left: 20,
-                  right: 20,
-                  bottom: hide ? -100 : 20,
-                  duration: Duration(milliseconds: 800),
-                  child: SafeArea(
-                    child: ProgressButton(
-                      onPressed: vm.hasItems.onTrue(() async {
-                        showDialog(
-                            context: context,
-                            builder: (_) {
-                              return PopUp(
-                                context: context,
-                                message: TR.of(context).sendReportPopUpContent,
-                                onDismissedAction: () {},
-                                title: widget.title,
-                                actions: {
-                                  TR.of(context).send: () {
-                                    Navigator.of(context).pop();
-                                    FlareAnimation.show(
-                                      action: widget.callBack(vm),
-                                      context: context,
-                                    );
-                                  },
-                                },
-                              );
-                            });
-                      }),
-                      child: Text(TR.of(context).send),
+                if (MediaQuery.of(context).viewInsets.bottom == 0)
+                  AnimatedPositioned(
+                    curve: Curves.easeInOut,
+                    left: 20,
+                    right: 20,
+                    bottom: hide ? -100 : 20,
+                    duration: Duration(milliseconds: 800),
+                    child: SafeArea(
+                      child: _buildButton(vm, context),
                     ),
                   ),
-                ),
               ],
             );
           },
         ),
       ),
+    );
+  }
+
+  ProgressButton _buildButton(ReportViewModel vm, BuildContext context) {
+    return ProgressButton(
+      onPressed: vm.hasItems.onTrue(() async {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return PopUp(
+                context: context,
+                message: TR.of(context).sendReportPopUpContent,
+                onDismissedAction: () {},
+                title: widget.title,
+                actions: {
+                  TR.of(context).send: () {
+                    Navigator.of(context).pop();
+                    FlareAnimation.show(
+                      action: widget.callBack(vm),
+                      context: context,
+                    );
+                  },
+                },
+              );
+            });
+      }),
+      child: Text(TR.of(context).send),
     );
   }
 
@@ -173,7 +179,12 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
               ),
             ),
           ),
-        ]
+        ],
+        if (MediaQuery.of(context).viewInsets.bottom > 0)
+          SliverPaddingBox(
+            padding: EdgeInsets.all(20),
+            child: _buildButton(vm, context),
+          )
       ],
     );
   }

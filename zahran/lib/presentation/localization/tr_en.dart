@@ -1,5 +1,3 @@
-
-
 import 'package:intl/intl.dart' as intl;
 import 'tr.dart';
 
@@ -44,19 +42,23 @@ class TREn extends TR {
   String get we_are_sorry => 'We Are Sorry';
 
   @override
-  String get generic_error_message => 'The App is running into a problem please try again after a few minutes';
+  String get generic_error_message =>
+      'The App is running into a problem please try again after a few minutes';
 
   @override
   String get try_again => 'Try Again';
 
   @override
-  String get internet_connection_error_title => 'Issue while connecting to internet';
+  String get internet_connection_error_title =>
+      'Issue while connecting to internet';
 
   @override
-  String get internet_connection_error_msg => 'Issue while connecting to internet';
+  String get internet_connection_error_msg =>
+      'Issue while connecting to internet';
 
   @override
-  String get internet_connection_error_try_again_button => 'Try again after connecting to your internet';
+  String get internet_connection_error_try_again_button =>
+      'Try again after connecting to your internet';
 
   @override
   String get capture_image => 'Take a Picture';
@@ -80,31 +82,37 @@ class TREn extends TR {
   String get permission_access_microphone_title => 'Microphone Access';
 
   @override
-  String get permission_access_microphone_message => 'We need to access your microphone to be able to record voice notes!';
+  String get permission_access_microphone_message =>
+      'We need to access your microphone to be able to record voice notes!';
 
   @override
   String get permission_access_location_title => 'Location Access';
 
   @override
-  String get permission_access_location_message => 'We need to access your location to detect your zone!';
+  String get permission_access_location_message =>
+      'We need to access your location to detect your zone!';
 
   @override
   String get permission_access_camera_title => 'Camera Access';
 
   @override
-  String get permission_access_camera_message => 'We need to access your camera to be able to take photos!';
+  String get permission_access_camera_message =>
+      'We need to access your camera to be able to take photos!';
 
   @override
-  String get permission_access_video_camera_message => 'We need to access your camera to be able to take video!';
+  String get permission_access_video_camera_message =>
+      'We need to access your camera to be able to take video!';
 
   @override
   String get permission_access_gallery_title => 'Gallery Access';
 
   @override
-  String get permission_access_gallery_message => 'We need to access your gallery to be able to pick photos!';
+  String get permission_access_gallery_message =>
+      'We need to access your gallery to be able to pick photos!';
 
   @override
-  String get permission_access_video_gallery_message => 'We need to access your gallery to be able to pick video!';
+  String get permission_access_video_gallery_message =>
+      'We need to access your gallery to be able to pick video!';
 
   @override
   String get permission_access_change_settings_button => 'Change Settings';
@@ -246,10 +254,12 @@ class TREn extends TR {
   String get confirm_new_password => 'Confirm new password';
 
   @override
-  String get invalid_confirm_password => 'new password & confirm password are not matched';
+  String get invalid_confirm_password =>
+      'new password & confirm password are not matched';
 
   @override
-  String get user_password_changed_successfully => 'User Password changed successfully';
+  String get user_password_changed_successfully =>
+      'User Password changed successfully';
 
   @override
   String get user_setting_updated => 'User setting updated';
@@ -264,7 +274,8 @@ class TREn extends TR {
   String get allow_notifications => 'Allow Notifications';
 
   @override
-  String get allow_notifications_description => 'Get notified when you get a new inbox \naction item.';
+  String get allow_notifications_description =>
+      'Get notified when you get a new inbox \naction item.';
 
   @override
   String get arabic => 'arabic';
@@ -421,7 +432,8 @@ class TREn extends TR {
   String get message_details => 'Message Details';
 
   @override
-  String get can_not_open_file => 'Sorry! We can\'t find any app that can open this file';
+  String get can_not_open_file =>
+      'Sorry! We can\'t find any app that can open this file';
 
   @override
   String get are_you_sure_logout => 'are you sure you want to logout';
@@ -487,13 +499,16 @@ class TREn extends TR {
   String get question_answer => 'Question Answer...';
 
   @override
-  String get answer_all_mandatory_question_first => 'Answer all mandatory questions first please.';
+  String get answer_all_mandatory_question_first =>
+      'Answer all mandatory questions first please.';
 
   @override
-  String get complete_all_your_tasks_please_first => 'Complete all your tasks first Please .';
+  String get complete_all_your_tasks_please_first =>
+      'Complete all your tasks first Please .';
 
   @override
-  String get you_must_take_image => 'You must take a photo of the branch to be able to complete this process';
+  String get you_must_take_image =>
+      'You must take a photo of the branch to be able to complete this process';
 
   @override
   String get comment => 'Comment';
@@ -613,10 +628,9 @@ class TREn extends TR {
   String get return_reason_hint => 'Enter reason here';
 
   @override
-
   String get sendReportPopUpContent =>
       'Do you want to send the report now, you won\'t be able to send the report again until tomorrow';
 
+  @override
   String get take_picture_or_video => 'Pick Media';
-
 }

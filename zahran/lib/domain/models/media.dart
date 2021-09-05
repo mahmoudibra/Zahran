@@ -7,7 +7,7 @@ class Media {
   @HiveField(1)
   final String mediaPath;
   @HiveField(2)
-  final String type;
+  final String? type;
 
   Media({required this.id, required this.mediaPath, required this.type});
 

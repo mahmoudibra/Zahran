@@ -51,7 +51,8 @@ class ZahranApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShapedRemoteImageConfig(
-      errorPlaceholder: (_, __, ___) => Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
+      errorPlaceholder: (_, __, ___) =>
+          Image.asset(R.assetsImagesTestBackground, fit: BoxFit.cover),
       loadingPlaceholder: (_, __, ___) {
         return Container(
           color: Theme.of(_).canvasColor,
