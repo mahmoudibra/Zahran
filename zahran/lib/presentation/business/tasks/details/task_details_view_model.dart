@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
@@ -10,6 +12,7 @@ import 'package:zahran/presentation/business/visits/visits_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
+import 'package:zahran/presentation/commom/voices/voice_note.pm.dart';
 import 'package:zahran/presentation/helpers/date/date-manager.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -97,15 +100,29 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   // }
 
   pickImageForQuestionAction({required int questionIndex}) {
-    ScreenRouter.showPopup(
-        type: PopupsNames.MEDIA_PICKER_POPUP,
-        parameters: _prepareMediaParameter(),
-        actionsCallbacks: _prepareMediaActionForQuestions(questionIndex: questionIndex));
+    ScreenRouter.showBottomSheet(
+        type: BottomSheetNames.VOICE_NOTE,
+        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
+        actionsCallbacks: _prepareVoiceNoteActions(questionIndex: questionIndex));
+
+    // ScreenRouter.showPopup(
+    //     type: PopupsNames.MEDIA_PICKER_POPUP,
+    //     parameters: _prepareMediaParameter(),
+    //     actionsCallbacks: _prepareMediaActionForQuestions(questionIndex: questionIndex));
   }
 
   Map<String, dynamic>? _prepareMediaParameter() {
     Map<String, dynamic>? parameters = Map();
     parameters["pickerType"] = mediaPickerType;
+    return parameters;
+  }
+
+  Map<String, dynamic>? _prepareVoiceNoteParameter(
+      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
+    Map<String, dynamic>? parameters = Map();
+    parameters["voiceNoteIntent"] = voiceNoteIntent;
+    parameters["voiceNoteFile"] = voiceNoteFile;
+    parameters["voiceNoteUrl"] = voiceNoteUrl;
     return parameters;
   }
 
@@ -131,6 +148,18 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
           FlareAnimation.show(action: _uploadMediaForQuestion(questionIndex: questionIndex), context: context)
         };
     actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
+
+    return actionsCallbacks;
+  }
+
+  Map<String, Function> _prepareVoiceNoteActions({required int questionIndex}) {
+    Map<String, Function> actionsCallbacks = Map();
+    actionsCallbacks['onAcceptNoteCallback'] = (File? file) => {
+          mediaFile = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO),
+          // FlareAnimation.show(action: _uploadMediaForQuestion(questionIndex: questionIndex), context: context)
+        };
+    actionsCallbacks['onCloseNoteCallback'] = () => {print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] = () => {print("🚀🚀🚀🚀 On Remove Note Callback")};
 
     return actionsCallbacks;
   }

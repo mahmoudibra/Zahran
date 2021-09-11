@@ -1,32 +1,25 @@
 abstract class SoundEngineManager {
-  AudioState get audioState;
+  AudioState? get audioState;
 
-  Stream<double> get onRecorderStateChanged;
+  Stream<PlaybackEvent> get onRecorderStateChanged;
 
   Stream<PlaybackEvent> get onPlayerStateChanged;
 
-  Stream<double> get onRecorderDbPeakChanged;
+  Future<void> startRecorder({required String uri});
 
-  Future<String> setDbLevelState({bool state});
+  Future<String?> stopRecorder();
 
-  Future<String> setDbPeakLevelUpdate({double level});
+  Future<String> startPlayer({required String uri});
 
-  Future<String> setSubscriptionDuration({double seconds});
-
-  Future<String> startRecorder({String uri});
-
-  Future<String> stopRecorder();
-
-  Future<String> startPlayer({String uri});
-
-  Future<String> stopPlayer();
+  Future<void> stopPlayer();
 }
 
 class PlaybackEvent {
-  final double duration;
-  final double progress;
+  final Duration duration;
+  final Duration progress;
+  final double decibels;
 
-  PlaybackEvent(this.duration, this.progress);
+  PlaybackEvent(this.duration, this.progress, this.decibels);
 
   @override
   String toString() {
@@ -34,4 +27,4 @@ class PlaybackEvent {
   }
 }
 
-enum AudioState { Stopped, Paused, Playing, Recording }
+enum AudioState { Stopped, Paused, Playing, Recording, None }
