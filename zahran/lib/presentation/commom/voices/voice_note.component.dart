@@ -199,7 +199,7 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
     return Padding(
       padding: EdgeInsets.only(left: 40.0, right: 40.0, top: 20),
       child: Text(
-        _resolveMessage(_viewState.message!),
+        _resolveMessage(_viewState.message),
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
@@ -340,7 +340,7 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
   }
 
   void _onPlayNote() {
-    widget._voiceNotePM.startPlayer(file: _viewState.audioFile);
+    widget._voiceNotePM.startPlayerFromFile(file: _viewState.audioFile);
   }
 
   void _onPlayNoteFromUrl() {
@@ -405,9 +405,9 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
     return view;
   }
 
-  String _resolveMessage(VoiceNoteModelMessage message) {
+  String _resolveMessage(VoiceNoteModelMessage? message) {
     String messageText = '';
-    switch (message) {
+    switch (message ?? VoiceNoteModelMessage.Recording) {
       case VoiceNoteModelMessage.Recorded:
         messageText = TR.of(context).voice_note_status_stopped;
         break;

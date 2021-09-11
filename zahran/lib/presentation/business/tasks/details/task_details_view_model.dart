@@ -155,11 +155,13 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   Map<String, Function> _prepareVoiceNoteActions({required int questionIndex}) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) => {
+          ScreenRouter.pop(),
+          print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}"),
           mediaFile = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO),
           // FlareAnimation.show(action: _uploadMediaForQuestion(questionIndex: questionIndex), context: context)
         };
-    actionsCallbacks['onCloseNoteCallback'] = () => {print("🚀🚀🚀🚀 On Close Note Callback")};
-    actionsCallbacks['onRemoveNoteCallback'] = () => {print("🚀🚀🚀🚀 On Remove Note Callback")};
+    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
 
     return actionsCallbacks;
   }

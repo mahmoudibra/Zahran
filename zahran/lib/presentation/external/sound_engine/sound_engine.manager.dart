@@ -9,7 +9,7 @@ abstract class SoundEngineManager {
 
   Future<String?> stopRecorder();
 
-  Future<String> startPlayer({required String uri});
+  Future startPlayer({required String uri});
 
   Future<void> stopPlayer();
 }
