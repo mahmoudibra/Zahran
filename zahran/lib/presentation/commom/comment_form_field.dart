@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
+import 'package:zahran/presentation/commom/voices/voice_note.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 import 'package:zahran/r.dart';
@@ -25,16 +28,13 @@ class CommentFormField extends StatefulWidget {
   _CommentFormFieldState createState() => _CommentFormFieldState();
 }
 
-class _CommentFormFieldState extends State<CommentFormField>
-    with TickerProviderStateMixin {
+class _CommentFormFieldState extends State<CommentFormField> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FormField(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null
-          ? null
-          : ReusableLocalizations.of(context)?.requiredField,
+      validator: (v) => widget.optional || v != null ? null : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -55,10 +55,8 @@ class _CommentFormFieldState extends State<CommentFormField>
                 MediaView(
                   media: media,
                   onDelete: (e) {
-                    field.didChange(field.value?.copyWith(
-                        media: (old) => old
-                            .where((element) => element.id != e.id)
-                            .toList()));
+                    field.didChange(
+                        field.value?.copyWith(media: (old) => old.where((element) => element.id != e.id).toList()));
                     widget.onChanged(field.value);
                   },
                 ),
@@ -82,7 +80,7 @@ class _CommentFormFieldState extends State<CommentFormField>
         ),
         SizedBox(width: 10),
         IconButton(
-          onPressed: () {},
+          onPressed: () => recordVoiceNote(field),
           padding: EdgeInsets.zero,
           icon: Image.asset(R.assetsImgsMic),
         ),
@@ -90,20 +88,56 @@ class _CommentFormFieldState extends State<CommentFormField>
     );
   }
 
-  Expanded _buildTextField(
-      BuildContext context, FormFieldState<CommentModel> field) {
+  Expanded _buildTextField(BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
       child: CustomTextField(
         validator: (v) => null,
         hint: TR.of(context).enter_decription_here,
         initialValue: field.value?.comment,
         onChanged: (v) {
-          field.didChange(field.value?.copyWith(comment: v) ??
-              CommentModel(comment: v ?? ''));
+          field.didChange(field.value?.copyWith(comment: v) ?? CommentModel(comment: v ?? ''));
           widget.onChanged(field.value);
         },
       ),
     );
+  }
+
+  Future<void> recordVoiceNote(FormFieldState<CommentModel> field) async {
+    ScreenRouter.showBottomSheet(
+        type: BottomSheetNames.VOICE_NOTE,
+        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
+        actionsCallbacks: _prepareVoiceNoteActions(field));
+  }
+
+  Map<String, dynamic>? _prepareVoiceNoteParameter(
+      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
+    Map<String, dynamic>? parameters = Map();
+    parameters["voiceNoteIntent"] = voiceNoteIntent;
+    parameters["voiceNoteFile"] = voiceNoteFile;
+    parameters["voiceNoteUrl"] = voiceNoteUrl;
+    return parameters;
+  }
+
+  Map<String, Function> _prepareVoiceNoteActions(FormFieldState<CommentModel> field) {
+    Map<String, Function> actionsCallbacks = Map();
+    actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
+      ScreenRouter.pop();
+      print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
+      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      try {
+        var result = await FlareAnimation.show(
+          action: Repos.mediaRepo
+              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
+          context: context,
+        );
+        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
+        widget.onChanged(field.value);
+      } catch (e) {}
+    };
+    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+
+    return actionsCallbacks;
   }
 
   Future<void> selectImage(FormFieldState<CommentModel> field) async {
@@ -115,8 +149,7 @@ class _CommentFormFieldState extends State<CommentFormField>
         actionsCallbacks: _prepareMediaAction(field));
   }
 
-  Map<String, Function> _prepareMediaAction(
-      FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareMediaAction(FormFieldState<CommentModel> field) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
@@ -125,18 +158,14 @@ class _CommentFormFieldState extends State<CommentFormField>
         );
 
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(
-              data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(
-            field.value?.copyWith(media: (old) => [...old, result!]) ??
-                CommentModel(media: [result!]));
+        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
         widget.onChanged(field.value);
       } catch (e) {}
     };
-    actionsCallbacks['dismissCallback'] =
-        () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 }
@@ -144,8 +173,7 @@ class _CommentFormFieldState extends State<CommentFormField>
 class MediaView extends StatelessWidget {
   final List<Media> media;
   final ValueChanged<Media>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete})
-      : super(key: key);
+  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -60,8 +61,7 @@ import 'tr_en.dart';
 /// be consistent with the languages listed in the TR.supportedLocales
 /// property.
 abstract class TR {
-  TR(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  TR(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -81,8 +81,7 @@ abstract class TR {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -1258,6 +1257,48 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'Pick Media'**
   String get take_picture_or_video;
+
+  /// No description provided for @voice_note_dismiss_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get voice_note_dismiss_button;
+
+  /// No description provided for @voice_note_status_stopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped recording'**
+  String get voice_note_status_stopped;
+
+  /// No description provided for @voice_note_status_playing.
+  ///
+  /// In en, this message translates to:
+  /// **'Playing voice note...'**
+  String get voice_note_status_playing;
+
+  /// No description provided for @voice_note_status_played.
+  ///
+  /// In en, this message translates to:
+  /// **'Playback completed'**
+  String get voice_note_status_played;
+
+  /// No description provided for @voice_note_status_resolving.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolving microphone permission'**
+  String get voice_note_status_resolving;
+
+  /// No description provided for @voice_note_accept_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Accept Voice Note'**
+  String get voice_note_accept_button;
+
+  /// No description provided for @voice_note_status_recording.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording voice note...'**
+  String get voice_note_status_recording;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {
@@ -1265,29 +1306,29 @@ class _TRDelegate extends LocalizationsDelegate<TR> {
 
   @override
   Future<TR> load(Locale locale) {
-    return SynchronousFuture<TR>(_lookupTR(locale));
+    return SynchronousFuture<TR>(lookupTR(locale));
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_TRDelegate old) => false;
 }
 
-TR _lookupTR(Locale locale) {
-// Lookup logic when only language code is specified.
+TR lookupTR(Locale locale) {
+
+
+  // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'ar':
-      return TRAr();
-    case 'en':
-      return TREn();
+    case 'ar': return TRAr();
+    case 'en': return TREn();
   }
 
   throw FlutterError(
-      'TR.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'TR.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

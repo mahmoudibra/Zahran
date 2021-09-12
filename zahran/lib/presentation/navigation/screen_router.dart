@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/home_screen/home_screen.dart';
@@ -32,6 +34,8 @@ import 'package:zahran/presentation/commom/image_preview/image_preview_screen.da
 import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
 import 'package:zahran/presentation/commom/video_preview/video_preview_view_model.dart';
+import 'package:zahran/presentation/commom/voices/voice_note.component.dart';
+import 'package:zahran/presentation/commom/voices/voice_note.pm.dart';
 
 part 'screen_extensions.dart';
 
@@ -70,6 +74,8 @@ enum ScreenNames {
 
 enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
 
+enum BottomSheetNames { VOICE_NOTE }
+
 class ScreenRouter {
   static final GlobalKey<NavigatorState> key = GlobalKey<NavigatorState>();
 
@@ -94,17 +100,14 @@ class ScreenRouter {
         "${ScreenNames.DOCUMENT_DETAILS}": (_) => DocumentDetailsScreen(),
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
         "${ScreenNames.NOTIFICATION_LIST}": (_) => NotificationListScreen(),
-        "${ScreenNames.NOTIFICATION_DETAILS}": (_) =>
-            NotificationDetailsScreen(),
+        "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
         "${ScreenNames.IMAGE_PREVIEW}": (_) => ImagePreviewScreen(),
         "${ScreenNames.VIDEO_PREVIEW}": (_) => VideoPreviewScreen(),
         "${ScreenNames.TAS_DETAILS}": (_) => TaskDetailsScreen(),
         "${ScreenNames.COMMENT_REPORT}": (_) => CommentReportScreen(),
         "${ScreenNames.PROBLEM_REPORT}": (_) => ProblemReportScreen(),
-        "${ScreenNames.COMPITION_SELL_OUT_REPORT}": (_) =>
-            CompitionSellOutReportScreen(),
-        "${ScreenNames.COMPITION_STOCK_COUNT_REPORT}": (_) =>
-            CompitionStockCountReportScreen(),
+        "${ScreenNames.COMPITION_SELL_OUT_REPORT}": (_) => CompitionSellOutReportScreen(),
+        "${ScreenNames.COMPITION_STOCK_COUNT_REPORT}": (_) => CompitionStockCountReportScreen(),
         "${ScreenNames.SELL_OUT_REPORT}": (_) => SellOutReportScreen(),
         "${ScreenNames.STOCK_COUNT_REPORT}": (_) => StockCountReportScreen(),
         "${ScreenNames.SUPPLY_REPORT}": (_) => SupplyReportScreen(),
@@ -119,6 +122,41 @@ class ScreenRouter {
     return key.currentState!.canPop();
   }
 
+  static Future showBottomSheet(
+      {required BottomSheetNames type,
+      Map<String, dynamic>? parameters,
+      Map<String, Function>? actionsCallbacks,
+      bool barrierDismissible = false}) {
+    Widget _sheet;
+    switch (type) {
+      case BottomSheetNames.VOICE_NOTE:
+        _sheet = VoiceNote(
+            intent: parameters!["voiceNoteIntent"] as VoiceNoteIntent,
+            onAcceptNote: ({File? file}) {
+              print("On Accept Note with file $file 🚀 🚀 🚀 🚀");
+              actionsCallbacks!['onAcceptNoteCallback']!(file);
+            },
+            onRemoveNote: () {
+              print("On Remove Note 🚀 🚀 🚀 🚀");
+              actionsCallbacks!['onRemoveNoteCallback']!();
+            },
+            onClose: () {
+              print("On Close Note 🚀 🚀 🚀 🚀");
+              actionsCallbacks!['onCloseNoteCallback']!();
+            },
+            file: parameters["voiceNoteFile"] != null ? parameters["voiceNoteFile"] as File : null,
+            audioUrl: parameters["voiceNoteUrl"] != null ? parameters["voiceNoteUrl"] as String : null);
+        break;
+    }
+
+    return showModalBottomSheet(
+        isScrollControlled: true,
+        isDismissible: barrierDismissible,
+        enableDrag: false,
+        context: key.currentState!.context,
+        builder: (context) => _sheet);
+  }
+
   static Future showPopup(
       {required PopupsNames type,
       Map<String, dynamic>? parameters,
@@ -127,8 +165,7 @@ class ScreenRouter {
     Widget _popup;
     switch (type) {
       case PopupsNames.LOGOUT:
-        _popup = LogoutPopUp(
-            parameters: parameters, actionsCallbacks: actionsCallbacks);
+        _popup = LogoutPopUp(parameters: parameters, actionsCallbacks: actionsCallbacks);
         break;
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(
