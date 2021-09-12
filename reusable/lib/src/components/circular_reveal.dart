@@ -58,7 +58,7 @@ class _CircularRevealState extends State<CircularReveal>
   Widget build(BuildContext context) {
     return CustomPaint(
       foregroundPainter: CircularRevealPainter(
-          widget.revealColor ?? Theme.of(context).accentColor,
+          widget.revealColor ?? Theme.of(context).colorScheme.secondary,
           _fraction,
           MediaQuery.of(context).size),
       child: widget.build(this),

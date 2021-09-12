@@ -12,7 +12,7 @@ class ShimmerContainer extends StatelessWidget {
       width: width,
       height: height,
       decoration: BoxDecoration(
-          color: Theme.of(context).accentColor,
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(radius ??
               max((width == double.infinity ? 0 : width),
                   (height == double.infinity ? 0 : height)))),

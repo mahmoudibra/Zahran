@@ -157,89 +157,6 @@ class PrimaryTextStyles extends StatelessWidget {
   }
 }
 
-class AccentTextStyles extends StatelessWidget {
-  final Widget child;
-  final TextStyle? Function(TextTheme theme) getStyle;
-
-  const AccentTextStyles({
-    Key? key,
-    required this.child,
-    required this.getStyle,
-  }) : super(key: key);
-
-  factory AccentTextStyles.bodyText1({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.bodyText1,
-        child: child,
-      );
-  factory AccentTextStyles.bodyText2({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.bodyText2,
-        child: child,
-      );
-  factory AccentTextStyles.headline1({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline1,
-        child: child,
-      );
-  factory AccentTextStyles.headline2({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline2,
-        child: child,
-      );
-  factory AccentTextStyles.headline3({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline3,
-        child: child,
-      );
-  factory AccentTextStyles.headline4({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline4,
-        child: child,
-      );
-  factory AccentTextStyles.headline5({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline5,
-        child: child,
-      );
-  factory AccentTextStyles.headline6({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.headline6,
-        child: child,
-      );
-  factory AccentTextStyles.button({required Widget child}) => AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.button,
-        child: child,
-      );
-  factory AccentTextStyles.caption({required Widget child}) => AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.caption,
-        child: child,
-      );
-  factory AccentTextStyles.overline({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.overline,
-        child: child,
-      );
-  factory AccentTextStyles.subtitle1({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.subtitle1,
-        child: child,
-      );
-  factory AccentTextStyles.subtitle2({required Widget child}) =>
-      AccentTextStyles(
-        getStyle: (TextTheme theme) => theme.subtitle2,
-        child: child,
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTextStyle.merge(
-      style: getStyle(Theme.of(context).accentTextTheme),
-      child: child,
-    );
-  }
-}
-
 class PrimaryText extends StatelessWidget {
   final Widget child;
   final TextStyle? Function(TextTheme theme) getStyle;
@@ -380,7 +297,7 @@ class AccentText extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle.merge(
       style: (getStyle(Theme.of(context).textTheme) ?? TextStyle())
-          .copyWith(color: Theme.of(context).accentColor),
+          .copyWith(color: Theme.of(context).colorScheme.secondary),
       child: child,
     );
   }

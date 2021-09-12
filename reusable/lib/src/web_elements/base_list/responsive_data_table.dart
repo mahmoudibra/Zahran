@@ -112,8 +112,8 @@ class __ResponsiveDataTableState<T, TController extends DataTableController<T>>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: const Duration(milliseconds: 300),
       vsync: this,
+      duration: const Duration(milliseconds: 300),
     );
     animation = Tween(begin: 0.0, end: 1.0).animate(controller);
   }
@@ -312,7 +312,7 @@ class __ResponsiveDataTableState<T, TController extends DataTableController<T>>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3),
       child: CircleAvatar(
-        backgroundColor: Theme.of(context).accentColor,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Theme.of(context).colorScheme.onSecondary,
         child: IconButton(
           onPressed: () {

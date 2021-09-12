@@ -152,7 +152,7 @@ class BrandView extends StatelessWidget {
               onTap: () => onPick(product.copy()),
               trailing: Icon(
                 Icons.add,
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               leading: leadingImage(product.media, true),
               title: Text(product.name.format(context)),

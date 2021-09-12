@@ -51,7 +51,6 @@ class _ScafoldWithBottomSheetState extends State<ScafoldWithBottomSheet> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              brightness: Brightness.dark,
               expandedHeight: height * widget.factor,
               flexibleSpace: Builder(builder: (context) {
                 var t = context.appBarExpansionPercent;

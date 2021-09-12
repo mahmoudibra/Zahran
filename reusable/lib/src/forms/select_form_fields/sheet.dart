@@ -39,7 +39,7 @@ class __SelectorSheetState<TItem,
   }
 
   Color getActiveColor() {
-    return widget.activeColor ?? Theme.of(context).accentColor;
+    return widget.activeColor ?? Theme.of(context).colorScheme.secondary;
   }
 
   Color getInActiveColor() {
@@ -55,7 +55,6 @@ class __SelectorSheetState<TItem,
         top: false,
         child: AnimatedSize(
           duration: Duration(milliseconds: 300),
-          vsync: this,
           child: GetBuilder(
             init: widget.controller,
             tag: widget.tag,

@@ -87,11 +87,6 @@ class ThemeGenerator {
             bodyColor: colors.onPrimary,
             decorationColor: colors.onPrimary,
           ),
-      accentTextTheme: textTheme.apply(
-        bodyColor: colors.onSecondary,
-        displayColor: colors.onSecondary,
-        decorationColor: colors.onSecondary,
-      ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: colors.background,
         modalBackgroundColor: colors.background,
@@ -148,7 +143,6 @@ class ThemeGenerator {
         elevation: 0,
       ),
       appBarTheme: AppBarTheme(
-        brightness: Brightness.light,
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.transparent,
         elevation: 0,

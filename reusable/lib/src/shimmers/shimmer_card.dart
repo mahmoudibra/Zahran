@@ -27,7 +27,6 @@ class _ShimmerCardState extends State<ShimmerCard>
       child: AnimatedSize(
         alignment: Alignment.topCenter,
         duration: Duration(milliseconds: 300),
-        vsync: this,
         child: _build(context),
       ),
     );
