@@ -42,7 +42,6 @@ class _SingleOptionFilterState<T> extends State<SingleOptionFilter<T>>
       );
     });
     return AnimatedSize(
-      vsync: this,
       duration: Duration(milliseconds: 300),
       child: Row(
         mainAxisSize: MainAxisSize.min,

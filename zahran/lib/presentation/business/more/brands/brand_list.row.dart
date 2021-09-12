@@ -21,7 +21,6 @@ class _BrandRowState extends State<BrandRow> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
-      vsync: this,
       curve: Curves.fastOutSlowIn,
       alignment: Alignment.topCenter,
       duration: Duration(milliseconds: 400),

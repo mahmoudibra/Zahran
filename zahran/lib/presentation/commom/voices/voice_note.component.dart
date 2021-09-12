@@ -19,7 +19,7 @@ typedef OnCloseNoteCallback = Function();
 class VoiceNote extends StatefulWidget {
   final OnAcceptNoteCallback onAcceptNote;
   final OnRemoveNoteCallback onRemoveNote;
-  final OnRemoveNoteCallback onClose;
+  final OnRemoveNoteCallback? onClose;
   final File? file;
   final String? audioUrl;
   final VoiceNoteIntent intent;
@@ -38,7 +38,8 @@ class VoiceNote extends StatefulWidget {
             (intent != VoiceNoteIntent.Record && audioUrl != null)),
         assert(file == null || audioUrl == null),
         _voiceNotePM = VoiceNotePM(
-            soundEngineManager: SoundEngineManagerImpl(), permissionHandlerManager: PermissionManagerImpl());
+            soundEngineManager: SoundEngineManagerImpl(),
+            permissionHandlerManager: PermissionManagerImpl());
 
   @override
   _VoiceNoteState createState() => _VoiceNoteState();
@@ -56,8 +57,10 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
   void initState() {
     _audioLevelAnimationController = AnimationController(vsync: this);
     Future.delayed(Duration.zero).then((_) {
-      _sizeAnimation = Tween(begin: 60.0, end: MediaQuery.of(context).size.width - 30);
-      widget._voiceNotePM.init(intent: widget.intent, file: widget.file, audioUrl: widget.audioUrl);
+      _sizeAnimation =
+          Tween(begin: 60.0, end: MediaQuery.of(context).size.width - 30);
+      widget._voiceNotePM.init(
+          intent: widget.intent, file: widget.file, audioUrl: widget.audioUrl);
     });
     super.initState();
   }
@@ -113,8 +116,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
             padding: EdgeInsets.only(top: 16.0),
             child: Text(
               TR.of(context).voice_note_status_resolving,
-              style:
-                  Theme.of(context).textTheme.bodyText2?.copyWith(color: Theme.of(context).textTheme.headline4?.color),
+              style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                  color: Theme.of(context).textTheme.headline4?.color),
             ),
           ),
         ],
@@ -149,8 +152,9 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 50.0),
         margin: EdgeInsets.symmetric(horizontal: 20.0),
-        decoration:
-            BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor, borderRadius: BorderRadius.circular(25.0)),
+        decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            borderRadius: BorderRadius.circular(25.0)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -168,15 +172,16 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
             ),
             Text(
               TR.of(context).permission_access_microphone_message,
-              style:
-                  Theme.of(context).textTheme.subtitle1?.copyWith(color: Theme.of(context).textTheme.bodyText2?.color),
+              style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                  color: Theme.of(context).textTheme.bodyText2?.color),
               textAlign: TextAlign.center,
             ),
             ElevatedButton(
               onPressed: () {
                 _onGoToSettings();
               },
-              child: Text(TR.of(context).permission_access_change_settings_button),
+              child:
+                  Text(TR.of(context).permission_access_change_settings_button),
             ),
             ElevatedButton(
               onPressed: () {
@@ -201,10 +206,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
       child: Text(
         _resolveMessage(_viewState.message),
         textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .headline4
-            ?.copyWith(color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
+        style: Theme.of(context).textTheme.headline4?.copyWith(
+            color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),
       ),
     );
   }
@@ -228,7 +231,9 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
           child: AnimatedBuilder(
             animation: _audioLevelAnimationController!,
             builder: (cntx, child) {
-              var sizeV = (_sizeAnimation?.evaluate(_audioLevelAnimationController!)) ?? 0.0;
+              var sizeV =
+                  (_sizeAnimation?.evaluate(_audioLevelAnimationController!)) ??
+                      0.0;
               return Container(
                 padding: EdgeInsets.all(15.0),
                 width: MediaQuery.of(context).size.width,
@@ -265,10 +270,16 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
           child: IconButton(
             onPressed: _viewState.isRecording
                 ? _onStopRecorder
-                : (_viewState.isPlaying ? _onStopNote : (widget.audioUrl != null ? _onPlayNoteFromUrl : _onPlayNote)),
+                : (_viewState.isPlaying
+                    ? _onStopNote
+                    : (widget.audioUrl != null
+                        ? _onPlayNoteFromUrl
+                        : _onPlayNote)),
             icon: _viewState.isRecording
                 ? Icon(Icons.stop)
-                : (_viewState.isPlaying ? Icon(Icons.pause) : Icon(Icons.play_arrow)),
+                : (_viewState.isPlaying
+                    ? Icon(Icons.pause)
+                    : Icon(Icons.play_arrow)),
             color: Theme.of(context).primaryColor,
             iconSize: 30.0,
           ),
@@ -291,7 +302,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
             decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(width: 1.0, color: Theme.of(context).primaryColor)),
+                border: Border.all(
+                    width: 1.0, color: Theme.of(context).primaryColor)),
             child: IconButton(
               icon: Icon(Icons.delete_forever),
               onPressed: _onRemoveNote,
@@ -306,7 +318,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
             decoration: BoxDecoration(
                 color: Theme.of(context).highlightColor,
                 borderRadius: BorderRadius.circular(20.0),
-                border: Border.all(width: 1.0, color: Theme.of(context).primaryColor)),
+                border: Border.all(
+                    width: 1.0, color: Theme.of(context).primaryColor)),
             child: IconButton(
               icon: Icon(Icons.save),
               onPressed: _onAcceptNote,
@@ -324,10 +337,15 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
       child: Container(
         alignment: Alignment.center,
         height: 48.0,
-        decoration: BoxDecoration(color: Theme.of(context).primaryColor, borderRadius: BorderRadius.circular(20.0)),
+        decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(20.0)),
         child: Text(
           TR.of(context).voice_note_dismiss_button,
-          style: Theme.of(context).textTheme.subtitle1?.copyWith(color: Colors.white),
+          style: Theme.of(context)
+              .textTheme
+              .subtitle1
+              ?.copyWith(color: Colors.white),
         ),
       ),
     );
@@ -335,7 +353,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
 
   // UI Events
   void _onStopRecorder() {
-    _audioLevelAnimationController!.animateTo(0, duration: Duration(milliseconds: 50), curve: Curves.easeInOut);
+    _audioLevelAnimationController!.animateTo(0,
+        duration: Duration(milliseconds: 50), curve: Curves.easeInOut);
     widget._voiceNotePM.stopRecorder();
   }
 
@@ -366,7 +385,7 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
   void _onClose() {
     widget._voiceNotePM.stopPlayer();
     widget._voiceNotePM.reset();
-    widget.onClose();
+    widget.onClose?.call();
   }
 
   void _onGoToSettings() {
@@ -374,7 +393,7 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
   }
 
   void _onDismiss() {
-    if (widget.onClose != null) widget.onClose();
+    if (widget.onClose != null) widget.onClose?.call();
   }
 
   // Helpers
@@ -388,8 +407,8 @@ class _VoiceNoteState extends State<VoiceNote> with TickerProviderStateMixin {
       case PermissionState.Granted:
         view = _drawStateReady();
         if (_viewState.audioLevel != _latestAudioLevel) {
-          _audioLevelAnimationController!
-              .animateTo(_viewState.audioLevel, duration: Duration(milliseconds: 50), curve: Curves.easeInOut);
+          _audioLevelAnimationController!.animateTo(_viewState.audioLevel,
+              duration: Duration(milliseconds: 50), curve: Curves.easeInOut);
           _latestAudioLevel = _viewState.audioLevel;
         }
         break;

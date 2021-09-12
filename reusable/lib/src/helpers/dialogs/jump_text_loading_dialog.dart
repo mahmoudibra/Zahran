@@ -36,8 +36,8 @@ class _JumpingTextState extends State<JumpingText>
     super.initState();
 
     _controller = AnimationController(
-      vsync: this,
       duration: Duration(seconds: (children.length * 0.25).round()),
+      vsync: this,
     );
     _widgets = WidgetAnimations.createList<Offset>(
       widgets: children,

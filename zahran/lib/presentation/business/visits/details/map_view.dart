@@ -30,7 +30,7 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     BranchModel model = Get.find<VisitDetailsViewModel>().model;
     var latlng = LatLng(model.location.lat, model.location.lang);
-    var color = Theme.of(context).accentColor;
+    var color = Theme.of(context).colorScheme.secondary;
     double radius = 15000;
     return GoogleMap(
       mapType: MapType.normal,

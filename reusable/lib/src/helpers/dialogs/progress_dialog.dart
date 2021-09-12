@@ -61,7 +61,7 @@ class _ProgressDialogState<TModel> extends State<ProgressDialog<TModel>> {
       circularStrokeCap: CircularStrokeCap.round,
       percent: progress,
       arcBackgroundColor: DefaultTextStyle.of(context).style.color,
-      progressColor: Theme.of(context).accentColor,
+      progressColor: Theme.of(context).colorScheme.secondary,
     );
   }
 

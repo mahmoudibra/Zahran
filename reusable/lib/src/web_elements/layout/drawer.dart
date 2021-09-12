@@ -91,7 +91,9 @@ class _DashBoardDrawer extends StatelessWidget {
     if (e.builder != null) {
       var res = [
         IconButton(
-          color: selected == index ? Theme.of(context).accentColor : null,
+          color: selected == index
+              ? Theme.of(context).colorScheme.secondary
+              : null,
           onPressed: () {
             DefaultTabController.of(context)?.index = index;
           },

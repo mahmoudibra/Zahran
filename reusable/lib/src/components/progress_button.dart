@@ -204,7 +204,6 @@ class _ProgressButtonState extends State<ProgressButton>
         }
       },
       child: AnimatedSize(
-        vsync: this,
         alignment: widget.alignment ?? Alignment.center,
         duration: duration,
         child: SizedBox(
@@ -293,9 +292,9 @@ class _ProgressButtonState extends State<ProgressButton>
   Widget _buildChild() {
     return Builder(
       builder: (context) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            accentColor: DefaultTextStyle.of(context).style.color,
+        return ProgressIndicatorTheme(
+          data: ProgressIndicatorTheme.of(context).copyWith(
+            circularTrackColor: DefaultTextStyle.of(context).style.color,
           ),
           child: (widget.alignment == null || state != _ButtonState.Initial)
               ? _buildInnerChild()
@@ -339,7 +338,7 @@ class _ProgressButtonState extends State<ProgressButton>
         circularStrokeCap: CircularStrokeCap.round,
         percent: widget.progressNotifier?.value ?? 0.5,
         arcBackgroundColor: DefaultTextStyle.of(context).style.color,
-        progressColor: Theme.of(context).accentColor,
+        progressColor: ProgressIndicatorTheme.of(context).circularTrackColor,
       ),
     );
   }

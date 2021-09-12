@@ -18,7 +18,7 @@ class CounterView extends StatelessWidget {
             text: "$value",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: context.theme.accentColor,
+              color: context.theme.colorScheme.secondary,
               fontSize: of == null ? 14 : 16,
             ),
           ),
@@ -26,7 +26,7 @@ class CounterView extends StatelessWidget {
             TextSpan(
               text: " / ",
               style: TextStyle(
-                color: context.theme.accentColor,
+                color: context.theme.colorScheme.secondary,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -79,7 +79,6 @@ mixin ListPaging<TItem> on BaseListController<TItem> {
     });
   }
 
-  @protected
   Future<ApiListResponse<TItem>> loadData(int skip);
   Future addAll(List<TItem> items, [int? total]);
 
@@ -104,8 +103,8 @@ abstract class ListController<TItem> extends BaseListController<TItem>
   }
 
   bool loadOnInt() => true;
+
   @override
-  @mustCallSuper
   void onInit() {
     super.onInit();
     if (length == 0 && !loading && loadOnInt() == true) reloadApi();
