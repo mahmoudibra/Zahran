@@ -63,7 +63,6 @@ class _ProductPicker extends StatelessWidget {
 
   SliverAppBar _buildAppBar(BuildContext context, ReportViewModel vm) {
     return SliverAppBar(
-      brightness: Brightness.dark,
       elevation: 0,
       pinned: true,
       floating: true,
