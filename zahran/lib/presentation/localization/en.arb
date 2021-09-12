@@ -248,6 +248,12 @@
     "return_reason":"Reason of return",
     "return_reason_hint":"Enter reason here",
     "sendReportPopUpContent":"Do you want to send the report now, you won't be able to send the report again until tomorrow",
-    "take_picture_or_video":"Pick Media"
-
+    "take_picture_or_video":"Pick Media",
+    "voice_note_dismiss_button": "Dismiss",
+    "voice_note_status_stopped": "Stopped recording",
+    "voice_note_status_playing": "Playing voice note...",
+    "voice_note_status_played": "Playback completed",
+    "voice_note_status_resolving": "Resolving microphone permission",
+    "voice_note_accept_button": "Accept Voice Note",
+    "voice_note_status_recording": "Recording voice note..."
 }
