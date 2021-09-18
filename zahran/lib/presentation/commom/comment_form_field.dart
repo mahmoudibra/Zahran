@@ -28,16 +28,13 @@ class CommentFormField extends StatefulWidget {
   _CommentFormFieldState createState() => _CommentFormFieldState();
 }
 
-class _CommentFormFieldState extends State<CommentFormField>
-    with TickerProviderStateMixin {
+class _CommentFormFieldState extends State<CommentFormField> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FormField(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null
-          ? null
-          : ReusableLocalizations.of(context)?.requiredField,
+      validator: (v) => widget.optional || v != null ? null : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -57,10 +54,8 @@ class _CommentFormFieldState extends State<CommentFormField>
                 MediaView(
                   media: media,
                   onDelete: (e) {
-                    field.didChange(field.value?.copyWith(
-                        media: (old) => old
-                            .where((element) => element.id != e.id)
-                            .toList()));
+                    field.didChange(
+                        field.value?.copyWith(media: (old) => old.where((element) => element.id != e.id).toList()));
                     widget.onChanged(field.value);
                   },
                 ),
@@ -92,16 +87,14 @@ class _CommentFormFieldState extends State<CommentFormField>
     );
   }
 
-  Expanded _buildTextField(
-      BuildContext context, FormFieldState<CommentModel> field) {
+  Expanded _buildTextField(BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
       child: CustomTextField(
         validator: (v) => null,
         hint: TR.of(context).enter_decription_here,
         initialValue: field.value?.comment,
         onChanged: (v) {
-          field.didChange(field.value?.copyWith(comment: v) ??
-              CommentModel(comment: v ?? ''));
+          field.didChange(field.value?.copyWith(comment: v) ?? CommentModel(comment: v ?? ''));
           widget.onChanged(field.value);
         },
       ),
@@ -111,15 +104,19 @@ class _CommentFormFieldState extends State<CommentFormField>
   Future<void> recordVoiceNote(FormFieldState<CommentModel> field) async {
     ScreenRouter.showBottomSheet(
         type: BottomSheetNames.VOICE_NOTE,
-        parameters:
-            _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
-        actionsCallbacks: _prepareVoiceNoteActions(field));
+        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
+        actionsCallbacks: _prepareVoiceNoteActions(field: field));
+  }
+
+  Future<void> playVoiceNote(Media media) async {
+    ScreenRouter.showBottomSheet(
+        type: BottomSheetNames.VOICE_NOTE,
+        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Play, voiceNoteUrl: media.mediaPath),
+        actionsCallbacks: _prepareVoiceNoteActions());
   }
 
   Map<String, dynamic>? _prepareVoiceNoteParameter(
-      {required VoiceNoteIntent voiceNoteIntent,
-      File? voiceNoteFile,
-      String? voiceNoteUrl}) {
+      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
     Map<String, dynamic>? parameters = Map();
     parameters["voiceNoteIntent"] = voiceNoteIntent;
     parameters["voiceNoteFile"] = voiceNoteFile;
@@ -127,31 +124,26 @@ class _CommentFormFieldState extends State<CommentFormField>
     return parameters;
   }
 
-  Map<String, Function> _prepareVoiceNoteActions(
-      FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareVoiceNoteActions({FormFieldState<CommentModel>? field}) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
       ScreenRouter.pop();
       print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel =
-          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
       try {
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadMedia(
-              uploadedFile: mediaModel.mediaFile,
-              mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo
+              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(
-            field.value?.copyWith(media: (old) => [...old, result!]) ??
-                CommentModel(media: [result!]));
-        widget.onChanged(field.value);
+        if (field != null) {
+          field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
+          widget.onChanged(field.value);
+        }
       } catch (e) {}
     };
-    actionsCallbacks['onCloseNoteCallback'] =
-        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
-    actionsCallbacks['onRemoveNoteCallback'] =
-        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
 
     return actionsCallbacks;
   }
@@ -165,8 +157,7 @@ class _CommentFormFieldState extends State<CommentFormField>
         actionsCallbacks: _prepareMediaAction(field));
   }
 
-  Map<String, Function> _prepareMediaAction(
-      FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareMediaAction(FormFieldState<CommentModel> field) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
@@ -175,18 +166,14 @@ class _CommentFormFieldState extends State<CommentFormField>
         );
 
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(
-              data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(
-            field.value?.copyWith(media: (old) => [...old, result!]) ??
-                CommentModel(media: [result!]));
+        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
         widget.onChanged(field.value);
       } catch (e) {}
     };
-    actionsCallbacks['dismissCallback'] =
-        () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 }
@@ -194,8 +181,7 @@ class _CommentFormFieldState extends State<CommentFormField>
 class MediaView extends StatelessWidget {
   final List<Media> media;
   final ValueChanged<Media>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete})
-      : super(key: key);
+  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -210,35 +196,30 @@ class MediaView extends StatelessWidget {
     );
   }
 
-  Widget _buildMediaItem(Media e, BuildContext context) {
+  Widget _buildMediaItem(Media media, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (e.type == MediaFileTypes.IMAGE.value) {
+        if (media.type == MediaFileTypes.IMAGE.value) {
           print("🚀🚀🚀🚀 Open Image Preview");
-          ScreenNames.IMAGE_PREVIEW.push(e.mediaPath);
-        } else if (e.type == MediaFileTypes.VIDEO.value) {
+          ScreenNames.IMAGE_PREVIEW.push(media.mediaPath);
+        } else if (media.type == MediaFileTypes.VIDEO.value) {
           print("🚀🚀🚀🚀 Open Video Preview");
-          ScreenNames.VIDEO_PREVIEW.push(e.mediaPath);
+          ScreenNames.VIDEO_PREVIEW.push(media.mediaPath);
         } else {
-          print("🚀🚀🚀🚀 Open Sound Component To Be Implemented");
+          print("🚀🚀🚀🚀 Open Sound Component ");
+          playVoiceNote(media, context);
         }
       },
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          ShapedRemoteImage.aspectRatio(
-            outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            url: e.mediaPath,
-          ),
+          buildMediaImage(media),
           if (onDelete != null)
             PositionedDirectional(
               top: 0,
               end: 0,
               child: InkWell(
-                onTap: () => onDelete?.call(e),
+                onTap: () => onDelete?.call(media),
                 child: CircleAvatar(
                   radius: 10,
                   backgroundColor: Theme.of(context).backgroundColor,
@@ -253,5 +234,71 @@ class MediaView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget buildMediaImage(Media media) {
+    if (media.type == MediaFileTypes.IMAGE.value) {
+      return ShapedRemoteImage.aspectRatio(
+        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        fit: BoxFit.fill,
+        url: media.mediaPath,
+      );
+    } else if (media.type == MediaFileTypes.VIDEO.value) {
+      return ShapedRemoteImage.aspectRatio(
+        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        fit: BoxFit.fill,
+        url: media.mediaPath,
+      );
+    } else {
+      return ShapedRemoteImage.aspectRatio(
+        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        fit: BoxFit.fill,
+        url: media.mediaPath,
+      );
+    }
+  }
+
+  Future<void> playVoiceNote(Media media, BuildContext context) async {
+    ScreenRouter.showBottomSheet(
+        type: BottomSheetNames.VOICE_NOTE,
+        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Play, voiceNoteUrl: media.mediaPath),
+        actionsCallbacks: _prepareVoiceNoteActions(context));
+  }
+
+  Map<String, dynamic>? _prepareVoiceNoteParameter(
+      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
+    Map<String, dynamic>? parameters = Map();
+    parameters["voiceNoteIntent"] = voiceNoteIntent;
+    parameters["voiceNoteFile"] = voiceNoteFile;
+    parameters["voiceNoteUrl"] = voiceNoteUrl;
+    return parameters;
+  }
+
+  Map<String, Function> _prepareVoiceNoteActions(BuildContext context) {
+    Map<String, Function> actionsCallbacks = Map();
+    actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
+      ScreenRouter.pop();
+      print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
+      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      try {
+        await FlareAnimation.show(
+          action: Repos.mediaRepo
+              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
+          context: context,
+        );
+      } catch (e) {}
+    };
+    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+    return actionsCallbacks;
   }
 }
