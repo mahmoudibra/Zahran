@@ -6,40 +6,8 @@ import 'package:zahran/presentation/localization/tr.dart';
 
 import '../scaffold_silver_app_bar.dart';
 
-class VideoPreviewScreen extends StatefulWidget {
+class VideoPreviewScreen extends StatelessWidget {
   VideoPreviewScreen();
-
-  @override
-  _VideoPreviewScreenState createState() => _VideoPreviewScreenState();
-}
-
-class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
-  late VideoPlayerController _videoPlayerController;
-
-  @override
-  void initState() {
-    _initializeVideoController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _videoPlayerController.dispose();
-    super.dispose();
-  }
-
-  _initializeVideoController() {
-    //TODO: change this later to get from view model
-    _videoPlayerController =
-        VideoPlayerController.network("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4");
-
-    _videoPlayerController.addListener(() {
-      setState(() {});
-    });
-    _videoPlayerController.setLooping(true);
-    _videoPlayerController.initialize();
-    _videoPlayerController.play();
-  }
 
   Widget build(BuildContext context) {
     return GetBuilder(
@@ -61,19 +29,20 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
       child: SizedBox(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          child: _videoPlayerController.value.isInitialized
+          child: vm.isVideoIntialized
               ? AspectRatio(
-                  aspectRatio: _videoPlayerController.value.aspectRatio,
+                  aspectRatio: vm.value.aspectRatio,
                   child: Stack(
                     alignment: Alignment.bottomCenter,
                     children: <Widget>[
-                      VideoPlayer(_videoPlayerController),
-                      ClosedCaption(text: _videoPlayerController.value.caption.text),
+                      VideoPlayer(vm.controller),
+                      ClosedCaption(text: vm.value.caption.text),
                       PlayPauseOverlay(
-                        controller: _videoPlayerController,
+                        controller: vm.controller,
                         key: null,
                       ),
-                      VideoProgressIndicator(_videoPlayerController, allowScrubbing: true),
+                      VideoProgressIndicator(vm.controller,
+                          allowScrubbing: true),
                     ],
                   ))
               : Container()),
@@ -84,7 +53,8 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
 class PlayPauseOverlay extends StatelessWidget {
   final VideoPlayerController controller;
 
-  const PlayPauseOverlay({required Key? key, required this.controller}) : super(key: key);
+  const PlayPauseOverlay({required Key? key, required this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

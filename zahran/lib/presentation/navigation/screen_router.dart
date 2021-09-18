@@ -100,14 +100,17 @@ class ScreenRouter {
         "${ScreenNames.DOCUMENT_DETAILS}": (_) => DocumentDetailsScreen(),
         "${ScreenNames.CHECK_IN_LIST}": (_) => CheckINScreen(),
         "${ScreenNames.NOTIFICATION_LIST}": (_) => NotificationListScreen(),
-        "${ScreenNames.NOTIFICATION_DETAILS}": (_) => NotificationDetailsScreen(),
+        "${ScreenNames.NOTIFICATION_DETAILS}": (_) =>
+            NotificationDetailsScreen(),
         "${ScreenNames.IMAGE_PREVIEW}": (_) => ImagePreviewScreen(),
         "${ScreenNames.VIDEO_PREVIEW}": (_) => VideoPreviewScreen(),
         "${ScreenNames.TAS_DETAILS}": (_) => TaskDetailsScreen(),
         "${ScreenNames.COMMENT_REPORT}": (_) => CommentReportScreen(),
         "${ScreenNames.PROBLEM_REPORT}": (_) => ProblemReportScreen(),
-        "${ScreenNames.COMPITION_SELL_OUT_REPORT}": (_) => CompitionSellOutReportScreen(),
-        "${ScreenNames.COMPITION_STOCK_COUNT_REPORT}": (_) => CompitionStockCountReportScreen(),
+        "${ScreenNames.COMPITION_SELL_OUT_REPORT}": (_) =>
+            CompitionSellOutReportScreen(),
+        "${ScreenNames.COMPITION_STOCK_COUNT_REPORT}": (_) =>
+            CompitionStockCountReportScreen(),
         "${ScreenNames.SELL_OUT_REPORT}": (_) => SellOutReportScreen(),
         "${ScreenNames.STOCK_COUNT_REPORT}": (_) => StockCountReportScreen(),
         "${ScreenNames.SUPPLY_REPORT}": (_) => SupplyReportScreen(),
@@ -144,8 +147,12 @@ class ScreenRouter {
               print("On Close Note 🚀 🚀 🚀 🚀");
               actionsCallbacks!['onCloseNoteCallback']!();
             },
-            file: parameters["voiceNoteFile"] != null ? parameters["voiceNoteFile"] as File : null,
-            audioUrl: parameters["voiceNoteUrl"] != null ? parameters["voiceNoteUrl"] as String : null);
+            file: parameters["voiceNoteFile"] != null
+                ? parameters["voiceNoteFile"] as File
+                : null,
+            audioUrl: parameters["voiceNoteUrl"] != null
+                ? parameters["voiceNoteUrl"] as String
+                : null);
         break;
     }
 
@@ -165,7 +172,8 @@ class ScreenRouter {
     Widget _popup;
     switch (type) {
       case PopupsNames.LOGOUT:
-        _popup = LogoutPopUp(parameters: parameters, actionsCallbacks: actionsCallbacks);
+        _popup = LogoutPopUp(
+            parameters: parameters, actionsCallbacks: actionsCallbacks);
         break;
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(
