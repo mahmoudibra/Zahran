@@ -12,9 +12,8 @@ import '../flare_component.dart';
 
 class MediaViewViewModel extends GetxController {
   final BuildContext context;
-  final List<Media> media;
 
-  MediaViewViewModel(this.context, this.media);
+  MediaViewViewModel(this.context);
 
   openMediaViewAction(Media media) {
     if (media.type == MediaFileTypes.IMAGE.value) {
@@ -32,12 +31,16 @@ class MediaViewViewModel extends GetxController {
   Future<void> playVoiceNote(Media media, BuildContext context) async {
     ScreenRouter.showBottomSheet(
         type: BottomSheetNames.VOICE_NOTE,
-        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Play, voiceNoteUrl: media.mediaPath),
+        parameters: _prepareVoiceNoteParameter(
+            voiceNoteIntent: VoiceNoteIntent.Play,
+            voiceNoteUrl: media.mediaPath),
         actionsCallbacks: _prepareVoiceNoteActions(context));
   }
 
   Map<String, dynamic>? _prepareVoiceNoteParameter(
-      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
+      {required VoiceNoteIntent voiceNoteIntent,
+      File? voiceNoteFile,
+      String? voiceNoteUrl}) {
     Map<String, dynamic>? parameters = Map();
     parameters["voiceNoteIntent"] = voiceNoteIntent;
     parameters["voiceNoteFile"] = voiceNoteFile;
@@ -50,17 +53,21 @@ class MediaViewViewModel extends GetxController {
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
       ScreenRouter.pop();
       print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      var mediaModel =
+          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
       try {
         await FlareAnimation.show(
-          action: Repos.mediaRepo
-              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadMedia(
+              uploadedFile: mediaModel.mediaFile,
+              mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
       } catch (e) {}
     };
-    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
-    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+    actionsCallbacks['onCloseNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
     return actionsCallbacks;
   }
 }

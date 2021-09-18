@@ -7,12 +7,13 @@ import 'package:zahran/presentation/commom/media_view/media_view_view_model.dart
 class MediaView extends StatelessWidget {
   final List<Media> media;
   final ValueChanged<Media>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
+  const MediaView({Key? key, required this.media, this.onDelete})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: MediaViewViewModel(context, media),
+      init: MediaViewViewModel(context),
       builder: (MediaViewViewModel vm) {
         return GridView.count(
           padding: EdgeInsets.zero,
@@ -21,13 +22,14 @@ class MediaView extends StatelessWidget {
           crossAxisSpacing: 10,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          children: vm.media.map((e) => _buildMediaItem(e, vm, context)).toList(),
+          children: media.map((e) => _buildMediaItem(e, vm, context)).toList(),
         );
       },
     );
   }
 
-  Widget _buildMediaItem(Media media, MediaViewViewModel vm, BuildContext context) {
+  Widget _buildMediaItem(
+      Media media, MediaViewViewModel vm, BuildContext context) {
     return GestureDetector(
       onTap: () {
         vm.openMediaViewAction(media);

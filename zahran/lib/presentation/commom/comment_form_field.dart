@@ -30,13 +30,16 @@ class CommentFormField extends StatefulWidget {
   _CommentFormFieldState createState() => _CommentFormFieldState();
 }
 
-class _CommentFormFieldState extends State<CommentFormField> with TickerProviderStateMixin {
+class _CommentFormFieldState extends State<CommentFormField>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FormField(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null ? null : ReusableLocalizations.of(context)?.requiredField,
+      validator: (v) => widget.optional || v != null
+          ? null
+          : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -56,8 +59,10 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
                 MediaView(
                   media: media,
                   onDelete: (e) {
-                    field.didChange(
-                        field.value?.copyWith(media: (old) => old.where((element) => element.id != e.id).toList()));
+                    field.didChange(field.value?.copyWith(
+                        media: (old) => old
+                            .where((element) => element.id != e.id)
+                            .toList()));
                     widget.onChanged(field.value);
                   },
                 ),
@@ -89,14 +94,16 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
     );
   }
 
-  Expanded _buildTextField(BuildContext context, FormFieldState<CommentModel> field) {
+  Expanded _buildTextField(
+      BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
       child: CustomTextField(
         validator: (v) => null,
         hint: TR.of(context).enter_decription_here,
         initialValue: field.value?.comment,
         onChanged: (v) {
-          field.didChange(field.value?.copyWith(comment: v) ?? CommentModel(comment: v ?? ''));
+          field.didChange(field.value?.copyWith(comment: v) ??
+              CommentModel(comment: v ?? ''));
           widget.onChanged(field.value);
         },
       ),
@@ -106,19 +113,24 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
   Future<void> recordVoiceNote(FormFieldState<CommentModel> field) async {
     ScreenRouter.showBottomSheet(
         type: BottomSheetNames.VOICE_NOTE,
-        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
+        parameters:
+            _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
         actionsCallbacks: _prepareVoiceNoteActions(field: field));
   }
 
   Future<void> playVoiceNote(Media media) async {
     ScreenRouter.showBottomSheet(
         type: BottomSheetNames.VOICE_NOTE,
-        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Play, voiceNoteUrl: media.mediaPath),
+        parameters: _prepareVoiceNoteParameter(
+            voiceNoteIntent: VoiceNoteIntent.Play,
+            voiceNoteUrl: media.mediaPath),
         actionsCallbacks: _prepareVoiceNoteActions());
   }
 
   Map<String, dynamic>? _prepareVoiceNoteParameter(
-      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
+      {required VoiceNoteIntent voiceNoteIntent,
+      File? voiceNoteFile,
+      String? voiceNoteUrl}) {
     Map<String, dynamic>? parameters = Map();
     parameters["voiceNoteIntent"] = voiceNoteIntent;
     parameters["voiceNoteFile"] = voiceNoteFile;
@@ -126,26 +138,33 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
     return parameters;
   }
 
-  Map<String, Function> _prepareVoiceNoteActions({FormFieldState<CommentModel>? field}) {
+  Map<String, Function> _prepareVoiceNoteActions(
+      {FormFieldState<CommentModel>? field}) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
       ScreenRouter.pop();
       print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      var mediaModel =
+          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
       try {
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo
-              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadMedia(
+              uploadedFile: mediaModel.mediaFile,
+              mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
         if (field != null) {
-          field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
+          field.didChange(
+              field.value?.copyWith(media: (old) => [...old, result!]) ??
+                  CommentModel(media: [result!]));
           widget.onChanged(field.value);
         }
       } catch (e) {}
     };
-    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
-    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+    actionsCallbacks['onCloseNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
 
     return actionsCallbacks;
   }
@@ -159,7 +178,8 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
         actionsCallbacks: _prepareMediaAction(field));
   }
 
-  Map<String, Function> _prepareMediaAction(FormFieldState<CommentModel> field) {
+  Map<String, Function> _prepareMediaAction(
+      FormFieldState<CommentModel> field) {
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
@@ -174,14 +194,20 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
           );
         }
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: Repos.mediaRepo.uploadUint8ListMedia(
+              data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
         );
-        field.didChange(field.value?.copyWith(media: (old) => [...old, result!]) ?? CommentModel(media: [result!]));
+        field.didChange(
+            field.value?.copyWith(media: (old) => [...old, result!]) ??
+                CommentModel(media: [result!]));
         widget.onChanged(field.value);
-      } catch (e) {}
+      } catch (e) {
+        print(e);
+      }
     };
-    actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
+    actionsCallbacks['dismissCallback'] =
+        () => {print("🚀🚀🚀🚀 User Dismissed")};
     return actionsCallbacks;
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:android_intent/android_intent.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
@@ -29,8 +27,7 @@ class PermissionManagerImpl implements PermissionManager {
   // Helpers
   Future<PermissionState> _checkPermission(Permission permission) async {
     var status = await permission.status;
-    if (status == PermissionStatus.limited ||
-        (status == PermissionStatus.denied && Platform.isAndroid)) {
+    if (status.isLimited || status.isDenied) {
       status = await permission.request();
     }
 
