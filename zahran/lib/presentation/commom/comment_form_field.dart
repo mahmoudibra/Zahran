@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
@@ -12,6 +13,7 @@ import 'package:zahran/r.dart';
 
 import 'flare_component.dart';
 import 'media_picker/media_picker.pm.dart';
+import 'media_view/media_view.dart';
 
 class CommentFormField extends StatefulWidget {
   final CommentModel? intialValue;
@@ -73,7 +75,7 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
         _buildTextField(context, field),
         SizedBox(width: 10),
         IconButton(
-          onPressed: () => selectImage(field),
+          onPressed: () => selectMedia(field),
           padding: EdgeInsets.zero,
           icon: Image.asset(R.assetsImgsCamera),
         ),
@@ -148,7 +150,7 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
     return actionsCallbacks;
   }
 
-  Future<void> selectImage(FormFieldState<CommentModel> field) async {
+  Future<void> selectMedia(FormFieldState<CommentModel> field) async {
     ScreenRouter.showPopup(
         type: PopupsNames.MEDIA_PICKER_POPUP,
         parameters: {
@@ -161,10 +163,16 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
     Map<String, Function> actionsCallbacks = Map();
     actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
       try {
-        var data = await MediaLocal.compressImage(
-          mediaModel!.mediaFile.path,
-        );
-
+        Uint8List? data;
+        if (mediaModel!.mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
+          data = await MediaLocal.compressImage(
+            mediaModel.mediaFile.path,
+          );
+        } else {
+          data = await MediaLocal.compressVideoToUint8List(
+            mediaModel.mediaFile,
+          );
+        }
         var result = await FlareAnimation.show(
           action: Repos.mediaRepo.uploadUint8ListMedia(data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
           context: context,
@@ -174,131 +182,6 @@ class _CommentFormFieldState extends State<CommentFormField> with TickerProvider
       } catch (e) {}
     };
     actionsCallbacks['dismissCallback'] = () => {print("🚀🚀🚀🚀 User Dismissed")};
-    return actionsCallbacks;
-  }
-}
-
-class MediaView extends StatelessWidget {
-  final List<Media> media;
-  final ValueChanged<Media>? onDelete;
-  const MediaView({Key? key, required this.media, this.onDelete}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      padding: EdgeInsets.zero,
-      crossAxisCount: 4,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      children: media.map((e) => _buildMediaItem(e, context)).toList(),
-    );
-  }
-
-  Widget _buildMediaItem(Media media, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        if (media.type == MediaFileTypes.IMAGE.value) {
-          print("🚀🚀🚀🚀 Open Image Preview");
-          ScreenNames.IMAGE_PREVIEW.push(media.mediaPath);
-        } else if (media.type == MediaFileTypes.VIDEO.value) {
-          print("🚀🚀🚀🚀 Open Video Preview");
-          ScreenNames.VIDEO_PREVIEW.push(media.mediaPath);
-        } else {
-          print("🚀🚀🚀🚀 Open Sound Component ");
-          playVoiceNote(media, context);
-        }
-      },
-      child: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          buildMediaImage(media),
-          if (onDelete != null)
-            PositionedDirectional(
-              top: 0,
-              end: 0,
-              child: InkWell(
-                onTap: () => onDelete?.call(media),
-                child: CircleAvatar(
-                  radius: 10,
-                  backgroundColor: Theme.of(context).backgroundColor,
-                  foregroundColor: Theme.of(context).colorScheme.onBackground,
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: FittedBox(child: Icon(Icons.highlight_off_rounded)),
-                  ),
-                ),
-              ),
-            )
-        ],
-      ),
-    );
-  }
-
-  Widget buildMediaImage(Media media) {
-    if (media.type == MediaFileTypes.IMAGE.value) {
-      return ShapedRemoteImage.aspectRatio(
-        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fit: BoxFit.fill,
-        url: media.mediaPath,
-      );
-    } else if (media.type == MediaFileTypes.VIDEO.value) {
-      return ShapedRemoteImage.aspectRatio(
-        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fit: BoxFit.fill,
-        url: media.mediaPath,
-      );
-    } else {
-      return ShapedRemoteImage.aspectRatio(
-        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fit: BoxFit.fill,
-        url: media.mediaPath,
-      );
-    }
-  }
-
-  Future<void> playVoiceNote(Media media, BuildContext context) async {
-    ScreenRouter.showBottomSheet(
-        type: BottomSheetNames.VOICE_NOTE,
-        parameters: _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Play, voiceNoteUrl: media.mediaPath),
-        actionsCallbacks: _prepareVoiceNoteActions(context));
-  }
-
-  Map<String, dynamic>? _prepareVoiceNoteParameter(
-      {required VoiceNoteIntent voiceNoteIntent, File? voiceNoteFile, String? voiceNoteUrl}) {
-    Map<String, dynamic>? parameters = Map();
-    parameters["voiceNoteIntent"] = voiceNoteIntent;
-    parameters["voiceNoteFile"] = voiceNoteFile;
-    parameters["voiceNoteUrl"] = voiceNoteUrl;
-    return parameters;
-  }
-
-  Map<String, Function> _prepareVoiceNoteActions(BuildContext context) {
-    Map<String, Function> actionsCallbacks = Map();
-    actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
-      ScreenRouter.pop();
-      print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel = MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
-      try {
-        await FlareAnimation.show(
-          action: Repos.mediaRepo
-              .uploadMedia(uploadedFile: mediaModel.mediaFile, mediaFileTypes: mediaModel.mediaFileTypes),
-          context: context,
-        );
-      } catch (e) {}
-    };
-    actionsCallbacks['onCloseNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
-    actionsCallbacks['onRemoveNoteCallback'] = () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
     return actionsCallbacks;
   }
 }

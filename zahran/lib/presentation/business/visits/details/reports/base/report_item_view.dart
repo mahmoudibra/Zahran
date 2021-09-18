@@ -3,7 +3,7 @@ import 'package:flutter_swipe_action_cell/core/cell.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/visits/details/reports/base/report_view_model.dart';
-import 'package:zahran/presentation/commom/comment_form_field.dart';
+import 'package:zahran/presentation/commom/media_view/media_view.dart';
 import 'package:zahran/r.dart';
 
 class ReportItemView extends StatelessWidget {
@@ -107,8 +107,7 @@ class ReportItemView extends StatelessWidget {
             leading: ShapedRemoteImage(
               width: 30,
               height: 30,
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(50)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(50)),
               url: item.product.media,
             ),
             title: Text(item.product.name.format(context)),
@@ -116,8 +115,7 @@ class ReportItemView extends StatelessWidget {
             childrenPadding: EdgeInsets.all(20),
             expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(DateFormat.yMMMd().format(item.createdAt),
-                  style: context.caption),
+              Text(DateFormat.yMMMd().format(item.createdAt), style: context.caption),
               if (item.reasonOfReaturn?.isNotEmpty == true) ...[
                 SizedBox(height: 10),
                 Text(
