@@ -8,7 +8,8 @@ import 'package:zahran/presentation/commom/scaffold_list_silver_app_bar.dart';
 import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
-typedef CaptureImageCallback = void Function({@required int subBrandIndex, @required int productIndex});
+typedef CaptureImageCallback = void Function(
+    {@required int subBrandIndex, @required int productIndex});
 
 class TaskDetailsScreen extends StatelessWidget {
   final ProgressButtonKey buttonKey = ProgressButtonKey();
@@ -98,7 +99,8 @@ class TaskDetailsScreen extends StatelessWidget {
   //   );
   // }
 
-  Widget buildDescriptionSection(BuildContext context, TaskDetailsViewModel vm) {
+  Widget buildDescriptionSection(
+      BuildContext context, TaskDetailsViewModel vm) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,12 +111,14 @@ class TaskDetailsScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
         ViewsToolbox.emptySpaceWidget(height: 4),
-        Text(vm.model.description.format(context), style: Theme.of(context).textTheme.subtitle2),
+        Text(vm.model.description.format(context),
+            style: Theme.of(context).textTheme.subtitle2),
       ],
     );
   }
 
-  Widget buildInstructionSection(BuildContext context, TaskDetailsViewModel vm) {
+  Widget buildInstructionSection(
+      BuildContext context, TaskDetailsViewModel vm) {
     if (vm.model.instructions.format(context).isBlank ?? false) {
       return ViewsToolbox.emptyWidget();
     }
@@ -166,7 +170,9 @@ class TaskDetailsScreen extends StatelessWidget {
           style: Theme.of(context).textTheme.headline6,
         ),
         ViewsToolbox.emptySpaceWidget(height: 8),
-        vm.model.questions.length != 0 ? buildQuestionComponent(vm) : ViewsToolbox.emptySpaceWidget(),
+        vm.model.questions.length != 0
+            ? buildQuestionComponent(vm)
+            : ViewsToolbox.emptySpaceWidget(),
         ViewsToolbox.emptySpaceWidget(height: 12),
       ],
     );
@@ -273,21 +279,25 @@ class TaskDetailsScreen extends StatelessWidget {
           ),
         ),
         SizedBox(width: 5),
-        _buildSeeAllButton(context, vm.seeAllBrandsAction, TR.of(context).see_all),
+        _buildSeeAllButton(
+            context, vm.seeAllBrandsAction, TR.of(context).see_all),
       ],
     );
   }
 
-  Directionality _buildSeeAllButton(BuildContext context, VoidCallback callback, String label) {
+  Directionality _buildSeeAllButton(
+      BuildContext context, VoidCallback callback, String label) {
     return Directionality(
-      textDirection: Directionality.of(context) == TextDirection.rtl ? TextDirection.ltr : TextDirection.rtl,
+      textDirection: Directionality.of(context) == TextDirection.rtl
+          ? TextDirection.ltr
+          : TextDirection.rtl,
       child: TextButton.icon(
         style: TextButton.styleFrom(
           padding: EdgeInsetsDirectional.only(top: 5, bottom: 5, end: 10),
         ),
         icon: Icon(
           Icons.arrow_back_ios,
-          color: context.theme.accentColor,
+          color: context.theme.colorScheme.secondary,
           size: 20,
         ),
         onPressed: callback,
@@ -300,17 +310,25 @@ class TaskDetailsScreen extends StatelessWidget {
     return Container(
         height: 350,
         child: QuestionComponent(
-          questionTextChangeCallback: ({required int index, required String textChange}) {
-            vm.questionTextChangeAction(questionIndex: index, textChange: textChange);
+          questionTextChangeCallback: (
+              {required int index, required String textChange}) {
+            vm.questionTextChangeAction(
+                questionIndex: index, textChange: textChange);
           },
-          questionSelectionChangeCallback: ({required int index, required int selectionIndex}) {
-            vm.questionSelectionChangeAction(questionIndex: index, selectionIndex: selectionIndex);
+          questionSelectionChangeCallback: (
+              {required int index, required int selectionIndex}) {
+            vm.questionSelectionChangeAction(
+                questionIndex: index, selectionIndex: selectionIndex);
           },
-          questionDateChangeCallback: ({required int index, required DateTime selectedDate}) {
-            vm.questionDateChangeAction(questionIndex: index, selectedDate: selectedDate);
+          questionDateChangeCallback: (
+              {required int index, required DateTime selectedDate}) {
+            vm.questionDateChangeAction(
+                questionIndex: index, selectedDate: selectedDate);
           },
-          questionMediaRemoveCallback: ({required int index, required int removeMediaIndex}) {
-            vm.questionMediaRemoveAction(questionIndex: index, removeMediaIndex: removeMediaIndex);
+          questionMediaRemoveCallback: (
+              {required int index, required int removeMediaIndex}) {
+            vm.questionMediaRemoveAction(
+                questionIndex: index, removeMediaIndex: removeMediaIndex);
           },
           questionMediaChooseCallback: ({required int index}) {
             vm.questionMediaChooseCallback(questionIndex: index);

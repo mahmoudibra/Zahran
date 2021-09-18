@@ -37,6 +37,7 @@ class SoundEngineManagerImpl implements SoundEngineManager {
 
   @override
   Future<void> startRecorder({required String uri}) async {
+    await _flutterSoundRecorder.closeAudioSession();
     await _flutterSoundRecorder.openAudioSession(
         focus: AudioFocus.requestFocusAndDuckOthers,
         category: SessionCategory.playAndRecord,
@@ -53,17 +54,17 @@ class SoundEngineManagerImpl implements SoundEngineManager {
   }
 
   @override
-  Future<String> startPlayer({required String uri}) async {
+  Future startPlayer({required String uri}) async {
+    print("🚀🚀🚀🚀 Start player URI $uri");
     await _flutterSoundPlayer.openAudioSession(
         focus: AudioFocus.requestFocusAndDuckOthers,
         category: SessionCategory.playAndRecord,
         mode: SessionMode.modeDefault,
         device: AudioDevice.speaker,
         audioFlags: outputToSpeaker | allowBlueToothA2DP | allowAirPlay,
-        withUI: true);
-    _flutterSoundPlayer.setSubscriptionDuration(Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
-    Duration? duration = await _flutterSoundPlayer.startPlayer(fromURI: uri);
-    return duration.toString();
+        withUI: false);
+    await _flutterSoundPlayer.setSubscriptionDuration(Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
+    return await _flutterSoundPlayer.startPlayer(fromURI: uri);
   }
 
   @override

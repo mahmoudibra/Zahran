@@ -38,8 +38,8 @@ class _AnimatedItemState extends State<AnimatedItem>
     _controller?.dispose();
 
     _controller = AnimationController(
-      vsync: this,
       duration: _duration,
+      vsync: this,
     );
     _animation = Tween(begin: 0.0, end: 1.0)
         .animate(CurvedAnimation(parent: _controller!, curve: widget.curve));

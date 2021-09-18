@@ -33,7 +33,7 @@ class VisitStatusChip extends StatelessWidget {
   Color textColor(BuildContext context) {
     var state = visitStatus;
     if (state == VisitStatus.PENDING) {
-      return Theme.of(context).accentColor;
+      return Theme.of(context).colorScheme.secondary;
     } else if (state == VisitStatus.COMPLETED) {
       return Colors.greenAccent;
     } else if (visitStatus == VisitStatus.INCOMPLETE) {
@@ -47,7 +47,7 @@ class VisitStatusChip extends StatelessWidget {
   Color backgroundColor(BuildContext context) {
     var state = visitStatus;
     if (state == VisitStatus.PENDING) {
-      return Theme.of(context).accentColor.withOpacity(0.1);
+      return Theme.of(context).colorScheme.secondary.withOpacity(0.1);
     } else if (state == VisitStatus.COMPLETED) {
       return Colors.greenAccent.withOpacity(0.3);
     } else if (visitStatus == VisitStatus.INCOMPLETE) {

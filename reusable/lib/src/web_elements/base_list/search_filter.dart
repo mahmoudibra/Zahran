@@ -62,7 +62,6 @@ class _SearchFilterState extends State<SearchFilter>
     final effectiveDecoration =
         widget.decoration.applyDefaults(Theme.of(context).inputDecorationTheme);
     return AnimatedSize(
-      vsync: this,
       alignment: AlignmentDirectional.centerStart,
       duration: Duration(milliseconds: 300),
       child: ConstrainedBox(

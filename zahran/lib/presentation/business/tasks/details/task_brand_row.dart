@@ -6,7 +6,8 @@ import 'package:zahran/presentation/commom/toolbox.helper.dart';
 import '../../../../r.dart';
 import 'task_product_row.dart';
 
-typedef BrandRowCaptureImageCallback = void Function({@required int productIndex});
+typedef BrandRowCaptureImageCallback = void Function(
+    {@required int productIndex});
 
 class TaskBrandRow extends StatefulWidget {
   final BrandModel subBrands;
@@ -18,13 +19,13 @@ class TaskBrandRow extends StatefulWidget {
   _TaskBrandRowState createState() => _TaskBrandRowState();
 }
 
-class _TaskBrandRowState extends State<TaskBrandRow> with TickerProviderStateMixin {
+class _TaskBrandRowState extends State<TaskBrandRow>
+    with TickerProviderStateMixin {
   bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
-      vsync: this,
       curve: Curves.fastLinearToSlowEaseIn,
       duration: Duration(milliseconds: 800),
       child: GestureDetector(
@@ -56,13 +57,18 @@ class _TaskBrandRowState extends State<TaskBrandRow> with TickerProviderStateMix
                       ViewsToolbox.emptySpaceWidget(width: 10),
                       Text(
                         widget.subBrands.name.format(context),
-                        style: Theme.of(context).textTheme.subtitle2?.copyWith(fontWeight: FontWeight.bold),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                       Expanded(
                         child: Container(),
                       ),
                       Image.asset(
-                        isExpanded ? R.assetsImagesArrowUp : R.assetsImagesArrowDown,
+                        isExpanded
+                            ? R.assetsImagesArrowUp
+                            : R.assetsImagesArrowDown,
                       )
                     ],
                   ),
@@ -83,7 +89,8 @@ class _TaskBrandRowState extends State<TaskBrandRow> with TickerProviderStateMix
           url: widget.subBrands.mediaPath,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(color: Theme.of(context).colorScheme.primary, width: 1),
+            border: Border.all(
+                color: Theme.of(context).colorScheme.primary, width: 1),
           )),
     );
   }

@@ -28,7 +28,10 @@ class _AdminDashboardState extends State<AdminDashboard>
   @override
   void initState() {
     expansionController = AnimationController(
-        vsync: this, duration: Duration(milliseconds: 350), value: 1.0);
+      duration: Duration(milliseconds: 350),
+      value: 1.0,
+      vsync: this,
+    );
     super.initState();
   }
 

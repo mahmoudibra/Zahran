@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
 import 'package:zahran/presentation/external/sound_engine/sound_engine.manager.dart';
@@ -36,7 +37,7 @@ class VoiceNotePM {
           audioFile: file,
           audioUrl: audioUrl,
           permissionState: PermissionState.Granted));
-      file != null ? startPlayer(file: file) : startPlayerFromURL(audioUrl: audioUrl);
+      file != null ? startPlayerFromFile(file: file) : startPlayerFromURL(audioUrl: audioUrl);
     }
   }
 
@@ -48,19 +49,27 @@ class VoiceNotePM {
         origin: _voiceNoteState.value, isRecording: false, message: VoiceNoteModelMessage.Recorded, audioLevel: 0.0));
   }
 
-  void startPlayer({required File? file}) {
+  void startPlayerFromFile({required File? file}) {
+    assert(_voiceNoteState.value.audioFile != null);
+
+    print("🚀🚀🚀🚀 start player from file $file");
+    print("🚀🚀🚀🚀 start player from file ${_voiceNoteState.value.audioFile!.path}");
     assert(file != null);
 
-    _soundEngineManager.startPlayer(uri: _voiceNoteState.value.audioFile!.path).then(_onPlayerStarted);
+    _soundEngineManager.startPlayer(uri: _voiceNoteState.value.audioFile!.path).then((_) => _onPlayerStarted());
 
     _voiceNoteState.add(VoiceNotePMModel.copyWith(
-        origin: _voiceNoteState.value, isPlaying: true, message: VoiceNoteModelMessage.Playing, audioFile: file));
+        origin: _voiceNoteState.value,
+        isPlaying: true,
+        message: VoiceNoteModelMessage.Playing,
+        audioFile: _voiceNoteState.value.audioFile));
   }
 
   void startPlayerFromURL({required String? audioUrl}) {
+    print("🚀🚀🚀🚀 start player from URL $audioUrl");
     assert(audioUrl != null);
 
-    _soundEngineManager.startPlayer(uri: _voiceNoteState.value.audioUrl ?? "").then(_onPlayerStarted);
+    _soundEngineManager.startPlayer(uri: _voiceNoteState.value.audioUrl!).then((_) => _onPlayerStarted());
 
     _voiceNoteState.add(VoiceNotePMModel.copyWith(
         origin: _voiceNoteState.value, isPlaying: true, message: VoiceNoteModelMessage.Playing, audioUrl: audioUrl));
@@ -112,12 +121,12 @@ class VoiceNotePM {
   }
 
   void _onRecorderDbPeakChanged(double level) {
-    if (level == null) return;
     _voiceNoteState.add(VoiceNotePMModel.copyWith(
         origin: _voiceNoteState.value, audioLevel: _normalize(value: level, minValue: 0, limitDelta: 160)));
   }
 
-  void _onPlayerStarted(String _) {
+  void _onPlayerStarted() {
+    print("🚀🚀🚀🚀 On Player started");
     _soundEngineManager.onPlayerStateChanged.forEach(_onPlayerStateChanged);
   }
 
@@ -143,10 +152,10 @@ class VoiceNotePM {
   }
 
   Future _createTempFile() async {
-    Directory tempDir = await Directory.systemTemp.createTemp();
+    var tempDir = await getTemporaryDirectory();
     _voiceNoteState.add(VoiceNotePMModel.copyWith(
         origin: _voiceNoteState.value,
-        audioFile: File('${tempDir?.path}/${DateTime.now().millisecondsSinceEpoch}order-voice-memo.aac')));
+        audioFile: File('${tempDir.path}/${DateTime.now().millisecondsSinceEpoch}.aac')));
   }
 
   Future _removeTempFile() {
@@ -169,8 +178,6 @@ class VoiceNotePM {
   }
 
   void _updateTextTime(PlaybackEvent event) {
-    if (event?.progress == null) return;
-
     _voiceNoteState.add(VoiceNotePMModel.copyWith(
         origin: _voiceNoteState.value,
         durationText: _stringifyMillisecondsDuration(event.progress.inMilliseconds),
@@ -210,7 +217,7 @@ class VoiceNotePMModel {
         isPlaying: false,
         audioLevel: 0.0,
         durationText: '00:00',
-        permissionState: PermissionState.Resolving);
+        permissionState: PermissionState.Granted);
   }
 
   factory VoiceNotePMModel.copyWith(

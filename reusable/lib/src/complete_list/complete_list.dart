@@ -255,7 +255,10 @@ class _CompleteListState<TItem, TController extends BaseListController<TItem>>
 
   @override
   void initState() {
-    _rereshController = AnimationController(vsync: this, upperBound: 4);
+    _rereshController = AnimationController(
+      upperBound: 4,
+      vsync: this,
+    );
     super.initState();
   }
 

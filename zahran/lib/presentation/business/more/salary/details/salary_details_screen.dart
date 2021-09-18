@@ -69,7 +69,7 @@ class SalaryDetailsScreen extends StatelessWidget {
                   context: context,
                   name: TR.of(context).net_salary,
                   amount: vm.model.netSalary,
-                  backgroundColor: context.theme.accentColor,
+                  backgroundColor: context.theme.colorScheme.secondary,
                   textColor: context.theme.colorScheme.onSecondary,
                 )
               ],
@@ -95,7 +95,8 @@ class SalaryDetailsScreen extends StatelessWidget {
             style: context.bodyText2?.copyWith(color: textColor),
           ),
           trailing: DefaultTextStyle.merge(
-            style: TextStyle(color: textColor ?? context.theme.accentColor),
+            style: TextStyle(
+                color: textColor ?? context.theme.colorScheme.secondary),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [

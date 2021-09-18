@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
+import 'package:zahran/presentation/commom/voices/voice_note.pm.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
 import 'package:zahran/r.dart';
@@ -38,7 +41,6 @@ class _CommentFormFieldState extends State<CommentFormField>
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
-          vsync: this,
           duration: Duration(milliseconds: 300),
           alignment: Alignment.topCenter,
           child: Column(
@@ -82,7 +84,7 @@ class _CommentFormFieldState extends State<CommentFormField>
         ),
         SizedBox(width: 10),
         IconButton(
-          onPressed: () {},
+          onPressed: () => recordVoiceNote(field),
           padding: EdgeInsets.zero,
           icon: Image.asset(R.assetsImgsMic),
         ),
@@ -106,11 +108,59 @@ class _CommentFormFieldState extends State<CommentFormField>
     );
   }
 
+  Future<void> recordVoiceNote(FormFieldState<CommentModel> field) async {
+    ScreenRouter.showBottomSheet(
+        type: BottomSheetNames.VOICE_NOTE,
+        parameters:
+            _prepareVoiceNoteParameter(voiceNoteIntent: VoiceNoteIntent.Record),
+        actionsCallbacks: _prepareVoiceNoteActions(field));
+  }
+
+  Map<String, dynamic>? _prepareVoiceNoteParameter(
+      {required VoiceNoteIntent voiceNoteIntent,
+      File? voiceNoteFile,
+      String? voiceNoteUrl}) {
+    Map<String, dynamic>? parameters = Map();
+    parameters["voiceNoteIntent"] = voiceNoteIntent;
+    parameters["voiceNoteFile"] = voiceNoteFile;
+    parameters["voiceNoteUrl"] = voiceNoteUrl;
+    return parameters;
+  }
+
+  Map<String, Function> _prepareVoiceNoteActions(
+      FormFieldState<CommentModel> field) {
+    Map<String, Function> actionsCallbacks = Map();
+    actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
+      ScreenRouter.pop();
+      print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
+      var mediaModel =
+          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      try {
+        var result = await FlareAnimation.show(
+          action: Repos.mediaRepo.uploadMedia(
+              uploadedFile: mediaModel.mediaFile,
+              mediaFileTypes: mediaModel.mediaFileTypes),
+          context: context,
+        );
+        field.didChange(
+            field.value?.copyWith(media: (old) => [...old, result!]) ??
+                CommentModel(media: [result!]));
+        widget.onChanged(field.value);
+      } catch (e) {}
+    };
+    actionsCallbacks['onCloseNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Close Note Callback")};
+    actionsCallbacks['onRemoveNoteCallback'] =
+        () => {ScreenRouter.pop(), print("🚀🚀🚀🚀 On Remove Note Callback")};
+
+    return actionsCallbacks;
+  }
+
   Future<void> selectImage(FormFieldState<CommentModel> field) async {
     ScreenRouter.showPopup(
         type: PopupsNames.MEDIA_PICKER_POPUP,
         parameters: {
-          "pickerType": MediaPickerType.CAMERA_WITH_GALLERY,
+          "pickerType": MediaPickerType.BOTH,
         },
         actionsCallbacks: _prepareMediaAction(field));
   }

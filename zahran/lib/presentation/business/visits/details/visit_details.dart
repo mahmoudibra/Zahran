@@ -153,7 +153,7 @@ class _VisitDetailsState extends State<VisitDetails> {
         ),
         icon: Icon(
           Icons.arrow_back_ios,
-          color: context.theme.accentColor,
+          color: context.theme.colorScheme.secondary,
           size: 20,
         ),
         onPressed: callback,

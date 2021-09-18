@@ -134,18 +134,18 @@ class ScreenRouter {
             intent: parameters!["voiceNoteIntent"] as VoiceNoteIntent,
             onAcceptNote: ({File? file}) {
               print("On Accept Note with file $file 🚀 🚀 🚀 🚀");
-              actionsCallbacks!['onAcceptNoteCallback']!();
+              actionsCallbacks!['onAcceptNoteCallback']!(file);
             },
             onRemoveNote: () {
               print("On Remove Note 🚀 🚀 🚀 🚀");
-              actionsCallbacks!['onCloseNoteCallback']!();
+              actionsCallbacks!['onRemoveNoteCallback']!();
             },
             onClose: () {
               print("On Close Note 🚀 🚀 🚀 🚀");
-              actionsCallbacks!['onRemoveNoteCallback']!();
+              actionsCallbacks!['onCloseNoteCallback']!();
             },
-            file: parameters!["voiceNoteFile"] as File,
-            audioUrl: parameters!["voiceNoteUrl"] as String);
+            file: parameters["voiceNoteFile"] != null ? parameters["voiceNoteFile"] as File : null,
+            audioUrl: parameters["voiceNoteUrl"] != null ? parameters["voiceNoteUrl"] as String : null);
         break;
     }
 

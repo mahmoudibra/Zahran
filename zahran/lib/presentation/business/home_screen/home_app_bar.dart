@@ -20,8 +20,10 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
   late TabController _controller;
   @override
   void initState() {
-    controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 400));
+    controller = AnimationController(
+      duration: Duration(milliseconds: 400),
+      vsync: this,
+    );
     _expandedHeight = Tween(
       begin: expandedHeight(0),
       end: expandedHeight(1),
@@ -70,7 +72,6 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           backgroundColor: Colors.transparent,
           elevation: 0,
           pinned: true,
-          brightness: Brightness.dark,
           expandedHeight: _expandedHeight.value,
           forceElevated: widget.innerBoxIsScrolled,
           flexibleSpace: Builder(
