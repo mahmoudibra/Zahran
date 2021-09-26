@@ -11,6 +11,11 @@ class Media {
 
   Media({required this.id, required this.mediaPath, required this.type});
 
+  factory Media.empty() => Media(
+        id: 0,
+        mediaPath: "",
+        type: MediaFileTypes.IMAGE.value,
+      );
   @override
   String toString() {
     return '''Document( 

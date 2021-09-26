@@ -19,16 +19,19 @@ import 'package:zahran/presentation/business/more/salary/details/salary_details_
 import 'package:zahran/presentation/business/more/salary/salaries_screen.dart';
 import 'package:zahran/presentation/business/more/setting/seeting_screen.dart';
 import 'package:zahran/presentation/business/profile_tab/logout.popup.dart';
+import 'package:zahran/presentation/business/reports/branch_report_list/branch_report_list.dart';
+import 'package:zahran/presentation/business/reports/manage_report/comment/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/competition_sell_out/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/competition_stock_count/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/problem/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/return/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/sell_out/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/stock_count/screen.dart';
+import 'package:zahran/presentation/business/reports/manage_report/supply_report/screen.dart';
+import 'package:zahran/presentation/business/reports/report_details/report_details.dart';
+import 'package:zahran/presentation/business/reports/report_list/report_list_screen.dart';
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/tasks/details/task_details_screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/comment/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/competition_sell_out/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/competition_stock_count/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/problem/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/return/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/sell_out/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/stock_count/screen.dart';
-import 'package:zahran/presentation/business/visits/details/reports/supply_report/screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
 import 'package:zahran/presentation/commom/image_preview/image_preview_screen.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
@@ -70,6 +73,9 @@ enum ScreenNames {
   STOCK_COUNT_REPORT,
   RETURN_REPORT,
   SUPPLY_REPORT,
+  REPORTS_SCREEN,
+  BRANCH_REPORTS_SCREEN,
+  REPORT_DETAILS,
 }
 
 enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
@@ -115,6 +121,9 @@ class ScreenRouter {
         "${ScreenNames.STOCK_COUNT_REPORT}": (_) => StockCountReportScreen(),
         "${ScreenNames.SUPPLY_REPORT}": (_) => SupplyReportScreen(),
         "${ScreenNames.RETURN_REPORT}": (_) => ReturnReportScreen(),
+        "${ScreenNames.REPORTS_SCREEN}": (_) => ReportListScreen(),
+        "${ScreenNames.BRANCH_REPORTS_SCREEN}": (_) => BranchReportListScreen(),
+        "${ScreenNames.REPORT_DETAILS}": (_) => ReportDetailsScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

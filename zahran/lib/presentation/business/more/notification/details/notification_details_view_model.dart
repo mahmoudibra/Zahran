@@ -6,7 +6,8 @@ import 'package:zahran/presentation/business/base/base_details_view_model.dart';
 import 'package:zahran/presentation/commom/flare_component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
-class NotificationDetailsViewModel extends BaseDetailsViewModel<NotificationModel> {
+class NotificationDetailsViewModel
+    extends BaseDetailsViewModel<NotificationModel> {
   final BuildContext context;
   NotificationModel notification = NotificationModel.empty();
 
@@ -14,7 +15,8 @@ class NotificationDetailsViewModel extends BaseDetailsViewModel<NotificationMode
 
   Future _fetchPromotionDetails() async {
     try {
-      notification = (await Repos.notificationRepo.fetchNotificationDetails(model.id))!;
+      notification =
+          (await Repos.notificationRepo.fetchNotificationDetails(model.id))!;
       update();
     } catch (error) {
       if (!(error is ApiFetchException)) {
@@ -27,5 +29,11 @@ class NotificationDetailsViewModel extends BaseDetailsViewModel<NotificationMode
   void onReady() {
     FlareAnimation.show(action: _fetchPromotionDetails(), context: context);
     super.onReady();
+  }
+
+  @override
+  Future<NotificationModel> fetchDetails() async {
+    //TODO load details
+    return notification;
   }
 }

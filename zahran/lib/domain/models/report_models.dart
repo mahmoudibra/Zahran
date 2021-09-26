@@ -15,7 +15,7 @@ enum ReportTypes {
   @HiveField(5)
   Stock_Count,
   @HiveField(6)
-  Return,
+  Return_Report,
   @HiveField(7)
   Supply_Order
 }
@@ -32,6 +32,7 @@ enum Severity {
 
 @HiveType(typeId: 41)
 class ReportModel extends HiveObject {
+  int? id;
   @HiveField(0)
   final ReportTypes type;
   @HiveField(1)
@@ -42,7 +43,10 @@ class ReportModel extends HiveObject {
   ProblemDetailsModel? problem;
   @HiveField(4)
   String? competitionName;
+  DateTime? date;
   ReportModel({
+    this.id,
+    this.date,
     required this.type,
     List<ReportItem>? items,
     this.comment,
@@ -52,9 +56,45 @@ class ReportModel extends HiveObject {
 
   Map<String, dynamic> toJson() {
     return {
+      if (id != null && id! > 0) "id": id,
       "comment": comment?.comment,
       "media_ids": comment?.media.map((e) => e.id).toList(),
-      "reports": items.map((e) => e.toJson()).toList()
+      "reports": items.map((e) => e.toJson()).toList(),
+      "competition_name": competitionName,
     }..removeWhere((key, value) => value == null);
   }
+
+  ReportModel copyWith({
+    int? id,
+    ReportTypes? type,
+    List<ReportItem>? items,
+    CommentModel? comment,
+    ProblemDetailsModel? problem,
+    String? competitionName,
+    DateTime? date,
+  }) {
+    return ReportModel(
+      id: id ?? this.id,
+      type: type ?? this.type,
+      items: items ?? this.items,
+      comment: comment ?? this.comment,
+      problem: problem ?? this.problem,
+      competitionName: competitionName ?? this.competitionName,
+      date: date ?? this.date,
+    );
+  }
+}
+
+class BranchReport {
+  final BranchModel branch;
+  final DateTime date;
+  final int id;
+  final int reportCount;
+
+  BranchReport({
+    required this.branch,
+    required this.date,
+    required this.id,
+    required this.reportCount,
+  });
 }

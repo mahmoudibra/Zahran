@@ -51,7 +51,9 @@ class ProfileTab extends StatelessWidget {
           context: context,
           label: TR.of(context).report,
           icon: R.assetsImgsReport,
-          onTap: () {},
+          onTap: () {
+            ScreenNames.REPORTS_SCREEN.push();
+          },
         ),
         _buildItem(
           context: context,

@@ -29,4 +29,10 @@ class PromotionDetailsViewModel extends BaseDetailsViewModel<Promotion> {
     FlareAnimation.show(action: _fetchPromotionDetails(), context: context);
     super.onReady();
   }
+
+  @override
+  Future<Promotion> fetchDetails() async {
+    // TODO: implement fetchDetails
+    return promotion;
+  }
 }

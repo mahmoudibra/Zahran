@@ -229,6 +229,9 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/imgs/delete_action.png)
   static final String assetsImgsDeleteAction = 'assets/imgs/delete_action.png';
 
+  /// ![](http://127.0.0.1:9527/assets/imgs/edit.png)
+  static final String assetsImgsEdit = 'assets/imgs/edit.png';
+
   /// ![](http://127.0.0.1:9527/assets/imgs/edit_action.png)
   static final String assetsImgsEditAction = 'assets/imgs/edit_action.png';
 

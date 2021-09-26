@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/profile_tab/profile_tab_app_bar.dart';
 import 'package:zahran/presentation/business/visits/visits_app_bar.dart';
@@ -72,6 +73,7 @@ class _HomeAppBarState extends State<HomeAppBar> with TickerProviderStateMixin {
           backgroundColor: Colors.transparent,
           elevation: 0,
           pinned: true,
+          systemOverlayStyle: SystemUiOverlayStyle.light,
           expandedHeight: _expandedHeight.value,
           forceElevated: widget.innerBoxIsScrolled,
           flexibleSpace: Builder(
