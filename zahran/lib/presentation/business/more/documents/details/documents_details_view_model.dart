@@ -7,7 +7,7 @@ class DocumentsDetailsViewModel extends BaseDetailsViewModel<Document> {
 
   @override
   Future<Document> fetchDetails() async {
-    //TODO load document
+    /// TODO load document
     return model;
   }
 }
