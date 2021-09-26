@@ -5,7 +5,6 @@ class ReportShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var w = MediaQuery.of(context).size.width;
     return Card(
       child: ListTile(),
     );
