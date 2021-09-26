@@ -11,7 +11,7 @@ import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
 
 import 'app_bar.dart';
-import 'reports/reports_sheet.dart';
+import 'reports_sheet.dart';
 
 class VisitDetails extends StatefulWidget {
   const VisitDetails({Key? key}) : super(key: key);

@@ -14,6 +14,13 @@ class BranchModel {
   final VisitStatus visitStatus;
   final List<BrandModel> brands;
   final List<TaskModel> tasks;
+  final bool comment;
+  final bool competitionSellOut;
+  final bool competitionStockCount;
+  final bool sellOut;
+  final bool stockCount;
+  final bool returnReport;
+  final bool supplyOrder;
 
   BranchModel({
     required this.id,
@@ -29,6 +36,13 @@ class BranchModel {
     required this.visitStatus,
     required this.tasks,
     required this.incompletedTasks,
+    required this.comment,
+    required this.competitionSellOut,
+    required this.competitionStockCount,
+    required this.sellOut,
+    required this.stockCount,
+    required this.returnReport,
+    required this.supplyOrder,
   });
   BranchModel copyWith({
     LocationModel? location,
@@ -43,6 +57,13 @@ class BranchModel {
     VisitStatus? visitStatus,
     List<BrandModel>? brands,
     List<TaskModel>? tasks,
+    bool? comment,
+    bool? competitionSellOut,
+    bool? competitionStockCount,
+    bool? sellOut,
+    bool? stockCount,
+    bool? returnReport,
+    bool? supplyOrder,
   }) {
     return BranchModel(
       id: id,
@@ -58,6 +79,14 @@ class BranchModel {
       completedTasks: completedTasks ?? this.completedTasks,
       visitStatus: visitStatus ?? this.visitStatus,
       tasks: tasks ?? this.tasks,
+      comment: comment ?? this.comment,
+      competitionSellOut: competitionSellOut ?? this.competitionSellOut,
+      competitionStockCount:
+          competitionStockCount ?? this.competitionStockCount,
+      sellOut: sellOut ?? this.sellOut,
+      returnReport: returnReport ?? this.returnReport,
+      supplyOrder: supplyOrder ?? this.supplyOrder,
+      stockCount: stockCount ?? this.stockCount,
     );
   }
 }

@@ -235,7 +235,7 @@ class ReportTypesAdapter extends TypeAdapter<ReportTypes> {
       case 5:
         return ReportTypes.Stock_Count;
       case 6:
-        return ReportTypes.Return;
+        return ReportTypes.Return_Report;
       case 7:
         return ReportTypes.Supply_Order;
       default:
@@ -264,7 +264,7 @@ class ReportTypesAdapter extends TypeAdapter<ReportTypes> {
       case ReportTypes.Stock_Count:
         writer.writeByte(5);
         break;
-      case ReportTypes.Return:
+      case ReportTypes.Return_Report:
         writer.writeByte(6);
         break;
       case ReportTypes.Supply_Order:

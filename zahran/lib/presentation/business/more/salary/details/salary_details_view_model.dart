@@ -5,4 +5,10 @@ import 'package:zahran/presentation/business/base/base_details_view_model.dart';
 
 class SalaryDetailsViewModel extends BaseDetailsViewModel<SalaryModel> {
   SalaryDetailsViewModel(BuildContext context) : super(context);
+
+  @override
+  Future<SalaryModel> fetchDetails() async {
+    //TODO
+    return model;
+  }
 }

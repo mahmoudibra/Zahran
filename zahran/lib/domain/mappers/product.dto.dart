@@ -14,6 +14,12 @@ class ProductDto extends DtoToDomainMapper<Product> {
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
     media = json['media'];
   }
+  ProductDto.fromReportJson(Map<String, dynamic> json) {
+    id = json['id'];
+    moduleNum = int.tryParse(json['module_num']?.toString() ?? "");
+    serialNum = int.tryParse(json['serial_num']?.toString() ?? "");
+    name = LocalizedNameDto.fromJson(json["name"] ?? {});
+  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

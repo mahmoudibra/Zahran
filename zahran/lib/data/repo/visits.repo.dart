@@ -45,4 +45,14 @@ class VisitsRepo extends BaseRepositryImpl {
       mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
     );
   }
+
+  Future<BranchModel> details(int id) async {
+    return await this
+        .get(
+          path: '/v1/mobile/branches/visit-details',
+          queryParams: {"branch_id": id},
+          mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
+        )
+        .then((value) => value.data!);
+  }
 }

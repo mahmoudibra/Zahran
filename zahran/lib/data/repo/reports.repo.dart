@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/mappers/domain_mapper.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -31,4 +33,51 @@ class ReportsRepo extends BaseRepositryImpl {
       _report('return-report', model);
   Future<ReportModel> supplyOrder(ReportModel model) =>
       _report('supply-order', model);
+
+  ///TODO proplem
+  Future<ReportModel> problem(ReportModel model) => _report('problem', model);
+
+  //List
+  Future<ApiListResponse<BranchReport>> reports(int skip, String type,
+      [Position? position]) async {
+    return await this.paging(
+      path: '/v1/mobile/reports',
+      queryParams: {
+        "date_filter": type,
+        "lat": position?.latitude,
+        "lang": position?.longitude,
+      },
+      mapItem: (json) => BranchReportDto.fromJson(json).dtoToDomainModel(),
+      skip: skip,
+    );
+  }
+
+  Future<ApiListResponse<ReportModel>> visitReports(int skip, int id,
+      [Position? position]) async {
+    return await this.paging(
+      path: '/v1/mobile/visit-reports/$id',
+      resolveResponse: (response) {
+        var resolved = resolveResponse(response);
+        return {
+          ...resolved,
+          "data": resolved["data"]["reports"],
+        };
+      },
+      queryParams: {
+        "lat": position?.latitude,
+        "lang": position?.longitude,
+      },
+      mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
+      skip: skip,
+    );
+  }
+
+  Future<ReportModel> reportDetails(int id) {
+    return this
+        .get(
+          path: '/v1/mobile/show_report/$id',
+          mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
+        )
+        .then((value) => value.data!);
+  }
 }

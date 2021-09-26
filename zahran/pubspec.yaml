@@ -94,7 +94,7 @@ flutter:
   assets:
     # assets-generator-begin
     # assets/images/*
-#    - assets/images/.DS_Store
+    - assets/images/.DS_Store
     - assets/images/app_logo.png
     - assets/images/arrow_down.png
     - assets/images/arrow_left.png
@@ -152,7 +152,7 @@ flutter:
     - assets/images/ticket_icon.png
     - assets/images/visits_icon.png
     # assets/imgs/*
-#    - assets/imgs/.DS_Store
+    - assets/imgs/.DS_Store
     - assets/imgs/artwork.png
     - assets/imgs/bell.png
     - assets/imgs/branchs.png
@@ -163,6 +163,7 @@ flutter:
     - assets/imgs/comment.png
     - assets/imgs/competetion.png
     - assets/imgs/delete_action.png
+    - assets/imgs/edit.png
     - assets/imgs/edit_action.png
     - assets/imgs/empty_products.png
     - assets/imgs/gallery_access.png
