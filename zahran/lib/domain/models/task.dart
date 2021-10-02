@@ -11,7 +11,19 @@ class TaskModel {
   final List<BrandModel> brands;
   final List<Question> questions;
   final List<Media> media;
-
+  factory TaskModel.empty(BuildContext context, int i) {
+    return TaskModel(
+      status: i.isEven,
+      media: [],
+      isCompleted: i.isEven,
+      title: LocalizedName.name(TR.of(context).title),
+      description: LocalizedName.name(TR.of(context).task_description),
+      instructions: LocalizedName.name(TR.of(context).instructions),
+      brands: [],
+      id: 0,
+      questions: [],
+    );
+  }
   TaskModel({
     required this.status,
     required this.media,

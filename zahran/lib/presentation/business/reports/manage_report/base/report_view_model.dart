@@ -22,7 +22,7 @@ class ReportViewModel extends GetxController {
     } else {
       _branch = Get.find<VisitDetailsViewModel>().model;
       manager = CreateReportViewModelManager(
-          "Reports_box_${_branch.id}", update, type, context);
+          "Reports_${_branch.id}", update, type, context);
     }
   }
 

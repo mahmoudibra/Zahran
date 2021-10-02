@@ -42,8 +42,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).comment,
                     icon: R.assetsImgsComment,
                     disabled: vm.model.comment,
-                    onTap: () {
-                      ScreenNames.COMMENT_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.COMMENT_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -51,8 +51,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).problem,
                     icon: R.assetsImgsProblem,
                     disabled: false,
-                    onTap: () {
-                      ScreenNames.PROBLEM_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.PROBLEM_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -60,8 +60,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).competition_sell_out,
                     icon: R.assetsImgsCompetetion,
                     disabled: vm.model.competitionSellOut,
-                    onTap: () {
-                      ScreenNames.COMPITION_SELL_OUT_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.COMPITION_SELL_OUT_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -69,8 +69,9 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).competition_stock_count,
                     icon: R.assetsImgsCompetetion,
                     disabled: vm.model.competitionStockCount,
-                    onTap: () {
-                      ScreenNames.COMPITION_STOCK_COUNT_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.COMPITION_STOCK_COUNT_REPORT
+                          .push();
                     },
                   ),
                   _buildItem(
@@ -78,8 +79,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).sell_out,
                     icon: R.assetsImgsSellOut,
                     disabled: vm.model.sellOut,
-                    onTap: () {
-                      ScreenNames.SELL_OUT_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.SELL_OUT_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -87,8 +88,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).stock_count,
                     icon: R.assetsImgsStockCount,
                     disabled: vm.model.stockCount,
-                    onTap: () {
-                      ScreenNames.STOCK_COUNT_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.STOCK_COUNT_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -96,8 +97,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).return_report,
                     icon: R.assetsImgsReturn,
                     disabled: vm.model.returnReport,
-                    onTap: () {
-                      ScreenNames.RETURN_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.RETURN_REPORT.push();
                     },
                   ),
                   _buildItem(
@@ -105,8 +106,8 @@ class VisitReportsSheet extends StatelessWidget {
                     label: TR.of(context).supply,
                     icon: R.assetsImgsSupplyOrder,
                     disabled: vm.model.supplyOrder,
-                    onTap: () {
-                      ScreenNames.SUPPLY_REPORT.push();
+                    onTap: () async {
+                      return await ScreenNames.SUPPLY_REPORT.push();
                     },
                   ),
                 ],
@@ -122,12 +123,17 @@ class VisitReportsSheet extends StatelessWidget {
     required BuildContext context,
     required String label,
     required String icon,
-    required VoidCallback onTap,
+    required Future Function() onTap,
     required bool disabled,
   }) {
     return ListTile(
       enabled: !disabled,
-      onTap: onTap,
+      onTap: () async {
+        var result = await onTap();
+        if (result == true) {
+          ScreenRouter.pop();
+        }
+      },
       contentPadding: EdgeInsets.zero,
       leading: AssetIcon(
         icon,

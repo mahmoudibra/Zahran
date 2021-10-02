@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/business/reports/manage_report/base/report_item_view.dart';
 import 'package:zahran/presentation/commom/media_view/media_view.dart';
 import 'package:zahran/presentation/commom/shimmers.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 
-import 'app_bar.dart';
-import 'report_details_view_model.dart';
-import 'report_item_view.dart';
+import 'sevirity_chip.dart';
+import 'ticket_details_view_model.dart';
 
-class ReportDetailsScreen extends StatefulWidget {
-  const ReportDetailsScreen({Key? key}) : super(key: key);
+class TicketDetailsScreen extends StatefulWidget {
+  const TicketDetailsScreen({Key? key}) : super(key: key);
 
   @override
-  _ReportDetailsScreenState createState() => _ReportDetailsScreenState();
+  _TicketDetailsScreenState createState() => _TicketDetailsScreenState();
 }
 
-class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
+class _TicketDetailsScreenState extends State<TicketDetailsScreen> {
   bool firstBuild = true;
   @override
   Widget build(BuildContext context) {
@@ -26,9 +26,9 @@ class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
           firstBuild = false;
         });
       });
-    return GetBuilder<ReportDetailsViewModel>(
-      init: ReportDetailsViewModel(context),
-      builder: (ReportDetailsViewModel vm) {
+    return GetBuilder<TicketDetailsViewModel>(
+      init: TicketDetailsViewModel(context),
+      builder: (TicketDetailsViewModel vm) {
         ReportModel model = vm.model;
         var showMedia = model.type != ReportTypes.Return_Report;
         return Scaffold(
@@ -37,8 +37,16 @@ class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
             child: CustomScrollView(
               shrinkWrap: true,
               slivers: [
-                DetailsAppBar(),
-                _buildDate(model, context),
+                SliverAppBar(elevation: 0),
+                _buildTitle(vm, model, context),
+                SliverShimmerText(
+                  loading: vm.loading,
+                  showPlaceholder: false,
+                  child: Text(
+                    model.problem?.problemType?.name.format(context) ?? "",
+                    style: context.caption,
+                  ),
+                ),
                 SliverSpacer(10),
                 SliverShimmerText(
                   loading: vm.loading,
@@ -85,6 +93,15 @@ class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
                       showAsExpansion: model.type == ReportTypes.Return_Report,
                     ),
                   ),
+                SliverSpacer(30),
+                SliverShimmerView(
+                  loading: vm.loading,
+                  child: ProgressButton(
+                    onPressed: (!vm.loading && !model.problem!.resolved)
+                        .onTrue(vm.resolve),
+                    child: Text(TR.of(context).resolve),
+                  ),
+                ),
                 SliverSpacer.safeArea(100),
               ],
             ),
@@ -94,25 +111,51 @@ class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
     );
   }
 
-  SliverPaddingBox _buildDate(ReportModel model, BuildContext context) {
-    return SliverPaddingBox(
+  SliverShimmerView _buildTitle(
+      TicketDetailsViewModel vm, ReportModel model, BuildContext context) {
+    return SliverShimmerView(
+      loading: vm.loading,
       child: Row(
         children: [
-          Text(
-            model.date?.format(context, DateFormat.yMMMd().pattern!) ?? "",
-            style: context.caption,
-          ),
-          SizedBox(width: 10),
           Expanded(
-            child: Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: Text(
-                model.competitionName ?? "",
-              ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: AutoSizeText(
+                    model.problem?.problemTitle ?? "",
+                    maxLines: 1,
+                    style: context.headline2,
+                  ),
+                ),
+                SizedBox(width: 10),
+                SevirityChip(severity: model.problem!.severity!),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+
+  // SliverPaddingBox _buildDate(ReportModel model, BuildContext context) {
+  //   return SliverPaddingBox(
+  //     child: Row(
+  //       children: [
+  //         Text(
+  //           model.date?.format(context, DateFormat.yMMMd().pattern!) ?? "",
+  //           style: context.caption,
+  //         ),
+  //         SizedBox(width: 10),
+  //         Expanded(
+  //           child: Align(
+  //             alignment: AlignmentDirectional.centerEnd,
+  //             child: Text(
+  //               model.competitionName ?? "",
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

@@ -257,6 +257,16 @@
     "voice_note_accept_button": "Accept Voice Note",
     "voice_note_status_recording": "Recording voice note...",
     "today": "Today",
-    "tomorrow":"Tomorrow",
-    "this_weak":"This weak"
+    "tomorrow": "Tomorrow",
+    "this_weak": "This weak",
+    "instructions": "instructions",
+    "title": "title",
+    "tickets": "Tickets",
+    "tickets_count": "Tickets ({count})",
+    "@tickets_count": {
+        "placeholders": {
+            "count": {}
+        }
+    },
+    "resolve":"Resolve"
 }

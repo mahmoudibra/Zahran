@@ -55,13 +55,27 @@ class ReportModel extends HiveObject {
   }) : items = items ?? List.empty(growable: true);
 
   Map<String, dynamic> toJson() {
-    return {
-      if (id != null && id! > 0) "id": id,
-      "comment": comment?.comment,
-      "media_ids": comment?.media.map((e) => e.id).toList(),
-      "reports": items.map((e) => e.toJson()).toList(),
-      "competition_name": competitionName,
-    }..removeWhere((key, value) => value == null);
+    if (type == ReportTypes.Problem) {
+      return {
+        "title": problem?.problemTitle,
+        "description": comment?.comment,
+        "severity": problem?.severity
+            ?.toString()
+            .replaceAll("Severity.", "")
+            .toLowerCase(),
+        "ticket_type_id": problem?.problemType?.id,
+        "media": comment?.media.map((e) => e.id).toList(),
+        "products": items.map((e) => e.product.id).toList(),
+      }..removeWhere((key, value) => value == null);
+    } else {
+      return {
+        if (id != null && id! > 0) "id": id,
+        "comment": comment?.comment,
+        "media_ids": comment?.media.map((e) => e.id).toList(),
+        "reports": items.map((e) => e.toJson()).toList(),
+        "competition_name": competitionName
+      }..removeWhere((key, value) => value == null);
+    }
   }
 
   ReportModel copyWith({

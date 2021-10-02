@@ -7,4 +7,15 @@
         // "*.lock":true,
         // "**/*.lock":true,
     },
+    "actionButtons": {
+        "commands": [
+            {
+                "name": "Generate models",
+                "color": "orange",
+                "command": "flutter packages pub run build_runner build --delete-conflicting-outputs",
+                "cwd": "${workspaceFolder}/zahran"
+            },
+            
+        ]
+    },
 }

@@ -1,6 +1,6 @@
 part of 'models.dart';
 
-@HiveType(typeId: 20)
+@HiveType(typeId: 42)
 class ReportItem {
   @HiveField(0)
   final Product product;

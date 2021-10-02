@@ -8,6 +8,9 @@ class LocalizedName {
   String? en;
 
   LocalizedName({this.ar, this.en});
+  LocalizedName.name(String name)
+      : ar = name,
+        en = name;
 
   String format(BuildContext context) {
     var locale = context.locale;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/business/reports/manage_report/problem/select_items_view_model.dart';
 import 'package:zahran/presentation/commom/comment_form_field.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -19,7 +20,7 @@ class ProblemReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseReportScreen(
       type: ReportTypes.Problem,
-      title: TR.of(context).comment_report,
+      title: TR.of(context).problem,
       showPlaceholder: false,
       slivers: (ReportViewModel vm) => [
         if (vm.manager.hasItems) ...[
@@ -66,10 +67,16 @@ class ProblemReportScreen extends StatelessWidget {
         ),
         SliverSpacer(10),
         SliverPaddingBox(
-          child: CustomTextField(
-            hint: TR.of(context).enter_problem_type,
-            onChanged: vm.setProblemType,
+          child: SelectFormField(
+            decoration: InputDecoration(
+              hintText: TR.of(context).enter_problem_type,
+            ),
+            onSelected: vm.setProblemType,
             initialValue: vm.manager.report.problem?.problemType,
+            validator: (SelectItem? v) => v != null
+                ? null
+                : ReusableLocalizations.of(context)?.requiredField,
+            controller: SelectItemsViewModel(),
           ),
         ),
         SliverSpacer(),
@@ -90,25 +97,46 @@ class ProblemReportScreen extends StatelessWidget {
         ),
         SliverSpacer(10),
         SliverPaddingBox(
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: Severity.values
-                .map(
-                  (e) => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: vm.isInSeverity(e) ? null : Colors.white,
-                      onPrimary: vm.isInSeverity(e)
-                          ? null
-                          : Theme.of(context).textTheme.bodyText2?.color,
-                    ),
-                    onPressed: () {
-                      vm.setSeverity(e);
-                    },
-                    child: Text(vm.getSevirityDisplay(e)),
+          child: FormField(
+            initialValue: vm.manager.report.problem?.severity,
+            validator: (v) => v != null
+                ? null
+                : ReusableLocalizations.of(context)?.requiredField,
+            builder: (FormFieldState<Severity> field) {
+              return AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: field.hasError
+                        ? Theme.of(context).errorColor
+                        : Colors.transparent,
                   ),
-                )
-                .toList(),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: field.hasError ? EdgeInsets.all(10) : EdgeInsets.zero,
+                child: Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: Severity.values
+                      .map(
+                        (e) => ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: vm.isInSeverity(e) ? null : Colors.white,
+                            onPrimary: vm.isInSeverity(e)
+                                ? null
+                                : Theme.of(context).textTheme.bodyText2?.color,
+                          ),
+                          onPressed: () {
+                            vm.setSeverity(e);
+                            field.didChange(e);
+                          },
+                          child: Text(vm.getSevirityDisplay(e)),
+                        ),
+                      )
+                      .toList(),
+                ),
+              );
+            },
           ),
         ),
       ],

@@ -13,8 +13,8 @@ class DetailsAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ReportModel model = Get.find<ReportDetailsViewModel>().model;
-    var h = MediaQuery.of(context).size.height;
+    var vm = Get.find<ReportDetailsViewModel>();
+    ReportModel model = vm.model;
     return SliverAppBar(
       pinned: true,
       floating: true,
@@ -24,23 +24,26 @@ class DetailsAppBar extends StatelessWidget {
           padding: EdgeInsetsDirectional.only(start: 20, end: 4),
           height: kToolbarHeight,
           alignment: Alignment.topCenter,
-          child: Row(
-            children: [
-              Expanded(
-                child: AutoSizeText(
-                  getName(context, model),
-                  maxLines: 1,
-                  style: context.headline2,
+          child: ShimmerView(
+            loading: vm.loading,
+            child: Row(
+              children: [
+                Expanded(
+                  child: AutoSizeText(
+                    getName(context, model),
+                    maxLines: 1,
+                    style: context.headline2,
+                  ),
                 ),
-              ),
-              SizedBox(width: 10),
-              IconButton(
-                onPressed: () {
-                  getScreen(context, model).push(model);
-                },
-                icon: AssetIcon(R.assetsImgsEdit),
-              )
-            ],
+                SizedBox(width: 10),
+                IconButton(
+                  onPressed: () {
+                    getScreen(context, model).push(model);
+                  },
+                  icon: AssetIcon(R.assetsImgsEdit),
+                )
+              ],
+            ),
           ),
         ),
         preferredSize: Size.fromHeight(kToolbarHeight),

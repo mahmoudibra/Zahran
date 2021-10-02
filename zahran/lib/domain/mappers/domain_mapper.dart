@@ -20,6 +20,7 @@ part 'promotion.dto.dart';
 part 'question.dto.dart';
 part 'report.dto.dart';
 part 'salary.dto.dart';
+part 'select_item.dto.dart';
 part 'sender.dto.dart';
 part 'target.dto.dart';
 part 'task.dto.dart';

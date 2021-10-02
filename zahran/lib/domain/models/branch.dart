@@ -14,6 +14,7 @@ class BranchModel {
   final VisitStatus visitStatus;
   final List<BrandModel> brands;
   final List<TaskModel> tasks;
+  final List<ReportModel> tickets;
   final bool comment;
   final bool competitionSellOut;
   final bool competitionStockCount;
@@ -43,6 +44,7 @@ class BranchModel {
     required this.stockCount,
     required this.returnReport,
     required this.supplyOrder,
+    required this.tickets,
   });
   BranchModel copyWith({
     LocationModel? location,
@@ -57,6 +59,7 @@ class BranchModel {
     VisitStatus? visitStatus,
     List<BrandModel>? brands,
     List<TaskModel>? tasks,
+    List<ReportModel>? tickets,
     bool? comment,
     bool? competitionSellOut,
     bool? competitionStockCount,
@@ -68,6 +71,7 @@ class BranchModel {
     return BranchModel(
       id: id,
       location: location ?? this.location,
+      tickets: tickets ?? this.tickets,
       distance: distance ?? this.distance,
       incompletedTasks: incompletedTasks ?? this.incompletedTasks,
       name: name ?? this.name,

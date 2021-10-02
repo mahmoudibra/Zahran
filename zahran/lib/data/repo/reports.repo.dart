@@ -21,6 +21,24 @@ class ReportsRepo extends BaseRepositryImpl {
         .then((value) => value.data!);
   }
 
+  Future<ReportModel> problem(ReportModel model) async {
+    return await this
+        .post(
+          path: '/v1/mobile/tickets',
+          data: model.toJson(),
+          mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
+        )
+        .then((value) => model.copyWith(id: value.data!.id));
+  }
+
+  Future<ApiListResponse<SelectItem>> problemTypes() async {
+    return await this.paging(
+      path: '/v1/mobile/ticket_types',
+      skip: 0,
+      mapItem: (json) => SelectItemDto.fromJson(json).dtoToDomainModel(),
+    );
+  }
+
   Future<ReportModel> comment(ReportModel model) => _report('comment', model);
   Future<ReportModel> competitionSellOut(ReportModel model) =>
       _report('competition-sell-out', model);
@@ -33,9 +51,6 @@ class ReportsRepo extends BaseRepositryImpl {
       _report('return-report', model);
   Future<ReportModel> supplyOrder(ReportModel model) =>
       _report('supply-order', model);
-
-  ///TODO proplem
-  Future<ReportModel> problem(ReportModel model) => _report('problem', model);
 
   //List
   Future<ApiListResponse<BranchReport>> reports(int skip, String type,
@@ -77,6 +92,24 @@ class ReportsRepo extends BaseRepositryImpl {
         .get(
           path: '/v1/mobile/show_report/$id',
           mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
+        )
+        .then((value) => value.data!);
+  }
+
+  Future<ReportModel> ticketDetails(int id) {
+    return this
+        .get(
+          path: '/v1/mobile/tickets/$id',
+          mapItem: (json) => ReportDto.fromTicketsJson(json).dtoToDomainModel(),
+        )
+        .then((value) => value.data!);
+  }
+
+  Future resolveTicket(int id) {
+    return this
+        .get(
+          path: '/v1/mobile/tickets/$id/resolve',
+          mapItem: (json) => json,
         )
         .then((value) => value.data!);
   }

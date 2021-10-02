@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
+import 'package:simple/simple.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/base/get_location_mixin.dart';
-import 'package:simple/simple.dart';
 
 class VisitsViewModel extends ListController<BranchModel>
     with GetLocationMixin {
@@ -26,6 +26,22 @@ class VisitsViewModel extends ListController<BranchModel>
               incompletedTasks: a.completedTasks - 1,
               tasks: a.tasks
                   .map((e) => e.id == id ? e.copyWith(isCompleted: true) : e)
+                  .toList(),
+            )
+          : a);
+    }
+  }
+
+  setProblemResolved(int id) {
+    var ticket = items
+        .firstOrDefault((element) => element.tickets.any((a) => a.id == id));
+    if (ticket != null) {
+      replaceItems((a) => a.id == ticket.id
+          ? a.copyWith(
+              tickets: a.tickets
+                  .map((e) => e.id == id
+                      ? e.copyWith(problem: e.problem?.copyWith(resolved: true))
+                      : e)
                   .toList(),
             )
           : a);
