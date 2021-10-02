@@ -10,6 +10,7 @@ import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/presentation/business/more/promotions/promotion_view_model.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/external/video_thubnail/video.helper.dart';
+import 'package:zahran/presentation/localization/tr.dart';
 
 import '../../presentation/commom/media_picker/MediaFileTypes.dart';
 
@@ -32,6 +33,7 @@ part 'report_items.dart';
 part 'report_models.dart';
 part 'report_problem.dart';
 part 'salary.dart';
+part 'select_item.dart';
 part 'sender.dart';
 part 'task.dart';
 part 'user_model.dart';

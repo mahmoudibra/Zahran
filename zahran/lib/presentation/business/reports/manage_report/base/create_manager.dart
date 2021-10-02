@@ -68,8 +68,8 @@ class CreateReportViewModelManager extends ReportViewModelManager {
         Get.find<VisitDetailsViewModel>().commentReportDone();
         break;
       case ReportTypes.Problem:
-        await Repos.reports.problem(report);
-        Get.find<VisitDetailsViewModel>().proplemReportDone();
+        var res = await Repos.reports.problem(report);
+        Get.find<VisitDetailsViewModel>().proplemReportDone(res);
         break;
       case ReportTypes.Competition_Sell_OUT:
         await Repos.reports.competitionSellOut(report);

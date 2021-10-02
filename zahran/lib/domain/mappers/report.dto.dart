@@ -27,6 +27,19 @@ class ReportDto implements DtoToDomainMapper<ReportModel> {
     competitionName = json["competition_name"] ?? "";
   }
 
+  ReportDto.fromTicketsJson(Map<String, dynamic> json) {
+    id = int.tryParse(json["id"]?.toString() ?? "");
+    type = ReportTypes.Problem;
+    items = (json["products"] as List?)
+        ?.map((e) => ReportItemDto.fromJson(e).dtoToDomainModel())
+        .toList();
+    comment = CommentModelDto.fromJsonWithDescription(json);
+    date = DateTime.tryParse(json["date"]?.toString() ?? "");
+    problem = ProblemDetailsModelDto.fromJson(json);
+
+    competitionName = json["competition_name"] ?? "";
+  }
+
   @override
   ReportModel dtoToDomainModel() {
     return ReportModel(
@@ -82,6 +95,13 @@ class CommentModelDto implements DtoToDomainMapper<CommentModel> {
         .toList();
   }
 
+  CommentModelDto.fromJsonWithDescription(Map<String, dynamic> json) {
+    comment = json["description"];
+    media = (json["media"] as List?)
+        ?.map((e) => MediaDto.fromJson(e).dtoToDomainModel())
+        .toList();
+  }
+
   @override
   CommentModel dtoToDomainModel() {
     return CommentModel(
@@ -93,11 +113,13 @@ class CommentModelDto implements DtoToDomainMapper<CommentModel> {
 
 class ProblemDetailsModelDto implements DtoToDomainMapper<ProblemDetailsModel> {
   String? problemTitle;
-  String? problemType;
+  SelectItemDto? problemType;
   Severity? severity;
+  bool? resolved;
   ProblemDetailsModelDto.fromJson(Map<String, dynamic> json) {
-    problemTitle = json["problem_title"];
-    problemType = json["problem_type"];
+    problemTitle = json["title"];
+    resolved = json["resolved"] == true || json["resolved"]?.toString() == "1";
+    problemType = SelectItemDto.fromJson(json["type"] ?? {});
     severity = json["severity"]?.toString().toEnum(Severity.values);
   }
 
@@ -105,8 +127,9 @@ class ProblemDetailsModelDto implements DtoToDomainMapper<ProblemDetailsModel> {
   ProblemDetailsModel dtoToDomainModel() {
     return ProblemDetailsModel(
       problemTitle: problemTitle,
-      problemType: problemType,
+      problemType: problemType?.dtoToDomainModel(),
       severity: severity,
+      resolved: resolved ?? false,
     );
   }
 }

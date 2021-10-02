@@ -1,6 +1,6 @@
 part of 'models.dart';
 
-@HiveType(typeId: 5)
+@HiveType(typeId: 43)
 class CommentModel extends HiveObject {
   CommentModel({
     this.comment = '',

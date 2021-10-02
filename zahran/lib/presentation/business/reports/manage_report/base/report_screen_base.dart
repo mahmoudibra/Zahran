@@ -79,21 +79,53 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
         child: GetBuilder<ReportViewModel>(
           init: ReportViewModel(widget.type, context),
           builder: (ReportViewModel vm) {
-            return Stack(
-              children: [
-                _buildBody(context, vm),
-                if (MediaQuery.of(context).viewInsets.bottom == 0)
-                  AnimatedPositioned(
-                    curve: Curves.easeInOut,
-                    left: 20,
-                    right: 20,
-                    bottom: hide ? -100 : 20,
-                    duration: Duration(milliseconds: 800),
-                    child: SafeArea(
-                      child: _buildButton(vm, context),
+            return CompletedForm(
+              onPostData: () async {
+                if (vm.manager.showPopUp) {
+                  showDialog(
+                      context: context,
+                      builder: (_) {
+                        return PopUp(
+                          context: context,
+                          message: TR.of(context).sendReportPopUpContent,
+                          onDismissedAction: () {},
+                          title: widget.title,
+                          actions: {
+                            TR.of(context).send: () async {
+                              Navigator.of(context).pop();
+                              await FlareAnimation.show(
+                                action: vm.manager.save(),
+                                context: context,
+                              );
+                              Navigator.of(context).pop(true);
+                            },
+                          },
+                        );
+                      });
+                } else {
+                  await FlareAnimation.show(
+                    action: vm.manager.save(),
+                    context: context,
+                  );
+                  Navigator.of(context).pop(true);
+                }
+              },
+              child: Stack(
+                children: [
+                  _buildBody(context, vm),
+                  if (MediaQuery.of(context).viewInsets.bottom == 0)
+                    AnimatedPositioned(
+                      curve: Curves.easeInOut,
+                      left: 20,
+                      right: 20,
+                      bottom: hide ? -100 : 20,
+                      duration: Duration(milliseconds: 800),
+                      child: SafeArea(
+                        child: _buildButton(vm, context),
+                      ),
                     ),
-                  ),
-              ],
+                ],
+              ),
             );
           },
         ),
@@ -103,36 +135,7 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
 
   ProgressButton _buildButton(ReportViewModel vm, BuildContext context) {
     return ProgressButton(
-      onPressed: vm.manager.hasItems.onTrue(() async {
-        if (vm.manager.showPopUp) {
-          showDialog(
-              context: context,
-              builder: (_) {
-                return PopUp(
-                  context: context,
-                  message: TR.of(context).sendReportPopUpContent,
-                  onDismissedAction: () {},
-                  title: widget.title,
-                  actions: {
-                    TR.of(context).send: () async {
-                      Navigator.of(context).pop();
-                      await FlareAnimation.show(
-                        action: vm.manager.save(),
-                        context: context,
-                      );
-                      Navigator.of(context).pop();
-                    },
-                  },
-                );
-              });
-        } else {
-          await FlareAnimation.show(
-            action: vm.manager.save(),
-            context: context,
-          );
-          Navigator.of(context).pop();
-        }
-      }),
+      checkFormSubmit: vm.manager.hasItems,
       child: Text(TR.of(context).send),
     );
   }

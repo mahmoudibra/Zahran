@@ -32,6 +32,7 @@ Future<void> main() async {
   Hive.registerAdapter(ProblemDetailsModelAdapter());
   Hive.registerAdapter(SeverityAdapter());
   Hive.registerAdapter(MediaAdapter());
+  Hive.registerAdapter(SelectItemAdapter());
   // if (kDebugMode) {
   //   // Force disable Crashlytics collection while doing every day development.
   //   // Temporarily toggle this to true if you want to test crash reporting in your app.

@@ -190,7 +190,8 @@ class _ProgressButtonState extends State<ProgressButton>
   }
 
   Widget _build(BuildContext context) {
-    var callback = widget.onPressed ?? CompletedForm.of(context)?.onSubmit;
+    var callback = widget.onPressed ??
+        (widget.checkFormSubmit ? CompletedForm.of(context)?.onSubmit : null);
     var padding =
         state == _ButtonState.Initial ? getDefaultPadding() : EdgeInsets.all(3);
     Widget buttonChild = WillPopScope(

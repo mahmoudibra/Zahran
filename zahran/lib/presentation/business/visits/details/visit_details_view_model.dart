@@ -44,15 +44,25 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
     update();
   }
 
+  setProblemResolved(int id) {
+    model = model.copyWith(
+      tickets: model.tickets
+          .map((e) => e.id == id
+              ? e.copyWith(problem: e.problem?.copyWith(resolved: true))
+              : e)
+          .toList(),
+    );
+    update();
+  }
+
   commentReportDone() {
     model = model.copyWith(comment: true);
     update();
   }
 
-  //TODO proplem
-  proplemReportDone() {
-    // model = model.copyWith(comment: true);
-    // update();
+  proplemReportDone(ReportModel report) {
+    model = model.copyWith(tickets: [...model.tickets, report]);
+    update();
   }
 
   competitionSellOutDone() {

@@ -1318,6 +1318,36 @@ abstract class TR {
   /// In en, this message translates to:
   /// **'This weak'**
   String get this_weak;
+
+  /// No description provided for @instructions.
+  ///
+  /// In en, this message translates to:
+  /// **'instructions'**
+  String get instructions;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'title'**
+  String get title;
+
+  /// No description provided for @tickets.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets'**
+  String get tickets;
+
+  /// No description provided for @tickets_count.
+  ///
+  /// In en, this message translates to:
+  /// **'Tickets ({count})'**
+  String tickets_count(Object count);
+
+  /// No description provided for @resolve.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolve'**
+  String get resolve;
 }
 
 class _TRDelegate extends LocalizationsDelegate<TR> {

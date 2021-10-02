@@ -24,7 +24,7 @@ extension VMExt on ReportViewModel {
     await manager.report.save();
   }
 
-  void setProblemType(String? s) async {
+  void setProblemType(SelectItem? s) async {
     manager.report.problem = manager.report.problem?.copyWith(problemType: s) ??
         ProblemDetailsModel(problemType: s);
     await manager.report.save();

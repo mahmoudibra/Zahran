@@ -661,4 +661,21 @@ class TRAr extends TR {
 
   @override
   String get this_weak => 'This weak';
+
+  @override
+  String get instructions => 'instructions';
+
+  @override
+  String get title => 'title';
+
+  @override
+  String get tickets => 'Tickets';
+
+  @override
+  String tickets_count(Object count) {
+    return 'Tickets ($count)';
+  }
+
+  @override
+  String get resolve => 'Resolve';
 }

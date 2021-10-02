@@ -131,7 +131,7 @@ class ProductAdapter extends TypeAdapter<Product> {
 
 class CommentModelAdapter extends TypeAdapter<CommentModel> {
   @override
-  final int typeId = 5;
+  final int typeId = 43;
 
   @override
   CommentModel read(BinaryReader reader) {
@@ -168,7 +168,7 @@ class CommentModelAdapter extends TypeAdapter<CommentModel> {
 
 class ReportItemAdapter extends TypeAdapter<ReportItem> {
   @override
-  final int typeId = 20;
+  final int typeId = 42;
 
   @override
   ReportItem read(BinaryReader reader) {
@@ -376,7 +376,7 @@ class ReportModelAdapter extends TypeAdapter<ReportModel> {
 
 class ProblemDetailsModelAdapter extends TypeAdapter<ProblemDetailsModel> {
   @override
-  final int typeId = 42;
+  final int typeId = 44;
 
   @override
   ProblemDetailsModel read(BinaryReader reader) {
@@ -386,7 +386,7 @@ class ProblemDetailsModelAdapter extends TypeAdapter<ProblemDetailsModel> {
     };
     return ProblemDetailsModel(
       problemTitle: fields[0] as String?,
-      problemType: fields[1] as String?,
+      problemType: fields[1] as SelectItem?,
       severity: fields[2] as Severity?,
     );
   }
@@ -410,6 +410,43 @@ class ProblemDetailsModelAdapter extends TypeAdapter<ProblemDetailsModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is ProblemDetailsModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class SelectItemAdapter extends TypeAdapter<SelectItem> {
+  @override
+  final int typeId = 8;
+
+  @override
+  SelectItem read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return SelectItem(
+      id: fields[0] as int,
+      name: fields[1] as LocalizedName,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, SelectItem obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SelectItemAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

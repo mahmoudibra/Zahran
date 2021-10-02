@@ -34,12 +34,13 @@ class _CommentFormFieldState extends State<CommentFormField>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    return FormField(
+    return FormField<CommentModel>(
       initialValue: widget.intialValue,
       onSaved: widget.onChanged,
-      validator: (v) => widget.optional || v != null
-          ? null
-          : ReusableLocalizations.of(context)?.requiredField,
+      validator: (CommentModel? v) =>
+          widget.optional || v?.comment.isNullOrEmptyOrWhiteSpace != true
+              ? null
+              : ReusableLocalizations.of(context)?.requiredField,
       builder: (FormFieldState<CommentModel> field) {
         var media = (field.value?.media ?? []);
         return AnimatedSize(
@@ -76,30 +77,62 @@ class _CommentFormFieldState extends State<CommentFormField>
 
   Row _buildFields(BuildContext context, FormFieldState<CommentModel> field) {
     return Row(
+      crossAxisAlignment:
+          field.hasError ? CrossAxisAlignment.start : CrossAxisAlignment.center,
       children: [
         _buildTextField(context, field),
         SizedBox(width: 10),
-        IconButton(
-          onPressed: () => selectMedia(field),
-          padding: EdgeInsets.zero,
-          icon: Image.asset(R.assetsImgsCamera),
+        _buildButton(
+          context: context,
+          field: field,
+          child: IconButton(
+            onPressed: () => selectMedia(field),
+            padding: EdgeInsets.zero,
+            icon: Image.asset(R.assetsImgsCamera),
+          ),
         ),
         SizedBox(width: 10),
-        IconButton(
-          onPressed: () => recordVoiceNote(field),
-          padding: EdgeInsets.zero,
-          icon: Image.asset(R.assetsImgsMic),
+        _buildButton(
+          context: context,
+          field: field,
+          child: IconButton(
+            onPressed: () => recordVoiceNote(field),
+            padding: EdgeInsets.zero,
+            icon: Image.asset(R.assetsImgsMic),
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _buildButton({
+    required BuildContext context,
+    required FormFieldState<CommentModel> field,
+    required Widget child,
+  }) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: field.hasError
+              ? Theme.of(context).errorColor
+              : Colors.transparent,
+        ),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      child: child,
     );
   }
 
   Expanded _buildTextField(
       BuildContext context, FormFieldState<CommentModel> field) {
     return Expanded(
-      child: CustomTextField(
+      child: CustomTextField.decoration(
         validator: (v) => null,
-        hint: TR.of(context).enter_decription_here,
+        decoration: InputDecoration(
+          hintText: TR.of(context).enter_decription_here,
+          errorText: field.errorText,
+        ),
         initialValue: field.value?.comment,
         onChanged: (v) {
           field.didChange(field.value?.copyWith(comment: v) ??

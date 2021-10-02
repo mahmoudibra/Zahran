@@ -33,6 +33,7 @@ import 'package:zahran/presentation/business/reports/report_list/report_list_scr
 import 'package:zahran/presentation/business/splash/splash_screen.dart';
 import 'package:zahran/presentation/business/tasks/details/task_details_screen.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details.dart';
+import 'package:zahran/presentation/business/visits/tickets/ticket_details.dart';
 import 'package:zahran/presentation/commom/image_preview/image_preview_screen.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.dart';
 import 'package:zahran/presentation/commom/media_picker/media_picker.pm.dart';
@@ -76,6 +77,7 @@ enum ScreenNames {
   REPORTS_SCREEN,
   BRANCH_REPORTS_SCREEN,
   REPORT_DETAILS,
+  TICKET_DETAILS,
 }
 
 enum PopupsNames { LOGOUT, MEDIA_PICKER_POPUP }
@@ -124,6 +126,7 @@ class ScreenRouter {
         "${ScreenNames.REPORTS_SCREEN}": (_) => ReportListScreen(),
         "${ScreenNames.BRANCH_REPORTS_SCREEN}": (_) => BranchReportListScreen(),
         "${ScreenNames.REPORT_DETAILS}": (_) => ReportDetailsScreen(),
+        "${ScreenNames.TICKET_DETAILS}": (_) => TicketDetailsScreen(),
       };
 
   static void pop<T extends Object>([T? result]) {

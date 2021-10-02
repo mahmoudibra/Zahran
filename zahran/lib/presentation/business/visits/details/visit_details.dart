@@ -4,8 +4,10 @@ import 'package:zahran/domain/enums/visit_status.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/business/tasks/task_view.dart';
 import 'package:zahran/presentation/business/visits/details/visit_details_view_model.dart';
+import 'package:zahran/presentation/business/visits/tickets/ticket_view.dart';
 import 'package:zahran/presentation/commom/asset_icon.dart';
 import 'package:zahran/presentation/commom/brands_view.dart';
+import 'package:zahran/presentation/commom/shimmers.dart';
 import 'package:zahran/presentation/commom/visit_status_chip.component.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/r.dart';
@@ -34,38 +36,76 @@ class _VisitDetailsState extends State<VisitDetails> {
       init: VisitDetailsViewModel(context),
       builder: (VisitDetailsViewModel vm) {
         BranchModel model = vm.model;
+        var tasks = model.tasks;
+        var tickets = model.tickets;
         return Scaffold(
-          body: CustomScrollView(
-            shrinkWrap: true,
-            slivers: [
-              DetailsAppBar(),
-              _titleRow(model, context),
-              _locationRow(model, context),
-              _brandsnRow(model, context),
-              SliverSpacer(),
-              SliverPaddingBox(
-                child: Text(TR.of(context).task_count(model.totalTasks),
-                    style: context.headline6),
-              ),
-              SliverSpacer(10),
-              for (var i = 0; i < model.tasks.length; i++)
-                SliverPaddingBox(
-                  child: AnimatedItemConfig(
-                    index: i,
-                    firstBuild: firstBuild,
-                    child: SlideFadeItem(
-                      child: TaskView(
-                        task: model.tasks[i],
-                        onOpenTaskDetailsAction: () {
-                          print(" 🚀🚀🚀🚀 Action here");
-                          vm.routeToTaskDetailsAction(model.tasks[i]);
-                        },
+          body: RefreshIndicator(
+            onRefresh: () => vm.loadDetails(false),
+            child: CustomScrollView(
+              shrinkWrap: true,
+              slivers: [
+                DetailsAppBar(),
+                _titleRow(vm.loading, model, context),
+                _locationRow(vm.loading, model, context),
+                _brandsnRow(vm.loading, model, context),
+                SliverSpacer(),
+                SliverShimmerText(
+                  loading: vm.loading,
+                  showPlaceholder: false,
+                  child: Text(TR.of(context).task_count(model.totalTasks),
+                      style: context.headline6),
+                ),
+                SliverSpacer(10),
+                for (var i = 0; i < (vm.loading ? 5 : tasks.length); i++)
+                  SliverPaddingBox(
+                    child: AnimatedItemConfig(
+                      index: i,
+                      firstBuild: firstBuild,
+                      child: SlideItem(
+                        curve: Curves.decelerate,
+                        offset: (c) => Offset(0, c.maxWidth),
+                        child: TaskView(
+                          loading: vm.loading,
+                          task: tasks.length > i
+                              ? tasks[i]
+                              : TaskModel.empty(context, i),
+                          onOpenTaskDetailsAction: () {
+                            print(" 🚀🚀🚀🚀 Action here");
+                            vm.routeToTaskDetailsAction(model.tasks[i]);
+                          },
+                        ),
                       ),
                     ),
                   ),
-                ),
-              SliverSpacer.safeArea(100)
-            ],
+                if (tickets.length > 0) ...[
+                  SliverSpacer(30),
+                  SliverShimmerText(
+                    loading: vm.loading,
+                    showPlaceholder: false,
+                    child: Text(
+                        TR.of(context).tickets_count(model.tickets.length),
+                        style: context.headline6),
+                  ),
+                  SliverSpacer(10),
+                  for (var i = 0; i < tickets.length; i++)
+                    SliverPaddingBox(
+                      child: AnimatedItemConfig(
+                        index: i,
+                        firstBuild: firstBuild,
+                        child: SlideItem(
+                          curve: Curves.decelerate,
+                          offset: (c) => Offset(0, c.maxWidth),
+                          child: TicketView(
+                            loading: vm.loading,
+                            model: tickets[i],
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+                SliverSpacer.safeArea(100)
+              ],
+            ),
           ),
           bottomSheet: Padding(
             padding: const EdgeInsets.all(20),
@@ -104,24 +144,27 @@ class _VisitDetailsState extends State<VisitDetails> {
     );
   }
 
-  SliverPaddingBox _titleRow(BranchModel model, BuildContext context) {
-    return SliverPaddingBox(
-        child: Row(
-      children: [
-        Expanded(
-          child: Text(model.name.format(context), style: context.headline6),
-        ),
-        if (model.visitStatus == VisitStatus.IN_PROGRESS) ...[
-          SizedBox(width: 10),
-          VisitStatusChip(visitStatus: model.visitStatus),
-        ]
-      ],
-    ));
+  Widget _titleRow(bool loading, BranchModel model, BuildContext context) {
+    return SliverShimmerView(
+      loading: loading,
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(model.name.format(context), style: context.headline6),
+          ),
+          if (model.visitStatus == VisitStatus.IN_PROGRESS) ...[
+            SizedBox(width: 10),
+            VisitStatusChip(visitStatus: model.visitStatus),
+          ]
+        ],
+      ),
+    );
   }
 
-  Widget _locationRow(BranchModel model, BuildContext context) {
+  Widget _locationRow(bool loading, BranchModel model, BuildContext context) {
     var vm = Get.find<VisitDetailsViewModel>();
-    return SliverPaddingBox(
+    return SliverShimmerView(
+      loading: loading,
       child: Row(
         children: [
           AssetIcon(R.assetsImgsInRange2, size: 16),
@@ -162,10 +205,11 @@ class _VisitDetailsState extends State<VisitDetails> {
     );
   }
 
-  Widget _brandsnRow(BranchModel model, BuildContext context) {
+  Widget _brandsnRow(bool loading, BranchModel model, BuildContext context) {
     var vm = Get.find<VisitDetailsViewModel>();
 
-    return SliverPaddingBox(
+    return SliverShimmerView(
+      loading: loading,
       child: Row(
         children: [
           Expanded(
