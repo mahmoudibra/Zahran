@@ -1,4 +1,6 @@
-import 'package:flutter_sound/flutter_sound.dart';
+import 'package:flutter_sound_lite/flutter_sound.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
+import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:zahran/presentation/external/sound_engine/sound_engine.manager.dart';
 
@@ -28,12 +30,14 @@ class SoundEngineManagerImpl implements SoundEngineManager {
 
   @override
   Stream<PlaybackEvent> get onPlayerStateChanged {
-    return _flutterSoundPlayer.onProgress!.map((event) => PlaybackEvent(event.duration, event.position, 0.0));
+    return _flutterSoundPlayer.onProgress!
+        .map((event) => PlaybackEvent(event.duration, event.position, 0.0));
   }
 
   @override
   Stream<PlaybackEvent> get onRecorderStateChanged =>
-      _flutterSoundRecorder.onProgress!.map((event) => PlaybackEvent(Duration(), event.duration, event.decibels!));
+      _flutterSoundRecorder.onProgress!.map((event) =>
+          PlaybackEvent(Duration(), event.duration, event.decibels!));
 
   @override
   Future<void> startRecorder({required String uri}) async {
@@ -44,7 +48,8 @@ class SoundEngineManagerImpl implements SoundEngineManager {
         mode: SessionMode.modeDefault,
         device: AudioDevice.speaker,
         audioFlags: outputToSpeaker | allowBlueToothA2DP | allowAirPlay);
-    _flutterSoundRecorder.setSubscriptionDuration(Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
+    _flutterSoundRecorder.setSubscriptionDuration(
+        Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
     return _flutterSoundRecorder.startRecorder(toFile: uri);
   }
 
@@ -63,7 +68,8 @@ class SoundEngineManagerImpl implements SoundEngineManager {
         device: AudioDevice.speaker,
         audioFlags: outputToSpeaker | allowBlueToothA2DP | allowAirPlay,
         withUI: false);
-    await _flutterSoundPlayer.setSubscriptionDuration(Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
+    await _flutterSoundPlayer.setSubscriptionDuration(
+        Duration(milliseconds: SUBSCRIPTION_DURATION_IN_MILLISECONDS));
     return await _flutterSoundPlayer.startPlayer(fromURI: uri);
   }
 
