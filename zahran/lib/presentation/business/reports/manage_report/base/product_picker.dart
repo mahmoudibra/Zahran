@@ -137,7 +137,7 @@ class BrandView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      key: Key("${initiallyExpanded}"),
+      key: Key("$initiallyExpanded"),
       child: ExpansionTile(
         title: Text(
           item.name.format(context),
