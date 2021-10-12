@@ -44,7 +44,17 @@ abstract class BaseRepositryImpl extends BaseRepositry {
       var res = await ScreenNames.LOGIN_SHEET.showAsBottomSheet(context);
       return res is LoginModel;
     } else if (!error.isCancel) {
-      context.errorSnackBar(error.toString());
+      if (error.message?.contains('SocketException: Failed host lookup:') ==
+          true) {
+        if (error.response == null) {
+          context.errorSnackBar(
+              ReusableLocalizations.of(context)!.noInternetMessage);
+        } else {
+          context.errorSnackBar(
+              ReusableLocalizations.of(context)!.notFoundMessage);
+        }
+      } else
+        context.errorSnackBar(error.toString());
     }
     return false;
   }

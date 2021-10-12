@@ -158,7 +158,7 @@ class ProfileTabsAppBar extends StatelessWidget {
           child: CircularPercentIndicator(
             radius: progressWidth,
             lineWidth: 3.0 + 4.0 * expansion,
-            percent: vm.targetPercentage,
+            percent: vm.targetPercentage.clamp(0.0, 1.0),
             center: SizedBox(
               width: avatarWidth - 10,
               child: AutoSizeText(

@@ -20,7 +20,7 @@ class StockCountReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseReportScreen(
       type: ReportTypes.Stock_Count,
-      title: TR.of(context).sell_out,
+      title: TR.of(context).stock_count,
       slivers: (ReportViewModel vm) => [
         SliverPaddingBox(
           child: CommentFormField(
