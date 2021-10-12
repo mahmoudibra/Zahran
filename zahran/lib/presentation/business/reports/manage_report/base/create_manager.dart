@@ -29,10 +29,10 @@ class CreateReportViewModelManager extends ReportViewModelManager {
     await report.save();
   }
 
-  ReportModel get report => _box?.get("${type}") ?? ReportModel(type: type);
+  ReportModel get report => _box?.get("$type") ?? ReportModel(type: type);
 
   Future reset([ReportModel? model]) {
-    return _box!.put("${type}", model ?? ReportModel(type: type));
+    return _box!.put("$type", model ?? ReportModel(type: type));
   }
 
   bool get hasItems => report.items.length > 0;
@@ -49,8 +49,8 @@ class CreateReportViewModelManager extends ReportViewModelManager {
     _lisner = _box?.watch().listen((event) {
       update();
     });
-    if (!_box!.containsKey("${type}")) {
-      _box!.put("${type}", ReportModel(type: type));
+    if (!_box!.containsKey("$type")) {
+      _box!.put("$type", ReportModel(type: type));
     }
   }
 

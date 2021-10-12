@@ -18,13 +18,13 @@ class VisitStatusChip extends StatelessWidget {
   }
 
   String decideVisitStatusText(BuildContext context) {
-    if (visitStatus == VisitStatus.PENDING.value) {
+    if (visitStatus.value == VisitStatus.PENDING.value) {
       return TR.of(context).visit_details_status_running;
-    } else if (visitStatus == VisitStatus.COMPLETED.value) {
+    } else if (visitStatus.value == VisitStatus.COMPLETED.value) {
       return TR.of(context).visit_details_status_completed;
-    } else if (visitStatus == VisitStatus.INCOMPLETE.value) {
+    } else if (visitStatus.value == VisitStatus.INCOMPLETE.value) {
       return TR.of(context).visit_details_status_incomplete;
-    } else if (visitStatus == VisitStatus.IN_PROGRESS.value) {
+    } else if (visitStatus.value == VisitStatus.IN_PROGRESS.value) {
       return TR.of(context).running;
     }
     return TR.of(context).visit_details_status_pending;

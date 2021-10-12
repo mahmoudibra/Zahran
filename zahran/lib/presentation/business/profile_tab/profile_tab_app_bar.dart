@@ -110,7 +110,7 @@ class ProfileTabsAppBar extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text("${v}", style: context.headline6, maxLines: 1),
+        Text("$v", style: context.headline6, maxLines: 1),
         Text(label, style: context.caption, maxLines: 1),
       ],
     );
