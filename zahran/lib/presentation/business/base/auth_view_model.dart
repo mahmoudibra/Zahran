@@ -18,7 +18,9 @@ class AuthViewModel extends GetxController {
   AuthViewModel();
 
   LoginModel? get user {
-    return _box != null && _box!.isOpen && _box!.length > 0 ? _box!.getAt(0) : null;
+    return _box != null && _box!.isOpen && _box!.length > 0
+        ? _box!.getAt(0)
+        : null;
   }
 
   UserModel? get profile => user?.userProfile;
@@ -27,7 +29,8 @@ class AuthViewModel extends GetxController {
 
   double get targetPercentage {
     if (profile!.target.target > 0) {
-      return (profile!.target.totalSellOut / profile!.target.target);
+      var percentage = (profile!.target.totalSellOut / profile!.target.target);
+      return double.parse((percentage).toStringAsFixed(2));
     }
     return 0;
   }
