@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
     "tryAgain": "Try Again",
-    "appName": "Group SEB",
+    "appName": "Groupe SEB",
     "visit_details_status_running": "Running",
     "visit_details_status_new": "New",
     "visit_details_status_pending": "pending",

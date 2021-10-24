@@ -11,7 +11,7 @@ class TRAr extends TR {
   String get tryAgain => 'حاول مجددا';
 
   @override
-  String get appName => 'Group SEB';
+  String get appName => 'Groupe SEB';
 
   @override
   String get visit_details_status_running => 'قيد التشغيل';

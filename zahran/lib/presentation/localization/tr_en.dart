@@ -11,7 +11,7 @@ class TREn extends TR {
   String get tryAgain => 'Try Again';
 
   @override
-  String get appName => 'Group SEB';
+  String get appName => 'Groupe SEB';
 
   @override
   String get visit_details_status_running => 'Running';

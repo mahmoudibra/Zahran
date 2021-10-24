@@ -103,7 +103,7 @@ abstract class TR {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Group SEB'**
+  /// **'Groupe SEB'**
   String get appName;
 
   /// No description provided for @visit_details_status_running.
