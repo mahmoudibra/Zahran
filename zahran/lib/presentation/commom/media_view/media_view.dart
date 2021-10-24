@@ -4,9 +4,12 @@ import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/media_picker/MediaFileTypes.dart';
 import 'package:zahran/presentation/commom/media_view/media_view_view_model.dart';
 
+import '../../../r.dart';
+
 class MediaView extends StatelessWidget {
   final List<Media> media;
   final ValueChanged<Media>? onDelete;
+
   const MediaView({Key? key, required this.media, this.onDelete})
       : super(key: key);
 
@@ -71,22 +74,48 @@ class MediaView extends StatelessWidget {
         url: media.mediaPath,
       );
     } else if (media.type == MediaFileTypes.VIDEO.value) {
-      return ShapedRemoteImage.aspectRatio(
-        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+      return Container(
+        child: Stack(
+          children: [
+            ShapedRemoteImage.aspectRatio(
+              outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fit: BoxFit.fill,
+              url: media.mediaPath,
+            ),
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: Container(
+                padding: EdgeInsets.all(4.0),
+                child: Image.asset(R.assetsImagesPlay),
+              ),
+            )
+          ],
         ),
-        fit: BoxFit.fill,
-        url: media.mediaPath,
       );
     } else {
-      return ShapedRemoteImage.aspectRatio(
-        outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+      return Container(
+        child: Stack(
+          children: [
+            ShapedRemoteImage.aspectRatio(
+              outerPadding: EdgeInsets.all(onDelete == null ? 0 : 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              fit: BoxFit.fill,
+              url: media.mediaPath,
+            ),
+            Align(
+              alignment: AlignmentDirectional.center,
+              child: Container(
+                padding: EdgeInsets.all(4.0),
+                child: Image.asset(R.assetsImgsMic),
+              ),
+            )
+          ],
         ),
-        fit: BoxFit.fill,
-        url: media.mediaPath,
       );
     }
   }
