@@ -149,6 +149,9 @@ class R {
   /// ![](http://127.0.0.1:9527/assets/images/play.png)
   static final String assetsImagesPlay = 'assets/images/play.png';
 
+  /// ![](http://127.0.0.1:9527/assets/images/play_icon.png)
+  static final String assetsImagesPlayIcon = 'assets/images/play_icon.png';
+
   /// ![](http://127.0.0.1:9527/assets/images/previous_arrow.png)
   static final String assetsImagesPreviousArrow =
       'assets/images/previous_arrow.png';
@@ -273,6 +276,9 @@ class R {
 
   /// ![](http://127.0.0.1:9527/assets/imgs/phone.png)
   static final String assetsImgsPhone = 'assets/imgs/phone.png';
+
+  /// ![](http://127.0.0.1:9527/assets/imgs/play_icon.png)
+  static final String assetsImgsPlayIcon = 'assets/imgs/play_icon.png';
 
   /// ![](http://127.0.0.1:9527/assets/imgs/problem.png)
   static final String assetsImgsProblem = 'assets/imgs/problem.png';
