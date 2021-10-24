@@ -29,8 +29,9 @@ class AuthViewModel extends GetxController {
 
   double get targetPercentage {
     if (profile!.target.target > 0) {
-      var percentage = (profile!.target.totalSellOut / profile!.target.target);
-      return double.parse((percentage).toStringAsFixed(2));
+      var percentage =
+          (profile!.target.totalSellOut / profile!.target.target) * 100;
+      return percentage.round().toDouble();
     }
     return 0;
   }
