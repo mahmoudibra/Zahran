@@ -89,7 +89,7 @@ class MediaView extends StatelessWidget {
               alignment: AlignmentDirectional.center,
               child: Container(
                 padding: EdgeInsets.all(4.0),
-                child: Image.asset(R.assetsImagesPlay),
+                child: Image.asset(R.assetsImgsPlayIcon),
               ),
             )
           ],
