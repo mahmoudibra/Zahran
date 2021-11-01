@@ -15,8 +15,10 @@ class EditReportViewModelManager extends ReportViewModelManager {
   final ReportTypes type;
   final BuildContext context;
   final ReportModel _report;
-  final String _boxKey = "edit_report";
+  final BranchModel _branch;
+  String get _boxKey => "Reports_edit_${_branch.id}";
   EditReportViewModelManager(
+    this._branch,
     this.update,
     this.type,
     this.context,
@@ -65,28 +67,28 @@ class EditReportViewModelManager extends ReportViewModelManager {
   Future save() async {
     switch (type) {
       case ReportTypes.Comment:
-        await Repos.reports.comment(report);
+        await Repos.reports.comment(_branch, report);
         break;
       case ReportTypes.Problem:
-        await Repos.reports.problem(report);
+        await Repos.reports.problem(_branch, report);
         break;
       case ReportTypes.Competition_Sell_OUT:
-        await Repos.reports.competitionSellOut(report);
+        await Repos.reports.competitionSellOut(_branch, report);
         break;
       case ReportTypes.Competition_Stock_Count:
-        await Repos.reports.competitionStockCount(report);
+        await Repos.reports.competitionStockCount(_branch, report);
         break;
       case ReportTypes.Sell_OUT:
-        await Repos.reports.sellOut(report);
+        await Repos.reports.sellOut(_branch, report);
         break;
       case ReportTypes.Stock_Count:
-        await Repos.reports.stockCount(report);
+        await Repos.reports.stockCount(_branch, report);
         break;
       case ReportTypes.Return_Report:
-        await Repos.reports.returnReport(report);
+        await Repos.reports.returnReport(_branch, report);
         break;
       case ReportTypes.Supply_Order:
-        await Repos.reports.supplyOrder(report);
+        await Repos.reports.supplyOrder(_branch, report);
         break;
     }
     await box?.clear();
