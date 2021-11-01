@@ -11,21 +11,29 @@ class ReportsRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<ReportModel> _report(String path, ReportModel model) async {
+  Future<ReportModel> _report(
+      String path, BranchModel branch, ReportModel model) async {
     return await this
         .post(
           path: '/v1/mobile/report/$path',
-          data: model.toJson(),
+          data: {
+            ...model.toJson(),
+            "branch_id": branch.id,
+          },
           mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
         )
         .then((value) => value.data!);
   }
 
-  Future<ReportModel> problem(ReportModel model) async {
+  Future<ReportModel> problem(
+      BranchModel branchModel, ReportModel model) async {
     return await this
         .post(
           path: '/v1/mobile/tickets',
-          data: model.toJson(),
+          data: {
+            ...model.toJson(),
+            "branch_id": model.id,
+          },
           mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
         )
         .then((value) => model.copyWith(id: value.data!.id));
@@ -39,18 +47,22 @@ class ReportsRepo extends BaseRepositryImpl {
     );
   }
 
-  Future<ReportModel> comment(ReportModel model) => _report('comment', model);
-  Future<ReportModel> competitionSellOut(ReportModel model) =>
-      _report('competition-sell-out', model);
-  Future<ReportModel> competitionStockCount(ReportModel model) =>
-      _report('competition-stock-count', model);
-  Future<ReportModel> sellOut(ReportModel model) => _report('sell-out', model);
-  Future<ReportModel> stockCount(ReportModel model) =>
-      _report('stock-count', model);
-  Future<ReportModel> returnReport(ReportModel model) =>
-      _report('return-report', model);
-  Future<ReportModel> supplyOrder(ReportModel model) =>
-      _report('supply-order', model);
+  Future<ReportModel> comment(BranchModel branch, ReportModel model) =>
+      _report('comment', branch, model);
+  Future<ReportModel> competitionSellOut(
+          BranchModel branch, ReportModel model) =>
+      _report('competition-sell-out', branch, model);
+  Future<ReportModel> competitionStockCount(
+          BranchModel branch, ReportModel model) =>
+      _report('competition-stock-count', branch, model);
+  Future<ReportModel> sellOut(BranchModel branch, ReportModel model) =>
+      _report('sell-out', branch, model);
+  Future<ReportModel> stockCount(BranchModel branch, ReportModel model) =>
+      _report('stock-count', branch, model);
+  Future<ReportModel> returnReport(BranchModel branch, ReportModel model) =>
+      _report('return-report', branch, model);
+  Future<ReportModel> supplyOrder(BranchModel branch, ReportModel model) =>
+      _report('supply-order', branch, model);
 
   //List
   Future<ApiListResponse<BranchReport>> reports(int skip, String type,

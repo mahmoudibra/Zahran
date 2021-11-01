@@ -18,11 +18,11 @@ class ReportViewModel extends GetxController {
     var args = ModalRoute.of(context)?.settings.arguments;
     if (args is ReportModel) {
       _branch = Get.find<BranchReportListViewModel>().report.branch;
-      manager = EditReportViewModelManager(update, type, context, args);
+      manager =
+          EditReportViewModelManager(_branch, update, type, context, args);
     } else {
       _branch = Get.find<VisitDetailsViewModel>().model;
-      manager = CreateReportViewModelManager(
-          "Reports_${_branch.id}", update, type, context);
+      manager = CreateReportViewModelManager(_branch, update, type, context);
     }
   }
 
