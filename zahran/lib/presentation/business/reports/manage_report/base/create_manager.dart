@@ -14,9 +14,10 @@ class CreateReportViewModelManager extends ReportViewModelManager {
   Box<ReportModel>? _box;
   final ReportTypes type;
   final BuildContext context;
-  final String _boxKey;
+  final BranchModel _branch;
+  String get _boxKey => "Reports_create_${_branch.id}";
   CreateReportViewModelManager(
-    this._boxKey,
+    this._branch,
     this.update,
     this.type,
     this.context,
@@ -64,35 +65,35 @@ class CreateReportViewModelManager extends ReportViewModelManager {
   Future save() async {
     switch (type) {
       case ReportTypes.Comment:
-        await Repos.reports.comment(report);
+        await Repos.reports.comment(_branch, report);
         Get.find<VisitDetailsViewModel>().commentReportDone();
         break;
       case ReportTypes.Problem:
-        var res = await Repos.reports.problem(report);
+        var res = await Repos.reports.problem(_branch, report);
         Get.find<VisitDetailsViewModel>().proplemReportDone(res);
         break;
       case ReportTypes.Competition_Sell_OUT:
-        await Repos.reports.competitionSellOut(report);
+        await Repos.reports.competitionSellOut(_branch, report);
         Get.find<VisitDetailsViewModel>().competitionSellOutDone();
         break;
       case ReportTypes.Competition_Stock_Count:
-        await Repos.reports.competitionStockCount(report);
+        await Repos.reports.competitionStockCount(_branch, report);
         Get.find<VisitDetailsViewModel>().competitionStockCountDone();
         break;
       case ReportTypes.Sell_OUT:
-        await Repos.reports.sellOut(report);
+        await Repos.reports.sellOut(_branch, report);
         Get.find<VisitDetailsViewModel>().sellOutDone();
         break;
       case ReportTypes.Stock_Count:
-        await Repos.reports.stockCount(report);
+        await Repos.reports.stockCount(_branch, report);
         Get.find<VisitDetailsViewModel>().stockCountDone();
         break;
       case ReportTypes.Return_Report:
-        await Repos.reports.returnReport(report);
+        await Repos.reports.returnReport(_branch, report);
         Get.find<VisitDetailsViewModel>().returnReportDone();
         break;
       case ReportTypes.Supply_Order:
-        await Repos.reports.supplyOrder(report);
+        await Repos.reports.supplyOrder(_branch, report);
         Get.find<VisitDetailsViewModel>().supplyOrderDone();
         break;
     }
