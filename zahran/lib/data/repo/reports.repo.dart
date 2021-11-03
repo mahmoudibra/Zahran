@@ -32,7 +32,7 @@ class ReportsRepo extends BaseRepositryImpl {
           path: '/v1/mobile/tickets',
           data: {
             ...model.toJson(),
-            "branch_id": model.id,
+            "branch_id": branchModel.id,
           },
           mapItem: (json) => ReportDto.fromJson(json).dtoToDomainModel(),
         )
