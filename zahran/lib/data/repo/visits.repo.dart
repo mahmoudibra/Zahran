@@ -38,10 +38,15 @@ class VisitsRepo extends BaseRepositryImpl {
     );
   }
 
-  Future checkOut(int id) async {
-    return await this.get(
+  Future checkOut(int id, GeoPoint geoPoint, int imageId) async {
+    return await this.post(
       path: '/v1/mobile/branches/checkout',
-      queryParams: {"branch_id": id},
+      data: {
+        "branch_id": id,
+        "lat": geoPoint.lat,
+        "lang": geoPoint.long,
+        "image_id": imageId,
+      },
       mapItem: (json) => BranchDto.fromJson(json).dtoToDomainModel(),
     );
   }

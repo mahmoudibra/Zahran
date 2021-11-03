@@ -133,8 +133,25 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
           .errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
       return;
     }
-    await FlareAnimation.show(
-        action: Repos.visitsRepo.checkOut(model.id), context: context);
+    await FlareAnimation.show(action: _checkout(), context: context);
+  }
+
+  Future<void> _checkout() async {
+    var position = await getCurrentPosition();
+    GeoPoint geoPoint = kDebugMode
+        ? GeoPoint(model.location.lat, model.location.lang)
+        : GeoPoint.fromPosition(position);
+    var image = await ImagePicker().pickImage(
+        source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
+    if (image == null) {
+      throw TR.of(context).you_must_take_image;
+    }
+    var data = await MediaLocal.compressImage(image.path);
+    var media = await Repos.mediaRepo.uploadUint8ListMedia(
+        data: data!,
+        fileName: image.name,
+        mediaFileTypes: MediaFileTypes.IMAGE);
+    await Repos.visitsRepo.checkOut(model.id, geoPoint, media!.id);
     model = model.copyWith(visitStatus: VisitStatus.COMPLETED);
     Get.find<VisitsViewModel>()
         .replaceItems((e) => e.id == model.id ? model : e);
