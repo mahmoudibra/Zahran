@@ -41,8 +41,8 @@ class ReportModel extends HiveObject {
   CommentModel? comment;
   @HiveField(3)
   ProblemDetailsModel? problem;
-  @HiveField(4)
-  String? competitionName;
+  @HiveField(5)
+  CompetitorModel? competitor;
   DateTime? date;
   ReportModel({
     this.id,
@@ -51,7 +51,7 @@ class ReportModel extends HiveObject {
     List<ReportItem>? items,
     this.comment,
     this.problem,
-    this.competitionName,
+    this.competitor,
   }) : items = items ?? List.empty(growable: true);
 
   Map<String, dynamic> toJson() {
@@ -72,8 +72,12 @@ class ReportModel extends HiveObject {
         if (id != null && id! > 0) "id": id,
         "comment": comment?.comment,
         "media_ids": comment?.media.map((e) => e.id).toList(),
-        "reports": items.map((e) => e.toJson()).toList(),
-        "competition_name": competitionName
+        "reports": items
+            .map((e) => e.toJson(type == ReportTypes.Competition_Sell_OUT ||
+                type == ReportTypes.Competition_Stock_Count))
+            .toList(),
+        "competition_name": competitor?.name.en,
+        "competitor_id": competitor?.id,
       }..removeWhere((key, value) => value == null);
     }
   }
@@ -93,7 +97,7 @@ class ReportModel extends HiveObject {
       items: items ?? this.items,
       comment: comment ?? this.comment,
       problem: problem ?? this.problem,
-      competitionName: competitionName ?? this.competitionName,
+      competitor: competitor ?? this.competitor,
       date: date ?? this.date,
     );
   }

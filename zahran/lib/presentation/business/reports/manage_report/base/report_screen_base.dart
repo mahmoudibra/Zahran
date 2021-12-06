@@ -17,11 +17,13 @@ class BaseReportScreen extends StatefulWidget {
   final ReportTypes type;
   final bool showPlaceholder;
   final List<Widget> Function(ReportViewModel vm) slivers;
+  final bool Function(ReportViewModel vm)? canSave;
   const BaseReportScreen({
     Key? key,
     required this.title,
     required this.slivers,
     required this.type,
+    this.canSave,
     this.showPlaceholder = true,
   }) : super(key: key);
 
@@ -135,7 +137,8 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
 
   ProgressButton _buildButton(ReportViewModel vm, BuildContext context) {
     return ProgressButton(
-      checkFormSubmit: vm.manager.hasItems,
+      checkFormSubmit:
+          widget.canSave == null ? vm.manager.hasItems : widget.canSave!(vm),
       child: Text(TR.of(context).send),
     );
   }

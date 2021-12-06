@@ -17,6 +17,7 @@ import '../../presentation/commom/media_picker/MediaFileTypes.dart';
 part 'branch.dart';
 part 'brand.dart';
 part 'chain.dart';
+part 'competitor.dart';
 part 'localization.dart';
 part 'location.dart';
 part 'media.dart';

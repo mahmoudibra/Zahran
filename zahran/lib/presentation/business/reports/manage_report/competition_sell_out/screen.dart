@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
+import 'package:zahran/presentation/business/reports/manage_report/base/competitors_view_model.dart';
 import 'package:zahran/presentation/commom/comment_form_field.dart';
 import 'package:zahran/presentation/localization/tr.dart';
 import 'package:zahran/presentation/navigation/screen_router.dart';
@@ -21,14 +22,28 @@ class CompitionSellOutReportScreen extends StatelessWidget {
       type: ReportTypes.Competition_Sell_OUT,
       title: TR.of(context).competition_stock_count,
       showPlaceholder: false,
+      canSave: (vm) => vm.canSave,
       slivers: (ReportViewModel vm) => [
         SliverPaddingBox(
-          child: CustomTextField(
-            hint: TR.of(context).competition_name,
-            onChanged: vm.selName,
-            initialValue: vm.manager.report.competitionName,
+          child: SelectFormField(
+            controller: CompetitorsViewModel(vm.branch),
+            decoration:
+                InputDecoration(hintText: TR.of(context).competition_name),
+            onSelected: vm.setCompetitor,
+            initialValue: vm.manager.report.competitor,
           ),
         ),
+        if (vm.manager.report.competitor != null &&
+            vm.manager.report.competitor?.id == null) ...[
+          SliverSpacer(),
+          SliverPaddingBox(
+            child: CustomTextField(
+              hint: TR.of(context).competition_name,
+              onChanged: vm.selName,
+              initialValue: vm.manager.report.competitor?.name.en,
+            ),
+          ),
+        ],
         SliverSpacer(),
         if (vm.manager.hasItems) ...[
           SliverPaddingBox(
@@ -39,11 +54,12 @@ class CompitionSellOutReportScreen extends StatelessWidget {
           ),
           SliverSpacer(10),
         ],
-        SliverPaddingBox(
-          child: ProductPicker(
-            onPick: vm.addItem,
+        if (vm.showProducts)
+          SliverPaddingBox(
+            child: ProductPicker(
+              onPick: vm.addItem,
+            ),
           ),
-        ),
         for (var item in vm.manager.report.items) ...[
           SliverSpacer(14),
           SliverPaddingBox(

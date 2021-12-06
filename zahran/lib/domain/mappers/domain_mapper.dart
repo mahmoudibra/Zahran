@@ -9,6 +9,7 @@ part 'branch.dto.dart';
 part 'branch_report.dto.dart';
 part 'brand.dto.dart';
 part 'chain.dto.dart';
+part 'competitor.dart';
 part 'document.dto.dart';
 part 'localized_name.dto.dart';
 part 'media.dto.dart';

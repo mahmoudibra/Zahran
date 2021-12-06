@@ -38,21 +38,41 @@ class _ProductPicker extends StatelessWidget {
     return Scaffold(
       body: GetBuilder<ReportViewModel>(
         builder: (ReportViewModel vm) {
+          var competitirList = vm.manager.report.competitor?.products;
+
           return ListTileTheme(
             horizontalTitleGap: 0,
             child: CustomScrollView(
               slivers: [
                 _buildAppBar(context, vm),
-                for (var item in vm.brands)
-                  SliverPaddingBox(
-                    child: BrandView(
-                      item: item,
-                      onPick: onPick,
-                      initiallyExpanded: vm.query?.isNotEmpty == true &&
-                          item.products.any(
-                              (element) => element.name.contains(vm.query)),
+                if (competitirList != null) ...[
+                  for (var item in competitirList) ...[
+                    SliverToBoxAdapter(
+                      child: _ItemView(
+                        item: item,
+                        onPick: onPick,
+                      ),
                     ),
-                  ),
+                    if (item != competitirList.last)
+                      SliverToBoxAdapter(
+                        child: Divider(
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                      ),
+                  ],
+                ] else ...[
+                  for (var item in vm.brands)
+                    SliverPaddingBox(
+                      child: BrandView(
+                        item: item,
+                        onPick: onPick,
+                        initiallyExpanded: vm.query?.isNotEmpty == true &&
+                            item.products.any(
+                                (element) => element.name.contains(vm.query)),
+                      ),
+                    ),
+                ],
               ],
             ),
           );
@@ -144,17 +164,12 @@ class BrandView extends StatelessWidget {
           style: context.bodyText1,
         ),
         initiallyExpanded: initiallyExpanded,
-        leading: leadingImage(item.mediaPath, false),
+        leading: _ItemView.leadingImage(item.mediaPath, false),
         children: [
           for (var product in item.products) ...[
-            ListTile(
-              onTap: () => onPick(product.copy()),
-              trailing: Icon(
-                Icons.add,
-                color: Theme.of(context).colorScheme.secondary,
-              ),
-              leading: leadingImage(product.media, true),
-              title: Text(product.name.format(context)),
+            _ItemView(
+              item: product,
+              onPick: onPick,
             ),
             if (product != item.products.last)
               Divider(
@@ -166,8 +181,29 @@ class BrandView extends StatelessWidget {
       ),
     );
   }
+}
 
-  ShapedRemoteImage leadingImage(String path, bool circle) {
+class _ItemView extends StatelessWidget {
+  final Product item;
+  final ValueChanged<Product> onPick;
+
+  const _ItemView({Key? key, required this.item, required this.onPick})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () => onPick(item.copy()),
+      trailing: Icon(
+        Icons.add,
+        color: Theme.of(context).colorScheme.secondary,
+      ),
+      leading: leadingImage(item.media, true),
+      title: Text(item.name.format(context)),
+    );
+  }
+
+  static ShapedRemoteImage leadingImage(String path, bool circle) {
     return ShapedRemoteImage(
       width: 30,
       height: 30,
