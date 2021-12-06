@@ -6,6 +6,46 @@ part of 'models.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+class CompetitorModelAdapter extends TypeAdapter<CompetitorModel> {
+  @override
+  final int typeId = 45;
+
+  @override
+  CompetitorModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return CompetitorModel(
+      id: fields[0] as int?,
+      name: fields[1] as LocalizedName,
+      products: (fields[2] as List).cast<Product>(),
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, CompetitorModel obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.name)
+      ..writeByte(2)
+      ..write(obj.products);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CompetitorModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class LocalizedNameAdapter extends TypeAdapter<LocalizedName> {
   @override
   final int typeId = 1;
@@ -215,6 +255,52 @@ class ReportItemAdapter extends TypeAdapter<ReportItem> {
           typeId == other.typeId;
 }
 
+class ReportModelAdapter extends TypeAdapter<ReportModel> {
+  @override
+  final int typeId = 41;
+
+  @override
+  ReportModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return ReportModel(
+      type: fields[0] as ReportTypes,
+      items: (fields[1] as List?)?.cast<ReportItem>(),
+      comment: fields[2] as CommentModel?,
+      problem: fields[3] as ProblemDetailsModel?,
+      competitor: fields[5] as CompetitorModel?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, ReportModel obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.type)
+      ..writeByte(1)
+      ..write(obj.items)
+      ..writeByte(2)
+      ..write(obj.comment)
+      ..writeByte(3)
+      ..write(obj.problem)
+      ..writeByte(5)
+      ..write(obj.competitor);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ReportModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class ReportTypesAdapter extends TypeAdapter<ReportTypes> {
   @override
   final int typeId = 70;
@@ -324,52 +410,6 @@ class SeverityAdapter extends TypeAdapter<Severity> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is SeverityAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class ReportModelAdapter extends TypeAdapter<ReportModel> {
-  @override
-  final int typeId = 41;
-
-  @override
-  ReportModel read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return ReportModel(
-      type: fields[0] as ReportTypes,
-      items: (fields[1] as List?)?.cast<ReportItem>(),
-      comment: fields[2] as CommentModel?,
-      problem: fields[3] as ProblemDetailsModel?,
-      competitionName: fields[4] as String?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, ReportModel obj) {
-    writer
-      ..writeByte(5)
-      ..writeByte(0)
-      ..write(obj.type)
-      ..writeByte(1)
-      ..write(obj.items)
-      ..writeByte(2)
-      ..write(obj.comment)
-      ..writeByte(3)
-      ..write(obj.problem)
-      ..writeByte(4)
-      ..write(obj.competitionName);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ReportModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

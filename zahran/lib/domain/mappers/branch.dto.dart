@@ -22,6 +22,8 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
   bool? stockCount;
   bool? returnReport;
   bool? supplyOrder;
+  List<CompetitorDto>? competitors;
+
   BranchDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
@@ -40,6 +42,9 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
     tasks = (json["tasks"] as List?)?.map((e) => TaskDto.fromJson(e)).toList();
     tickets = (json["tickets"] as List?)
         ?.map((e) => ReportDto.fromTicketsJson(e))
+        .toList();
+    competitors = (json["competitors"] as List?)
+        ?.map((e) => CompetitorDto.fromJson(e))
         .toList();
     visitStatus = VisitStatus(json['visit_status']);
     comment = json["comment"] == true;
@@ -82,6 +87,7 @@ class BranchDto implements DtoToDomainMapper<BranchModel> {
       brands: brands?.map((e) => e.dtoToDomainModel()).toList() ?? [],
       tickets: tickets?.map((e) => e.dtoToDomainModel()).toList() ?? [],
       tasks: tasks?.map((e) => e.dtoToDomainModel()).toList() ?? [],
+      competitors: competitors?.map((e) => e.dtoToDomainModel()).toList() ?? [],
       completedTasks: completedTasks ?? 0,
       distance: distance ?? 0,
       comment: comment ?? false,

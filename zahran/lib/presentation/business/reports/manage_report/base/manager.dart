@@ -6,7 +6,7 @@ abstract class ReportViewModelManager {
   Future reset([ReportModel? model]);
   bool get hasItems;
   bool get isReady;
-  void onInit();
+  Future onInit();
 
   void onClose();
   Future save();

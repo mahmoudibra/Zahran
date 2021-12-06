@@ -42,7 +42,7 @@ class EditReportViewModelManager extends ReportViewModelManager {
   bool get hasItems => report.items.length > 0;
 
   @override
-  void onInit() async {
+  Future onInit() async {
     if (Hive.isBoxOpen(_boxKey)) {
       _box = Hive.box(_boxKey);
     } else

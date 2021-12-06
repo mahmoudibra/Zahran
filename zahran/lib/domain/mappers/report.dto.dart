@@ -9,8 +9,8 @@ class ReportDto implements DtoToDomainMapper<ReportModel> {
   CommentModelDto? comment;
 
   ProblemDetailsModelDto? problem;
+  CompetitorDto? competitor;
 
-  String? competitionName;
   DateTime? date;
   ReportDto.fromJson(Map<String, dynamic> json) {
     id = int.tryParse(json["id"]?.toString() ?? "");
@@ -23,8 +23,14 @@ class ReportDto implements DtoToDomainMapper<ReportModel> {
     problem = json["problem"] == null
         ? null
         : ProblemDetailsModelDto.fromJson(json["problem"] ?? {});
-
-    competitionName = json["competition_name"] ?? "";
+    if (json["competitor"] != null) {
+      competitor = CompetitorDto.fromJson(json["competitor"]);
+    } else if (json["competition_name"] != null) {
+      CompetitorDto.fromJson({
+        "id": json["competitor_id"],
+        "name": {"en": json["competition_name"]},
+      });
+    }
   }
 
   ReportDto.fromTicketsJson(Map<String, dynamic> json) {
@@ -36,8 +42,14 @@ class ReportDto implements DtoToDomainMapper<ReportModel> {
     comment = CommentModelDto.fromJsonWithDescription(json);
     date = DateTime.tryParse(json["date"]?.toString() ?? "");
     problem = ProblemDetailsModelDto.fromJson(json);
-
-    competitionName = json["competition_name"] ?? "";
+    if (json["competitor"] != null) {
+      competitor = CompetitorDto.fromJson(json["competitor"]);
+    } else if (json["competition_name"] != null) {
+      CompetitorDto.fromJson({
+        "id": json["competitor_id"],
+        "name": {"en": json["competition_name"]},
+      });
+    }
   }
 
   @override
@@ -49,7 +61,7 @@ class ReportDto implements DtoToDomainMapper<ReportModel> {
       date: date,
       comment: comment?.dtoToDomainModel(),
       problem: problem?.dtoToDomainModel(),
-      competitionName: competitionName,
+      competitor: competitor?.dtoToDomainModel(),
     );
   }
 }

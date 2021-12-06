@@ -25,6 +25,7 @@ class ReportViewModel extends GetxController {
       manager = CreateReportViewModelManager(_branch, update, type, context);
     }
   }
+  BranchModel get branch => _branch;
 
   String? _query;
   String? get query => _query;
@@ -41,8 +42,14 @@ class ReportViewModel extends GetxController {
 
   @override
   void onInit() async {
-    manager.onInit();
-
+    await manager.onInit();
+    var competitor = manager.report.competitor;
+    if (competitor != null && competitor.id != null && competitor.id! > 0) {
+      var _new =
+          _branch.competitors.firstOrDefault((f) => f.id == competitor.id);
+      manager.report.competitor = _new;
+      manager.report.save();
+    }
     super.onInit();
   }
 

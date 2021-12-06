@@ -11,7 +11,7 @@ abstract class _BaseResponse<TData> {
 }
 
 class _Interceptor extends Interceptor {
-  final logger = AnsiLogger(name: 'Dio', length: 100);
+  final logger = AnsiLogger();
 
   dynamic tryGetMap(dynamic data) {
     try {

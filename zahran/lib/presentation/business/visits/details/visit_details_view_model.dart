@@ -127,12 +127,12 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
   }
 
   Future checkOut(BranchModel item) async {
-    var unCompletedTask = model.tasks.where((task) => !task.isCompleted);
-    if (unCompletedTask.isNotEmpty) {
-      context
-          .errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
-      return;
-    }
+    // var unCompletedTask = model.tasks.where((task) => !task.isCompleted);
+    // if (unCompletedTask.isNotEmpty) {
+    //   context
+    //       .errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
+    //   return;
+    // }
     await FlareAnimation.show(action: _checkout(), context: context);
   }
 

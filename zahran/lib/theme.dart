@@ -90,7 +90,7 @@ class ThemeGenerator {
           ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: colors.background,
-        modalBackgroundColor: colors.background,
+        modalBackgroundColor: colors.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),

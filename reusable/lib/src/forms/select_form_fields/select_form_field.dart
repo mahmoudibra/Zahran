@@ -183,6 +183,8 @@ class __SelectFormFieldState<TItem,
                               icon: Icon(Icons.remove),
                               onPressed: () {
                                 widget.field.didChange(null);
+                                if (options.onSelected != null)
+                                  options.onSelected!(null);
                               },
                             )),
                 ),

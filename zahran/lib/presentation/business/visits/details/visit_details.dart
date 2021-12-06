@@ -129,9 +129,9 @@ class _VisitDetailsState extends State<VisitDetails> {
                   child: ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                         primary: context.theme.primaryColor),
-                    onPressed: model.visitStatus.isInProgress.onTrue(() {
+                    onPressed: () {
                       VisitReportsSheet.show(context);
-                    }),
+                    },
                     icon: Icon(Icons.summarize),
                     label: Text(TR.of(context).report),
                   ),

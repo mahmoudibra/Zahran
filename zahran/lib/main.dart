@@ -17,7 +17,13 @@ import 'theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initialize firebase app, This method should be called before any usage of FlutterFire plugins
-  await FCMConfig.instance.init();
+  await FCMConfig.instance.init(
+    defaultAndroidChannel: AndroidNotificationChannel(
+      'high_importance_channel', // same as value from android setup
+      'Groupe SEB',
+      importance: Importance.high,
+    ),
+  );
 // initialize hive
   await Hive.initFlutter();
   Hive.registerAdapter(LocalizedNameAdapter());
@@ -33,6 +39,7 @@ Future<void> main() async {
   Hive.registerAdapter(SeverityAdapter());
   Hive.registerAdapter(MediaAdapter());
   Hive.registerAdapter(SelectItemAdapter());
+  Hive.registerAdapter(CompetitorModelAdapter());
   // if (kDebugMode) {
   //   // Force disable Crashlytics collection while doing every day development.
   //   // Temporarily toggle this to true if you want to test crash reporting in your app.

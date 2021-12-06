@@ -23,11 +23,11 @@ class ReportItem {
     this.reasonOfReaturn,
     DateTime? createdAt,
   }) : createdAt = createdAt ?? DateTime.now();
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson(bool array) {
     return {
       "comment": comment?.comment,
       "media_ids": comment?.media.map((e) => e.id).toList(),
-      "product_id": product.id,
+      "product_id": array ? [product.id] : product.id,
       "quantity": count,
       "price": price,
       "reason": reasonOfReaturn,

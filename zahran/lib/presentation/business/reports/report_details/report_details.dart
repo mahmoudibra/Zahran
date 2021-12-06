@@ -107,7 +107,7 @@ class _ReportDetailsScreenState extends State<ReportDetailsScreen> {
             child: Align(
               alignment: AlignmentDirectional.centerEnd,
               child: Text(
-                model.competitionName ?? "",
+                model.competitor?.name.format(context) ?? "",
               ),
             ),
           ),
