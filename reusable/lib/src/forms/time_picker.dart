@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:simple/simple.dart';
 
 import '../../reusable.dart';
 

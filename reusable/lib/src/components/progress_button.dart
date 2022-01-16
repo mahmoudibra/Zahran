@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:reusable/l10n/gen_l10n/reusable_localizations.dart';
 import 'package:reusable/reusable.dart';
 
 enum _ButtonState { Initial, Error, Loading, Done }

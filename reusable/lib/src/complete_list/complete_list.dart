@@ -4,17 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/cupertino.dart' as cupertino;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:reusable/l10n/gen_l10n/reusable_localizations.dart';
 import 'package:reusable/reusable.dart';
-import 'package:reusable/src/shimmers/shimmers.dart';
-import 'package:shimmer/shimmer.dart';
-
-import '../api/api_helper.dart';
-import '../components/text_styles.dart';
-import 'animated_items/animated_item.dart';
 
 part 'grids.dart';
 part 'labels.dart';
