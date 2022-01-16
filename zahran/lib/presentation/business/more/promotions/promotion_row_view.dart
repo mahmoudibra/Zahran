@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -56,7 +55,8 @@ class PromotionRow extends StatelessWidget {
       height: 104,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+        borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8), topRight: Radius.circular(8)),
       ),
     );
   }
@@ -99,7 +99,8 @@ class PromotionRow extends StatelessWidget {
                 ),
           ),
           Text(
-            DateTimeManager.convertDateTimeToAppWithoutHours(promotion.fromDate),
+            DateTimeManager.convertDateTimeToAppWithoutHours(
+                promotion.fromDate),
             style: Theme.of(context).textTheme.subtitle1?.copyWith(
                   fontWeight: FontWeight.w400,
                   color: Theme.of(context).colorScheme.primary,
@@ -136,6 +137,7 @@ class PromotionRow extends StatelessWidget {
   }
 
   Widget promotionStatus(BuildContext context) {
+    var product = promotion.products.isEmpty ? null : promotion.products.first;
     return Padding(
       padding: EdgeInsetsDirectional.only(start: 16, end: 16),
       child: Row(
@@ -143,14 +145,14 @@ class PromotionRow extends StatelessWidget {
           RoundedImage(
             radius: 20,
             borderSize: 1,
-            imageUrl: promotion.products[0].media,
+            imageUrl: product?.media ?? "",
             borderColor: Theme.of(context).dividerColor,
             loadingIndicatorSize: 10,
           ),
           ViewsToolbox.emptySpaceWidget(width: 8),
           Expanded(
             child: Text(
-              promotion.products[0].name.format(context),
+              product?.name.format(context) ?? "",
               style: Theme.of(context).textTheme.subtitle1?.copyWith(
                     fontWeight: FontWeight.w400,
                     color: Theme.of(context).textTheme.headline1?.color,

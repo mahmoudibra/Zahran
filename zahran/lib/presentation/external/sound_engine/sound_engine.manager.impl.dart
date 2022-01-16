@@ -1,6 +1,4 @@
 import 'package:flutter_sound_lite/flutter_sound.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_player.dart';
-import 'package:flutter_sound_lite/public/flutter_sound_recorder.dart';
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:zahran/presentation/external/sound_engine/sound_engine.manager.dart';
 

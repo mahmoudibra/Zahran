@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/more/profile/profile_view_model.dart';
 import 'package:zahran/presentation/commom/scaffold_silver_app_bar.dart';
@@ -80,7 +79,8 @@ class UserProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget buildPhoneNumberTextField(BuildContext context, UserProfileViewModel vm) {
+  Widget buildPhoneNumberTextField(
+      BuildContext context, UserProfileViewModel vm) {
     return CustomTextField(
       initialValue: vm.userModel?.phone,
       hint: TR.of(context).phone_number,
@@ -115,7 +115,8 @@ class UserProfileScreen extends StatelessWidget {
             url: vm.userModel?.media ?? "",
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(150),
-              border: Border.all(color: Theme.of(context).colorScheme.primary, width: 2),
+              border: Border.all(
+                  color: Theme.of(context).colorScheme.primary, width: 2),
             ),
           ),
         ),

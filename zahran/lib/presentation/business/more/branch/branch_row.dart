@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/commom/rounded_image.dart';

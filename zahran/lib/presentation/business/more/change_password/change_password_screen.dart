@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:reusable/reusable.dart';
 import 'package:zahran/presentation/business/more/change_password/change_password_view_model.dart';
 import 'package:zahran/presentation/commom/scaffold_silver_app_bar.dart';
@@ -69,7 +68,9 @@ class ChangePasswordScreen extends StatelessWidget {
 
   Widget buildOldPassword(BuildContext context, ChangePasswordViewModel vm) {
     return CustomTextField.password(
-        hint: TR.of(context).old_password, onSaved: (v) => vm.oldPassword = v, extraValidator: vm.validateOldPassword);
+        hint: TR.of(context).old_password,
+        onSaved: (v) => vm.oldPassword = v,
+        extraValidator: vm.validateOldPassword);
   }
 
   Widget buildNewPassword(BuildContext context, ChangePasswordViewModel vm) {
@@ -80,7 +81,8 @@ class ChangePasswordScreen extends StatelessWidget {
     );
   }
 
-  Widget buildConfirmNewPassword(BuildContext context, ChangePasswordViewModel vm) {
+  Widget buildConfirmNewPassword(
+      BuildContext context, ChangePasswordViewModel vm) {
     return CustomTextField.password(
       hint: TR.of(context).confirm_new_password,
       onSaved: (v) => vm.confirmNewPassword = v,
