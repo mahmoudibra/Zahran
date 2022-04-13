@@ -27,11 +27,14 @@ class SettingViewModel extends GetxController {
   Future _updateNotificationStatus() async {
     //TODO: ask why we consider 201 as error
     try {
-      var userModel =
-          await Repos.userRepo.receiveNotification(receiveNotification: true);
+      var userModel = await Repos.userRepo
+          .receiveNotification(receiveNotification: notificationEnabledValue);
+
       var localAuthModel = Get.find<AuthViewModel>().user;
-      var updatedLoginModel =
-          LoginModel.copyWith(origin: localAuthModel!, userProfile: userModel);
+      var updatedLoginModel = LoginModel.copyWith(
+        origin: localAuthModel!,
+        userProfile: userModel,
+      );
       await Get.find<AuthViewModel>().saveUser(updatedLoginModel);
       context.primarySnackBar(TR.of(context).user_setting_updated);
     } catch (error) {
@@ -51,7 +54,7 @@ class SettingViewModel extends GetxController {
 
   @override
   void onReady() {
-    FlareAnimation.show(action: _fetchUserInfo(), context: context);
+    FlareAnimation.show(action: (_) => _fetchUserInfo(), context: context);
     super.onReady();
   }
 }

@@ -4,7 +4,7 @@ version: 0.2.0
 publish_to: none
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   ansi_logger: ^2.0.9
   dio: ^4.0.0
-  simple: ^2.1.1
+  simple: ^2.1.9
   get: ^4.1.4
   auto_size_text: ^3.0.0-nullsafety.0
   percent_indicator: ^3.3.0-nullsafety.1
@@ -33,4 +33,3 @@ flutter:
   # The androidPackage and pluginClass identifiers should not ordinarily
   # be modified. They are used by the tooling to maintain consistency when
   # adding or updating assets for this project.
-

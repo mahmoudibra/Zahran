@@ -8,6 +8,7 @@ class UserDto implements DtoToDomainMapper<UserModel> {
   String? media;
   DateTime? lastVisit;
   TargetDto? target;
+  bool? notificationEnabled;
   UserDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = LocalizedNameDto.fromJson(json["name"] ?? {});
@@ -16,6 +17,7 @@ class UserDto implements DtoToDomainMapper<UserModel> {
     lastVisit = DateTime.tryParse(json['last_visit'] ?? '');
     phone = json['phone'];
     target = TargetDto.fromJson(json['target'] ?? {});
+    notificationEnabled = json['notification_enabled'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,21 +29,22 @@ class UserDto implements DtoToDomainMapper<UserModel> {
       "media": media,
       "last_visit": lastVisit?.toIso8601String(),
       "target": target?.toJson(),
+      "notification_enabled": notificationEnabled,
     };
   }
 
   @override
   UserModel dtoToDomainModel() {
     return UserModel(
-        id: id!,
-        name: name?.dtoToDomainModel() ?? LocalizedName(),
-        sabNumber: sabNumber ?? '',
-        phone: phone ?? '',
-        media: media ?? '',
-        lastVisit: lastVisit!,
-        target:
-            target?.dtoToDomainModel() ?? Target(totalSellOut: 0, target: 0),
-        notificationEnabled: false);
+      id: id!,
+      name: name?.dtoToDomainModel() ?? LocalizedName(),
+      sabNumber: sabNumber ?? '',
+      phone: phone ?? '',
+      media: media ?? '',
+      lastVisit: lastVisit!,
+      target: target?.dtoToDomainModel() ?? Target(totalSellOut: 0, target: 0),
+      notificationEnabled: notificationEnabled ?? false,
+    );
   }
 }
 

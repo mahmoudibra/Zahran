@@ -16,7 +16,7 @@ part 'data_response.dart';
 part 'list_response.dart';
 //! help method
 
-void _onrogress(int received, int total, Function(double)? onProgress) {
+void _onProgress(int received, int total, Function(double)? onProgress) {
   if (total != -1 && onProgress != null) {
     onProgress((received / total * 100));
   }
@@ -55,8 +55,8 @@ abstract class BaseRepositry {
   BuildContext get context;
   String? get language;
   String get listTotalKey;
-  Duration get sendTimeOut => Duration(seconds: 15);
-  Duration get receiveTimeout => Duration(seconds: 15);
+  Duration get sendTimeOut => Duration(seconds: 100);
+  Duration get receiveTimeout => Duration(seconds: 100);
   Duration get connectTimeout => Duration(seconds: 15);
   Future<Map<String, String>>? getHeaders(ROptions options);
   Future<bool> onError(ApiFetchException error);
@@ -250,7 +250,7 @@ abstract class BaseRepositry {
         data: formData ? FormData.fromMap(data) : data,
         cancelToken: cancelToken,
         onSendProgress: (received, total) =>
-            _onrogress(received, total, onSendProgress),
+            _onProgress(received, total, onSendProgress),
       ),
       map: (response) => ApiDataResponse.fromJson(
         response: response,
@@ -391,7 +391,7 @@ abstract class BaseRepositry {
         queryParameters: queryParams,
         data: data,
         onReceiveProgress: (received, total) =>
-            _onrogress(received, total, onReceiveProgress),
+            _onProgress(received, total, onReceiveProgress),
         cancelToken: cancelToken,
       ),
       resolve: resolveResponse,

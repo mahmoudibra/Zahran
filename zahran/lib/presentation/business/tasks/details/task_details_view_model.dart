@@ -139,7 +139,7 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   // Map<String, Function> _prepareMediaAction({required int brandIndex, required int productIndex}) {
   //   print("🚀🚀🚀🚀 Heeeereeeeeeeeee");
   //   Map<String, Function> actionsCallbacks = Map();
-  //   actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => {
+  //   actionsCallbacks['mediaPickerCallback'] = (BuildContext context,MediaLocal? mediaModel) => {
   //         mediaFile = mediaModel,
   //         FlareAnimation.show(
   //             action: _uploadMedia(brandIndex: brandIndex, productIndex: productIndex), context: context)
@@ -152,12 +152,14 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   Map<String, Function> _prepareMediaActionForQuestions(
       {required int questionIndex}) {
     Map<String, Function> actionsCallbacks = Map();
-    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) => {
-          mediaFile = mediaModel,
-          FlareAnimation.show(
-              action: _uploadMediaForQuestion(questionIndex: questionIndex),
-              context: context)
-        };
+    actionsCallbacks['mediaPickerCallback'] =
+        (BuildContext context, MediaLocal? mediaModel) => {
+              mediaFile = mediaModel,
+              FlareAnimation.show(
+                  action: (notifier) =>
+                      _uploadMediaForQuestion(notifier, questionIndex),
+                  context: context)
+            };
     actionsCallbacks['dismissCallback'] =
         () => {print("🚀🚀🚀🚀 User Dismissed")};
 
@@ -193,13 +195,21 @@ class TaskDetailsViewModel extends BaseDetailsViewModel<TaskModel> {
   //   }
   // }
 
-  Future<void> _uploadMediaForQuestion({required int questionIndex}) async {
+  Future<void> _uploadMediaForQuestion(
+      ValueNotifier<double?> notifier, int questionIndex) async {
     try {
-      await mediaFile?.compressVideo();
+      var uploadedMedia = await mediaFile?.compressAndUpload(
+        notifier: notifier,
+        upload: (file, onProgress) async {
+          return await Repos.mediaRepo.uploadMedia(
+            uploadedFile: file,
+            mediaFileTypes: mediaFile?.mediaFileTypes ?? MediaFileTypes.IMAGE,
+            onProgress: onProgress,
+          );
+        },
+      );
       await mediaFile?.extractVideoThumbnailFromFile();
-      var uploadedMedia = await Repos.mediaRepo.uploadMedia(
-          uploadedFile: mediaFile!.mediaFile,
-          mediaFileTypes: mediaFile?.mediaFileTypes ?? MediaFileTypes.IMAGE);
+
       model.questions[questionIndex].answerMediaList.add(uploadedMedia!.id);
       model.questions[questionIndex].selectedMultimedia.add(mediaFile!);
       update();

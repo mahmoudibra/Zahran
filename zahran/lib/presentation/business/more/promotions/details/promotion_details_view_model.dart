@@ -26,7 +26,8 @@ class PromotionDetailsViewModel extends BaseDetailsViewModel<Promotion> {
 
   @override
   void onReady() {
-    FlareAnimation.show(action: _fetchPromotionDetails(), context: context);
+    FlareAnimation.show(
+        action: (_) => _fetchPromotionDetails(), context: context);
     super.onReady();
   }
 

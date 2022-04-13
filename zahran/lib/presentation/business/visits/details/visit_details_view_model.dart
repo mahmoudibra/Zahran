@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -100,21 +102,42 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
     ScreenNames.TAS_DETAILS.push(task);
   }
 
-  Future<void> _checkIn(BranchModel item, BuildContext context) async {
+  Future<Media?> _pickAndUploadMedia(ValueNotifier<double?> notifier) async {
+    var image = await ImagePicker().pickImage(
+        source: kDebugMode ? ImageSource.gallery : ImageSource.camera,
+        maxHeight: 1200,
+        maxWidth: 1200);
+    if (image == null) {
+      throw TR.of(context).you_must_take_image;
+    }
+    var mediaFile = MediaLocal(
+      mediaFile: File(image.path),
+      mediaFileTypes: MediaFileTypes.IMAGE,
+      fileName: image.name,
+    );
+    return await mediaFile.compressAndUpload(
+      notifier: notifier,
+      upload: (file, onProgress) async {
+        return await Repos.mediaRepo.uploadMedia(
+          uploadedFile: file,
+          mediaFileTypes: mediaFile.mediaFileTypes,
+          onProgress: onProgress,
+        );
+      },
+    );
+  }
+
+  Future<void> _checkIn(
+    ValueNotifier<double?> notifier,
+    BranchModel item,
+    BuildContext context,
+  ) async {
+    var media = await _pickAndUploadMedia(notifier);
     var position = await getCurrentPosition();
     GeoPoint geoPoint = kDebugMode
         ? GeoPoint(model.location.lat, model.location.lang)
         : GeoPoint.fromPosition(position);
-    var image = await ImagePicker().pickImage(
-        source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
-    if (image == null) {
-      throw TR.of(context).you_must_take_image;
-    }
-    var data = await MediaLocal.compressImage(image.path);
-    var media = await Repos.mediaRepo.uploadUint8ListMedia(
-        data: data!,
-        fileName: image.name,
-        mediaFileTypes: MediaFileTypes.IMAGE);
+
     await Repos.visitsRepo.checkIn(model.id, geoPoint, media!.id);
     model = model.copyWith(visitStatus: VisitStatus.IN_PROGRESS);
     Get.find<VisitsViewModel>()
@@ -123,7 +146,9 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
 
   Future checkIn(BranchModel item, BuildContext context) async {
     await FlareAnimation.show(
-        action: _checkIn(item, context), context: context);
+      action: (notifier) => _checkIn(notifier, item, context),
+      context: context,
+    );
   }
 
   Future checkOut(BranchModel item) async {
@@ -133,24 +158,17 @@ class VisitDetailsViewModel extends BaseDetailsViewModel<BranchModel>
     //       .errorSnackBar(TR.of(context).complete_all_your_tasks_please_first);
     //   return;
     // }
-    await FlareAnimation.show(action: _checkout(), context: context);
+    await FlareAnimation.show(
+        action: (notifier) => _checkout(notifier), context: context);
   }
 
-  Future<void> _checkout() async {
+  Future<void> _checkout(ValueNotifier<double?> notifier) async {
+    var media = await _pickAndUploadMedia(notifier);
     var position = await getCurrentPosition();
     GeoPoint geoPoint = kDebugMode
         ? GeoPoint(model.location.lat, model.location.lang)
         : GeoPoint.fromPosition(position);
-    var image = await ImagePicker().pickImage(
-        source: kDebugMode ? ImageSource.gallery : ImageSource.camera);
-    if (image == null) {
-      throw TR.of(context).you_must_take_image;
-    }
-    var data = await MediaLocal.compressImage(image.path);
-    var media = await Repos.mediaRepo.uploadUint8ListMedia(
-        data: data!,
-        fileName: image.name,
-        mediaFileTypes: MediaFileTypes.IMAGE);
+
     await Repos.visitsRepo.checkOut(model.id, geoPoint, media!.id);
     model = model.copyWith(visitStatus: VisitStatus.COMPLETED);
     Get.find<VisitsViewModel>()

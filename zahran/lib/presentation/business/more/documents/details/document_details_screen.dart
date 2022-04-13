@@ -25,6 +25,7 @@ class _DocumentDetailsScreenState extends State<DocumentDetailsScreen> {
       builder: (DocumentsDetailsViewModel vm) {
         return ScaffoldSilverAppBar(
           content: buildBody(context, vm),
+          hasScrollBody: false,
           title: vm.model.name.format(context),
         );
       },

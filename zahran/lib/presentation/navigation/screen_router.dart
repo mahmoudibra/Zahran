@@ -176,11 +176,12 @@ class ScreenRouter {
         builder: (context) => _sheet);
   }
 
-  static Future showPopup(
-      {required PopupsNames type,
-      Map<String, dynamic>? parameters,
-      Map<String, Function>? actionsCallbacks,
-      bool barrierDismissible = true}) {
+  static Future showPopup({
+    required PopupsNames type,
+    Map<String, dynamic>? parameters,
+    Map<String, Function>? actionsCallbacks,
+    bool barrierDismissible = true,
+  }) {
     Widget _popup;
     switch (type) {
       case PopupsNames.LOGOUT:
@@ -189,9 +190,13 @@ class ScreenRouter {
         break;
       case PopupsNames.MEDIA_PICKER_POPUP:
         _popup = MediaPickerComponent(
-          mediaPickerFileCallback: ({MediaLocal? mediaModel}) async {
+          mediaPickerFileCallback: ({
+            required BuildContext context,
+            required MediaLocal? mediaModel,
+          }) async {
             print("🚀🚀🚀🚀 Callback with data $mediaModel");
-            actionsCallbacks!['mediaPickerCallback']!(mediaModel);
+            var callBak = actionsCallbacks!['mediaPickerCallback']!;
+            await callBak(context, mediaModel);
           },
           mediaPickerType: parameters!["pickerType"] as MediaPickerType,
           onMediaDismissedCallback: () {

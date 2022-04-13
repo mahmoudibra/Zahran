@@ -269,5 +269,6 @@
         }
     },
     "resolve": "Resolve",
-    "other":"Other"
+    "other": "Other",
+    "showAll": "Show all"
 }

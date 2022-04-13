@@ -10,4 +10,3 @@ part './dialogs/jump_text_loading_dialog.dart';
 part './dialogs/progress_dialog.dart';
 part './dialogs/simple_loading_dialog.dart';
 part './dialogs/widget_animations.dart';
-part './snack_bars/simple_snack_bars.dart';
