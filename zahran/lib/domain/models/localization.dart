@@ -21,7 +21,8 @@ class LocalizedName {
   }
 
   bool contains(String? v) {
-    return ar?.contains(v ?? "") == true || en?.contains(v ?? "") == true;
+    return ar?.toLowerCase().contains(v?.toLowerCase() ?? "") == true ||
+        en?.toLowerCase().contains(v?.toLowerCase() ?? "") == true;
   }
 
   bool hasName(String val) {

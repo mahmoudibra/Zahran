@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -177,13 +177,24 @@ class _CommentFormFieldState extends State<CommentFormField>
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
       ScreenRouter.pop();
       print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel =
-          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      var mediaModel = MediaLocal(
+        mediaFile: file!,
+        mediaFileTypes: MediaFileTypes.AUDIO,
+        fileName: path.basename(file.path),
+      );
+
       try {
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadMedia(
-              uploadedFile: mediaModel.mediaFile,
-              mediaFileTypes: mediaModel.mediaFileTypes),
+          action: (notifier) => mediaModel.compressAndUpload(
+            notifier: notifier,
+            upload: (file, onProgress) async {
+              return await Repos.mediaRepo.uploadMedia(
+                uploadedFile: file,
+                mediaFileTypes: mediaModel.mediaFileTypes,
+                onProgress: onProgress,
+              );
+            },
+          ),
           context: context,
         );
         if (field != null) {
@@ -212,23 +223,29 @@ class _CommentFormFieldState extends State<CommentFormField>
   }
 
   Map<String, Function> _prepareMediaAction(
-      FormFieldState<CommentModel> field) {
+    FormFieldState<CommentModel> field,
+  ) {
     Map<String, Function> actionsCallbacks = Map();
-    actionsCallbacks['mediaPickerCallback'] = (MediaLocal? mediaModel) async {
+    actionsCallbacks['mediaPickerCallback'] =
+        (BuildContext context, MediaLocal? mediaModel) async {
       try {
-        Uint8List? data;
-        if (mediaModel!.mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
-          data = await MediaLocal.compressImage(
-            mediaModel.mediaFile.path,
-          );
-        } else {
-          data = await MediaLocal.compressVideoToUint8List(
-            mediaModel.mediaFile,
-          );
-        }
         var result = await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadUint8ListMedia(
-              data: data!, mediaFileTypes: mediaModel.mediaFileTypes),
+          action: (notifier) async {
+            try {
+              return await mediaModel?.compressAndUpload(
+                notifier: notifier,
+                upload: (file, onProgress) async {
+                  return await Repos.mediaRepo.uploadMedia(
+                    uploadedFile: file,
+                    mediaFileTypes: mediaModel.mediaFileTypes,
+                    onProgress: onProgress,
+                  );
+                },
+              );
+            } catch (e) {
+              rethrow;
+            }
+          },
           context: context,
         );
         field.didChange(

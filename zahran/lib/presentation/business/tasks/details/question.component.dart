@@ -10,15 +10,19 @@ import 'package:zahran/presentation/localization/tr.dart';
 
 import '../../../../r.dart';
 
-typedef QuestionTextChangeCallback = Function({required int index, required String textChange});
+typedef QuestionTextChangeCallback = Function(
+    {required int index, required String textChange});
 
-typedef QuestionSelectionChangeCallback = Function({required int index, required int selectionIndex});
+typedef QuestionSelectionChangeCallback = Function(
+    {required int index, required int selectionIndex});
 
-typedef QuestionDateChangeCallback = Function({required int index, required DateTime selectedDate});
+typedef QuestionDateChangeCallback = Function(
+    {required int index, required DateTime selectedDate});
 
 typedef QuestionMediaChooseCallback = Function({required int index});
 
-typedef QuestionMediaRemoveCallback = Function({required int index, required int removeMediaIndex});
+typedef QuestionMediaRemoveCallback = Function(
+    {required int index, required int removeMediaIndex});
 
 class QuestionComponent extends StatefulWidget {
   final List<Question> questions;
@@ -44,7 +48,8 @@ class QuestionComponent extends StatefulWidget {
 
 class _QuestionComponentState extends State<QuestionComponent> {
   final ItemScrollController itemScrollController = ItemScrollController();
-  final ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
   Duration scrollDuration = Duration(seconds: 1);
   int scrollableIndex = 0;
 
@@ -56,7 +61,8 @@ class _QuestionComponentState extends State<QuestionComponent> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Padding(padding: const EdgeInsets.all(8.0), child: buildQuestionComponent()),
+      child: Padding(
+          padding: const EdgeInsets.all(8.0), child: buildQuestionComponent()),
     );
   }
 
@@ -94,7 +100,8 @@ class _QuestionComponentState extends State<QuestionComponent> {
                     ),
                     Expanded(
                         child: Text(
-                      TR.of(context).questions("${scrollableIndex + 1}/${widget.questions.length}"),
+                      TR.of(context).questions(
+                          "${scrollableIndex + 1}/${widget.questions.length}"),
                       style: Theme.of(context).textTheme.subtitle2,
                       textAlign: TextAlign.center,
                     )),
@@ -113,16 +120,20 @@ class _QuestionComponentState extends State<QuestionComponent> {
   }
 
   String decideMandatoryOrNot() {
-    return widget.questions[scrollableIndex].mandatory ? TR.of(context).mandatory : TR.of(context).optional;
+    return widget.questions[scrollableIndex].mandatory
+        ? TR.of(context).mandatory
+        : TR.of(context).optional;
   }
 
   Widget buildScrollableList() {
     return ScrollablePositionedList.separated(
       itemCount: widget.questions.length,
       physics: NeverScrollableScrollPhysics(),
-      separatorBuilder: (BuildContext context, int index) => ViewsToolbox.emptySpaceWidget(width: 15),
+      separatorBuilder: (BuildContext context, int index) =>
+          ViewsToolbox.emptySpaceWidget(width: 15),
       itemBuilder: (context, index) {
-        return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+        return LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
           return _decideQuestionType(widget.questions[index], index);
         });
       },
@@ -153,7 +164,8 @@ class _QuestionComponentState extends State<QuestionComponent> {
   Widget buildDateQuestion({required int index}) {
     return DateQuestionPromotionalTaskComponent(
       onChangeDateSelect: (onChangeDateSelect) {
-        widget.questionDateChangeCallback(index: index, selectedDate: onChangeDateSelect);
+        widget.questionDateChangeCallback(
+            index: index, selectedDate: onChangeDateSelect);
       },
       questionModel: widget.questions[index],
     );
@@ -166,7 +178,8 @@ class _QuestionComponentState extends State<QuestionComponent> {
       },
       onRemoveMediaCallback: (int mediaRemoveIndex) {
         print("🚀🚀🚀🚀🚀 with removed index of $mediaRemoveIndex");
-        widget.questionMediaRemoveCallback(index: index, removeMediaIndex: mediaRemoveIndex);
+        widget.questionMediaRemoveCallback(
+            index: index, removeMediaIndex: mediaRemoveIndex);
       },
       questionModel: widget.questions[index],
     );
@@ -175,7 +188,8 @@ class _QuestionComponentState extends State<QuestionComponent> {
   Widget buildOptionsQuestions(int index) {
     return SelectionsQuestionPromotionalTaskComponent(
       onChooseOptionIndex: (int selectedIndex) {
-        widget.questionSelectionChangeCallback(index: index, selectionIndex: selectedIndex);
+        widget.questionSelectionChangeCallback(
+            index: index, selectionIndex: selectedIndex);
       },
       questionModel: widget.questions[index],
     );
@@ -226,7 +240,9 @@ class _QuestionComponentState extends State<QuestionComponent> {
 }
 
 Widget buildTextFieldWidget(
-    {required BuildContext context, required Function onTextChangeCallback, required TextInputType textInputType}) {
+    {required BuildContext context,
+    required Function onTextChangeCallback,
+    required TextInputType textInputType}) {
   return CustomTextField(
       onChanged: (value) {
         print("🎉🎉🎉 Updated value $value");
@@ -240,7 +256,8 @@ class TextQuestionPromotionalTaskComponent extends StatelessWidget {
   final Function onTextChangeCallback;
   final Question questionModel;
 
-  TextQuestionPromotionalTaskComponent({required this.onTextChangeCallback, required this.questionModel});
+  TextQuestionPromotionalTaskComponent(
+      {required this.onTextChangeCallback, required this.questionModel});
 
   @override
   Widget build(BuildContext context) {
@@ -251,15 +268,16 @@ class TextQuestionPromotionalTaskComponent extends StatelessWidget {
         children: [
           Text(
             questionModel.question.format(context),
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
           ViewsToolbox.emptySpaceWidget(height: 10),
           buildTextFieldWidget(
-              context: context, onTextChangeCallback: onTextChangeCallback, textInputType: TextInputType.text)
+              context: context,
+              onTextChangeCallback: onTextChangeCallback,
+              textInputType: TextInputType.text)
         ],
       ),
     );
@@ -270,7 +288,8 @@ class NumericalTextQuestionPromotionalTaskComponent extends StatelessWidget {
   final Function onTextChangeCallback;
   final Question questionModel;
 
-  NumericalTextQuestionPromotionalTaskComponent({required this.onTextChangeCallback, required this.questionModel});
+  NumericalTextQuestionPromotionalTaskComponent(
+      {required this.onTextChangeCallback, required this.questionModel});
 
   @override
   Widget build(BuildContext context) {
@@ -281,16 +300,17 @@ class NumericalTextQuestionPromotionalTaskComponent extends StatelessWidget {
         children: [
           Text(
             questionModel.question.format(context),
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
           ViewsToolbox.emptySpaceWidget(height: 10),
           buildTextField(context),
           buildTextFieldWidget(
-              context: context, onTextChangeCallback: onTextChangeCallback, textInputType: TextInputType.number)
+              context: context,
+              onTextChangeCallback: onTextChangeCallback,
+              textInputType: TextInputType.number)
         ],
       ),
     );
@@ -304,7 +324,9 @@ class NumericalTextQuestionPromotionalTaskComponent extends StatelessWidget {
       textAlign: TextAlign.start,
       obscureText: false,
       keyboardType: TextInputType.number,
-      inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
       decoration: InputDecoration(
         isDense: true,
         fillColor: Colors.white,
@@ -331,7 +353,8 @@ class DateQuestionPromotionalTaskComponent extends StatelessWidget {
   final Function onChangeDateSelect;
   final Question questionModel;
 
-  DateQuestionPromotionalTaskComponent({required this.onChangeDateSelect, required this.questionModel});
+  DateQuestionPromotionalTaskComponent(
+      {required this.onChangeDateSelect, required this.questionModel});
 
   @override
   Widget build(BuildContext context) {
@@ -342,10 +365,9 @@ class DateQuestionPromotionalTaskComponent extends StatelessWidget {
         children: [
           Text(
             questionModel.question.format(context),
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
           ViewsToolbox.emptySpaceWidget(height: 10),
@@ -353,10 +375,9 @@ class DateQuestionPromotionalTaskComponent extends StatelessWidget {
           ViewsToolbox.emptySpaceWidget(height: 10),
           Text(
             questionModel.answerText,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
         ],
@@ -368,8 +389,11 @@ class DateQuestionPromotionalTaskComponent extends StatelessWidget {
     return OutlinedButton(
       onPressed: () {
         showDatePicker(
-                context: context, initialDate: DateTime.now(), firstDate: DateTime(2020), lastDate: DateTime(2022))
-            .then((value) {
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime(2020),
+          lastDate: DateTime(20100),
+        ).then((value) {
           onChangeDateSelect(value);
         });
       },
@@ -396,7 +420,9 @@ class MediaQuestionPromotionalTaskComponent extends StatelessWidget {
   final Question questionModel;
 
   MediaQuestionPromotionalTaskComponent(
-      {required this.onMediaSelectCallback, required this.onRemoveMediaCallback, required this.questionModel});
+      {required this.onMediaSelectCallback,
+      required this.onRemoveMediaCallback,
+      required this.questionModel});
 
   @override
   Widget build(BuildContext context) {
@@ -407,10 +433,9 @@ class MediaQuestionPromotionalTaskComponent extends StatelessWidget {
         children: [
           Text(
             questionModel.question.format(context),
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
           ViewsToolbox.emptySpaceWidget(height: 10),
@@ -455,13 +480,16 @@ class SelectionsQuestionPromotionalTaskComponent extends StatefulWidget {
   final Function onChooseOptionIndex;
   final Question questionModel;
 
-  SelectionsQuestionPromotionalTaskComponent({required this.onChooseOptionIndex, required this.questionModel});
+  SelectionsQuestionPromotionalTaskComponent(
+      {required this.onChooseOptionIndex, required this.questionModel});
 
   @override
-  _SelectionsQuestionPromotionalTaskComponentState createState() => _SelectionsQuestionPromotionalTaskComponentState();
+  _SelectionsQuestionPromotionalTaskComponentState createState() =>
+      _SelectionsQuestionPromotionalTaskComponentState();
 }
 
-class _SelectionsQuestionPromotionalTaskComponentState extends State<SelectionsQuestionPromotionalTaskComponent> {
+class _SelectionsQuestionPromotionalTaskComponentState
+    extends State<SelectionsQuestionPromotionalTaskComponent> {
   String selectedOptions = "";
 
   @override
@@ -473,10 +501,9 @@ class _SelectionsQuestionPromotionalTaskComponentState extends State<SelectionsQ
         children: [
           Text(
             widget.questionModel.question.format(context),
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2
-                ?.copyWith(fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.headline6?.color),
+            style: Theme.of(context).textTheme.subtitle2?.copyWith(
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).textTheme.headline6?.color),
             overflow: TextOverflow.fade,
           ),
           ViewsToolbox.emptySpaceWidget(height: 10),

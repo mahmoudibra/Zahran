@@ -1,10 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:reusable/l10n/gen_l10n/reusable_localizations.dart';
 import 'package:reusable/reusable.dart';
-import 'package:intl/intl.dart';
-import 'package:simple/simple.dart';
 
 class CustomTextField extends StatefulWidget {
   final FormFieldSetter<String>? onChanged;

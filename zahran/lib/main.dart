@@ -24,6 +24,7 @@ Future<void> main() async {
       importance: Importance.high,
     ),
   );
+
 // initialize hive
   await Hive.initFlutter();
   Hive.registerAdapter(LocalizedNameAdapter());

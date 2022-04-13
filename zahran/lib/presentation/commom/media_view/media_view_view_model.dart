@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:reusable/reusable.dart';
 import 'package:zahran/data/repo/base.repo.dart';
 import 'package:zahran/domain/models/models.dart';
@@ -53,13 +54,23 @@ class MediaViewViewModel extends GetxController {
     actionsCallbacks['onAcceptNoteCallback'] = (File? file) async {
       ScreenRouter.pop();
       print("🚀🚀🚀🚀 onAcceptNoteCallback done with file $file}");
-      var mediaModel =
-          MediaLocal(mediaFile: file!, mediaFileTypes: MediaFileTypes.AUDIO);
+      var mediaModel = MediaLocal(
+        mediaFile: file!,
+        mediaFileTypes: MediaFileTypes.AUDIO,
+        fileName: path.basename(file.path),
+      );
       try {
         await FlareAnimation.show(
-          action: Repos.mediaRepo.uploadMedia(
-              uploadedFile: mediaModel.mediaFile,
-              mediaFileTypes: mediaModel.mediaFileTypes),
+          action: (notifier) => mediaModel.compressAndUpload(
+            notifier: notifier,
+            upload: (file, onProgress) async {
+              return await Repos.mediaRepo.uploadMedia(
+                uploadedFile: file,
+                mediaFileTypes: mediaModel.mediaFileTypes,
+                onProgress: onProgress,
+              );
+            },
+          ),
           context: context,
         );
       } catch (e) {}

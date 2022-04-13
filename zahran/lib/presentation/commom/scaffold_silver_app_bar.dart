@@ -5,9 +5,16 @@ class ScaffoldSilverAppBar extends StatefulWidget {
   final Widget content;
   late final double paddingVertical;
   late final double paddingHorizontal;
-
-  ScaffoldSilverAppBar(
-      {required this.title, required this.content, double paddingVertical = 16, double paddingHorizontal = 30.0}) {
+  final bool fillOverscroll;
+  final bool hasScrollBody;
+  ScaffoldSilverAppBar({
+    required this.title,
+    required this.content,
+    double paddingVertical = 16,
+    this.fillOverscroll = false,
+    this.hasScrollBody = true,
+    double paddingHorizontal = 30.0,
+  }) {
     this.paddingVertical = paddingVertical;
     this.paddingHorizontal = paddingHorizontal;
   }
@@ -43,9 +50,11 @@ class _ScaffoldSilverAppBarState extends State<ScaffoldSilverAppBar> {
                 centerTitle: true,
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 expandedHeight: expandedHeight,
-                leading: BackButton(color: Theme.of(context).textTheme.headline6?.color),
+                leading: BackButton(
+                    color: Theme.of(context).textTheme.headline6?.color),
                 flexibleSpace: FlexibleSpaceBar(
-                  titlePadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: _horizontalTitlePadding),
+                  titlePadding: EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: _horizontalTitlePadding),
                   centerTitle: false,
                   title: Text(
                     widget.title,
@@ -55,9 +64,13 @@ class _ScaffoldSilverAppBarState extends State<ScaffoldSilverAppBar> {
                 ),
               ),
               SliverFillRemaining(
+                fillOverscroll: widget.fillOverscroll,
+                hasScrollBody: widget.hasScrollBody,
                 child: Padding(
                   padding: EdgeInsetsDirectional.only(
-                      start: widget.paddingVertical, end: widget.paddingVertical, bottom: widget.paddingHorizontal),
+                      start: widget.paddingVertical,
+                      end: widget.paddingVertical,
+                      bottom: widget.paddingHorizontal),
                   child: widget.content,
                 ),
               )
@@ -84,7 +97,9 @@ class _ScaffoldSilverAppBarState extends State<ScaffoldSilverAppBar> {
         return 50;
       }
 
-      var value = (_scrollController.offset - (expandedHeight / 2)) * kMultiplier + kBasePadding;
+      var value =
+          (_scrollController.offset - (expandedHeight / 2)) * kMultiplier +
+              kBasePadding;
       print("🚀In case 0%-50% value: $value");
       // In case 0%-50% of the expanded height is viewed
       return value;

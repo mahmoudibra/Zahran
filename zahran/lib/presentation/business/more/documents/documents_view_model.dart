@@ -35,7 +35,10 @@ class DocumentsListViewModel extends ListController<Document> {
         _openFile(tempPath);
       } else {
         await FlareAnimation.show(
-          action: Repos.documentRepo.downloadDocument(selectedDocument, tempPath),
+          action: (notifier) => Repos.documentRepo
+              .downloadDocument(selectedDocument, tempPath, (value) {
+            notifier.value = value;
+          }),
           context: context,
         );
         _openFile(tempPath);

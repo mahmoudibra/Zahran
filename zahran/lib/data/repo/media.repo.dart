@@ -14,13 +14,20 @@ class MediaRepo extends BaseRepositryImpl {
   @override
   BuildContext get context => ScreenRouter.key.currentContext!;
 
-  Future<Media?> uploadMedia({required File uploadedFile, required MediaFileTypes mediaFileTypes}) async {
+  Future<Media?> uploadMedia({
+    required File uploadedFile,
+    required MediaFileTypes mediaFileTypes,
+    required ValueChanged<double> onProgress,
+  }) async {
     MultipartFile multipartFile = MultipartFile.fromFileSync(uploadedFile.path);
 
     var result = await post(
         path: '/v1/mobile/upload',
         mapItem: (json) => MediaUploadDto.fromJson(json).dtoToDomainModel(),
         formData: true,
+        onSendProgress: (v) {
+          onProgress(v / 100);
+        },
         data: {"selectedFile": multipartFile});
 
     if (result.data != null) {
@@ -30,19 +37,27 @@ class MediaRepo extends BaseRepositryImpl {
     }
   }
 
-  Future<Media?> uploadUint8ListMedia(
-      {required Uint8List data,
-      String? fileName,
-      Function(double progress)? onProgress,
-      required MediaFileTypes mediaFileTypes}) async {
-    MultipartFile multipartFile = MultipartFile.fromBytes(data, filename: fileName ?? "file.png");
+  Future<Media?> uploadUint8ListMedia({
+    required Uint8List data,
+    String? fileName,
+    required ValueChanged<double> onProgress,
+    required MediaFileTypes mediaFileTypes,
+  }) async {
+    MultipartFile multipartFile = MultipartFile.fromBytes(
+      data,
+      filename: fileName ?? "file.png",
+    );
 
     var result = await post(
         path: '/v1/mobile/upload',
         mapItem: (json) => MediaUploadDto.fromJson(json).dtoToDomainModel(),
         formData: true,
-        onSendProgress: onProgress,
-        data: {"selectedFile": multipartFile});
+        onSendProgress: (v) {
+          onProgress(v / 100);
+        },
+        data: {
+          "selectedFile": multipartFile,
+        });
 
     if (result.data != null) {
       return Media.fromMediaUpload(result.data!, mediaFileTypes.value);

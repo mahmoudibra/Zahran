@@ -15,26 +15,33 @@ class ChangePasswordViewModel extends GetxController {
   ChangePasswordViewModel(this.context);
 
   String? validateOldPassword(String? v) {
-    return (v != null && v.length >= 6).onFalse(TR.of(context).invalid_password);
+    return (v != null && v.length >= 6)
+        .onFalse(TR.of(context).invalid_password);
   }
 
   String? validateNewPassword(String? v) {
     newPassword = v;
-    return (v != null && v.length >= 6).onFalse(TR.of(context).invalid_password);
+    return (v != null && v.length >= 6)
+        .onFalse(TR.of(context).invalid_password);
   }
 
   String? validateConfirmNewPassword(String? v) {
     print("confirm: $v");
     print("new: $newPassword");
-    return (v != null && v == newPassword).onFalse(TR.of(context).invalid_confirm_password);
+    return (v != null && v == newPassword)
+        .onFalse(TR.of(context).invalid_confirm_password);
   }
 
   Future<void> saveChanges() async {
     try {
       var changePasswordRequest = ChangePasswordRequest(
-          oldPassword: oldPassword!, newPassword: newPassword!, newPasswordConfirm: confirmNewPassword!);
-      await Repos.userRepo.changePassword(changePasswordRequest: changePasswordRequest);
-      context.primarySnackBar(TR.of(context).user_password_changed_successfully);
+          oldPassword: oldPassword!,
+          newPassword: newPassword!,
+          newPasswordConfirm: confirmNewPassword!);
+      await Repos.userRepo
+          .changePassword(changePasswordRequest: changePasswordRequest);
+      context
+          .primarySnackBar(TR.of(context).user_password_changed_successfully);
     } catch (error) {
       if (!(error is ApiFetchException)) {
         context.errorSnackBar(TR.of(context).un_expected_error);

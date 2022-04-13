@@ -19,6 +19,7 @@ class PromotionListScreen extends StatelessWidget {
   }
 
   PromotionViewModel get vm => Get.find<PromotionViewModel>();
+
   Widget buildPromotionList(BuildContext context) {
     return CompleteList.sliversWithList(
       enablePullUp: false,
@@ -35,14 +36,22 @@ class PromotionListScreen extends StatelessWidget {
         ),
       ],
       padding: EdgeInsets.all(0).copyWith(top: 0),
+      itemShimmer: ShimmerEffect(
+        builder: () {
+          return FadeItem(
+            child: Card(child: SizedBox(height: 200)),
+          );
+        },
+      ),
       builItem: (Promotion item, index) {
-        return ScaleItem(
-            child: PromotionRow(
-          promotion: item,
-          onPromotionClicked: () {
-            vm.routeToPromotionDetails(index);
-          },
-        ));
+        return FadeItem(
+          child: PromotionRow(
+            promotion: item,
+            onPromotionClicked: () {
+              vm.routeToPromotionDetails(index);
+            },
+          ),
+        );
       },
       init: PromotionViewModel(),
     );

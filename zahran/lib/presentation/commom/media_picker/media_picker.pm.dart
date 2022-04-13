@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:zahran/domain/models/models.dart';
 import 'package:zahran/presentation/external/image_picker/image_picker_maneger.dart';
 import 'package:zahran/presentation/external/permission/permission_handler.manager.dart';
@@ -19,9 +21,11 @@ class MediaPickerPM {
   MediaPickerFileCallback mediaPickerFileCallback;
 
   // Observables
-  StreamController<MediaPickerStatues> _mediaPickerStateStream = StreamController();
+  StreamController<MediaPickerStatues> _mediaPickerStateStream =
+      StreamController();
 
-  Stream<MediaPickerStatues> get mediaPickerStream => _mediaPickerStateStream.stream;
+  Stream<MediaPickerStatues> get mediaPickerStream =>
+      _mediaPickerStateStream.stream;
 
   // Data
   bool showPermissionDialog = false;
@@ -39,34 +43,51 @@ class MediaPickerPM {
     _mediaPickerStateStream.add(MediaPickerStatues.READY);
   }
 
-  Future<void> captureImageFromCamera() async {
+  Future<void> captureImageFromCamera(BuildContext context) async {
     permissionType = PermissionType.Camera;
     mediaType = MediaFileTypes.IMAGE;
-    await permissionManager.checkPermission(service: permissionType).then(_onPhotoCameraPermissionResolved);
+    await permissionManager
+        .checkPermission(service: permissionType)
+        .then((value) => _onPhotoCameraPermissionResolved(value, context));
   }
 
-  Future<void> pickImageFromGallery() async {
+  Future<void> pickImageFromGallery(BuildContext context) async {
     permissionType = PermissionType.Gallery;
     mediaType = MediaFileTypes.IMAGE;
-    await permissionManager.checkPermission(service: permissionType).then(_onPhotoGalleryPermissionResolved);
+    await permissionManager
+        .checkPermission(service: permissionType)
+        .then((value) => _onPhotoGalleryPermissionResolved(value, context));
   }
 
-  Future<void> captureVideoFromCamera() async {
+  Future<void> captureVideoFromCamera(BuildContext context) async {
     permissionType = PermissionType.Camera;
     mediaType = MediaFileTypes.VIDEO;
-    await permissionManager.checkPermission(service: permissionType).then(_onVideoCameraPermissionResolved);
+    await permissionManager
+        .checkPermission(service: permissionType)
+        .then((value) => _onVideoCameraPermissionResolved(value, context));
   }
 
-  Future<void> pickVideoFromGallery() async {
+  Future<void> pickVideoFromGallery(BuildContext context) async {
     permissionType = PermissionType.Gallery;
     mediaType = MediaFileTypes.VIDEO;
-    await permissionManager.checkPermission(service: permissionType).then(_onVideoGalleryPermissionResolved);
+    await permissionManager
+        .checkPermission(service: permissionType)
+        .then((value) => _onVideoGalleryPermissionResolved(value, context));
   }
 
-  Future<void> _onPhotoGalleryPermissionResolved(PermissionState permissionState) async {
+  Future<void> _onPhotoGalleryPermissionResolved(
+    PermissionState permissionState,
+    BuildContext context,
+  ) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.pickImageFromGallery();
-      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      await mediaPickerFileCallback(
+        mediaModel: MediaLocal(
+            mediaFile: result,
+            mediaFileTypes: mediaType,
+            fileName: path.basename(result.path)),
+        context: context,
+      );
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -74,10 +95,19 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onPhotoCameraPermissionResolved(PermissionState permissionState) async {
+  Future<void> _onPhotoCameraPermissionResolved(
+    PermissionState permissionState,
+    BuildContext context,
+  ) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.capturePicture();
-      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      await mediaPickerFileCallback(
+        mediaModel: MediaLocal(
+            mediaFile: result,
+            mediaFileTypes: mediaType,
+            fileName: path.basename(result.path)),
+        context: context,
+      );
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -85,10 +115,16 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onVideoGalleryPermissionResolved(PermissionState permissionState) async {
+  Future<void> _onVideoGalleryPermissionResolved(
+      PermissionState permissionState, BuildContext context) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.pickVideoFromGallery();
-      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      await mediaPickerFileCallback(
+          mediaModel: MediaLocal(
+              mediaFile: result,
+              mediaFileTypes: mediaType,
+              fileName: path.basename(result.path)),
+          context: context);
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {
@@ -96,10 +132,18 @@ class MediaPickerPM {
     }
   }
 
-  Future<void> _onVideoCameraPermissionResolved(PermissionState permissionState) async {
+  Future<void> _onVideoCameraPermissionResolved(
+      PermissionState permissionState, BuildContext context) async {
     if (permissionState == PermissionState.Granted) {
       File result = await mediaPickerManeger.captureVideo();
-      mediaPickerFileCallback(mediaModel: MediaLocal(mediaFile: result, mediaFileTypes: mediaType));
+      await mediaPickerFileCallback(
+        mediaModel: MediaLocal(
+          mediaFile: result,
+          mediaFileTypes: mediaType,
+          fileName: path.basename(result.path),
+        ),
+        context: context,
+      );
       onDismissPermissionPopUp();
       print("🚀🚀🚀🚀 Change State with new result data ${result.path}");
     } else {

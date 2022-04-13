@@ -17,7 +17,7 @@ class UserRepo extends BaseRepositryImpl {
       data: {
         "sab_number": sub,
         "password": password,
-        "fcm_device_token": await FCMConfig.messaging.getToken(),
+        "fcm_device_token": await FCMConfig.instance.messaging.getToken(),
       },
       mapItem: (json) => LoginDto.fromJson(json).dtoToDomainModel(),
     );
@@ -32,17 +32,21 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<UserModel?> updateProfile(String name, String phoneNumber, int? avatarId) async {
+  Future<UserModel?> updateProfile(
+      String name, String phoneNumber, int? avatarId) async {
     print("Updated profile data is: $name, $phoneNumber, $avatarId");
     var result = await post(
       path: '/v1/mobile/update-profile',
-      data: UpdateProfileRequest(name: name, phoneNumber: phoneNumber, avatarId: avatarId).toJson(),
+      data: UpdateProfileRequest(
+              name: name, phoneNumber: phoneNumber, avatarId: avatarId)
+          .toJson(),
       mapItem: (json) => UserDto.fromJson(json).dtoToDomainModel(),
     );
     return result.data;
   }
 
-  Future<EmptyModel?> changePassword({required ChangePasswordRequest changePasswordRequest}) async {
+  Future<EmptyModel?> changePassword(
+      {required ChangePasswordRequest changePasswordRequest}) async {
     var result = await post(
       path: '/v1/mobile/update-password',
       data: changePasswordRequest.toJson(),
@@ -51,13 +55,17 @@ class UserRepo extends BaseRepositryImpl {
     return result.data;
   }
 
-  Future<UserModel?> receiveNotification({required bool receiveNotification}) async {
+  Future<UserModel?> receiveNotification(
+      {required bool receiveNotification}) async {
     var result = await post(
       path: '/v1/mobile/notification-setting',
       data: {
         "recive_notification": receiveNotification,
       },
-      mapItem: (json) => UserDto.fromJson(json).dtoToDomainModel(),
+      mapItem: (json) => UserDto.fromJson({
+        'notification_enabled': receiveNotification,
+        ...json,
+      }).dtoToDomainModel(),
     );
     return result.data;
   }
@@ -68,7 +76,8 @@ class UpdateProfileRequest extends RequestMappable {
   String phoneNumber = "";
   int? avatarId;
 
-  UpdateProfileRequest({required String name, required String phoneNumber, int? avatarId}) {
+  UpdateProfileRequest(
+      {required String name, required String phoneNumber, int? avatarId}) {
     this.name = LocalizedName(en: name, ar: name);
     this.phoneNumber = phoneNumber;
     this.avatarId = avatarId;
@@ -89,7 +98,10 @@ class ChangePasswordRequest extends RequestMappable {
   final String newPassword;
   final String newPasswordConfirm;
 
-  ChangePasswordRequest({required this.oldPassword, required this.newPassword, required this.newPasswordConfirm});
+  ChangePasswordRequest(
+      {required this.oldPassword,
+      required this.newPassword,
+      required this.newPasswordConfirm});
 
   @override
   Map<String, dynamic> toJson() {

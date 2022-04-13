@@ -96,7 +96,7 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
                             TR.of(context).send: () async {
                               Navigator.of(context).pop();
                               await FlareAnimation.show(
-                                action: vm.manager.save(),
+                                action: (_) => vm.manager.save(),
                                 context: context,
                               );
                               Navigator.of(context).pop(true);
@@ -106,7 +106,7 @@ class _BaseReportScreenState extends State<BaseReportScreen> {
                       });
                 } else {
                   await FlareAnimation.show(
-                    action: vm.manager.save(),
+                    action: (_) => vm.manager.save(),
                     context: context,
                   );
                   Navigator.of(context).pop(true);
