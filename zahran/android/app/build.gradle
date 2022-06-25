@@ -27,7 +27,7 @@ apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -43,9 +43,9 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.pencil.zahran'
+        applicationId 'com.pencil.designs.zahran'
         minSdkVersion 25
-        targetSdkVersion 31
+        targetSdkVersion 32
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -63,9 +63,6 @@ android {
         }
         release {
             signingConfig signingConfigs.release
-//            firebaseCrashlytics {
-//                mappingFileUploadEnabled false
-//            }
         }
     }
 }
@@ -76,6 +73,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.work:work-runtime-ktx:2.7.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

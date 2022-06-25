@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:fcm_config/fcm_config.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:reusable/reusable.dart';
@@ -17,13 +19,25 @@ import 'theme.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //initialize firebase app, This method should be called before any usage of FlutterFire plugins
+
+  Future<void> _firebaseMessagingBackgroundHandler(
+      RemoteMessage message) async {
+    print("Mahmoud: Handling a background message: ${message.messageId}");
+  }
+
   await FCMConfig.instance.init(
-    defaultAndroidChannel: AndroidNotificationChannel(
-      'high_importance_channel', // same as value from android setup
-      'Groupe SEB',
-      importance: Importance.high,
-    ),
-  );
+      defaultAndroidChannel: AndroidNotificationChannel(
+        'high_importance_channel', // same as value from android setup
+        'Groupe SEB',
+        importance: Importance.high,
+      ),
+      onBackgroundMessage: _firebaseMessagingBackgroundHandler);
+
+  FCMConfig.instance.messaging.getToken().then((token) {
+    print("Mahmoud: Firebase Token Is:$token");
+  });
+
+  await  FCMConfig.instance.getInitialMessage();// may be null
 
 // initialize hive
   await Hive.initFlutter();
@@ -41,18 +55,13 @@ Future<void> main() async {
   Hive.registerAdapter(MediaAdapter());
   Hive.registerAdapter(SelectItemAdapter());
   Hive.registerAdapter(CompetitorModelAdapter());
-  // if (kDebugMode) {
-  //   // Force disable Crashlytics collection while doing every day development.
-  //   // Temporarily toggle this to true if you want to test crash reporting in your app.
-  //   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
-  // }
-  // // Pass all uncaught errors to Crashlytics.
-
-  //
-  // runZonedGuarded(() {
-  //
-  // }, FirebaseCrashlytics.instance.recordError);
-
+  if (kDebugMode) {
+    // Force disable Crashlytics collection while doing every day development.
+    // Temporarily toggle this to true if you want to test crash reporting in your app.
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  }
+  // Pass all uncaught errors to Crashlytics.
+  runZonedGuarded(() {}, FirebaseCrashlytics.instance.recordError);
   runApp(ZahranApp());
 }
 

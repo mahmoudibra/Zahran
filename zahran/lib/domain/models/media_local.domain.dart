@@ -30,13 +30,15 @@ class MediaLocal {
       });
       file = info.file;
     } else if (mediaFileTypes.value == MediaFileTypes.IMAGE.value) {
-      var _path = (await getTemporaryDirectory()).path + '/$fileName';
+      String _path = await _generateTempDirectory(fileName);
+      print("🚀🚀🚀🚀🚀 path: $_path and mediaPath: ${mediaFile.path}");
       file = await FlutterImageCompress.compressAndGetFile(
         mediaFile.path,
         _path,
         minWidth: 2300,
         minHeight: 1500,
         quality: 94,
+        format: _decideCompressionType(fileName)
       );
     }
 
@@ -44,6 +46,29 @@ class MediaLocal {
     return await upload(file ?? mediaFile, (v) {
       notifier?.value = Tween(begin: 0.4, end: 1.0).transform(v);
     });
+  }
+
+  CompressFormat _decideCompressionType(String fileName) {
+    if(fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+      return CompressFormat.jpeg;
+    } else if(fileName.endsWith(".png")) {
+      return CompressFormat.png;
+    } else if (fileName.endsWith(".heic")) {
+      return CompressFormat.heic;
+    } else if (fileName.endsWith(".webp")) {
+      return CompressFormat.webp;
+    } else {
+      return CompressFormat.jpeg;
+    }
+  }
+
+  Future<String> _generateTempDirectory(String fileName) async {
+    var tempDirectory = await getTemporaryDirectory();
+    if (Platform.isAndroid) {
+      return tempDirectory.path + '/temporary/$fileName';
+    } else {
+      return tempDirectory.path + '/$fileName';
+    }
   }
 
   factory MediaLocal.fromJson(Map<String, dynamic> json,

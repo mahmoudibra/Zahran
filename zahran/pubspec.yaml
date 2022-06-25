@@ -1,5 +1,5 @@
 name: zahran
-description: Zahran Project
+description: Groupe SEB
 publish_to: none
 version: 1.0.0+1
 
@@ -14,24 +14,24 @@ dependencies:
   reusable:
     path: ../reusable
   fcm_config: ^3.3.5
-  firebase_analytics: ^8.3.3
+  firebase_analytics: ^9.1.6
   path_provider: ^2.0.2
   open_file: ^3.2.1
-  firebase_crashlytics: ^2.2.2
-  geolocator: ^7.7.0
-  google_maps_flutter: ^2.0.8
+  firebase_crashlytics: ^2.7.1
+  geolocator: ^8.2.0
+  google_maps_flutter: ^2.1.4
   shimmer: 2.0.0
   connectivity: 3.0.6
   shared_preferences: ^2.0.7
   flare_flutter: ^3.0.2
-  flutter_secure_storage: ^4.2.1
+  flutter_secure_storage: 5.0.2
   image_picker: ^0.8.4+2
   date_format: ^2.0.4
   expandable: 5.0.1
-  webview_flutter: ^2.0.10
-  flutter_sound_lite: 8.3.12
+  webview_flutter: 3.0.2
+  flutter_sound_lite: 8.5.0
   url_launcher: ^6.0.9
-  permission_handler: ^8.1.6
+  permission_handler: 9.2.0
   flutter_swipe_action_cell: ^2.1.1
   # stack_trace: 1.10.0
   # flutter_keyboard_visibility: 5.0.2
@@ -41,15 +41,15 @@ dependencies:
   # flutter_calendar_carousel: 2.0.1
   intl: 0.17.0
   # pin_code_fields: 7.2.0
-  video_thumbnail: ^0.4.3
+  video_thumbnail: 0.5.0
   # toast: 0.1.5
 
   preload_page_view: 0.1.6
-  video_player: ^2.1.15
+  video_player: 2.4.0
   flutter_countdown_timer: 4.1.0
-  flutter_keyboard_visibility: ^5.0.2
-  video_compress: ^3.1.0
-  flutter_image_compress: ^1.1.0
+  flutter_keyboard_visibility: 5.2.0
+  video_compress: 3.1.0
+  flutter_image_compress: 1.1.0
   cupertino_icons: 1.0.3
   share: 2.0.4
   flutter_svg: 0.22.0
