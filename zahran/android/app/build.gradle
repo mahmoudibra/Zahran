@@ -52,9 +52,9 @@ android {
     signingConfigs {
         release {
             keyAlias 'zahran'
-            keyPassword 'android'
-            storeFile  file('key.jks')
-            storePassword 'android'
+            keyPassword 'zahran'
+            storeFile  file('keystore.jks')
+            storePassword 'zahran'
         }
     }
     buildTypes {

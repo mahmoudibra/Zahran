@@ -1,4 +1,6 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.pencil.zahran">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.pencil.zahran">
   <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -34,6 +36,10 @@
   <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
   <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
   <uses-permission android:name="Manifest.permission.CAPTURE_AUDIO_OUTPUT" />
+
+  <!-- Remove the request for REQUEST_INSTALL_PACKAGES permission requested by a third party app. -->
+  <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" tools:node="remove" />
+
 
   <application  android:name="${applicationName}" android:label="Groupe SEB" android:icon="@mipmap/ic_launcher">
     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyARxP4CjaTTz_92ZTeD6Bkb31I3IaoUczE"/>
